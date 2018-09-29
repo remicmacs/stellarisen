@@ -1,0 +1,68 @@
+
+<html>
+	<head>
+		<title>Stellar'ISEN</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+			#loader-wrapper {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				position: fixed;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: #222222;
+				z-index: 1000;
+				opacity: 1;
+ 				transition: visibility 0s 1s, 1s opacity;
+			}
+			#loader-wrapper.fade-out {
+				opacity: 0;
+				visibility: hidden;
+			}
+			.no-js #loader-wrapper {
+				display: none;
+			}
+			#loader {
+				-webkit-animation:spin 4s linear infinite;
+				-moz-animation:spin 4s linear infinite;
+				animation:spin 4s linear infinite;
+			}
+			@keyframes 
+			spin { 
+				100% {
+					-webkit-transform: rotate(360deg);
+					transform: rotate(360deg);
+				}
+			}
+			disappear {
+				100% {
+					
+				}
+			}
+		</style>
+		<script src="js/three.js"></script>
+		<script src="js/DeviceOrientationControls.js"></script>
+		<script src="js/skymap.js"></script>
+	</head>
+	<body>
+		<div id="loader-wrapper">
+			<img id="loader" src="res/images/planet.png" alt="">
+		</div>
+		<script>
+			var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+			var renderer = new THREE.WebGLRenderer({ antialias: true });
+
+			skySphere = new SkySphere(scene, camera, renderer);
+			var update = () => { 
+				requestAnimationFrame(update);			
+				skySphere.update();
+				skySphere.renderer.render(scene, camera);
+			};
+			update();
+		</script>
+	</body>
+</html>
