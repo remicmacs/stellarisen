@@ -18,6 +18,8 @@ class SkySphere {
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
 		this.constellationObjects = [];
+		this.starsObjects = [];
+		this.visor = undefined;
 
 		this.deviceIsMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
@@ -46,6 +48,7 @@ class SkySphere {
 		this.linksJson = {};
 		this.constellationFont = undefined;
 		this.skydomeTexture = undefined;
+		this.visorTexture = undefined;
 
 		/* Chargement des étoiles */
 		let starsFileLoader = new THREE.FileLoader(this.loadingManager);
@@ -55,12 +58,17 @@ class SkySphere {
 		let constellationFontLoader = new THREE.FontLoader(this.loadingManager);
 		/* Chargement de la texture du skydome */
 		let skydomeTextureLoader  = new THREE.TextureLoader(this.loadingManager);
+		let visorTextureLoader = new THREE.TextureLoader(this.loadingManager);
 
 		/* On lance tous les chargements */
 		starsFileLoader.load('res/stars.json', (response) => { this.json = JSON.parse(response); });
 		linksFileLoader.load("res/links.json", (response) => { this.linksJson = JSON.parse(response) });
 		constellationFontLoader.load('fonts/helvetiker_regular.typeface.json', (font) => { this.constellationFont = font; });
 		skydomeTextureLoader.load("res/images/milkyway.png", (texture) => { this.skydomeTexture = texture; });
+		visorTextureLoader.load("res/images/visor.png", (texture) => { this.visorTexture = texture; });
+
+		this.previousClosestStar = undefined;
+		this.previousClosestStarScale = new THREE.Vector3();
 
 		document.addEventListener('mousemove', (event) => {
 			event.preventDefault();
@@ -173,6 +181,7 @@ class SkySphere {
 		}
 		else {
 			sphereRaycast = polarRadianToCartesian(-100, this.yawObject.rotation.y, -this.pitchObject.rotation.x);
+			this.raycaster.setFromCamera(this.mouse, this.camera );
 		}
 
 		for (let i = 0; i < this.constellationObjects.length; i++) {
@@ -206,6 +215,61 @@ class SkySphere {
 			this.camera.getWorldQuaternion(constellationName.quaternion);
 		}
 
+
+		let minDistance = 100;
+		let minDistanceObject = undefined;
+		let angle = new THREE.Spherical();
+		if (!this.deviceIsMobile) {
+			angle.setFromCartesianCoords(
+				this.raycaster.ray.direction.x,
+				this.raycaster.ray.direction.y,
+				this.raycaster.ray.direction.z
+			);
+		}
+		let indexGuard = 0;
+		for (let i = 0; i < this.starsObjects.length; i++) {
+			if (indexGuard == 1) {
+				//break;
+			}
+			indexGuard++;
+			let star = this.starsObjects[i];
+			
+			//let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(star.position);
+			//console.log(projection);
+			//let distance = new THREE.Vector3().fromArray(projection).distanceTo(star.position);
+			let distance = 100;
+			if (!this.deviceIsMobile) {
+				let projection = new THREE.Vector3().setFromSphericalCoords(100, angle.phi, angle.theta);
+				distance = projection.distanceTo(star.position);
+			}
+			else {
+				distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(star.position);
+			}
+			if (distance < 10) {
+				if (distance < minDistance) {
+					minDistance = distance;
+					minDistanceObject = star;
+				}
+			}
+		}
+		if (minDistanceObject != undefined) {
+			if (minDistanceObject != this.previousClosestStar) {
+				if (this.previousClosestStar != undefined) {
+					this.previousClosestStar.scale.copy(this.previousClosestStarScale);
+				}
+				this.previousClosestStarScale.copy(minDistanceObject.scale);
+				minDistanceObject.scale.multiplyScalar(1);
+				this.visor.position.copy(SkySphere.raDecToCartesian(10, minDistanceObject.ra, minDistanceObject.dec));
+				console.log("Closest star: " + minDistanceObject.meshName);
+			}
+			this.previousClosestStar = minDistanceObject;
+		}
+		else {
+			if (this.previousClosestStar != undefined) {
+				this.previousClosestStar.scale.copy(this.previousClosestStarScale);
+			}
+		}
+		
 
 		/*for (let i = 0; i < constellationObjects.length; i++) {
 			let constellationBarycenter = toCartesian(100, constellationObjects[i]["ra"], constellationObjects[i]["dec"]);
@@ -254,6 +318,7 @@ class SkySphere {
 
 		this.addHorizonToScene();
 		this.addCardinalsToScene();
+		this.addVisorToScene();
 
 		/* Garanti un temps minimum pour l'affichage du loading */
 		while (this.loadingClock.getElapsedTime() < 1) {}
@@ -292,8 +357,8 @@ class SkySphere {
 				line["proper"]
 			);
 
-			//this.scene.add(star.mesh);
 			star.addToScene(this.scene);
+			this.starsObjects.push(star);
 		}
 	}
 
@@ -318,7 +383,7 @@ class SkySphere {
 			);
 			constellation.addToScene(this.scene);
 			constellation.generateName(this.constellationFont);
-			//constellation.addNameToScene(this.scene);
+			constellation.addNameToScene(this.scene);
 			this.constellationObjects.push(constellation);
 		}
 	}
@@ -391,6 +456,14 @@ class SkySphere {
 			mesh.rotation.y = cardinalsAngles[i];
 			this.scene.add(mesh);
 		}
+	}
+
+
+	addVisorToScene() {
+		let spriteMaterial = new THREE.SpriteMaterial({ map: this.visorTexture, color: 0xffffff, transparent: true } );
+		this.visor = new THREE.Sprite(spriteMaterial);
+		this.visor.position.z = -10;
+		this.scene.add(this.visor);
 	}
 
 
