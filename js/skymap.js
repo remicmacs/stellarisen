@@ -17,11 +17,9 @@ class SkySphere {
 		this.loadingManager.onProgress = this.onProgress;
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
-		this.textObjects = [];
-		this.linksObjects = [];
 		this.constellationObjects = [];
 
-		this.deviceIsMobile = false;
+		this.deviceIsMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
 		// La caméra est incluse dans un objet qui sera utilisé pour le contrôle du pitch (haut/bas)
 		// Cet objet est lui-même inclus dans le contrôle du yaw (gauche/droite)
@@ -177,24 +175,37 @@ class SkySphere {
 			sphereRaycast = polarRadianToCartesian(-100, this.yawObject.rotation.y, -this.pitchObject.rotation.x);
 		}
 
-		for (let i = 0; i < this.textObjects.length; i++) {
-			let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(this.textObjects[i].position);
-			if (distance > 100 && this.textObjects[i].visible) {
-				this.textObjects[i].visible = false;					
+		for (let i = 0; i < this.constellationObjects.length; i++) {
+			let constellationName = this.constellationObjects[i].nameObject;
+
+			/* On calcule une distance entre un raycast projeté sur la sphère de 100 unités et l'objet étudié */
+			let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(constellationName.position);
+
+			/* Au dessus de 100 unités, on cache l'objet */
+			if (distance > 100 && constellationName.visible) {
+				constellationName.visible = false;					
 			}
-			else if (distance < 100 && !this.textObjects[i].visible) {
-				this.textObjects[i].visible = true;
+			/* En dessous de 100 unités, on montre l'objet */
+			else if (distance < 100 && !constellationName.visible) {
+				constellationName.visible = true;
 			}
+
+			/* En dessous de 100 unités, on change l'opacité de l'objet */ 
 			if (distance < 100) {
+				/* En dessous de 50 unités, l'objet est totalement visible */
 				if (distance < 50) {
-					this.textObjects[i].material.opacity = 1;
+					constellationName.material.opacity = 1;
 				}
+				/* Entre 50 et 100 unités, son opacité dépend de sa distance */
 				else {
-					this.textObjects[i].material.opacity = 1 - ((distance - 50) / 50);
+					constellationName.material.opacity = 1 - ((distance - 50) / 50);
 				}					
 			}
-			this.camera.getWorldQuaternion(this.textObjects[i].quaternion);
+		
+			/* On force les textes à toujours être alignés avec la caméra */
+			this.camera.getWorldQuaternion(constellationName.quaternion);
 		}
+
 
 		/*for (let i = 0; i < constellationObjects.length; i++) {
 			let constellationBarycenter = toCartesian(100, constellationObjects[i]["ra"], constellationObjects[i]["dec"]);
@@ -235,19 +246,28 @@ class SkySphere {
 	 */
 	addEverything() {
 		this.addStarsToScene();
-		this.addLinksToScene();
-		this.addConstellationNameToScene();
+		this.addConstellationsToScene();
+
 		if (this.skydomeTexture != undefined) {
 			this.addSkydomeToScene();
 		}
+
 		this.addHorizonToScene();
 		this.addCardinalsToScene();
+
+		/* Garanti un temps minimum pour l'affichage du loading */
 		while (this.loadingClock.getElapsedTime() < 1) {}
-		//document.getElementById("loader-wrapper").style.visibility = "hidden";
+
+		/* Suppression de l'horloge de loading */
 		this.loadingClock.stop();
 		delete this.loadingClock;
+
+		/* Activation de l'animation de fade-out du loading */
 		const loadingScreen = document.getElementById( 'loader-wrapper' );
 		loadingScreen.classList.add( 'fade-out' );
+
+		/* On recharge la taille du renderer et on update le pixel ratio
+		(sinon ça s'affiche pas sur mon téléphone) */
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -262,110 +282,51 @@ class SkySphere {
 		let count = Object.keys(this.json).length;
 
 		// Et on dispose les étoiles conformément au JSON
-		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 		for (let i = 0; i < count; i++) {
 			let line = this.json[Object.keys(this.json)[i]];
-			let colour = line["colour"].split(" ");
-			let material = new THREE.MeshBasicMaterial({ color: 'rgb(' + colour[0] + ', ' + colour[1] + ', ' + colour[2] + ')' });
-			let sphere = new THREE.Mesh(geometry, material);
+			let star = new Star(
+				line["ra"].valueOf(),
+				line["dec"].valueOf(),
+				line["mag"].valueOf(),
+				new THREE.Color().fromArray(line["colour"].split(" ").map((x) => { return x / 255; })),
+				line["proper"]
+			);
 
-			let coord = this.raDecToCartesian(100, line["ra"].valueOf(), line["dec"].valueOf());
-			
-			let magnitude = line["mag"].valueOf();
-			magnitude = Math.pow(10, magnitude / -2.5);
-			magnitude = Math.min(1.0, magnitude);
-			magnitude = map(magnitude, 0, 1, 0.4, 1);
-
-			sphere.position.copy(coord);
-			sphere.scale.multiplyScalar(magnitude);
-
-			sphere.name = line["proper"];
-			sphere.userData = { "type": "star" };
-
-			this.scene.add(sphere);
+			//this.scene.add(star.mesh);
+			star.addToScene(this.scene);
 		}
 	}
 
 
 	/**
-	 *	Add constellation links to the scene
+	 *	Add constellations to the scene
 	 */
-	addLinksToScene() {
+	addConstellationsToScene() {
 		let constellationCount = Object.keys(this.linksJson).length;
 
 		for (let i = 0; i < constellationCount; i++) {
 			let constellationName = Object.keys(this.linksJson)[i];
-			let constellation = this.linksJson[constellationName];
-			let constellationFullName = constellation["name"];
-			let linksCount = constellation["links"].length;
-			let links = constellation["links"];
-
-			let constellationLinks = 
-				{	"ra": constellation["ra_barycenter"]
-				,	"dec": constellation["dec_barycenter"]
-				,	"lines": []
-				};
-			
-			for (let j = 0; j < linksCount; j++) {
-				let geometry = new THREE.Geometry();
-				let material = new THREE.LineBasicMaterial(
-					{	color: 0x555555
-					,	linewidth: 2
-					,	transparent: true
-					});
-				let firstEnd = links[j][0]
-				let secondEnd = links[j][1]
-				let firstRa = this.json[firstEnd]["ra"].valueOf();
-				let firstDec = this.json[firstEnd]["dec"].valueOf();
-				let secondRa = this.json[secondEnd]["ra"].valueOf();
-				let secondDec = this.json[secondEnd]["dec"].valueOf();
-				let firstCoord = this.raDecToCartesian(100, firstRa, firstDec);
-				let secondCoord = this.raDecToCartesian(100, secondRa, secondDec);
-				geometry.vertices.push(firstCoord);
-				geometry.vertices.push(secondCoord);
-
-				let line = new THREE.Line(geometry, material);
-				line.name = constellationFullName;
-				line.userData = { "type": "constellation" };
-
-				this.scene.add(line);
-				constellationLinks["lines"].push(line);
-			}
-			this.constellationObjects.push(constellationLinks);
+			let constellationJson = this.linksJson[constellationName];
+			let constellationFullName = constellationJson["name"];
+			let links = constellationJson["links"];
+			let constellation = new Constellation(
+				constellationJson["ra_barycenter"],
+				constellationJson["dec_barycenter"],
+				constellationFullName,
+				links,
+				this.json
+			);
+			constellation.addToScene(this.scene);
+			constellation.generateName(this.constellationFont);
+			//constellation.addNameToScene(this.scene);
+			this.constellationObjects.push(constellation);
 		}
 	}
 
 	
 	/**
-	 *	Add constellation names to the scene
+	 *	Add skydome to the scene
 	 */
-	addConstellationNameToScene() {
-		let constellationCount = Object.keys(this.linksJson).length;
-		let options = { font: this.constellationFont, size: 2.5, height: 0.1, curveSegments: 12, bevelEnabled: false };
-		
-		for (let i = 0; i < constellationCount; i++) {
-			let material = new THREE.MeshBasicMaterial(
-				{	color: 0xffffff
-				,	transparent: true
-				});
-			let constellationName = Object.keys(this.linksJson)[i];
-			let constellation = this.linksJson[constellationName];
-			let constellationFullName = constellation["name"];
-
-			let geometry = new THREE.TextBufferGeometry(constellationFullName, options);
-			geometry.center();
-			let constellationNameDisplay = new THREE.Mesh(geometry, material);
-			let ra_barycenter = constellation["ra_barycenter"].valueOf();
-			let dec_barycenter = constellation["dec_barycenter"].valueOf();
-			let coord = this.raDecToCartesian(110, ra_barycenter, dec_barycenter);
-			constellationNameDisplay.position.copy(coord);
-			constellationNameDisplay.name = constellationFullName;
-			this.scene.add(constellationNameDisplay);
-			this.textObjects.push(constellationNameDisplay);
-		}
-	}
-
-	
 	addSkydomeToScene() {
 		let skyGeo = new THREE.SphereGeometry(150, 25, 25);
 		let material = new THREE.MeshBasicMaterial(
@@ -378,7 +339,10 @@ class SkySphere {
 		this.scene.add(sky);
 	}
 
-	
+
+	/**
+	 *	Add horizon to the scene
+	 */
 	addHorizonToScene() {
 		let geometry = new THREE.CircleGeometry( 110, 64 );
 		/* Enlever le dernier vertex permet de ne pas compléter la figure et de ne pas obtenir une surface */
@@ -402,6 +366,9 @@ class SkySphere {
 	}
 
 
+	/**
+	 *	Add cardinals points to the scene
+	 */
 	addCardinalsToScene() {
 		let options = { font: this.constellationFont, size: 5, height: 1, curveSegments: 12, bevelEnabled: false };
 		let cardinals = [ "N", "S", "E", "W" ];
@@ -427,7 +394,7 @@ class SkySphere {
 	}
 
 
-	raDecToCartesian(r, ra, dec) {
+	static raDecToCartesian(r, ra, dec) {
 		/* La transformation de RA/DEC vers un repêre cartésien en passant par un repêre sphérique nécessite
 		de transformer les valeurs, le passage de coordonnées sphériques à des coordonnées cartésiennes de Three.js
 		utilisant les coordonnées sphériques classiques (voir https://threejs.org/docs/#api/en/math/Spherical)

@@ -10,20 +10,15 @@
 				justify-content: center;
 				align-items: center;
 				position: fixed;
-				top: 0;
 				width: 100%;
 				height: 100%;
 				background: #222222;
-				z-index: 1000;
 				opacity: 1;
  				transition: visibility 0s 1s, 1s opacity;
 			}
 			#loader-wrapper.fade-out {
 				opacity: 0;
 				visibility: hidden;
-			}
-			.no-js #loader-wrapper {
-				display: none;
 			}
 			#loader {
 				-webkit-animation:spin 4s linear infinite;
@@ -37,15 +32,13 @@
 					transform: rotate(360deg);
 				}
 			}
-			disappear {
-				100% {
-					
-				}
-			}
 		</style>
 		<script src="js/three.js"></script>
 		<script src="js/DeviceOrientationControls.js"></script>
 		<script src="js/skymap.js"></script>
+		<script src="js/Star.js"></script>
+		<script src="js/Link.js"></script>
+		<script src="js/Constellation.js"></script>
 	</head>
 	<body>
 		<div id="loader-wrapper">
