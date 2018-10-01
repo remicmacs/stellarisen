@@ -106,6 +106,11 @@ class SkySphere {
 						console.log("Constellation clicked !");
 						break;
 					}
+					if (intersects[i].object == this.visor.sprite) {
+						console.log("Visor clicked !");
+						alert(this.visor.star.meshName);
+						window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
+					}
 				}
 
 				if (starClicked || constellationClicked) {
@@ -175,12 +180,12 @@ class SkySphere {
 			this.controls.update();
 		}
 
-		let sphereRaycast = undefined;
+		let sphereRaycast = new THREE.Vector3();
 		if (this.deviceIsMobile) {
-			sphereRaycast = polarRadianToCartesian(-100, this.camera.rotation.y, -this.camera.rotation.x);
+			sphereRaycast.setFromSphericalCoords(-100, this.camera.rotation.x + Math.PI / 2, this.camera.rotation.y);
 		}
 		else {
-			sphereRaycast = polarRadianToCartesian(-100, this.yawObject.rotation.y, -this.pitchObject.rotation.x);
+			sphereRaycast.setFromSphericalCoords(-100, this.pitchObject.rotation.x + Math.PI / 2, this.yawObject.rotation.y);
 			this.raycaster.setFromCamera(this.mouse, this.camera );
 		}
 
@@ -188,7 +193,7 @@ class SkySphere {
 			let constellationName = this.constellationObjects[i].nameObject;
 
 			/* On calcule une distance entre un raycast projeté sur la sphère de 100 unités et l'objet étudié */
-			let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(constellationName.position);
+			let distance = sphereRaycast.distanceTo(constellationName.position);
 
 			/* Au dessus de 100 unités, on cache l'objet */
 			if (distance > 100 && constellationName.visible) {
@@ -219,32 +224,21 @@ class SkySphere {
 		let minDistance = 100;
 		let minDistanceObject = undefined;
 		let angle = new THREE.Spherical();
+		let projection = new THREE.Vector3();
 		if (!this.deviceIsMobile) {
 			angle.setFromCartesianCoords(
 				this.raycaster.ray.direction.x,
 				this.raycaster.ray.direction.y,
 				this.raycaster.ray.direction.z
 			);
+			projection.setFromSphericalCoords(100, angle.phi, angle.theta);
 		}
-		let indexGuard = 0;
+
+		/* On cherche l'objet le plus proche du curseur */
 		for (let i = 0; i < this.starsObjects.length; i++) {
-			if (indexGuard == 1) {
-				//break;
-			}
-			indexGuard++;
 			let star = this.starsObjects[i];
-			
-			//let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(star.position);
-			//console.log(projection);
-			//let distance = new THREE.Vector3().fromArray(projection).distanceTo(star.position);
 			let distance = 100;
-			if (!this.deviceIsMobile) {
-				let projection = new THREE.Vector3().setFromSphericalCoords(100, angle.phi, angle.theta);
-				distance = projection.distanceTo(star.position);
-			}
-			else {
-				distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(star.position);
-			}
+			distance = (this.deviceIsMobile ? sphereRaycast : projection).distanceTo(star.position);
 			if (distance < 10) {
 				if (distance < minDistance) {
 					minDistance = distance;
@@ -252,21 +246,22 @@ class SkySphere {
 				}
 			}
 		}
+
 		if (minDistanceObject != undefined) {
 			if (minDistanceObject != this.previousClosestStar) {
 				if (this.previousClosestStar != undefined) {
-					this.previousClosestStar.scale.copy(this.previousClosestStarScale);
 				}
-				this.previousClosestStarScale.copy(minDistanceObject.scale);
-				minDistanceObject.scale.multiplyScalar(1);
-				this.visor.position.copy(SkySphere.raDecToCartesian(10, minDistanceObject.ra, minDistanceObject.dec));
+				this.visor.setTarget(minDistanceObject);
 				console.log("Closest star: " + minDistanceObject.meshName);
 			}
 			this.previousClosestStar = minDistanceObject;
 		}
 		else {
 			if (this.previousClosestStar != undefined) {
-				this.previousClosestStar.scale.copy(this.previousClosestStarScale);
+			}
+			this.previousClosestStar = undefined;
+			if (this.visor != undefined && this.visor.isVisible()) {
+				this.visor.hide();
 			}
 		}
 		
@@ -318,7 +313,9 @@ class SkySphere {
 
 		this.addHorizonToScene();
 		this.addCardinalsToScene();
-		this.addVisorToScene();
+
+		this.visor = new Visor(this.visorTexture);
+		this.visor.addToScene(this.scene);
 
 		/* Garanti un temps minimum pour l'affichage du loading */
 		while (this.loadingClock.getElapsedTime() < 1) {}
@@ -457,15 +454,6 @@ class SkySphere {
 			this.scene.add(mesh);
 		}
 	}
-
-
-	addVisorToScene() {
-		let spriteMaterial = new THREE.SpriteMaterial({ map: this.visorTexture, color: 0xffffff, transparent: true } );
-		this.visor = new THREE.Sprite(spriteMaterial);
-		this.visor.position.z = -10;
-		this.scene.add(this.visor);
-	}
-
 
 	static raDecToCartesian(r, ra, dec) {
 		/* La transformation de RA/DEC vers un repêre cartésien en passant par un repêre sphérique nécessite

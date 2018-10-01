@@ -7,7 +7,7 @@ class Star {
 		this.meshName = name;
 
 		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
-		this.material = new THREE.MeshBasicMaterial({ color: this.colour.getStyle() });
+		this.material = new THREE.MeshBasicMaterial({ color: this.colour.getStyle(), transparent: true });
 		this.mesh = new THREE.Mesh(geometry, this.material);
 
 		this.position = this.mesh.position;
