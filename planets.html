@@ -4,6 +4,7 @@
 		<title>Stellar'ISEN - planets</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script src="js/three.js"></script>
+		<script src="js/utils.js"></script>
 	</head>
 	<body>
 		<div id="loader-wrapper">
@@ -11,18 +12,15 @@
 		</div>		
 		
 		<script>
-			var deviceIsMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 			var scene = new THREE.Scene();
 			let camera = null;
-			if (deviceIsMobile && (window.orientation != 90 && window.orientation != -90)) {
+			if (viewportIsPortrait()) {
 				let ratio = window.innerWidth / window.innerHeight;
 				camera = new THREE.OrthographicCamera( -16.285714285714285 * ratio, 16.285714285714285 * ratio, 16.285714285714285, -16.285714285714285, - 500, 1000); 
 				camera.rotation.z = -Math.PI / 2;
 			}	
 			else {
 				let ratio = window.innerHeight / window.innerWidth;
-				console.log(window.innerWidth / 70);
-				console.log(window.innerHeight / 70);
 				camera = new THREE.OrthographicCamera( -16.285714285714285, 16.285714285714285, 16.285714285714285 * ratio, -16.285714285714285 * ratio, - 500, 1000); 
 			}	
 			var renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -32,9 +30,9 @@
 			renderer.setSize(window.innerWidth, window.innerHeight);
 			document.body.appendChild(renderer.domElement);
 			
-			planets = [];
+			let planets = [];
 			
-			textures =
+			let textures =
 				[	"res/images/planets/sun.png"
 				,	"res/images/planets/mercury.png"
 				,	"res/images/planets/venus.png"
@@ -47,7 +45,7 @@
 				,	"res/images/planets/pluto.png"
 				]
 			
-			distances = 
+			let distances = 
 				[	-24
 				,	-13
 				,	-9
@@ -60,7 +58,7 @@
 				,	14
 				]
 				
-			radius =
+			let radius =
 				[	10
 				,	0.38555
 				,	0.95623
@@ -73,7 +71,7 @@
 				,	0.18744
 				]
 				
-			tilts = 
+			let tilts = 
 				[	-0.1265364	// Soleil
 				,	-0.0005235988	// Mercure
 				,	-0.04607669	// Venus
@@ -86,49 +84,82 @@
 				,	-1.0030407	// Pluto
 				]
 				
-			let textureLoader = new THREE.TextureLoader();
+			let texturesObjects = new Array(10);
+			let rings = null;
+			let wasPortrait = viewportIsPortrait();
+				
+			// Le LoadingManager va permettre d'interagir pendant le chargement de gros fichiers
+			// et potentiellement d'afficher un loader
+			let loadingManager = new THREE.LoadingManager();
+			loadingManager.onLoad = () => { 
+				for (let index = 0; index < textures.length; index++) {
+					let geometry = new THREE.SphereBufferGeometry(radius[index], 50, 50);
+					let material = new THREE.MeshBasicMaterial(
+						{	transparent: true
+						,	color: '#ffffff'
+						,	map: texturesObjects[index]
+						});
+					let planet = new THREE.Mesh(geometry, material);
+					planet.position.z = -10;
+					planet.position.x = distances[index];
+					planet.rotation.z = tilts[index] + (viewportIsPortrait() ? -Math.PI / 2 : 0);
+					scene.add(planet);
+					planets.push(planet);
+				}
+				
+				let geometry = new THREE.RingBufferGeometry(2.2, 3.2, 25);
+				let material = new THREE.MeshBasicMaterial(
+					{	color: '#E1C9A2'
+					,	side: THREE.DoubleSide
+					});
+					
+				rings = new THREE.Mesh(geometry, material);
+				rings.position.z = -10;
+				rings.position.x = 5.5;
+				rings.rotation.y = Math.PI * 1.45;
+				rings.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), 0.4660029 * 2.33 + (viewportIsPortrait() ? -Math.PI / 2 : 0));
+				scene.add(rings);	
+				
+				/* Activation de l'animation de fade-out du loading */
+				const loadingScreen = document.getElementById( 'loader-wrapper' );
+				loadingScreen.classList.add( 'fade-out' );
+			};
+			
+			let textureLoader = new THREE.TextureLoader(loadingManager);
 			for (let index = 0; index < textures.length; index++) {
-				textureLoader.load
-					(	textures[index]
-					,	function(texture) 
-						{	let skyGeo = new THREE.SphereGeometry(radius[index], 50, 50);
-							let material = new THREE.MeshBasicMaterial(
-								{	transparent: true
-								,	color: '#ffffff'
-								,	map: texture
-								});
-							let sky = new THREE.Mesh(skyGeo, material);
-							sky.position.z = -10;
-							sky.position.x = distances[index];
-							sky.rotateZ(tilts[index]);
-							scene.add(sky);
-							planets.push(sky);							
-						}
-					)
+				textureLoader.load(textures[index], (texture) => { texturesObjects[index] = texture; })
 			}
 			
-			textureLoader.load
-				(	"res/images/planets/saturn_rings.png"
-				,	function(texture) 
-					{	let geometry = new THREE.RingGeometry(2.2, 3.2, 25);
-						let material = new THREE.MeshBasicMaterial(
-							{	color: '#E1C9A2'
-							,	side: THREE.DoubleSide
-							//,	map: texture
-							});
-							
-						let sky = new THREE.Mesh(geometry, material);
-						sky.position.z = -10;
-						sky.position.x = 5.5;
-						sky.rotation.y = Math.PI * 1.45;
-						sky.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), 0.4660029 * 2.33);
-						scene.add(sky);							
+			window.addEventListener('resize', function () {
+				renderer.setPixelRatio(window.devicePixelRatio);
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				if (viewportIsPortrait()) {
+					let ratio = window.innerWidth / window.innerHeight;
+					camera.left =  -16.285714285714285 * ratio;
+					camera.right = 16.285714285714285 * ratio;
+					camera.top = 16.285714285714285;
+					camera.bottom = -16.285714285714285;
+					camera.rotation.z = -Math.PI / 2;
+				}	
+				else {
+					let ratio = window.innerHeight / window.innerWidth;
+					camera.left =  -16.285714285714285;
+					camera.right = 16.285714285714285;
+					camera.top = 16.285714285714285 * ratio;
+					camera.bottom = -16.285714285714285 * ratio;
+					camera.rotation.z = 0;
+				}
+					
+				if (viewportIsPortrait() != wasPortrait) {
+					for (let index = 0; index < planets.length; index++) {
+						planets[index].rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), (viewportIsPortrait() ? -Math.PI / 2 : Math.PI / 2));
 					}
-				)
+					rings.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), (viewportIsPortrait() ? -Math.PI / 2 : Math.PI / 2));
+					wasPortrait = viewportIsPortrait();
+				}
 				
-			/* Activation de l'animation de fade-out du loading */
-			const loadingScreen = document.getElementById( 'loader-wrapper' );
-			loadingScreen.classList.add( 'fade-out' );
+				camera.updateProjectionMatrix();
+			});
 
 			var update = () => { 
 				requestAnimationFrame(update);
