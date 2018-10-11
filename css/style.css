@@ -1,5 +1,69 @@
-body { margin: 0; }
-canvas { width: 100%; height: 100% }
+html, body {
+    height: 100%
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+}
+
+#ui {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	padding: 16px 16px 16px 16px;
+	/*margin: 16px 16px 16px 16px;*/
+}
+
+#header {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100%;
+}
+
+#whitespace {
+	flex-grow: 1;
+}
+
+#userImage {
+	transform: rotate(30deg);
+	-webkit-transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+
+	-webkit-animation: float 4s linear infinite;
+	-moz-animation: float 4s linear infinite;
+	animation: float 4s linear infinite;
+}
+
+#searchField {
+	margin-left: 16px;
+	border: none;
+	color: white;
+   border-bottom: 2px solid white;
+   background: #222222dd;
+   font-size: x-large;
+   flex-grow: 1;
+   max-width: 300px;
+}
+
+#searchField:focus {
+	outline: none;
+}
 
 #loader-wrapper {
 	display: flex;
@@ -24,10 +88,26 @@ canvas { width: 100%; height: 100% }
 	animation:spin 4s linear infinite;
 }
 
-@keyframes 
-spin { 
+@keyframes
+spin {
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
+	}
+}
+
+@keyframes
+float {
+	0% {
+		-webkit-transform: translate(0, 10px);
+		transform: translate(0, 5px) rotate(30deg);
+	}
+	50% {
+		-webkit-transform: translate(0, -10px);
+		transform: translate(0, -5px) rotate(30deg);
+	}
+	100% {
+		-webkit-transform: translate(0, 10px);
+		transform: translate(0, 5px) rotate(30deg);
 	}
 }

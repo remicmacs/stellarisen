@@ -5,19 +5,20 @@ class Constellation {
 		this.fullName = fullName;
 		this.links = [];
 
-		let constellationLinks = 
+		let constellationLinks =
 			{	"ra": this.ra
 			,	"dec": this.dec
 			,	"lines": []
 			};
-		
+
 		for (let j = 0; j < links.length; j++) {
-			let link = new Link(
-				stars[links[j][0]]["ra"].valueOf(),
-				stars[links[j][1]]["ra"].valueOf(),
-				stars[links[j][0]]["dec"].valueOf(),
-				stars[links[j][1]]["dec"].valueOf(),
-				fullName);
+			let link = new Link
+				( stars[links[j][0]]["ra"].valueOf()
+				,	stars[links[j][1]]["ra"].valueOf()
+				,	stars[links[j][0]]["dec"].valueOf()
+				,	stars[links[j][1]]["dec"].valueOf()
+				,	fullName
+				);
 			this.links.push(link);
 		}
 	}

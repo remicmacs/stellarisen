@@ -1,36 +1,142 @@
-
 <html>
 	<head>
+		<meta charset="utf-8"/>
 		<title>Stellar'ISEN</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.js"> </script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>
 		<script src="js/three.js"></script>
+		<script src="js/utils.js"></script>
 		<script src="js/DeviceOrientationControls.js"></script>
 		<script src="js/skymap.js"></script>
 		<script src="js/Star.js"></script>
 		<script src="js/Link.js"></script>
 		<script src="js/Constellation.js"></script>
 		<script src="js/Visor.js"></script>
+		<script src="js/planets.js"></script>
+		<script src="js/Planet.js"></script>
 	</head>
 	<body>
+		<div id="ui">
+			<div id="header">
+				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
+				<input id="searchField" type="text" placeholder="Rechercher..."/>
+			</div>
+			<div id="whitespace"></div>
+			<div id="footer">
+				<button onclick="event.stopPropagation(); switchScene();">Système solaire</button>
+			</div>
+		</div>
+
 		<div id="loader-wrapper">
 			<img id="loader" src="res/images/planet.png" alt="">
-		</div>		
-		
-		<script>			
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
-			var renderer = new THREE.WebGLRenderer({ antialias: true });
-			camera.position.set(0, 0, 0);
-			console.log(camera.position);
-			camera.lookAt(0, 0, -1);
+		</div>
 
-			skySphere = new SkySphere(scene, camera, renderer);
-			var update = () => { 
-				requestAnimationFrame(update);			
-				skySphere.update();
-				skySphere.renderer.render(scene, camera);
-			};
-			update();
+		<script>
+			var noSleep = new NoSleep();
+			noSleep.enable();
+
+			var skyScene = new THREE.Scene();
+			var planetsScene = new THREE.Scene();
+			var camera = null;
+			var scene = null;
+			var renderer = new THREE.WebGLRenderer({ antialias: true });
+
+			window.onhashchange = updateHash;
+
+			let skySphere = new SkySphere(skyScene, camera, renderer, onLoad);
+			let planets = new Planets(planetsScene, camera, renderer, onLoad);
+
+			let sceneUpdate = null;
+			let home = true;
+			let tween = null;
+
+			function switchScene() {
+				if (home) {
+					camera = planets.camera;
+					scene = planetsScene;
+					sceneUpdate = () => { planets.update() };
+					home = false;
+				}
+				else {
+					camera = skySphere.camera;
+					scene = skyScene;
+					sceneUpdate = () => { skySphere.update() };
+					home = true;
+				}
+			}
+
+			function onLoad() {
+				if (skySphere.loaded && planets.loaded) {
+					let hash = window.location.hash.substring(1);
+
+					if (hash != '') {
+						updateHash();
+					}
+					else {
+						// Initialisation à la page principale (skysphere)
+						camera = skySphere.camera;
+						scene = skyScene;
+						sceneUpdate = () => { skySphere.update() };
+					}
+
+					/* Activation de l'animation de fade-out du loading */
+					const loadingScreen = document.getElementById( 'loader-wrapper' );
+					loadingScreen.classList.add( 'fade-out' );
+
+					var update = () => {
+						requestAnimationFrame(update);
+						if (tween != null) {
+							TWEEN.update();
+						}
+						sceneUpdate();
+						renderer.render(scene, camera);
+					};
+					update();
+				}
+			}
+
+			function updateHash() {
+				let hash = window.location.hash.substring(1);
+				let star = null;
+				let planet = null;
+				for (let i = 0; i < skySphere.starsObjects.length; i++) {
+					if (hash == skySphere.starsObjects[i].meshName) {
+						star = skySphere.starsObjects[i];
+					}
+				}
+
+				for (let i = 0; i < planets.planets.length; i++) {
+					if (hash == planets.planets[i].name) {
+						planet = planets.planets[i];
+					}
+				}
+
+				if (star != null && planet != null) {
+					console.log("Excuse me what the fuck ?");
+					window.location.replace("https://huit.re/PHJa91WW");
+				}
+
+				if (planet != null) {
+					if (home) {
+						// Initialisation à la page des planetes
+						home = false;
+						camera = planets.camera;
+						scene = planetsScene;
+						sceneUpdate = () => { planets.update() };
+					}
+					// Ici on va mettre tout ce qui est changement de planète
+				}
+				else {
+					camera = skySphere.camera;
+					scene = skyScene;
+					sceneUpdate = () => { skySphere.update() };
+
+					if (star != null) {
+						tween = skySphere.lookAtStar(star);
+					}
+				}
+			}
 		</script>
 	</body>
 </html>

@@ -1,9 +1,15 @@
 class SkySphere {
-	constructor(scene, camera, renderer) {
-		console.log("Skyphere: constructor()");
+	constructor(scene, camera, renderer, onLoad) {
+		this.loaded = false;
+		this.onLoad = onLoad;
 		this.scene = scene;
 		this.camera = camera;
 		this.renderer = renderer;
+		this.dragging = false;
+
+		this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+		this.camera.position.set(0, 0, 0);
+		this.camera.lookAt(0, 0, -1);
 
 		/* Avec le startTime, on va s'assurer que le chargement s'affiche au moins pendant un temps donné */
 		this.loadingClock = new THREE.Clock();
@@ -76,60 +82,13 @@ class SkySphere {
 			this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 		}, false);
 
-		document.onclick = (event) => {
-			// find intersections
-			this.raycaster.setFromCamera(this.mouse, this.camera );
-			let intersects = this.raycaster.intersectObjects(this.scene.children);
-			if (intersects.length > 0) {
-				//if ( INTERSECTED != intersects[ 0 ].object ) {
-					/**if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-					INTERSECTED = intersects[ 0 ].object;
-					INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-					INTERSECTED.material.emissive.setHex( 0xff0000 );**/
-				//	console.log("Intersected !");
-				//	alert(intersects[ 0 ].object.name);
-				//}
-				let starClicked = false;
-				let constellationClicked = false;
-				let objectIndex = 0;
-
-				for (let i = 0; i < intersects.length; i++) {
-					if (intersects[i].object.userData["type"] == "star") {
-						objectIndex = i;
-						starClicked = true;
-						console.log("Star clicked !");
-						break;
-					}
-					else if (intersects[i].object.userData["type"] == "constellation") {
-						objectIndex = i;
-						constellationClicked = true;
-						console.log("Constellation clicked !");
-						break;
-					}
-					if (intersects[i].object == this.visor.sprite) {
-						console.log("Visor clicked !");
-						alert(this.visor.star.meshName);
-						window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
-					}
-				}
-
-				if (starClicked || constellationClicked) {
-					alert(intersects[objectIndex].object.name);
-				}
-				else {
-					//alert(intersects[ 0 ].object.name);
-				}
-
-			} else {
-				//if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-				INTERSECTED = null;
-			}
-		}
+		window.addEventListener('resize', () => { this.rearrange(); });
 
 		// Lorsqu'on appuie sur la souris, on bind la fonction onMouseDrag au mouvement de la souris
 		document.onmousedown = (event) => {
 			//document.onmousemove = onMouseDrag;
 			document.onmousemove = (event) => {
+				this.dragging = true;
 				this.yawObject.rotation.y += event.movementX * 0.01;
 				this.pitchObject.rotation.x += event.movementY * 0.01;
 
@@ -147,6 +106,7 @@ class SkySphere {
 			//document.ontouchmove = onFingerDrag;
 			document.ontouchmove = (event) => {
 				if (event.touches.length == 1) {
+					this.dragging = true;
 					var deltaX = this.previousX - event.touches[0].screenX;
 					var deltaY = this.previousY - event.touches[0].screenY;
 					this.previousX = event.touches[0].screenX;
@@ -156,18 +116,26 @@ class SkySphere {
 
 					// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
 					this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-				}	
+				}
 			}
 		}
 
 		// Lorsqu'on relâche la souris, on unbind
-		document.onmouseup = function(event) {
-			document.onmousemove = null;			
+		document.onmouseup = (event) => {
+			document.onmousemove = null;
+			if (!this.dragging) {
+				this.click(event);
+			}
+			this.dragging = false;
 		}
 
 		// Lorsqu'on relâche le doigt, on unbind
-		document.ontouchend = function(event) {
-			document.ontouchmove = null;			
+		document.ontouchend = (event) => {
+			document.ontouchmove = null;
+			if (!this.dragging) {
+				this.click(event);
+			}
+			this.dragging = false;
 		}
 	}
 
@@ -197,14 +165,14 @@ class SkySphere {
 
 			/* Au dessus de 100 unités, on cache l'objet */
 			if (distance > 100 && constellationName.visible) {
-				constellationName.visible = false;					
+				constellationName.visible = false;
 			}
 			/* En dessous de 100 unités, on montre l'objet */
 			else if (distance < 100 && !constellationName.visible) {
 				constellationName.visible = true;
 			}
 
-			/* En dessous de 100 unités, on change l'opacité de l'objet */ 
+			/* En dessous de 100 unités, on change l'opacité de l'objet */
 			if (distance < 100) {
 				/* En dessous de 50 unités, l'objet est totalement visible */
 				if (distance < 50) {
@@ -213,24 +181,29 @@ class SkySphere {
 				/* Entre 50 et 100 unités, son opacité dépend de sa distance */
 				else {
 					constellationName.material.opacity = 1 - ((distance - 50) / 50);
-				}					
+				}
+
+				/* On force les textes à toujours être alignés avec la caméra */
+				this.camera.getWorldQuaternion(constellationName.quaternion);
 			}
-		
-			/* On force les textes à toujours être alignés avec la caméra */
-			this.camera.getWorldQuaternion(constellationName.quaternion);
 		}
 
 
 		let minDistance = 100;
 		let minDistanceObject = undefined;
+		let distanceThreshold = 10;
 		let angle = new THREE.Spherical();
 		let projection = new THREE.Vector3();
 		if (!this.deviceIsMobile) {
+			/* On récupère le vecteur de magniture de la direction du raycaster
+			qu'on transforme en coordonnées sphériques */
 			angle.setFromCartesianCoords(
 				this.raycaster.ray.direction.x,
 				this.raycaster.ray.direction.y,
 				this.raycaster.ray.direction.z
 			);
+			/* On récupère alors les angle phi et theta pour faire une projection
+			sur la sphère */
 			projection.setFromSphericalCoords(100, angle.phi, angle.theta);
 		}
 
@@ -238,8 +211,21 @@ class SkySphere {
 		for (let i = 0; i < this.starsObjects.length; i++) {
 			let star = this.starsObjects[i];
 			let distance = 100;
-			distance = (this.deviceIsMobile ? sphereRaycast : projection).distanceTo(star.position);
-			if (distance < 10) {
+
+			// Weird comma-first notation, je sais pas si c'est comme ça qu'il
+			// faudrait faire
+			distance =
+				(	this.deviceIsMobile
+				?	sphereRaycast
+				: projection
+				)
+				.distanceTo(star.position)
+				;
+
+			/* Si on est en dessous d'un seuil, on cherche le minimum */
+			if (distance < distanceThreshold) {
+
+				/* Recherche du minimum */
 				if (distance < minDistance) {
 					minDistance = distance;
 					minDistanceObject = star;
@@ -247,24 +233,21 @@ class SkySphere {
 			}
 		}
 
+		/* Si on a trouvé une étoile proche, on déplace le curseur */
 		if (minDistanceObject != undefined) {
 			if (minDistanceObject != this.previousClosestStar) {
-				if (this.previousClosestStar != undefined) {
-				}
 				this.visor.setTarget(minDistanceObject);
 				console.log("Closest star: " + minDistanceObject.meshName);
 			}
 			this.previousClosestStar = minDistanceObject;
 		}
 		else {
-			if (this.previousClosestStar != undefined) {
-			}
 			this.previousClosestStar = undefined;
 			if (this.visor != undefined && this.visor.isVisible()) {
 				this.visor.hide();
 			}
 		}
-		
+
 
 		/*for (let i = 0; i < constellationObjects.length; i++) {
 			let constellationBarycenter = toCartesian(100, constellationObjects[i]["ra"], constellationObjects[i]["dec"]);
@@ -289,12 +272,12 @@ class SkySphere {
 				}
 				else {
 					constellationObjects[i].material.opacity = 1 - ((distance - 50) / 50);
-				}					
+				}
 			}
 		}*/
 	}
 
-	
+
 	onProgress(item, loaded, total) {
 		console.log("Loading: " + loaded + "/" + total);
 	}
@@ -324,16 +307,15 @@ class SkySphere {
 		this.loadingClock.stop();
 		delete this.loadingClock;
 
-		/* Activation de l'animation de fade-out du loading */
-		const loadingScreen = document.getElementById( 'loader-wrapper' );
-		loadingScreen.classList.add( 'fade-out' );
-
 		/* On recharge la taille du renderer et on update le pixel ratio
 		(sinon ça s'affiche pas sur mon téléphone) */
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		this.camera.aspect = window.innerWidth / window.innerHeight;
-  		this.camera.updateProjectionMatrix();
+  	this.camera.updateProjectionMatrix();
+
+		this.loaded = true;
+		this.onLoad();
 	}
 
 
@@ -342,17 +324,21 @@ class SkySphere {
 	 */
 	addStarsToScene() {
 		let count = Object.keys(this.json).length;
+		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 
 		// Et on dispose les étoiles conformément au JSON
 		for (let i = 0; i < count; i++) {
 			let line = this.json[Object.keys(this.json)[i]];
-			let star = new Star(
-				line["ra"].valueOf(),
-				line["dec"].valueOf(),
-				line["mag"].valueOf(),
-				new THREE.Color().fromArray(line["colour"].split(" ").map((x) => { return x / 255; })),
-				line["proper"]
-			);
+			let star = new Star
+				(	line["ra"].valueOf()
+				,	line["dec"].valueOf()
+				,	line["mag"].valueOf()
+				,	new THREE.Color().fromArray(line["colour"].split(" ").map(
+						(x) => { return x / 255; })
+					)
+				,	line["proper"]
+				,	geometry
+				);
 
 			star.addToScene(this.scene);
 			this.starsObjects.push(star);
@@ -385,7 +371,7 @@ class SkySphere {
 		}
 	}
 
-	
+
 	/**
 	 *	Add skydome to the scene
 	 */
@@ -464,11 +450,93 @@ class SkySphere {
 		DEC ne s'incrémente pas dans le même sens ni depuis le même axe, il faut utiliser la valeur négative
 		à laquelle on ajoute 90° */
 		let coord = new THREE.Vector3().setFromSphericalCoords(
-			r, 
+			r,
 			THREE.Math.degToRad(-dec + 90),
 			THREE.Math.degToRad(ra * 15)
 		);
 		return coord;
+	}
+
+	rearrange() {
+		this.renderer.setPixelRatio(window.devicePixelRatio);
+		this.renderer.setSize(window.innerWidth, window.innerHeight);
+		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.updateProjectionMatrix();
+	}
+
+	click(event) {
+		// find intersections
+		this.raycaster.setFromCamera(this.mouse, this.camera );
+		let intersects = this.raycaster.intersectObjects(this.scene.children);
+		if (intersects.length > 0) {
+			//if ( INTERSECTED != intersects[ 0 ].object ) {
+				/**if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+				INTERSECTED = intersects[ 0 ].object;
+				INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+				INTERSECTED.material.emissive.setHex( 0xff0000 );**/
+			//	console.log("Intersected !");
+			//	alert(intersects[ 0 ].object.name);
+			//}
+			let starClicked = false;
+			let constellationClicked = false;
+			let objectIndex = 0;
+
+			for (let i = 0; i < intersects.length; i++) {
+				if (intersects[i].object.userData["type"] == "star") {
+					objectIndex = i;
+					starClicked = true;
+					console.log("Star clicked !");
+					break;
+				}
+				else if (intersects[i].object.userData["type"] == "constellation") {
+					objectIndex = i;
+					constellationClicked = true;
+					console.log("Constellation clicked !");
+					break;
+				}
+				if (intersects[i].object == this.visor.sprite) {
+					console.log("Visor clicked !");
+					alert(this.visor.star.meshName);
+					//window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
+				}
+			}
+
+			if (starClicked || constellationClicked) {
+				alert(intersects[objectIndex].object.name);
+			}
+			else {
+				//alert(intersects[ 0 ].object.name);
+			}
+
+		} else {
+			//if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+			INTERSECTED = null;
+		}
+	}
+
+	lookAtStar(star) {
+		let angle = new THREE.Spherical();
+		angle.setFromCartesianCoords(
+			star.position.x,
+			star.position.y,
+			star.position.z
+		);
+		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
+		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+
+		let tween = new TWEEN.Tween(current)
+			.to(target, 3000)
+			.easing(TWEEN.Easing.Cubic.InOut);
+
+		tween.onUpdate(() => {
+			this.yawObject.rotation.y = current.x;
+		 	this.pitchObject.rotation.x = current.y;
+		});
+
+		tween.start();
+
+		this.visor.setTarget(star);
+		return tween;
 	}
 }
 
@@ -478,8 +546,4 @@ function polarRadianToCartesian(r, theta, phi) {
 	returned[1] = r * Math.sin(phi);
 	returned[2] = r * Math.cos(phi) * Math.cos(theta);
 	return returned;
-}
-
-function map(x, in_min, in_max, out_min, out_max) {
-  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

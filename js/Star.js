@@ -1,12 +1,13 @@
 class Star {
-	constructor(ra, dec, magnitude, colour, name) {
+	constructor(ra, dec, magnitude, colour, name, geometry) {
 		this.ra = ra;
 		this.dec = dec;
 		this.magnitude = magnitude;
 		this.colour = colour;
 		this.meshName = name;
 
-		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
+		//let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
+		//geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 		this.material = new THREE.MeshBasicMaterial({ color: this.colour.getStyle(), transparent: true });
 		this.mesh = new THREE.Mesh(geometry, this.material);
 
