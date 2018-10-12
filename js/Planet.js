@@ -8,19 +8,38 @@ class Planet {
 
 		console.log("Planet: constructor()");
 
-		let geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
+		this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
 		let material = new THREE.MeshBasicMaterial(
 			{	transparent: true
 			,	color: '#ffffff'
 			,	map: this.texture
 			});
-		this.mesh = new THREE.Mesh(geometry, material);
+		this.mesh = new THREE.Mesh(this.geometry, material);
 		this.mesh.position.z = -10;
 		this.mesh.position.x = this.distance;
-		this.mesh.rotation.z = this.tilt + (viewportIsPortrait() ? -Math.PI / 2 : 0);
+		this.mesh.rotation.reorder("ZYX");
+		this.updateRotation();
 	}
 
 	addToScene(scene) {
 		scene.add(this.mesh);
+	}
+
+	updateRotation(portrait) {
+		let rotation = this.tilt +
+			( portrait
+			?	-Math.PI / 2
+			:	0
+			);
+
+		let target = new THREE.Euler(0, 0, rotation);
+		let current = this.mesh.rotation.clone();
+		let tween = new TWEEN.Tween(current)
+			.to(target, 1000)
+			.easing(TWEEN.Easing.Bounce.Out);
+		tween.onUpdate(() => {
+			this.mesh.rotation.z = current.z;
+		})
+		tween.start();
 	}
 }

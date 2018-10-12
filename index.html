@@ -24,7 +24,7 @@
 			</div>
 			<div id="whitespace"></div>
 			<div id="footer">
-				<button onmousedown="event.stopPropagation();" onmouseup="event.stopPropagation(); switchScene();">Système solaire</button>
+				<button class="nephritis-flat-button" onmousedown="event.stopPropagation();" onmouseup="event.stopPropagation(); switchScene();">Système solaire</button>
 			</div>
 		</div>
 
@@ -42,28 +42,31 @@
 			var scene = null;
 			var renderer = new THREE.WebGLRenderer({ antialias: true });
 
-			window.onhashchange = updateHash;
+			window.onhashchange = () => { updateHash(false); };
 
 			let skySphere = new SkySphere(skyScene, camera, renderer, onLoad);
 			let planets = new Planets(planetsScene, camera, renderer, onLoad);
 
 			let sceneUpdate = null;
 			let home = true;
-			let tween = null;
 
 			function switchScene() {
-				if (home) {
-					camera = planets.camera;
-					scene = planetsScene;
-					sceneUpdate = () => { planets.update() };
-					home = false;
-				}
-				else {
-					camera = skySphere.camera;
-					scene = skyScene;
-					sceneUpdate = () => { skySphere.update() };
-					home = true;
-				}
+				showLoading();
+				setTimeout(function() {
+					if (home) {
+						camera = planets.camera;
+						scene = planetsScene;
+						sceneUpdate = () => { planets.update() };
+						home = false;
+					}
+					else {
+						camera = skySphere.camera;
+						scene = skyScene;
+						sceneUpdate = () => { skySphere.update() };
+						home = true;
+					}
+					hideLoading();
+				}, 1000);
 			}
 
 			function onLoad() {
@@ -71,7 +74,7 @@
 					let hash = window.location.hash.substring(1);
 
 					if (hash != '') {
-						updateHash();
+						updateHash(true);
 					}
 					else {
 						// Initialisation à la page principale (skysphere)
@@ -80,15 +83,11 @@
 						sceneUpdate = () => { skySphere.update() };
 					}
 
-					/* Activation de l'animation de fade-out du loading */
-					const loadingScreen = document.getElementById( 'loader-wrapper' );
-					loadingScreen.classList.add( 'fade-out' );
+					hideLoading();
 
 					var update = () => {
 						requestAnimationFrame(update);
-						if (tween != null) {
-							TWEEN.update();
-						}
+						TWEEN.update();
 						sceneUpdate();
 						renderer.render(scene, camera);
 					};
@@ -96,10 +95,22 @@
 				}
 			}
 
-			function updateHash() {
+			function updateHash(starting) {
 				let hash = window.location.hash.substring(1);
 				let star = null;
 				let planet = null;
+
+				if (hash == "SystemeSolaire") {
+					//planets.rearrange();
+					home = false;
+					camera = planets.camera;
+					scene = planetsScene;
+					sceneUpdate = () => { planets.update() };
+					//camera.position.x = 0;
+					planets.lookAtAll();
+					return;
+				}
+
 				for (let i = 0; i < skySphere.starsObjects.length; i++) {
 					if (hash == skySphere.starsObjects[i].meshName) {
 						star = skySphere.starsObjects[i];
@@ -118,24 +129,76 @@
 				}
 
 				if (planet != null) {
-					if (home) {
-						// Initialisation à la page des planetes
+					if (starting) {
 						home = false;
 						camera = planets.camera;
 						scene = planetsScene;
 						sceneUpdate = () => { planets.update() };
 					}
+					if (home) {
+						showLoading();
+						setTimeout(function() {
+							// Initialisation à la page des planetes
+							home = false;
+							camera = planets.camera;
+							scene = planetsScene;
+							sceneUpdate = () => { planets.update() };
+							hideLoading();
+							planets.lookAtPlanet(planet);
+						}, 1000);
+					}
+					else {
+						planets.lookAtPlanet(planet);
+					}
 					// Ici on va mettre tout ce qui est changement de planète
 				}
 				else {
-					camera = skySphere.camera;
-					scene = skyScene;
-					sceneUpdate = () => { skySphere.update() };
-
-					if (star != null) {
-						tween = skySphere.lookAtStar(star);
+					if (starting) {
+						camera = skySphere.camera;
+						scene = skyScene;
+						sceneUpdate = () => { skySphere.update() };
 					}
+					else {
+						// Si on est pas sur l'écran des étoiles, on montre le loading
+						if (!home) {
+							showLoading();
+							setTimeout(function() {
+								camera = skySphere.camera;
+								scene = skyScene;
+								home = true;
+								sceneUpdate = () => { skySphere.update() };
+								hideLoading();
+
+								/* Une fois le loading fini, on bouge la caméra vers l'étoile */
+								if (star != null) {
+									skySphere.lookAtStar(star);
+								}
+							}, 1000);
+						}
+					}
+
+					/* Si on est déjà sur l'écran des étoiles, on bouge la caméra */
+					if (home) {
+						if (star != null) {
+							skySphere.lookAtStar(star);
+						}
+					}
+
 				}
+			}
+
+			function hideLoading() {
+				/* Activation de l'animation de fade-out du loading */
+				const loadingScreen = document.getElementById( 'loader-wrapper' );
+				loadingScreen.classList.remove( 'fade-in' );
+				loadingScreen.classList.add( 'fade-out' );
+			}
+
+			function showLoading() {
+				/* Activation de l'animation de fade-out du loading */
+				const loadingScreen = document.getElementById( 'loader-wrapper' );
+				loadingScreen.classList.remove( 'fade-out' );
+				loadingScreen.classList.add('fade-in');
 			}
 		</script>
 	</body>

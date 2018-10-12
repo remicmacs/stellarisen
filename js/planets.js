@@ -5,32 +5,21 @@ class Planets {
 		this.scene = scene;
 		this.camera = camera;
 		this.renderer = renderer;
+		this.depth = 0;
 
-		console.log("Planets: constructor()");
+		this.width = 16.285714285714285;
 
-		if (viewportIsPortrait()) {
-			let ratio = window.innerWidth / window.innerHeight;
-			this.camera = new THREE.OrthographicCamera
-				(	-16.285714285714285 * ratio
-				,	16.285714285714285 * ratio
-				,	16.285714285714285
-				,	-16.285714285714285
-				,	-500
-				,	1000
-				);
-			this.camera.rotation.z = -Math.PI / 2;
-		}
-		else {
-			let ratio = window.innerHeight / window.innerWidth;
-			this.camera = new THREE.OrthographicCamera
-				(	-16.285714285714285
-				,	16.285714285714285
-				,	16.285714285714285 * ratio
-				,	-16.285714285714285 * ratio
-				,	-500
-				,	1000
-				);
-		}
+		let portrait = viewportIsPortrait();
+		let ratio = utils.ratio;
+		this.camera = new THREE.OrthographicCamera
+			(	-this.width * (portrait ? ratio : 1			)
+			,	this.width	* (portrait ? ratio : 1			)
+			,	this.width	* (portrait ? 1 		: ratio	)
+			,	-this.width * (portrait ? 1 		: ratio	)
+			,	-500
+			,	1000
+			);
+		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
 		// On met en place le renderer
 		this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -112,8 +101,8 @@ class Planets {
 
 		console.log("Variables set");
 
-		// Le LoadingManager va permettre d'interagir pendant le chargement de gros fichiers
-		// et potentiellement d'afficher un loader
+		// Le LoadingManager va permettre d'interagir pendant le chargement de
+		// gros fichiers et potentiellement d'afficher un loader
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
@@ -128,30 +117,18 @@ class Planets {
 	rearrange() {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
-		if (viewportIsPortrait()) {
-			let ratio = window.innerWidth / window.innerHeight;
-			this.camera.left =  -16.285714285714285 * ratio;
-			this.camera.right = 16.285714285714285 * ratio;
-			this.camera.top = 16.285714285714285;
-			this.camera.bottom = -16.285714285714285;
-			this.camera.rotation.z = -Math.PI / 2;
-		}
-		else {
-			console.log("Going in there");
-			let ratio = window.innerHeight / window.innerWidth;
-			this.camera.left =  -16.285714285714285;
-			this.camera.right = 16.285714285714285;
-			this.camera.top = 16.285714285714285 * ratio;
-			this.camera.bottom = -16.285714285714285 * ratio;
-			this.camera.rotation.z = 0;
-		}
 
-		console.log(viewportIsPortrait() == this.wasPortrait);
+		let ratio = utils.ratio;
+		let portrait = viewportIsPortrait();
+
+		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
+		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
+		this.camera.top = 		this.width	* (portrait ? 1 		: ratio	);
+		this.camera.bottom =	-this.width * (portrait ? 1 		: ratio	);
+		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
+
 		if (viewportIsPortrait() != this.wasPortrait) {
-			for (let index = 0; index < this.planets.length; index++) {
-				this.planets[index].mesh.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), (viewportIsPortrait() ? -Math.PI / 2 : Math.PI / 2));
-			}
-			this.rings.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), (viewportIsPortrait() ? -Math.PI / 2 : Math.PI / 2));
+			this.updateRotations(viewportIsPortrait());
 			this.wasPortrait = viewportIsPortrait();
 		}
 
@@ -159,7 +136,6 @@ class Planets {
 	}
 
 	addEverything() {
-		console.log("Loaded");
 		for (let index = 0; index < this.textures.length; index++) {
 			let planet = new Planet
 				(	this.texturesObjects[index]
@@ -181,20 +157,180 @@ class Planets {
 		this.rings = new THREE.Mesh(geometry, material);
 		this.rings.position.z = -10;
 		this.rings.position.x = 5.5;
+		this.rings.rotation.reorder("ZYX");
 		this.rings.rotation.y = Math.PI * 1.45;
-		this.rings.rotateOnWorldAxis(new THREE.Vector3(0, 0, 1), 0.4660029 * 2.33 + (viewportIsPortrait() ? -Math.PI / 2 : 0));
+		this.updateRingsRotation();
 		this.scene.add(this.rings);
 
-		/* Activation de l'animation de fade-out du loading */
-		//const loadingScreen = document.getElementById( 'loader-wrapper' );
-		//loadingScreen.classList.add( 'fade-out' );
+		this.rearrange();
 		this.loaded = true;
 		this.onLoad();
 	}
 
 	update() {
 		for (let i = 0; i < this.planets.length; i++) {
-			this.planets[i].mesh.rotateY(0.01);
+			this.planets[i].mesh.rotation.y += 0.01;
 		}
+	}
+
+	lookAtAll() {
+		let current =
+			{	top: 		this.camera.top
+			,	bottom: this.camera.bottom
+			,	left: 	this.camera.left
+			, right: 	this.camera.right
+			,	x: 			this.camera.position.x
+			, angle:	this.camera.rotation.z
+			};
+
+		if (this.depth == 1) {
+			let portrait = viewportIsPortrait();
+			let ratio = utils.ratio;
+
+			let target =
+				{	left:		-this.width * (portrait ? ratio : 1			)
+				,	right:	this.width	* (portrait ? ratio : 1			)
+				, top:		this.width	* (portrait ? 1 		: ratio	)
+				, bottom:	-this.width * (portrait ? 1 		: ratio	)
+				, x: 			0
+				,	angle: 	portrait ? -Math.PI / 2 : 0
+				};
+
+			let tween = new TWEEN.Tween(current)
+				.to(target, 1000)
+				.easing(TWEEN.Easing.Cubic.InOut);
+
+			tween.onUpdate(() => {
+				this.camera.left 				= current.left;
+				this.camera.right 			= current.right;
+				this.camera.top 				= current.top;
+				this.camera.bottom 			= current.bottom;
+				this.camera.position.x	= current.x;
+				this.camera.rotation.z	= current.angle;
+				this.camera.updateProjectionMatrix();
+			});
+
+			tween.start();
+			this.updateRotations(viewportIsPortrait());
+			this.depth = 0;
+		}
+	}
+
+	lookAtPlanet(planet) {
+		planet.geometry.computeBoundingBox();
+		let box = planet.geometry.boundingBox;
+
+		let ratio = utils.ratio;
+		let portrait = viewportIsPortrait();
+
+		let max = box.max.x + (portrait ? 1 : 1);
+		let min = box.min.x;
+
+		let current =
+			{	top: 		this.camera.top
+			,	bottom: this.camera.bottom
+			,	left: 	this.camera.left
+			, right: 	this.camera.right
+			,	x: 			this.camera.position.x
+			, angle:	this.camera.rotation.z
+			};
+
+		/* On sélectionne la cible finale du déplacement */
+		let target =
+			{	top:		max	/ (portrait ? ratio : 1			) - (portrait ? 0 : 0.5)
+			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : 0.5)
+			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? 0.5 : 0)
+			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? 0.5 : 0)
+			, x: 			planet.mesh.position.x
+			, angle:	(portrait ? 0 : -Math.PI / 2)
+			};
+
+		if (this.depth != 0) {
+			let middle =
+				{	left: 	-this.width	* (portrait ? ratio : 1			)
+				,	right:	this.width	* (portrait ? ratio : 1			)
+				,	top:		this.width	* (portrait ? 1 		: ratio	)
+				,	bottom:	-this.width	* (portrait ? 1 		: ratio	)
+				, x: 			(current.x + planet.mesh.position.x) / 2
+				,	angle:	(portrait ? -Math.PI / 2 : 0)
+				};
+
+			let tweenToMiddle = new TWEEN.Tween(current)
+				.to(middle, 1000)
+				.easing(TWEEN.Easing.Cubic.InOut);
+
+			let tweenToEnd = new TWEEN.Tween(middle)
+				.to(target, 1000)
+				.easing(TWEEN.Easing.Cubic.InOut);
+
+			tweenToEnd.onUpdate(() => {
+				this.camera.left 				= middle.left;
+				this.camera.right 			= middle.right;
+				this.camera.top 				= middle.top;
+				this.camera.bottom 			= middle.bottom;
+				this.camera.position.x 	= middle.x;
+				this.camera.rotation.z 	= middle.angle;
+				this.camera.updateProjectionMatrix();
+			});
+
+			tweenToMiddle.onUpdate(() => {
+				this.camera.left 				= current.left;
+				this.camera.right 			= current.right;
+				this.camera.top 				= current.top;
+				this.camera.bottom 			= current.bottom;
+				this.camera.position.x 	= current.x;
+				this.camera.rotation.z 	= current.angle;
+				this.camera.updateProjectionMatrix();
+			});
+
+			tweenToMiddle.chain(tweenToEnd);
+			tweenToMiddle.start();
+		}
+		else if (this.depth == 0) {
+			let tweenToEnd = new TWEEN.Tween(current)
+				.to(target, 1000)
+				.easing(TWEEN.Easing.Cubic.InOut);
+
+			tweenToEnd.onUpdate(() => {
+				this.camera.left 				= current.left;
+				this.camera.right 			= current.right;
+				this.camera.top 				= current.top;
+				this.camera.bottom 			= current.bottom;
+				this.camera.position.x 	= current.x;
+				this.camera.rotation.z 	= current.angle;
+				this.camera.updateProjectionMatrix();
+			});
+
+			tweenToEnd.start();
+		}
+
+		this.depth = 1;
+		this.updateRotations(!viewportIsPortrait());
+	}
+
+	updateRotations(portrait) {
+		for (let index = 0; index < this.planets.length; index++) {
+			this.planets[index].updateRotation(portrait);
+		}
+		this.updateRingsRotation(portrait);
+	}
+
+	updateRingsRotation(portrait) {
+
+		let rotation = -0.4660029 +
+			(	portrait
+			?	0
+			: Math.PI / 2
+			);
+
+		let target = new THREE.Euler(0, 0, rotation);
+		let current = this.rings.rotation.clone();
+		let tween = new TWEEN.Tween(current)
+			.to(target, 1000)
+			.easing(TWEEN.Easing.Bounce.Out);
+		tween.onUpdate(() => {
+			this.rings.rotation.z = current.z;
+		})
+		tween.start();
 	}
 }

@@ -47,4 +47,32 @@ class Constellation {
 	addNameToScene(scene) {
 		scene.add(this.nameObject);
 	}
+
+	updateNames(distance, camera) {
+		let constellationName = this.nameObject;
+
+		/* Au dessus de 100 unités, on cache l'objet */
+		if (distance > 100 && constellationName.visible) {
+			constellationName.visible = false;
+		}
+		/* En dessous de 100 unités, on montre l'objet */
+		else if (distance < 100 && !constellationName.visible) {
+			constellationName.visible = true;
+		}
+
+		/* En dessous de 100 unités, on change l'opacité de l'objet */
+		if (distance < 100) {
+			/* En dessous de 50 unités, l'objet est totalement visible */
+			if (distance < 50) {
+				constellationName.material.opacity = 1;
+			}
+			/* Entre 50 et 100 unités, son opacité dépend de sa distance */
+			else {
+				constellationName.material.opacity = 1 - ((distance - 50) / 50);
+			}
+
+			/* On force les textes à toujours être alignés avec la caméra */
+			camera.getWorldQuaternion(constellationName.quaternion);
+		}
+	}
 }

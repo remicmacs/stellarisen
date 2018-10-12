@@ -103,7 +103,6 @@ class SkySphere {
 			this.previousY = event.touches[0].screenY;
 			this.mouse.x = this.previousX;
 			this.mouse.y = this.previousY;
-			//document.ontouchmove = onFingerDrag;
 			document.ontouchmove = (event) => {
 				if (event.touches.length == 1) {
 					this.dragging = true;
@@ -157,35 +156,15 @@ class SkySphere {
 			this.raycaster.setFromCamera(this.mouse, this.camera );
 		}
 
+		/* Mise à jour des noms des constellations :
+		- Changement de transparence en fonction de la distance
+		- Alignement avec la caméra */
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			let constellationName = this.constellationObjects[i].nameObject;
 
 			/* On calcule une distance entre un raycast projeté sur la sphère de 100 unités et l'objet étudié */
 			let distance = sphereRaycast.distanceTo(constellationName.position);
-
-			/* Au dessus de 100 unités, on cache l'objet */
-			if (distance > 100 && constellationName.visible) {
-				constellationName.visible = false;
-			}
-			/* En dessous de 100 unités, on montre l'objet */
-			else if (distance < 100 && !constellationName.visible) {
-				constellationName.visible = true;
-			}
-
-			/* En dessous de 100 unités, on change l'opacité de l'objet */
-			if (distance < 100) {
-				/* En dessous de 50 unités, l'objet est totalement visible */
-				if (distance < 50) {
-					constellationName.material.opacity = 1;
-				}
-				/* Entre 50 et 100 unités, son opacité dépend de sa distance */
-				else {
-					constellationName.material.opacity = 1 - ((distance - 50) / 50);
-				}
-
-				/* On force les textes à toujours être alignés avec la caméra */
-				this.camera.getWorldQuaternion(constellationName.quaternion);
-			}
+			this.constellationObjects[i].updateNames(distance, this.camera);
 		}
 
 
@@ -534,9 +513,7 @@ class SkySphere {
 		});
 
 		tween.start();
-
 		this.visor.setTarget(star);
-		return tween;
 	}
 }
 
