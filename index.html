@@ -1,6 +1,8 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
 		<title>Stellar'ISEN</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.js"> </script>
@@ -17,24 +19,89 @@
 		<script src="js/Planet.js"></script>
 	</head>
 	<body>
+
 		<div id="ui">
+
 			<div id="header">
-				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
+				<img src="res/images/astronaut.png" alt="User" id="userImage"
+					onmouseup="enable('menu');"/>
 				<input id="searchField" type="text" placeholder="Rechercher..."/>
 			</div>
-			<div id="whitespace"></div>
+
 			<div id="footer">
-				<button class="nephritis-flat-button" onmousedown="event.stopPropagation();" onmouseup="event.stopPropagation(); switchScene();">Système solaire</button>
+				<button class="nephritis-flat-button" onmousedown="event.stopPropagation();" onmouseup="
+						event.stopPropagation();
+						if (scene == skyScene) {
+							window.location.hash='#SystemeSolaire';
+						}
+				 		else {
+							window.location.hash='#Etoiles';
+						}
+					">Système solaire</button>
+			</div>
+
+		</div>
+
+		<div class="light disabled modal" id="menu">
+
+			<div class="list">
+
+				<div class="list-header">
+					<div class="list-name">Anonyme</div>
+					<div class="close" onclick="
+						disable('menu');
+					">&times;</div>
+				</div>
+
+				<button class="list-button">Connexion</button>
+				<button class="list-button">Création de compte</button>
+				<button class="list-button">À propos</button>
+
+			</div>
+
+		</div>
+
+		<div class="wrapper center disabled" id="infos-wrapper"
+			onmousedown="event.stopPropagation();"
+			onmouseup="event.stopPropagation();">
+			<div class="light disabled modal center" id="infos">
+				<div class="list">
+
+					<div class="infos-header">
+						<h1 id="objectName"></h1>
+						<div class="close" onclick="
+							window.history.back();
+						">&times;</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
 
-		<div id="loader-wrapper">
+		<div class="wrapper right disabled" id="planet-infos-wrapper">
+			<div class="light disabled modal right" id="planet-infos"
+				onmousedown="event.stopPropagation();"
+				onmouseup="event.stopPropagation();">
+				<div class="list">
+
+					<div class="infos-header">
+						<h1 id="planetName"></h1>
+						<div class="close" onclick="
+							window.history.back();
+						">&times;</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="loader-wrapper" class="wrapper center">
 			<img id="loader" src="res/images/planet.png" alt="">
 		</div>
 
 		<script>
-			var noSleep = new NoSleep();
-			noSleep.enable();
+			//var noSleep = new NoSleep();
+			//noSleep.enable();
 
 			var skyScene = new THREE.Scene();
 			var planetsScene = new THREE.Scene();
@@ -50,6 +117,14 @@
 			let sceneUpdate = null;
 			let home = true;
 
+			let previousHash = null;
+
+			document.addEventListener('mousemove', onMove, false);
+			document.addEventListener('mousedown', onMouseDown, false);
+			document.addEventListener('mouseup', onMouseUp, false);
+			document.addEventListener('touchstart', onTouchStart, false);
+			document.addEventListener('touchend', onTouchEnd, false);
+
 			function switchScene() {
 				showLoading();
 				setTimeout(function() {
@@ -58,6 +133,7 @@
 						scene = planetsScene;
 						sceneUpdate = () => { planets.update() };
 						home = false;
+						planets.lookAtAll();
 					}
 					else {
 						camera = skySphere.camera;
@@ -72,6 +148,7 @@
 			function onLoad() {
 				if (skySphere.loaded && planets.loaded) {
 					let hash = window.location.hash.substring(1);
+					previousHash = hash;
 
 					if (hash != '') {
 						updateHash(true);
@@ -96,18 +173,38 @@
 			}
 
 			function updateHash(starting) {
-				let hash = window.location.hash.substring(1);
+				let splinters = window.location.hash.substring(1).split("-");
+				let hash = decodeURI(splinters[0]);
+				let state = (splinters.length > 1 ? splinters[1] : null);
 				let star = null;
 				let planet = null;
 
-				if (hash == "SystemeSolaire") {
-					//planets.rearrange();
+				/* Si on entre "SystemeSolaire" et qu'il faut changer de scène */
+				if (hash == "SystemeSolaire" && scene == skyScene) {
+					switchScene();
+					return;
+				}
+				/* Si on entre dans "Etoiles" et qu'il faut changer de scène */
+				else if (hash == "Etoiles" && scene == planetsScene) {
+					switchScene();
+					return;
+				}
+				/* Si on veut juste aller à l'ensemble du système solaire */
+				else if (hash == "SystemeSolaire") {
 					home = false;
 					camera = planets.camera;
 					scene = planetsScene;
 					sceneUpdate = () => { planets.update() };
-					//camera.position.x = 0;
 					planets.lookAtAll();
+					return;
+				}
+				/* Si on veut juste aller à l'ensemble des étoiles */
+				else if (hash == "Etoiles") {
+					home = true;
+					camera = skySphere.camera;
+					scene = skyScene;
+					sceneUpdate = () => { skySphere.update() };
+					skySphere.rearrange();
 					return;
 				}
 
@@ -123,6 +220,8 @@
 					}
 				}
 
+				previousHash == hash;
+
 				if (star != null && planet != null) {
 					console.log("Excuse me what the fuck ?");
 					window.location.replace("https://huit.re/PHJa91WW");
@@ -134,6 +233,14 @@
 						camera = planets.camera;
 						scene = planetsScene;
 						sceneUpdate = () => { planets.update() };
+					}
+					if (state != null && state == "open") {
+						enable('planet-infos-wrapper');
+						enable('planet-infos');
+					}
+					if (state == null) {
+						disable('planet-infos-wrapper');
+						disable('planet-infos');
 					}
 					if (home) {
 						showLoading();
@@ -159,6 +266,14 @@
 						sceneUpdate = () => { skySphere.update() };
 					}
 					else {
+						if (state != null && state == "open") {
+							enable('infos-wrapper');
+							enable('infos');
+						}
+						if (state == null) {
+							disable('infos-wrapper');
+							disable('infos');
+						}
 						// Si on est pas sur l'écran des étoiles, on montre le loading
 						if (!home) {
 							showLoading();
@@ -199,6 +314,51 @@
 				const loadingScreen = document.getElementById( 'loader-wrapper' );
 				loadingScreen.classList.remove( 'fade-out' );
 				loadingScreen.classList.add('fade-in');
+			}
+
+			function onMove(event) {
+				if (home) {
+					skySphere.onMove(event);
+				}
+				else {
+					planets.onMove(event);
+				}
+			}
+
+			function onMouseDown(event) {
+				if (home) {
+					skySphere.onMouseDown();
+				}
+				else {
+					planets.onMouseDown(event);
+				}
+			}
+
+			function onMouseUp(event) {
+				if (home) {
+					skySphere.onMouseUp(event);
+				}
+				else {
+					planets.onMouseUp(event);
+				}
+			}
+
+			function onTouchStart(event) {
+				if (home) {
+					skySphere.onTouchStart();
+				}
+				else {
+					planets.onTouchStart(event);
+				}
+			}
+
+			function onTouchEnd(event) {
+				if (home) {
+					skySphere.onTouchEnd(event);
+				}
+				else {
+					planets.onTouchEnd(event);
+				}
 			}
 		</script>
 	</body>

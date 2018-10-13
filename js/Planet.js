@@ -18,6 +18,8 @@ class Planet {
 		this.mesh.position.z = -10;
 		this.mesh.position.x = this.distance;
 		this.mesh.rotation.reorder("ZYX");
+		this.mesh.name = this.name;
+		this.mesh.userData = { object: this };
 		this.updateRotation();
 	}
 

@@ -1,13 +1,10 @@
-html, body {
-    height: 100%
-}
-
 body {
 	margin: 0;
 	width: 100%;
 	height: 100%;
 }
 
+/* Pour que les flexbox prennent en compte les margins et padding */
 * {
   box-sizing: border-box;
 }
@@ -26,14 +23,16 @@ canvas {
 	height: 100%;
 	width: 100%;
 	padding: 16px 16px 16px 16px;
+  box-sizing: border-box;
 	/*margin: 16px 16px 16px 16px;*/
 }
 
 #header {
 	display: flex;
 	justify-content: flex-start;
-	align-items: center;
+	/*align-items: center;*/
 	width: 100%;
+  flex-grow: 1;
 }
 
 #footer {
@@ -48,6 +47,11 @@ canvas {
 }
 
 #userImage {
+  width: 50px;
+  height: 50px;
+
+  cursor: pointer;
+
 	transform: rotate(30deg);
 	-webkit-transform: rotate(30deg);
 	-moz-transform: rotate(30deg);
@@ -57,15 +61,34 @@ canvas {
 	animation: float 4s linear infinite;
 }
 
-#searchField {
+/*#searchField {
 	margin-left: 16px;
 	border: none;
 	color: white;
-   border-bottom: 2px solid white;
-   background: #222222dd;
-   font-size: x-large;
-   flex-grow: 1;
-   max-width: 300px;
+  border-bottom: 2px solid white;
+  background: #222222dd;
+  font-size: x-large;
+  flex-grow: 1;
+  max-width: 300px;
+}*/
+
+#searchField {
+  flex-grow: 1;
+  max-width: 300px;
+  position: relative;
+  vertical-align: top;
+  height: 60px;
+  padding: 0;
+  margin-left: 16px;
+  padding-left: 16px;
+  font-size: 22px;
+  color: #0a0a0a;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #cccccd;
+  border: 0;
+  border-bottom: 2px solid #222222;
+  -webkit-box-shadow: inset 0 -2px #219d55;
+  box-shadow: inset 0 -2px #219d55;
 }
 
 #searchField:focus {
@@ -73,13 +96,6 @@ canvas {
 }
 
 #loader-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	/*background: #222222;*/
   background: #000000;
 	opacity: 1;
   visibility: visible;
@@ -104,20 +120,199 @@ canvas {
 	animation:spin 4s linear infinite;
 }
 
+.enabled {
+  /* visibility: visible; */
+}
+
+.disabled {
+  /* visibility: hidden; */
+}
+
+.light {
+  background-color: #cccccd;
+}
+
+.modal {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  position: fixed;
+  margin: 16px 16px 16px 0px;
+  background: #cccccd;
+  border: 0;
+  border-bottom: 2px solid #222222;
+  -webkit-box-shadow: inset 0 -2px #219d55;
+  box-shadow: inset 0 -2px #219d55;
+  box-shadow: 0px 0px 30px black;
+
+  transition: width 0.5s ease-in-out 0s, height 0.5s ease-in-out 0s, max-width 0.5s ease-in-out 0s;
+}
+
+.modal.center {
+  border-radius: 5px;
+  margin: 16px 16px 16px 16px;
+}
+
+.modal.right {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin: 16px 0px 16px 16px;
+}
+
+#menu.enabled {
+  max-width: 500px;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+}
+
+#menu.disabled {
+  max-width: 0px;
+  width: 0px;
+  height: calc(100% - 32px);
+}
+
+#infos.enabled {
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+}
+
+#infos.disabled {
+  width: 0px;
+  height: 0px;
+}
+
+#planet-infos.enabled {
+  width: calc(50% - 16px);
+  height: calc(100% - 32px);
+}
+
+#planet-infos.disabled {
+  width: 0px;
+  height: calc(100% - 32px);
+}
+
+.wrapper.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
+.wrapper.center.disabled {
+  visibility: hidden;
+  transition: visibility 0s 0.5s;
+}
+
+.wrapper.center.enabled {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+.wrapper.right{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
+.wrapper.right.disabled {
+  visibility: hidden;
+  transition: visibility 0s 0.5s;
+}
+
+.wrapper.right.enabled {
+  visibility: visible;
+  transition: visibility 0s;
+}
+
+.list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 5px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s 0.5s opacity;
+}
+
+.modal.enabled > .list {
+  visibility: visible;
+  opacity: 1;
+}
+
+.list-button {
+  margin: 5px;
+  height: 48px;
+  width: 100%;
+  max-width: 300px;
+  flex-grow: 1;
+
+  vertical-align: middle;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #27ae60;
+  border: 0;
+  border-bottom: 2px solid #219d55;
+
+  cursor: pointer;
+  transition: 0.5s background-color, 0.5s color;
+  -webkit-box-shadow: inset 0 -2px #219d55;
+  box-shadow: inset 0 -2px #219d55;
+  background-color: #27ae60;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 80px;
+  padding-right: 5px;
+  width: 100%;
+  height: 60px;
+  font-size: 22px;
+}
+
+.infos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  height: 60px;
+  font-size: 22px;
+}
+
+.close {
+  cursor: pointer;
+}
+
+/*
+ * Alizarin
+ * background: #e74c3c
+ * box-shadow and stuff: #db4334
+ */
+
 
 /* ANIMATIONS
 ==================================================*/
 
-@keyframes
-spin {
+@keyframes spin {
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
 }
 
-@keyframes
-float {
+@keyframes float {
 	0% {
 		-webkit-transform: translate(0, 10px);
 		transform: translate(0, 5px) rotate(30deg);
@@ -132,8 +327,7 @@ float {
 	}
 }
 
-@keyframes
-load {
+@keyframes load {
   0% {
     opacity: 0;
     visibility: hidden;

@@ -7,7 +7,12 @@ class Planets {
 		this.renderer = renderer;
 		this.depth = 0;
 
+		this.raycaster = new THREE.Raycaster();
+		this.mouse = new THREE.Vector2();
+
 		this.width = 16.285714285714285;
+
+		this.target = null;
 
 		let portrait = viewportIsPortrait();
 		let ratio = utils.ratio;
@@ -123,7 +128,7 @@ class Planets {
 
 		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
 		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
-		this.camera.top = 		this.width	* (portrait ? 1 		: ratio	);
+		this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
 		this.camera.bottom =	-this.width * (portrait ? 1 		: ratio	);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
@@ -159,10 +164,10 @@ class Planets {
 		this.rings.position.x = 5.5;
 		this.rings.rotation.reorder("ZYX");
 		this.rings.rotation.y = Math.PI * 1.45;
-		this.updateRingsRotation();
 		this.scene.add(this.rings);
 
 		this.rearrange();
+		this.updateRotations(viewportIsPortrait());
 		this.loaded = true;
 		this.onLoad();
 	}
@@ -174,6 +179,7 @@ class Planets {
 	}
 
 	lookAtAll() {
+		this.target = null;
 		let current =
 			{	top: 		this.camera.top
 			,	bottom: this.camera.bottom
@@ -217,13 +223,18 @@ class Planets {
 	}
 
 	lookAtPlanet(planet) {
+		if (planet == this.target) {
+			return;
+		}
+		this.target = planet;
 		planet.geometry.computeBoundingBox();
 		let box = planet.geometry.boundingBox;
 
 		let ratio = utils.ratio;
 		let portrait = viewportIsPortrait();
 
-		let max = box.max.x + (portrait ? 1 : 1);
+		/*let max = box.max.x + (portrait ? 1 : 1);*/
+		let max = 3 * box.max.x;
 		let min = box.min.x;
 
 		let current =
@@ -237,10 +248,10 @@ class Planets {
 
 		/* On sélectionne la cible finale du déplacement */
 		let target =
-			{	top:		max	/ (portrait ? ratio : 1			) - (portrait ? 0 : 0.5)
-			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : 0.5)
-			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? 0.5 : 0)
-			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? 0.5 : 0)
+			{	top:		max	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
+			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
+			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
+			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, x: 			planet.mesh.position.x
 			, angle:	(portrait ? 0 : -Math.PI / 2)
 			};
@@ -332,5 +343,54 @@ class Planets {
 			this.rings.rotation.z = current.z;
 		})
 		tween.start();
+	}
+
+	onClick(event) {
+		event.preventDefault();
+		/* On prépare et on lance un raycast */
+		this.raycaster.setFromCamera(this.mouse, this.camera);
+		let intersects = this.raycaster.intersectObjects(this.scene.children);
+
+		if (intersects.length > 0) {
+			let planetClicked = false;
+			let objectIndex = 0;
+			let hash = window.location.hash.substring(1);
+			if (hash == intersects[0].object.userData.object.name + "-open") {
+				window.history.back();
+			}
+			else if (hash == intersects[0].object.userData.object.name) {
+				window.location.hash = "#" + intersects[0].object.userData.object.name + "-open";
+				document.getElementById('planetName').innerHTML = intersects[0].object.userData.object.name;
+			}
+			else {
+				window.location.hash = "#" + intersects[0].object.userData.object.name;
+			}
+			//planets.lookAtPlanet(intersects[0].object.userData.object);
+		}
+	}
+
+	onMove(event) {
+		event.preventDefault();
+		this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+		this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+	}
+
+	onMouseDown(event) {
+
+	}
+
+	onMouseUp(event) {
+		this.onClick(event);
+	}
+
+	onTouchStart(event) {
+		this.previousX = event.touches[0].screenX;
+		this.previousY = event.touches[0].screenY;
+		this.mouse.x = this.previousX;
+		this.mouse.y = this.previousY;
+	}
+
+	onTouchEnd(event) {
+		this.onClick(event);
 	}
 }

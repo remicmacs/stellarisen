@@ -5,7 +5,9 @@ class SkySphere {
 		this.scene = scene;
 		this.camera = camera;
 		this.renderer = renderer;
+
 		this.dragging = false;
+		this.mousedown = false;
 
 		this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
 		this.camera.position.set(0, 0, 0);
@@ -76,66 +78,7 @@ class SkySphere {
 		this.previousClosestStar = undefined;
 		this.previousClosestStarScale = new THREE.Vector3();
 
-		document.addEventListener('mousemove', (event) => {
-			event.preventDefault();
-			this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-			this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-		}, false);
-
-		window.addEventListener('resize', () => { this.rearrange(); });
-
-		// Lorsqu'on appuie sur la souris, on bind la fonction onMouseDrag au mouvement de la souris
-		document.onmousedown = (event) => {
-			//document.onmousemove = onMouseDrag;
-			document.onmousemove = (event) => {
-				this.dragging = true;
-				this.yawObject.rotation.y += event.movementX * 0.01;
-				this.pitchObject.rotation.x += event.movementY * 0.01;
-
-				// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
-				this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-			}
-		}
-
-		// Lorsqu'on pose le doigt, on bind la fonction onMouseDrag au mouvement du doigt
-		document.ontouchstart = (event) => {
-			this.previousX = event.touches[0].screenX;
-			this.previousY = event.touches[0].screenY;
-			this.mouse.x = this.previousX;
-			this.mouse.y = this.previousY;
-			document.ontouchmove = (event) => {
-				if (event.touches.length == 1) {
-					this.dragging = true;
-					var deltaX = this.previousX - event.touches[0].screenX;
-					var deltaY = this.previousY - event.touches[0].screenY;
-					this.previousX = event.touches[0].screenX;
-					this.previousY = event.touches[0].screenY;
-					this.yawObject.rotation.y += -deltaX * 0.002;
-					this.pitchObject.rotation.x += -deltaY * 0.002;
-
-					// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
-					this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
-				}
-			}
-		}
-
-		// Lorsqu'on relâche la souris, on unbind
-		document.onmouseup = (event) => {
-			document.onmousemove = null;
-			if (!this.dragging) {
-				this.click(event);
-			}
-			this.dragging = false;
-		}
-
-		// Lorsqu'on relâche le doigt, on unbind
-		document.ontouchend = (event) => {
-			document.ontouchmove = null;
-			if (!this.dragging) {
-				this.click(event);
-			}
-			this.dragging = false;
-		}
+		window.addEventListener('resize', this.rearrange);
 	}
 
 
@@ -412,9 +355,6 @@ class SkySphere {
 			let material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
 			let mesh = new THREE.Mesh(geometry, material);
 			mesh.position.copy(cardinalsPositions[i]);
-			/*mesh.position.x = cardinalsPositions[i].x;
-			mesh.position.y = cardinalsPositions[i].y;
-			mesh.position.z = cardinalsPositions[i].z;*/
 			mesh.rotation.y = cardinalsAngles[i];
 			this.scene.add(mesh);
 		}
@@ -443,7 +383,55 @@ class SkySphere {
 		this.camera.updateProjectionMatrix();
 	}
 
-	click(event) {
+	lookAtStar(star) {
+		let angle = new THREE.Spherical();
+		angle.setFromCartesianCoords(
+			star.position.x,
+			star.position.y,
+			star.position.z
+		);
+		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
+		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+
+		let diffX = Math.abs(current.x - target.x);
+		let diffY = Math.abs(current.y - target.y);
+		let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		let max = Math.sqrt(2 * Math.pow(Math.PI, 2));
+		let time = (distance / max) * 3000;
+
+		let tween = new TWEEN.Tween(current)
+			.to(target, time)
+			.easing(TWEEN.Easing.Cubic.InOut);
+
+		tween.onUpdate(() => {
+			this.yawObject.rotation.y = current.x;
+		 	this.pitchObject.rotation.x = current.y;
+		});
+
+		tween.start();
+		this.visor.setTarget(star);
+	}
+
+	onMove(event) {
+		event.preventDefault();
+		this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+		this.mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+		if (this.mousedown) {
+			this.onDrag(event);
+		}
+	}
+
+	onDrag(event) {
+		this.dragging = true;
+		this.yawObject.rotation.y += event.movementX * 0.01;
+		this.pitchObject.rotation.x += event.movementY * 0.01;
+
+		// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
+		this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+	}
+
+	onClick(event) {
 		// find intersections
 		this.raycaster.setFromCamera(this.mouse, this.camera );
 		let intersects = this.raycaster.intersectObjects(this.scene.children);
@@ -461,7 +449,7 @@ class SkySphere {
 			let objectIndex = 0;
 
 			for (let i = 0; i < intersects.length; i++) {
-				if (intersects[i].object.userData["type"] == "star") {
+				/*if (intersects[i].object.userData["type"] == "star") {
 					objectIndex = i;
 					starClicked = true;
 					console.log("Star clicked !");
@@ -472,10 +460,36 @@ class SkySphere {
 					constellationClicked = true;
 					console.log("Constellation clicked !");
 					break;
-				}
+				}*/
 				if (intersects[i].object == this.visor.sprite) {
-					console.log("Visor clicked !");
-					alert(this.visor.star.meshName);
+					let hash = window.location.hash.substring(1);
+					window.location.hash = "#" + this.visor.star.meshName;
+					let star = this.visor.star;
+
+					let angle = new THREE.Spherical();
+					angle.setFromCartesianCoords(
+						star.position.x,
+						star.position.y,
+						star.position.z
+					);
+					let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
+					let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+
+					let diffX = Math.abs(current.x - target.x);
+					let diffY = Math.abs(current.y - target.y);
+					let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+					let max = Math.sqrt(2 * Math.pow(Math.PI, 2));
+					let time = (distance / max) * 3000;
+
+					setTimeout(() => {
+						window.location.hash = "#" + star.meshName + "-open";
+					}, time);
+					// enable('infos-wrapper');
+					// enable('infos');
+
+					let title = document.getElementById("objectName");
+					title.innerHTML= this.visor.star.meshName;
+					//alert(this.visor.star.meshName);
 					//window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
 				}
 			}
@@ -493,27 +507,42 @@ class SkySphere {
 		}
 	}
 
-	lookAtStar(star) {
-		let angle = new THREE.Spherical();
-		angle.setFromCartesianCoords(
-			star.position.x,
-			star.position.y,
-			star.position.z
-		);
-		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
-		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+	onMouseDown() {
+		this.mousedown = true;
+	}
 
-		let tween = new TWEEN.Tween(current)
-			.to(target, 3000)
-			.easing(TWEEN.Easing.Cubic.InOut);
+	onMouseUp(event) {
+		if (!this.dragging) {
+			this.onClick(event);
+		}
+		this.mousedown = false;
+		this.dragging = false;
+	}
 
-		tween.onUpdate(() => {
-			this.yawObject.rotation.y = current.x;
-		 	this.pitchObject.rotation.x = current.y;
-		});
+	onTouchStart(event) {
+		this.previousX = event.touches[0].screenX;
+		this.previousY = event.touches[0].screenY;
+		this.mouse.x = this.previousX;
+		this.mouse.y = this.previousY;
+	}
 
-		tween.start();
-		this.visor.setTarget(star);
+	onTouchEnd(event) {
+		this.onClick(event);
+	}
+
+	onFingerDrag(event) {
+		if (event.touches.length == 1) {
+			this.dragging = true;
+			var deltaX = this.previousX - event.touches[0].screenX;
+			var deltaY = this.previousY - event.touches[0].screenY;
+			this.previousX = event.touches[0].screenX;
+			this.previousY = event.touches[0].screenY;
+			this.yawObject.rotation.y += -deltaX * 0.002;
+			this.pitchObject.rotation.x += -deltaY * 0.002;
+
+			// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
+			this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+		}
 	}
 }
 
