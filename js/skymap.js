@@ -259,6 +259,8 @@ class SkySphere {
 						(x) => { return x / 255; })
 					)
 				,	line["proper"]
+				, line["dist"].valueOf()
+				, line["con"]
 				,	geometry
 				);
 
@@ -484,12 +486,13 @@ class SkySphere {
 					setTimeout(() => {
 						window.location.hash = "#" + star.meshName + "-open";
 					}, time);
-					// enable('infos-wrapper');
-					// enable('infos');
 
-					let title = document.getElementById("objectName");
-					title.innerHTML= this.visor.star.meshName;
-					//alert(this.visor.star.meshName);
+					setSpan("objectName", star.meshName);
+					setSpan("con-name", this.getConstellationName(star.constellation));
+					setSpan("star-distance", numeral(star.distance).format());
+
+					setImgSrc("star-picture", "http://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra=" + star.ra + "&de=" + star.dec + "&output=PNG")
+
 					//window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
 				}
 			}
@@ -543,6 +546,10 @@ class SkySphere {
 			// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
 			this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
 		}
+	}
+
+	getConstellationName(short) {
+		return this.linksJson[short]["name"];
 	}
 }
 

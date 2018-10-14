@@ -6,7 +6,7 @@ class Star {
 		this.colour = colour;
 		this.meshName = name;
 		this.distance = distance;
-		this.constellation = constellation
+		this.constellation = constellation;
 
 		//let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 		//geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
