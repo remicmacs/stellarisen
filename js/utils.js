@@ -32,23 +32,12 @@ function toggle(id) {
   }
 }
 
-/* Trouvée ici : https://stackoverflow.com/a/9609450 */
-var decodeEntities = (function() {
-  // this prevents any overhead from creating the object each time
-  var element = document.createElement('div');
+function setSpan(id, content) {
+  let dom = document.getElementById(id);
+  dom.innerHTML = content;
+}
 
-  function decodeHTMLEntities (str) {
-    if(str && typeof str === 'string') {
-      // strip script/html tags
-      str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-      element.innerHTML = str;
-      str = element.textContent;
-      element.textContent = '';
-    }
-
-    return str;
-  }
-
-  return decodeHTMLEntities;
-})();
+function setImgSrc(id, src) {
+  let dom = document.getElementById(id);
+  dom.src = src;
+}

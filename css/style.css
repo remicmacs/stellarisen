@@ -241,6 +241,21 @@ canvas {
   transition: 0.5s 0.5s opacity;
 }
 
+.line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+	width: 100%;
+}
+
+.column {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+	flex-direction: column;
+	width: 100%;
+}
+
 .modal.enabled > .list {
   visibility: visible;
   opacity: 1;

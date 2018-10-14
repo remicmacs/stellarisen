@@ -7,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.js"> </script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 		<script src="js/three.js"></script>
 		<script src="js/utils.js"></script>
 		<script src="js/DeviceOrientationControls.js"></script>
@@ -72,6 +73,21 @@
 						<div class="close" onclick="
 							window.history.back();
 						">&times;</div>
+					</div>
+
+					<div class="line">
+						<img src="http://placehold.jp/150x150.png" id="star-picture"/>
+
+						<div class="column">
+							<div>
+								Appartient à la constellation de <span id="con-name"></span>
+							</div>
+
+							<div>
+								Se situe à une distance de <span id="star-distance"></span> année-lumières
+							</div>
+						</div>
+
 					</div>
 
 				</div>

@@ -5,6 +5,8 @@
         "proper": "Alpheratz",
         "mag": "2.070",
         "spect": "B9p",
+        "dist": "29.7442",
+        "con": "And",
         "colour": "182 201 255"
     },
     "746": {
@@ -13,6 +15,8 @@
         "proper": "Caph",
         "mag": "2.280",
         "spect": "F2III-IV",
+        "dist": "16.7842",
+        "con": "Cas",
         "colour": "241 241 255"
     },
     "765": {
@@ -21,6 +25,8 @@
         "proper": "Eps Phe",
         "mag": "3.880",
         "spect": "K0III",
+        "dist": "44.2087",
+        "con": "Phe",
         "colour": "255 227 190"
     },
     "1067": {
@@ -29,6 +35,8 @@
         "proper": "Algenib",
         "mag": "2.830",
         "spect": "B2IV",
+        "dist": "120.0480",
+        "con": "Peg",
         "colour": "159 179 255"
     },
     "1562": {
@@ -37,6 +45,8 @@
         "proper": "8Iot Cet",
         "mag": "3.560",
         "spect": "K2III",
+        "dist": "84.1751",
+        "con": "Cet",
         "colour": "255 221 175"
     },
     "1599": {
@@ -45,6 +55,8 @@
         "proper": "Zet Tuc",
         "mag": "4.230",
         "spect": "F9V",
+        "dist": "8.5866",
+        "con": "Tuc",
         "colour": "255 247 252"
     },
     "1645": {
@@ -53,6 +65,8 @@
         "proper": "41    Psc",
         "mag": "5.380",
         "spect": "K3III",
+        "dist": "125.0000",
+        "con": "Psc",
         "colour": "255 216 167"
     },
     "2021": {
@@ -61,6 +75,8 @@
         "proper": "Bet Hyi",
         "mag": "2.820",
         "spect": "G2IV",
+        "dist": "7.4588",
+        "con": "Hyi",
         "colour": "255 244 242"
     },
     "2072": {
@@ -69,6 +85,8 @@
         "proper": "Kap Phe",
         "mag": "3.930",
         "spect": "A7V",
+        "dist": "23.8095",
+        "con": "Phe",
         "colour": "200 213 255"
     },
     "2081": {
@@ -77,6 +95,8 @@
         "proper": "Ankaa",
         "mag": "2.400",
         "spect": "K0III...",
+        "dist": "25.9740",
+        "con": "Phe",
         "colour": "255 227 190"
     },
     "2484": {
@@ -85,6 +105,8 @@
         "proper": "Bet1Tuc",
         "mag": "4.360",
         "spect": "B9V",
+        "dist": "41.4079",
+        "con": "Tuc",
         "colour": "181 198 255"
     },
     "3092": {
@@ -93,6 +115,8 @@
         "proper": "31Del And",
         "mag": "3.270",
         "spect": "K3III...",
+        "dist": "32.3520",
+        "con": "And",
         "colour": "255 216 167"
     },
     "3179": {
@@ -101,6 +125,8 @@
         "proper": "Shedir",
         "mag": "2.240",
         "spect": "K0II-IIIvar",
+        "dist": "69.9790",
+        "con": "Cas",
         "colour": "255 226 180"
     },
     "3419": {
@@ -109,6 +135,8 @@
         "proper": "Diphda",
         "mag": "2.040",
         "spect": "K0III",
+        "dist": "29.5334",
+        "con": "Cet",
         "colour": "255 227 190"
     },
     "3760": {
@@ -117,6 +145,8 @@
         "proper": "62    Psc",
         "mag": "5.920",
         "spect": "G8III",
+        "dist": "177.6199",
+        "con": "Psc",
         "colour": "255 231 199"
     },
     "3881": {
@@ -125,6 +155,8 @@
         "proper": "35Nu  And",
         "mag": "4.530",
         "spect": "B5V SB",
+        "dist": "189.3939",
+        "con": "And",
         "colour": "170 191 255"
     },
     "4427": {
@@ -133,6 +165,8 @@
         "proper": "Cih",
         "mag": "2.150",
         "spect": "B0IV:evar",
+        "dist": "168.3502",
+        "con": "Cas",
         "colour": "156 179 255"
     },
     "4436": {
@@ -141,6 +175,8 @@
         "proper": "37Mu  And",
         "mag": "3.860",
         "spect": "A5V",
+        "dist": "39.7772",
+        "con": "And",
         "colour": "202 215 255"
     },
     "4577": {
@@ -149,6 +185,8 @@
         "proper": "Alp Scl",
         "mag": "4.300",
         "spect": "B7IIIp",
+        "dist": "238.0952",
+        "con": "Scl",
         "colour": "171 191 255"
     },
     "4889": {
@@ -157,6 +195,8 @@
         "proper": "69Sig Psc",
         "mag": "5.500",
         "spect": "B9.5V",
+        "dist": "132.9787",
+        "con": "Psc",
         "colour": "182 201 255"
     },
     "4906": {
@@ -165,6 +205,8 @@
         "proper": "71Eps Psc",
         "mag": "4.270",
         "spect": "K0III",
+        "dist": "55.7414",
+        "con": "Psc",
         "colour": "255 227 190"
     },
     "5165": {
@@ -173,6 +215,8 @@
         "proper": "Bet Phe",
         "mag": "3.320",
         "spect": "G8IIIvar",
+        "dist": "100000.0000",
+        "con": "Phe",
         "colour": "255 231 199"
     },
     "5348": {
@@ -181,6 +225,8 @@
         "proper": "Zet Phe",
         "mag": "3.940",
         "spect": "B6V + B0V",
+        "dist": "91.5751",
+        "con": "Phe",
         "colour": "172 189 255"
     },
     "5364": {
@@ -189,6 +235,8 @@
         "proper": "31Eta Cet",
         "mag": "3.460",
         "spect": "K2III",
+        "dist": "37.9939",
+        "con": "Cet",
         "colour": "255 221 175"
     },
     "5447": {
@@ -197,6 +245,8 @@
         "proper": "Mirach",
         "mag": "2.070",
         "spect": "M0IIIvar",
+        "dist": "60.5327",
+        "con": "And",
         "colour": "255 203 132"
     },
     "5742": {
@@ -205,6 +255,8 @@
         "proper": "85Phi Psc",
         "mag": "4.670",
         "spect": "K0III...",
+        "dist": "136.7989",
+        "con": "Psc",
         "colour": "255 227 190"
     },
     "6193": {
@@ -213,6 +265,8 @@
         "proper": "90Ups Psc",
         "mag": "4.740",
         "spect": "A3V",
+        "dist": "94.4287",
+        "con": "Psc",
         "colour": "191 207 255"
     },
     "6537": {
@@ -221,6 +275,8 @@
         "proper": "45The Cet",
         "mag": "3.600",
         "spect": "K0III",
+        "dist": "34.8918",
+        "con": "Cet",
         "colour": "255 227 190"
     },
     "6686": {
@@ -229,6 +285,8 @@
         "proper": "Ruchbah",
         "mag": "2.660",
         "spect": "A5Vv SB",
+        "dist": "30.4785",
+        "con": "Cas",
         "colour": "202 215 255"
     },
     "6867": {
@@ -237,6 +295,8 @@
         "proper": "Gam Phe",
         "mag": "3.410",
         "spect": "K5II-III",
+        "dist": "71.6332",
+        "con": "Phe",
         "colour": "255 216 156"
     },
     "7007": {
@@ -245,6 +305,8 @@
         "proper": "98Mu  Psc",
         "mag": "4.840",
         "spect": "K4III",
+        "dist": "93.1966",
+        "con": "Psc",
         "colour": "255 211 146"
     },
     "7083": {
@@ -253,6 +315,8 @@
         "proper": "Del Phe",
         "mag": "3.930",
         "spect": "K0III-IV",
+        "dist": "43.5730",
+        "con": "Phe",
         "colour": "255 227 190"
     },
     "7097": {
@@ -261,6 +325,8 @@
         "proper": "99Eta Psc",
         "mag": "3.620",
         "spect": "G8III",
+        "dist": "107.1811",
+        "con": "Psc",
         "colour": "255 231 199"
     },
     "7588": {
@@ -269,6 +335,8 @@
         "proper": "Achernar",
         "mag": "0.450",
         "spect": "B3Vp",
+        "dist": "42.7533",
+        "con": "Eri",
         "colour": "165 185 255"
     },
     "7884": {
@@ -277,6 +345,8 @@
         "proper": "106Nu  Psc",
         "mag": "4.450",
         "spect": "K3III",
+        "dist": "111.3586",
+        "con": "Psc",
         "colour": "255 216 167"
     },
     "8102": {
@@ -285,6 +355,8 @@
         "proper": "52Tau Cet",
         "mag": "3.490",
         "spect": "G8V",
+        "dist": "3.6502",
+        "con": "Cet",
         "colour": "255 237 222"
     },
     "8198": {
@@ -293,6 +365,8 @@
         "proper": "110Omi Psc",
         "mag": "4.260",
         "spect": "K0III",
+        "dist": "85.6898",
+        "con": "Psc",
         "colour": "255 227 190"
     },
     "8645": {
@@ -301,6 +375,8 @@
         "proper": "55Zet Cet",
         "mag": "3.740",
         "spect": "K2III",
+        "dist": "72.0461",
+        "con": "Cet",
         "colour": "255 221 175"
     },
     "8796": {
@@ -309,6 +385,8 @@
         "proper": "2Alp Tri",
         "mag": "3.420",
         "spect": "F6IV",
+        "dist": "19.4175",
+        "con": "Tri",
         "colour": "241 239 255"
     },
     "8832": {
@@ -317,6 +395,8 @@
         "proper": "5Gam2Ari",
         "mag": "3.880",
         "spect": "A1p Si",
+        "dist": "50.3018",
+        "con": "Ari",
         "colour": "186 204 255"
     },
     "8833": {
@@ -325,6 +405,8 @@
         "proper": "111Xi  Psc",
         "mag": "4.610",
         "spect": "K0III SB",
+        "dist": "54.9149",
+        "con": "Psc",
         "colour": "255 227 190"
     },
     "8837": {
@@ -333,6 +415,8 @@
         "proper": "Psi Phe",
         "mag": "4.390",
         "spect": "M4III SB",
+        "dist": "104.8218",
+        "con": "Phe",
         "colour": "255 206 127"
     },
     "8886": {
@@ -341,6 +425,8 @@
         "proper": "45Eps Cas",
         "mag": "3.350",
         "spect": "B2pvar",
+        "dist": "126.2626",
+        "con": "Cas",
         "colour": "165 192 255"
     },
     "8903": {
@@ -349,6 +435,8 @@
         "proper": "Sheratan",
         "mag": "2.640",
         "spect": "A5V...",
+        "dist": "17.9856",
+        "con": "Ari",
         "colour": "202 215 255"
     },
     "9007": {
@@ -357,6 +445,8 @@
         "proper": "Chi Eri",
         "mag": "3.690",
         "spect": "G5IV",
+        "dist": "17.8508",
+        "con": "Eri",
         "colour": "255 235 213"
     },
     "9236": {
@@ -365,6 +455,8 @@
         "proper": "Alp Hyi",
         "mag": "2.860",
         "spect": "F0V",
+        "dist": "22.0119",
+        "con": "Hyi",
         "colour": "224 229 255"
     },
     "9487": {
@@ -373,6 +465,8 @@
         "proper": "113Alp Psc",
         "mag": "3.820",
         "spect": "A2",
+        "dist": "46.1681",
+        "con": "Psc",
         "colour": "188 205 255"
     },
     "9640": {
@@ -381,6 +475,8 @@
         "proper": "Almaak",
         "mag": "2.100",
         "spect": "B8V",
+        "dist": "120.4819",
+        "con": "And",
         "colour": "177 195 255"
     },
     "9884": {
@@ -389,6 +485,8 @@
         "proper": "Hamal",
         "mag": "2.010",
         "spect": "K2III",
+        "dist": "20.1776",
+        "con": "Ari",
         "colour": "255 221 175"
     },
     "10064": {
@@ -397,6 +495,8 @@
         "proper": "4Bet Tri",
         "mag": "3.000",
         "spect": "A5III",
+        "dist": "38.8954",
+        "con": "Tri",
         "colour": "202 215 255"
     },
     "10324": {
@@ -405,6 +505,8 @@
         "proper": "65Xi 1Cet",
         "mag": "4.360",
         "spect": "G8II:",
+        "dist": "117.5088",
+        "con": "Cet",
         "colour": "255 229 189"
     },
     "10602": {
@@ -413,6 +515,8 @@
         "proper": "Phi Eri",
         "mag": "3.560",
         "spect": "B8IV-V",
+        "dist": "47.1254",
+        "con": "Eri",
         "colour": "175 193 255"
     },
     "10670": {
@@ -421,6 +525,8 @@
         "proper": "9Gam Tri",
         "mag": "4.030",
         "spect": "A1Vnn",
+        "dist": "34.4353",
+        "con": "Tri",
         "colour": "181 199 255"
     },
     "10826": {
@@ -429,6 +535,8 @@
         "proper": "Mira",
         "mag": "6.470",
         "spect": "M5e-M9e",
+        "dist": "91.6590",
+        "con": "Cet",
         "colour": "255 197 110"
     },
     "11001": {
@@ -437,6 +545,8 @@
         "proper": "Del Hyi",
         "mag": "4.080",
         "spect": "A3V",
+        "dist": "42.8266",
+        "con": "Hyi",
         "colour": "191 207 255"
     },
     "11345": {
@@ -445,6 +555,8 @@
         "proper": "72Rho Cet",
         "mag": "4.880",
         "spect": "A0V",
+        "dist": "139.8601",
+        "con": "Cet",
         "colour": "185 201 255"
     },
     "11407": {
@@ -453,6 +565,8 @@
         "proper": "Kap Eri",
         "mag": "4.240",
         "spect": "B5IV",
+        "dist": "155.7632",
+        "con": "Eri",
         "colour": "172 192 255"
     },
     "11484": {
@@ -461,6 +575,8 @@
         "proper": "73Xi 2Cet",
         "mag": "4.300",
         "spect": "B9III",
+        "dist": "59.2066",
+        "con": "Cet",
         "colour": "178 195 255"
     },
     "11767": {
@@ -469,6 +585,8 @@
         "proper": "Polaris",
         "mag": "1.970",
         "spect": "F7:Ib-IIv SB",
+        "dist": "132.6260",
+        "con": "UMi",
         "colour": "255 250 251"
     },
     "11783": {
@@ -477,6 +595,8 @@
         "proper": "76Sig Cet",
         "mag": "4.740",
         "spect": "F5V",
+        "dist": "26.6951",
+        "con": "Cet",
         "colour": "248 247 255"
     },
     "12093": {
@@ -485,6 +605,8 @@
         "proper": "78Nu  Cet",
         "mag": "4.870",
         "spect": "G8III",
+        "dist": "104.2753",
+        "con": "Cet",
         "colour": "255 231 199"
     },
     "12387": {
@@ -493,6 +615,8 @@
         "proper": "82Del Cet",
         "mag": "4.080",
         "spect": "B2IV",
+        "dist": "199.2032",
+        "con": "Cet",
         "colour": "159 179 255"
     },
     "12390": {
@@ -501,6 +625,8 @@
         "proper": "83Eps Cet",
         "mag": "4.830",
         "spect": "F5V",
+        "dist": "21.4823",
+        "con": "Cet",
         "colour": "248 247 255"
     },
     "12394": {
@@ -509,6 +635,8 @@
         "proper": "Eps Hyi",
         "mag": "4.120",
         "spect": "B9III",
+        "dist": "46.5549",
+        "con": "Hyi",
         "colour": "178 195 255"
     },
     "12413": {
@@ -517,6 +645,8 @@
         "proper": "HIP 12413",
         "mag": "4.740",
         "spect": "A2V",
+        "dist": "35.6888",
+        "con": "Eri",
         "colour": "187 203 255"
     },
     "12484": {
@@ -525,6 +655,8 @@
         "proper": "Zet Hor",
         "mag": "5.210",
         "spect": "F4IV",
+        "dist": "49.0918",
+        "con": "Hor",
         "colour": "234 235 255"
     },
     "12486": {
@@ -533,6 +665,8 @@
         "proper": "Iot Eri",
         "mag": "4.110",
         "spect": "K0III",
+        "dist": "46.1894",
+        "con": "Eri",
         "colour": "255 227 190"
     },
     "12706": {
@@ -541,6 +675,8 @@
         "proper": "86Gam Cet",
         "mag": "3.470",
         "spect": "A3V",
+        "dist": "24.4081",
+        "con": "Cet",
         "colour": "191 207 255"
     },
     "12770": {
@@ -549,6 +685,8 @@
         "proper": "89Pi  Cet",
         "mag": "4.240",
         "spect": "B7IV",
+        "dist": "120.4819",
+        "con": "Cet",
         "colour": "170 189 255"
     },
     "12828": {
@@ -557,6 +695,8 @@
         "proper": "87Mu  Cet",
         "mag": "4.270",
         "spect": "F1III-IV",
+        "dist": "25.7732",
+        "con": "Cet",
         "colour": "227 232 255"
     },
     "12843": {
@@ -565,6 +705,8 @@
         "proper": "1Tau1Eri",
         "mag": "4.470",
         "spect": "F5/F6V",
+        "dist": "14.2207",
+        "con": "Eri",
         "colour": "247 242 255"
     },
     "13147": {
@@ -573,6 +715,8 @@
         "proper": "Bet For",
         "mag": "4.450",
         "spect": "G8III",
+        "dist": "52.9381",
+        "con": "For",
         "colour": "255 231 199"
     },
     "13209": {
@@ -581,6 +725,8 @@
         "proper": "41    Ari",
         "mag": "3.610",
         "spect": "B8Vn",
+        "dist": "50.7872",
+        "con": "Ari",
         "colour": "177 195 255"
     },
     "13254": {
@@ -589,6 +735,8 @@
         "proper": "16    Per",
         "mag": "4.220",
         "spect": "F2III",
+        "dist": "37.0233",
+        "con": "Per",
         "colour": "241 241 255"
     },
     "13268": {
@@ -597,6 +745,8 @@
         "proper": "15Eta Per",
         "mag": "3.770",
         "spect": "K3Ib comp SB",
+        "dist": "269.5418",
+        "con": "Per",
         "colour": "255 204 128"
     },
     "13701": {
@@ -605,6 +755,8 @@
         "proper": "3Eta Eri",
         "mag": "3.890",
         "spect": "K1III-IV",
+        "dist": "41.8585",
+        "con": "Eri",
         "colour": "255 223 181"
     },
     "13847": {
@@ -613,6 +765,8 @@
         "proper": "Acamar",
         "mag": "2.880",
         "spect": "A4III+...",
+        "dist": "49.4315",
+        "con": "Eri",
         "colour": "196 209 255"
     },
     "13954": {
@@ -621,6 +775,8 @@
         "proper": "91Lam Cet",
         "mag": "4.710",
         "spect": "B6III",
+        "dist": "176.6784",
+        "con": "Cet",
         "colour": "170 190 255"
     },
     "14135": {
@@ -629,6 +785,8 @@
         "proper": "Menkar",
         "mag": "2.540",
         "spect": "M2III",
+        "dist": "76.3942",
+        "con": "Cet",
         "colour": "255 198 118"
     },
     "14146": {
@@ -637,6 +795,8 @@
         "proper": "11Tau3Eri",
         "mag": "4.080",
         "spect": "A4V",
+        "dist": "27.1739",
+        "con": "Eri",
         "colour": "197 211 255"
     },
     "14240": {
@@ -645,6 +805,8 @@
         "proper": "Mu  Hor",
         "mag": "5.120",
         "spect": "F0IV",
+        "dist": "43.4028",
+        "con": "Hor",
         "colour": "218 224 255"
     },
     "14328": {
@@ -653,6 +815,8 @@
         "proper": "23Gam Per",
         "mag": "2.910",
         "spect": "G8III+...",
+        "dist": "74.5712",
+        "con": "Per",
         "colour": "255 231 199"
     },
     "14354": {
@@ -661,6 +825,8 @@
         "proper": "25Rho Per",
         "mag": "3.320",
         "spect": "M3IIIvar",
+        "dist": "94.3396",
+        "con": "Per",
         "colour": "255 200 119"
     },
     "14576": {
@@ -669,6 +835,8 @@
         "proper": "Algol",
         "mag": "2.090",
         "spect": "B8V",
+        "dist": "27.5710",
+        "con": "Per",
         "colour": "177 195 255"
     },
     "14879": {
@@ -677,6 +845,8 @@
         "proper": "Alp For",
         "mag": "3.800",
         "spect": "F8V",
+        "dist": "14.2369",
+        "con": "For",
         "colour": "255 247 252"
     },
     "15197": {
@@ -685,6 +855,8 @@
         "proper": "13Zet Eri",
         "mag": "4.800",
         "spect": "A5m",
+        "dist": "33.6474",
+        "con": "Eri",
         "colour": "194 210 255"
     },
     "15474": {
@@ -693,6 +865,8 @@
         "proper": "16Tau4Eri",
         "mag": "3.700",
         "spect": "M3/M4III",
+        "dist": "93.3707",
+        "con": "Eri",
         "colour": "255 201 119"
     },
     "15510": {
@@ -701,6 +875,8 @@
         "proper": "82 G. Eri",
         "mag": "4.260",
         "spect": "G8V",
+        "dist": "6.0434",
+        "con": "Eri",
         "colour": "255 237 222"
     },
     "15863": {
@@ -709,6 +885,8 @@
         "proper": "Mirphak",
         "mag": "1.790",
         "spect": "F5Ib",
+        "dist": "155.2795",
+        "con": "Per",
         "colour": "219 225 255"
     },
     "15900": {
@@ -717,6 +895,8 @@
         "proper": "1Omi Tau",
         "mag": "3.610",
         "spect": "G8III",
+        "dist": "89.2061",
+        "con": "Tau",
         "colour": "255 231 199"
     },
     "16228": {
@@ -725,6 +905,8 @@
         "proper": "HIP 16228",
         "mag": "4.210",
         "spect": "B9Ia",
+        "dist": "595.2381",
+        "con": "Cam",
         "colour": "204 216 255"
     },
     "16537": {
@@ -733,6 +915,8 @@
         "proper": "18Eps Eri",
         "mag": "3.720",
         "spect": "K2V",
+        "dist": "3.2161",
+        "con": "Eri",
         "colour": "255 227 196"
     },
     "16611": {
@@ -741,6 +925,8 @@
         "proper": "19Tau5Eri",
         "mag": "4.260",
         "spect": "B9V",
+        "dist": "89.9281",
+        "con": "Eri",
         "colour": "181 198 255"
     },
     "17358": {
@@ -749,6 +935,8 @@
         "proper": "39Del Per",
         "mag": "3.010",
         "spect": "B5III SB",
+        "dist": "158.2278",
+        "con": "Per",
         "colour": "168 189 255"
     },
     "17378": {
@@ -757,6 +945,8 @@
         "proper": "23Del Eri",
         "mag": "3.520",
         "spect": "K0IV",
+        "dist": "9.0408",
+        "con": "Eri",
         "colour": "255 225 189"
     },
     "17440": {
@@ -765,6 +955,8 @@
         "proper": "Bet Ret",
         "mag": "3.840",
         "spect": "K0IV SB",
+        "dist": "29.8597",
+        "con": "Ret",
         "colour": "255 225 189"
     },
     "17448": {
@@ -773,6 +965,8 @@
         "proper": "38Omi Per",
         "mag": "3.840",
         "spect": "B1III",
+        "dist": "343.6426",
+        "con": "Per",
         "colour": "158 177 255"
     },
     "17651": {
@@ -781,6 +975,8 @@
         "proper": "27Tau6Eri",
         "mag": "4.220",
         "spect": "F3/F5V",
+        "dist": "17.6274",
+        "con": "Eri",
         "colour": "235 237 255"
     },
     "17678": {
@@ -789,6 +985,8 @@
         "proper": "Gam Hyi",
         "mag": "3.260",
         "spect": "M2III",
+        "dist": "65.6168",
+        "con": "Hyi",
         "colour": "255 198 118"
     },
     "17797": {
@@ -797,6 +995,8 @@
         "proper": "HIP 17797",
         "mag": "4.300",
         "spect": "A+...",
+        "dist": "50.7357",
+        "con": "Eri",
         "colour": "192 208 255"
     },
     "17847": {
@@ -805,6 +1005,8 @@
         "proper": "27    Tau",
         "mag": "3.620",
         "spect": "B8III",
+        "dist": "117.2333",
+        "con": "Tau",
         "colour": "175 193 255"
     },
     "17874": {
@@ -813,6 +1015,8 @@
         "proper": "HIP 17874",
         "mag": "4.170",
         "spect": "G8III",
+        "dist": "64.3501",
+        "con": "Eri",
         "colour": "255 231 199"
     },
     "17959": {
@@ -821,6 +1025,8 @@
         "proper": "Gam Cam",
         "mag": "4.590",
         "spect": "A2IVn",
+        "dist": "110.0110",
+        "con": "Cam",
         "colour": "186 202 255"
     },
     "18246": {
@@ -829,6 +1035,8 @@
         "proper": "44Zet Per",
         "mag": "2.840",
         "spect": "B1Ib",
+        "dist": "230.4147",
+        "con": "Per",
         "colour": "168 193 255"
     },
     "18505": {
@@ -837,6 +1045,8 @@
         "proper": "HIP 18505",
         "mag": "4.950",
         "spect": "B9.5V",
+        "dist": "110.6195",
+        "con": "Cam",
         "colour": "182 201 255"
     },
     "18532": {
@@ -845,6 +1055,8 @@
         "proper": "45Eps Per",
         "mag": "2.900",
         "spect": "B0.5V",
+        "dist": "195.6947",
+        "con": "Per",
         "colour": "162 188 255"
     },
     "18597": {
@@ -853,6 +1065,8 @@
         "proper": "Del Ret",
         "mag": "4.560",
         "spect": "M2III",
+        "dist": "161.2903",
+        "con": "Ret",
         "colour": "255 198 118"
     },
     "18614": {
@@ -861,6 +1075,8 @@
         "proper": "46Xi  Per",
         "mag": "3.980",
         "spect": "O7.5Iab:",
+        "dist": "381.6794",
+        "con": "Per",
         "colour": "156 181 255"
     },
     "18724": {
@@ -869,6 +1085,8 @@
         "proper": "35Lam Tau",
         "mag": "3.410",
         "spect": "B3V + A",
+        "dist": "148.3680",
+        "con": "Tau",
         "colour": "165 185 255"
     },
     "19747": {
@@ -877,6 +1095,8 @@
         "proper": "Alp Hor",
         "mag": "3.850",
         "spect": "K1III",
+        "dist": "35.2609",
+        "con": "Hor",
         "colour": "255 223 181"
     },
     "19780": {
@@ -885,6 +1105,8 @@
         "proper": "Alp Ret",
         "mag": "3.330",
         "spect": "G7III",
+        "dist": "49.5540",
+        "con": "Ret",
         "colour": "255 234 207"
     },
     "19893": {
@@ -893,6 +1115,8 @@
         "proper": "Gam Dor",
         "mag": "4.260",
         "spect": "F4III",
+        "dist": "20.4625",
+        "con": "Dor",
         "colour": "241 240 255"
     },
     "19921": {
@@ -901,6 +1125,8 @@
         "proper": "Eps Ret",
         "mag": "4.440",
         "spect": "K2IV",
+        "dist": "18.2382",
+        "con": "Ret",
         "colour": "255 229 202"
     },
     "20042": {
@@ -909,6 +1135,8 @@
         "proper": "41Ups4Eri",
         "mag": "3.550",
         "spect": "B9V",
+        "dist": "54.5554",
+        "con": "Eri",
         "colour": "181 198 255"
     },
     "20205": {
@@ -917,6 +1145,8 @@
         "proper": "54Gam Tau",
         "mag": "3.650",
         "spect": "G8III",
+        "dist": "49.5295",
+        "con": "Tau",
         "colour": "255 231 199"
     },
     "20455": {
@@ -925,6 +1155,8 @@
         "proper": "61Del1Tau",
         "mag": "3.770",
         "spect": "G8III",
+        "dist": "47.7099",
+        "con": "Tau",
         "colour": "255 231 199"
     },
     "20535": {
@@ -933,6 +1165,8 @@
         "proper": "43    Eri",
         "mag": "3.970",
         "spect": "K4III",
+        "dist": "90.8265",
+        "con": "Eri",
         "colour": "255 211 146"
     },
     "20648": {
@@ -941,6 +1175,8 @@
         "proper": "68Del3Tau",
         "mag": "4.300",
         "spect": "A2IV",
+        "dist": "45.5373",
+        "con": "Tau",
         "colour": "186 202 255"
     },
     "20889": {
@@ -949,6 +1185,8 @@
         "proper": "74Eps Tau",
         "mag": "3.530",
         "spect": "K0III",
+        "dist": "44.9640",
+        "con": "Tau",
         "colour": "255 227 190"
     },
     "20894": {
@@ -957,6 +1195,8 @@
         "proper": "78The2Tau",
         "mag": "3.400",
         "spect": "A7III",
+        "dist": "46.1042",
+        "con": "Tau",
         "colour": "210 219 255"
     },
     "21060": {
@@ -965,6 +1205,8 @@
         "proper": "Del Cae",
         "mag": "5.070",
         "spect": "B2IV-V",
+        "dist": "215.9827",
+        "con": "Cae",
         "colour": "159 179 255"
     },
     "21281": {
@@ -973,6 +1215,8 @@
         "proper": "Alp Dor",
         "mag": "3.300",
         "spect": "A0V:",
+        "dist": "51.7063",
+        "con": "Dor",
         "colour": "185 201 255"
     },
     "21393": {
@@ -981,6 +1225,8 @@
         "proper": "52Ups2Eri",
         "mag": "3.810",
         "spect": "G8III",
+        "dist": "65.5738",
+        "con": "Eri",
         "colour": "255 231 199"
     },
     "21421": {
@@ -989,6 +1235,8 @@
         "proper": "Aldebaran",
         "mag": "0.870",
         "spect": "K5III",
+        "dist": "20.4332",
+        "con": "Tau",
         "colour": "255 204 138"
     },
     "21444": {
@@ -997,6 +1245,8 @@
         "proper": "48Nu  Eri",
         "mag": "3.930",
         "spect": "B2III SB",
+        "dist": "207.0393",
+        "con": "Eri",
         "colour": "159 180 255"
     },
     "21594": {
@@ -1005,6 +1255,8 @@
         "proper": "53    Eri",
         "mag": "3.860",
         "spect": "K1III",
+        "dist": "33.6814",
+        "con": "Eri",
         "colour": "255 223 181"
     },
     "21770": {
@@ -1013,6 +1265,8 @@
         "proper": "Alp Cae",
         "mag": "4.440",
         "spect": "F2V",
+        "dist": "20.1654",
+        "con": "Cae",
         "colour": "236 239 255"
     },
     "21861": {
@@ -1021,6 +1275,8 @@
         "proper": "Bet Cae",
         "mag": "5.040",
         "spect": "F3V",
+        "dist": "28.6697",
+        "con": "Cae",
         "colour": "230 233 255"
     },
     "21881": {
@@ -1029,6 +1285,8 @@
         "proper": "94Tau Tau",
         "mag": "4.270",
         "spect": "B3V",
+        "dist": "122.1001",
+        "con": "Tau",
         "colour": "165 185 255"
     },
     "21949": {
@@ -1037,6 +1295,8 @@
         "proper": "Mu  Men",
         "mag": "5.530",
         "spect": "B9IV",
+        "dist": "150.6024",
+        "con": "Men",
         "colour": "180 197 255"
     },
     "22109": {
@@ -1045,6 +1305,8 @@
         "proper": "57Mu  Eri",
         "mag": "4.010",
         "spect": "B5IV",
+        "dist": "160.0000",
+        "con": "Eri",
         "colour": "172 192 255"
     },
     "22449": {
@@ -1053,6 +1315,8 @@
         "proper": "1Pi 3Ori",
         "mag": "3.190",
         "spect": "F6V",
+        "dist": "8.0684",
+        "con": "Ori",
         "colour": "244 241 255"
     },
     "22509": {
@@ -1061,6 +1325,8 @@
         "proper": "2Pi 2Ori",
         "mag": "4.350",
         "spect": "A1Vn",
+        "dist": "68.8231",
+        "con": "Ori",
         "colour": "181 199 255"
     },
     "22549": {
@@ -1069,6 +1335,8 @@
         "proper": "3Pi 4Ori",
         "mag": "3.680",
         "spect": "B2III SB",
+        "dist": "322.5806",
+        "con": "Ori",
         "colour": "159 180 255"
     },
     "22701": {
@@ -1077,6 +1345,8 @@
         "proper": "61Ome Eri",
         "mag": "4.360",
         "spect": "A9IV",
+        "dist": "72.0461",
+        "con": "Eri",
         "colour": "224 227 255"
     },
     "22730": {
@@ -1085,6 +1355,8 @@
         "proper": "5    Ori",
         "mag": "5.330",
         "spect": "M1III",
+        "dist": "181.1594",
+        "con": "Ori",
         "colour": "255 200 121"
     },
     "22783": {
@@ -1093,6 +1365,8 @@
         "proper": "9Alp Cam",
         "mag": "4.260",
         "spect": "O9.5Ia SB:",
+        "dist": "100000.0000",
+        "con": "Cam",
         "colour": "160 186 255"
     },
     "22845": {
@@ -1101,6 +1375,8 @@
         "proper": "7Pi 1Ori",
         "mag": "4.640",
         "spect": "A0V",
+        "dist": "35.6633",
+        "con": "Ori",
         "colour": "185 201 255"
     },
     "23015": {
@@ -1109,6 +1385,8 @@
         "proper": "Hassaleh",
         "mag": "2.690",
         "spect": "K3IIvar",
+        "dist": "151.2859",
+        "con": "Aur",
         "colour": "255 220 166"
     },
     "23123": {
@@ -1117,6 +1395,8 @@
         "proper": "10Pi 6Ori",
         "mag": "4.470",
         "spect": "K2IIvar",
+        "dist": "289.8551",
+        "con": "Ori",
         "colour": "255 222 170"
     },
     "23453": {
@@ -1125,6 +1405,8 @@
         "proper": "8Zet Aur",
         "mag": "3.690",
         "spect": "K4II comp",
+        "dist": "240.9639",
+        "con": "Aur",
         "colour": "255 218 161"
     },
     "23685": {
@@ -1133,6 +1415,8 @@
         "proper": "2Eps Lep",
         "mag": "3.190",
         "spect": "K4III",
+        "dist": "65.4022",
+        "con": "Lep",
         "colour": "255 211 146"
     },
     "23875": {
@@ -1141,6 +1425,8 @@
         "proper": "Cursa",
         "mag": "2.780",
         "spect": "A3IIIvar",
+        "dist": "27.3973",
+        "con": "Eri",
         "colour": "189 203 255"
     },
     "23972": {
@@ -1149,6 +1435,8 @@
         "proper": "69Lam Eri",
         "mag": "4.250",
         "spect": "B2IVn",
+        "dist": "248.7562",
+        "con": "Eri",
         "colour": "159 179 255"
     },
     "24244": {
@@ -1157,6 +1445,8 @@
         "proper": "3Iot Lep",
         "mag": "4.450",
         "spect": "B8V",
+        "dist": "71.0732",
+        "con": "Lep",
         "colour": "177 195 255"
     },
     "24305": {
@@ -1165,6 +1455,8 @@
         "proper": "5Mu  Lep",
         "mag": "3.290",
         "spect": "B9IV: HgMn",
+        "dist": "57.0125",
+        "con": "Lep",
         "colour": "180 197 255"
     },
     "24327": {
@@ -1173,6 +1465,8 @@
         "proper": "4Kap Lep",
         "mag": "4.360",
         "spect": "B7V",
+        "dist": "223.2143",
+        "con": "Lep",
         "colour": "173 191 255"
     },
     "24436": {
@@ -1181,6 +1475,8 @@
         "proper": "Rigel",
         "mag": "0.180",
         "spect": "B8Ia",
+        "dist": "264.5503",
+        "con": "Ori",
         "colour": "182 206 255"
     },
     "24608": {
@@ -1189,6 +1485,8 @@
         "proper": "Capella",
         "mag": "0.080",
         "spect": "M1: comp",
+        "dist": "13.1234",
+        "con": "Aur",
         "colour": "255 205 128"
     },
     "24845": {
@@ -1197,6 +1495,8 @@
         "proper": "6Lam Lep",
         "mag": "4.290",
         "spect": "B0.5IV",
+        "dist": "261.0966",
+        "con": "Lep",
         "colour": "162 188 255"
     },
     "24873": {
@@ -1205,6 +1505,8 @@
         "proper": "7Nu  Lep",
         "mag": "5.290",
         "spect": "B7/B8V",
+        "dist": "102.2495",
+        "con": "Lep",
         "colour": "179 198 255"
     },
     "25110": {
@@ -1213,6 +1515,8 @@
         "proper": "Gl 196",
         "mag": "5.080",
         "spect": "F6V",
+        "dist": "20.8855",
+        "con": "Cam",
         "colour": "244 241 255"
     },
     "25336": {
@@ -1221,6 +1525,8 @@
         "proper": "Bellatrix",
         "mag": "1.640",
         "spect": "B2III",
+        "dist": "77.3994",
+        "con": "Ori",
         "colour": "159 180 255"
     },
     "25428": {
@@ -1229,6 +1535,8 @@
         "proper": "Alnath",
         "mag": "1.650",
         "spect": "B7III",
+        "dist": "41.0509",
+        "con": "Tau",
         "colour": "171 191 255"
     },
     "25606": {
@@ -1237,6 +1545,8 @@
         "proper": "Nihal",
         "mag": "2.810",
         "spect": "G5II",
+        "dist": "49.1642",
+        "con": "Lep",
         "colour": "255 235 203"
     },
     "25859": {
@@ -1245,6 +1555,8 @@
         "proper": "Eps Col",
         "mag": "3.860",
         "spect": "K1II/III",
+        "dist": "80.7103",
+        "con": "Col",
         "colour": "255 224 175"
     },
     "25918": {
@@ -1253,6 +1565,8 @@
         "proper": "Gam Men",
         "mag": "5.180",
         "spect": "K4III",
+        "dist": "31.3578",
+        "con": "Men",
         "colour": "255 211 146"
     },
     "25930": {
@@ -1261,6 +1575,8 @@
         "proper": "Mintaka",
         "mag": "2.250",
         "spect": "O9.5II",
+        "dist": "212.3142",
+        "con": "Ori",
         "colour": "160 186 255"
     },
     "25985": {
@@ -1269,6 +1585,8 @@
         "proper": "Arneb",
         "mag": "2.580",
         "spect": "F0Ib",
+        "dist": "680.2721",
+        "con": "Lep",
         "colour": "202 215 255"
     },
     "26069": {
@@ -1277,6 +1595,8 @@
         "proper": "Bet Dor",
         "mag": "3.760",
         "spect": "F6Ia",
+        "dist": "308.6420",
+        "con": "Dor",
         "colour": "255 234 252"
     },
     "26207": {
@@ -1285,6 +1605,8 @@
         "proper": "39Lam Ori",
         "mag": "3.390",
         "spect": "O...",
+        "dist": "336.7003",
+        "con": "Ori",
         "colour": "151 175 255"
     },
     "26311": {
@@ -1293,6 +1615,8 @@
         "proper": "Alnilam",
         "mag": "1.690",
         "spect": "B0Ia",
+        "dist": "606.0606",
+        "con": "Ori",
         "colour": "161 189 255"
     },
     "26451": {
@@ -1301,6 +1625,8 @@
         "proper": "123Zet Tau",
         "mag": "2.970",
         "spect": "B4IIIp",
+        "dist": "136.4256",
+        "con": "Tau",
         "colour": "166 188 255"
     },
     "26634": {
@@ -1309,6 +1635,8 @@
         "proper": "Phakt",
         "mag": "2.650",
         "spect": "B7IV",
+        "dist": "80.1282",
+        "con": "Col",
         "colour": "170 189 255"
     },
     "26727": {
@@ -1317,6 +1645,8 @@
         "proper": "Alnitak",
         "mag": "1.740",
         "spect": "O9.5Ib SB",
+        "dist": "225.7336",
+        "con": "Ori",
         "colour": "160 186 255"
     },
     "27072": {
@@ -1325,6 +1655,8 @@
         "proper": "13Gam Lep",
         "mag": "3.590",
         "spect": "F7V",
+        "dist": "8.9270",
+        "con": "Lep",
         "colour": "246 243 255"
     },
     "27100": {
@@ -1333,6 +1665,8 @@
         "proper": "Del Dor",
         "mag": "4.340",
         "spect": "A7V",
+        "dist": "45.8716",
+        "con": "Dor",
         "colour": "200 213 255"
     },
     "27288": {
@@ -1341,6 +1675,8 @@
         "proper": "14Zet Lep",
         "mag": "3.550",
         "spect": "A2Vann",
+        "dist": "21.6076",
+        "con": "Lep",
         "colour": "187 203 255"
     },
     "27321": {
@@ -1349,6 +1685,8 @@
         "proper": "Bet Pic",
         "mag": "3.850",
         "spect": "A3V",
+        "dist": "19.4401",
+        "con": "Pic",
         "colour": "191 207 255"
     },
     "27366": {
@@ -1357,6 +1695,8 @@
         "proper": "Saiph",
         "mag": "2.070",
         "spect": "B0.5Iavar",
+        "dist": "198.4127",
+        "con": "Ori",
         "colour": "162 188 255"
     },
     "27530": {
@@ -1365,6 +1705,8 @@
         "proper": "Gam Pic",
         "mag": "4.500",
         "spect": "K1III",
+        "dist": "54.2005",
+        "con": "Pic",
         "colour": "255 223 181"
     },
     "27628": {
@@ -1373,6 +1715,8 @@
         "proper": "Bet Col",
         "mag": "3.120",
         "spect": "K1.5III",
+        "dist": "26.7308",
+        "con": "Col",
         "colour": "255 224 175"
     },
     "27654": {
@@ -1381,6 +1725,8 @@
         "proper": "15Del Lep",
         "mag": "3.760",
         "spect": "G8III/IV",
+        "dist": "34.8675",
+        "con": "Lep",
         "colour": "255 231 199"
     },
     "27890": {
@@ -1389,6 +1735,8 @@
         "proper": "Gl 224.1",
         "mag": "4.650",
         "spect": "K1III/IV",
+        "dist": "26.2467",
+        "con": "Dor",
         "colour": "255 223 181"
     },
     "27913": {
@@ -1397,6 +1745,8 @@
         "proper": "54Chi1Ori",
         "mag": "4.390",
         "spect": "G0V",
+        "dist": "8.6633",
+        "con": "Ori",
         "colour": "255 248 252"
     },
     "27989": {
@@ -1405,6 +1755,8 @@
         "proper": "Betelgeuse",
         "mag": "0.450",
         "spect": "M2Ib",
+        "dist": "152.6718",
+        "con": "Ori",
         "colour": "255 193 104"
     },
     "28103": {
@@ -1413,6 +1765,8 @@
         "proper": "16Eta Lep",
         "mag": "3.710",
         "spect": "F1V",
+        "dist": "14.8787",
+        "con": "Lep",
         "colour": "230 234 255"
     },
     "28199": {
@@ -1421,6 +1775,8 @@
         "proper": "Gam Col",
         "mag": "4.360",
         "spect": "B2.5IV",
+        "dist": "266.6667",
+        "con": "Col",
         "colour": "165 192 255"
     },
     "28328": {
@@ -1429,6 +1785,8 @@
         "proper": "Eta Col",
         "mag": "3.960",
         "spect": "K0III",
+        "dist": "144.7178",
+        "con": "Col",
         "colour": "255 227 190"
     },
     "28360": {
@@ -1437,6 +1795,8 @@
         "proper": "Menkalinan",
         "mag": "1.900",
         "spect": "A2V",
+        "dist": "24.8694",
+        "con": "Aur",
         "colour": "187 203 255"
     },
     "28380": {
@@ -1445,6 +1805,8 @@
         "proper": "37The Aur",
         "mag": "2.650",
         "spect": "A0p Si",
+        "dist": "50.7614",
+        "con": "Aur",
         "colour": "184 202 255"
     },
     "28614": {
@@ -1453,6 +1815,8 @@
         "proper": "61Mu  Ori",
         "mag": "4.120",
         "spect": "Am...",
+        "dist": "47.5059",
+        "con": "Ori",
         "colour": "192 208 255"
     },
     "28691": {
@@ -1461,6 +1825,8 @@
         "proper": "64    Ori",
         "mag": "5.140",
         "spect": "B8V",
+        "dist": "220.2643",
+        "con": "Ori",
         "colour": "177 195 255"
     },
     "28734": {
@@ -1469,6 +1835,8 @@
         "proper": "1    Gem",
         "mag": "4.160",
         "spect": "G7III",
+        "dist": "47.5511",
+        "con": "Gem",
         "colour": "255 234 207"
     },
     "28910": {
@@ -1477,6 +1845,8 @@
         "proper": "18The Lep",
         "mag": "4.670",
         "spect": "A0V",
+        "dist": "52.9661",
+        "con": "Lep",
         "colour": "185 201 255"
     },
     "29038": {
@@ -1485,6 +1855,8 @@
         "proper": "67Nu  Ori",
         "mag": "4.420",
         "spect": "B3IV",
+        "dist": "158.2278",
+        "con": "Ori",
         "colour": "166 188 255"
     },
     "29151": {
@@ -1493,6 +1865,8 @@
         "proper": "HIP 29151",
         "mag": "5.700",
         "spect": "A3Vn",
+        "dist": "200.8032",
+        "con": "Ori",
         "colour": "191 207 255"
     },
     "29426": {
@@ -1501,6 +1875,8 @@
         "proper": "70Xi  Ori",
         "mag": "4.450",
         "spect": "B3IV",
+        "dist": "186.2197",
+        "con": "Ori",
         "colour": "166 188 255"
     },
     "29651": {
@@ -1509,6 +1885,8 @@
         "proper": "5Gam Mon",
         "mag": "3.990",
         "spect": "K3III",
+        "dist": "152.6718",
+        "con": "Mon",
         "colour": "255 216 167"
     },
     "29655": {
@@ -1517,6 +1895,8 @@
         "proper": "7Eta Gem",
         "mag": "3.310",
         "spect": "M3III",
+        "dist": "117.9245",
+        "con": "Gem",
         "colour": "255 200 119"
     },
     "29807": {
@@ -1525,6 +1905,8 @@
         "proper": "Kap Col",
         "mag": "4.370",
         "spect": "G8II",
+        "dist": "55.9597",
+        "con": "Col",
         "colour": "255 229 189"
     },
     "30060": {
@@ -1533,6 +1915,8 @@
         "proper": "2    Lyn",
         "mag": "4.440",
         "spect": "A2Vs",
+        "dist": "48.0077",
+        "con": "Lyn",
         "colour": "187 203 255"
     },
     "30122": {
@@ -1541,6 +1925,8 @@
         "proper": "1Zet CMa",
         "mag": "3.020",
         "spect": "B2.5V",
+        "dist": "111.1111",
+        "con": "CMa",
         "colour": "165 192 255"
     },
     "30277": {
@@ -1549,6 +1935,8 @@
         "proper": "Del Col",
         "mag": "3.850",
         "spect": "G7II",
+        "dist": "71.7360",
+        "con": "Col",
         "colour": "255 231 194"
     },
     "30324": {
@@ -1557,6 +1945,8 @@
         "proper": "Mirzam",
         "mag": "1.980",
         "spect": "B1II/III",
+        "dist": "151.0574",
+        "con": "CMa",
         "colour": "163 190 255"
     },
     "30343": {
@@ -1565,6 +1955,8 @@
         "proper": "13Mu  Gem",
         "mag": "2.870",
         "spect": "M3IIIvar",
+        "dist": "71.0227",
+        "con": "Gem",
         "colour": "255 200 119"
     },
     "30419": {
@@ -1573,6 +1965,8 @@
         "proper": "8Eps Mon",
         "mag": "4.390",
         "spect": "A5IV",
+        "dist": "37.4953",
+        "con": "Mon",
         "colour": "212 220 255"
     },
     "30438": {
@@ -1581,6 +1975,8 @@
         "proper": "Canopus",
         "mag": "-0.620",
         "spect": "F0Ib",
+        "dist": "94.7867",
+        "con": "Car",
         "colour": "202 215 255"
     },
     "30867": {
@@ -1589,6 +1985,8 @@
         "proper": "11Bet Mon",
         "mag": "3.760",
         "spect": "B3Ve",
+        "dist": "207.4689",
+        "con": "Mon",
         "colour": "165 185 255"
     },
     "30883": {
@@ -1597,6 +1995,8 @@
         "proper": "18Nu  Gem",
         "mag": "4.130",
         "spect": "B6III",
+        "dist": "166.9449",
+        "con": "Gem",
         "colour": "170 190 255"
     },
     "31416": {
@@ -1605,6 +2005,8 @@
         "proper": "5Xi 2CMa",
         "mag": "4.540",
         "spect": "A0III",
+        "dist": "135.3180",
+        "con": "CMa",
         "colour": "188 205 255"
     },
     "31592": {
@@ -1613,6 +2015,8 @@
         "proper": "7Nu 2CMa",
         "mag": "3.950",
         "spect": "K1III+...",
+        "dist": "19.7511",
+        "con": "CMa",
         "colour": "255 223 181"
     },
     "31681": {
@@ -1621,6 +2025,8 @@
         "proper": "Alhena",
         "mag": "1.930",
         "spect": "A0IV",
+        "dist": "33.5121",
+        "con": "Gem",
         "colour": "179 197 255"
     },
     "31685": {
@@ -1629,6 +2035,8 @@
         "proper": "Nu  Pup",
         "mag": "3.170",
         "spect": "B8III SB",
+        "dist": "113.8952",
+        "con": "Pup",
         "colour": "175 193 255"
     },
     "32246": {
@@ -1637,6 +2045,8 @@
         "proper": "27Eps Gem",
         "mag": "3.060",
         "spect": "A3mA6-A9",
+        "dist": "259.0674",
+        "con": "Gem",
         "colour": "190 207 255"
     },
     "32349": {
@@ -1645,6 +2055,8 @@
         "proper": "Sirius",
         "mag": "-1.440",
         "spect": "A0m...",
+        "dist": "2.6371",
+        "con": "CMa",
         "colour": "184 202 255"
     },
     "32362": {
@@ -1653,6 +2065,8 @@
         "proper": "31Xi  Gem",
         "mag": "3.350",
         "spect": "F5IV",
+        "dist": "17.9986",
+        "con": "Gem",
         "colour": "241 239 255"
     },
     "32607": {
@@ -1661,6 +2075,8 @@
         "proper": "Alp Pic",
         "mag": "3.240",
         "spect": "A7IV",
+        "dist": "29.6033",
+        "con": "Pic",
         "colour": "192 207 255"
     },
     "32759": {
@@ -1669,6 +2085,8 @@
         "proper": "13Kap CMa",
         "mag": "3.500",
         "spect": "B1.5IVne",
+        "dist": "202.0202",
+        "con": "CMa",
         "colour": "163 190 255"
     },
     "32768": {
@@ -1677,6 +2095,8 @@
         "proper": "Tau Pup",
         "mag": "2.940",
         "spect": "K0III...",
+        "dist": "55.8036",
+        "con": "Pup",
         "colour": "255 227 190"
     },
     "33018": {
@@ -1685,6 +2105,8 @@
         "proper": "34The Gem",
         "mag": "3.600",
         "spect": "A3III",
+        "dist": "57.9710",
+        "con": "Gem",
         "colour": "189 203 255"
     },
     "33160": {
@@ -1693,6 +2115,8 @@
         "proper": "14The CMa",
         "mag": "4.080",
         "spect": "K4III",
+        "dist": "79.9361",
+        "con": "CMa",
         "colour": "255 211 146"
     },
     "33165": {
@@ -1701,6 +2125,8 @@
         "proper": "HIP 33165",
         "mag": "6.650",
         "spect": "WN5 (SB1)",
+        "dist": "100000.0000",
+        "con": "CMa",
         "colour": "153 177 255"
     },
     "33347": {
@@ -1709,6 +2135,8 @@
         "proper": "20Iot CMa",
         "mag": "4.360",
         "spect": "B3Ib/II",
+        "dist": "769.2308",
+        "con": "CMa",
         "colour": "175 194 255"
     },
     "33449": {
@@ -1717,6 +2145,8 @@
         "proper": "15    Lyn",
         "mag": "4.350",
         "spect": "G5III-IV",
+        "dist": "54.6747",
+        "con": "Lyn",
         "colour": "255 236 211"
     },
     "33579": {
@@ -1725,6 +2155,8 @@
         "proper": "Adhara",
         "mag": "1.500",
         "spect": "B2II",
+        "dist": "124.2236",
+        "con": "CMa",
         "colour": "165 192 255"
     },
     "33856": {
@@ -1733,6 +2165,8 @@
         "proper": "22Sig CMa",
         "mag": "3.490",
         "spect": "K4III",
+        "dist": "343.6426",
+        "con": "CMa",
         "colour": "255 211 146"
     },
     "33977": {
@@ -1741,6 +2175,8 @@
         "proper": "24Omi2CMa",
         "mag": "3.020",
         "spect": "B3Ia",
+        "dist": "847.4576",
+        "con": "CMa",
         "colour": "175 194 255"
     },
     "34045": {
@@ -1749,6 +2185,8 @@
         "proper": "23Gam CMa",
         "mag": "4.110",
         "spect": "B8II",
+        "dist": "135.5014",
+        "con": "CMa",
         "colour": "181 199 255"
     },
     "34088": {
@@ -1757,6 +2195,8 @@
         "proper": "43Zet Gem",
         "mag": "4.010",
         "spect": "G3Ibv SB",
+        "dist": "421.9409",
+        "con": "Gem",
         "colour": "255 231 203"
     },
     "34444": {
@@ -1765,6 +2205,8 @@
         "proper": "Wezen",
         "mag": "1.830",
         "spect": "F8Ia",
+        "dist": "492.6108",
+        "con": "CMa",
         "colour": "255 252 247"
     },
     "34481": {
@@ -1773,6 +2215,8 @@
         "proper": "Gam2Vol",
         "mag": "3.780",
         "spect": "G8IIIvar",
+        "dist": "42.8633",
+        "con": "Vol",
         "colour": "255 231 199"
     },
     "34693": {
@@ -1781,6 +2225,8 @@
         "proper": "46Tau Gem",
         "mag": "4.410",
         "spect": "K2III",
+        "dist": "98.4252",
+        "con": "Gem",
         "colour": "255 221 175"
     },
     "34769": {
@@ -1789,6 +2235,8 @@
         "proper": "22Del Mon",
         "mag": "4.150",
         "spect": "A2V",
+        "dist": "117.7856",
+        "con": "Mon",
         "colour": "187 203 255"
     },
     "35037": {
@@ -1797,6 +2245,8 @@
         "proper": "28Ome CMa",
         "mag": "4.010",
         "spect": "B2IV/Ve",
+        "dist": "279.3296",
+        "con": "CMa",
         "colour": "159 179 255"
     },
     "35228": {
@@ -1805,6 +2255,8 @@
         "proper": "Del Vol",
         "mag": "3.970",
         "spect": "F6II",
+        "dist": "226.2443",
+        "con": "Vol",
         "colour": "253 249 255"
     },
     "35264": {
@@ -1813,6 +2265,8 @@
         "proper": "Pi  Pup",
         "mag": "2.710",
         "spect": "K3Ib",
+        "dist": "247.5248",
+        "con": "Pup",
         "colour": "255 204 128"
     },
     "35350": {
@@ -1821,6 +2275,8 @@
         "proper": "54Lam Gem",
         "mag": "3.580",
         "spect": "A3V...",
+        "dist": "30.9310",
+        "con": "Gem",
         "colour": "191 207 255"
     },
     "35550": {
@@ -1829,6 +2285,8 @@
         "proper": "55Del Gem",
         "mag": "3.500",
         "spect": "F0IV...",
+        "dist": "18.5391",
+        "con": "Gem",
         "colour": "218 224 255"
     },
     "35904": {
@@ -1837,6 +2295,8 @@
         "proper": "Aludra",
         "mag": "2.450",
         "spect": "B5Ia",
+        "dist": "609.7561",
+        "con": "CMa",
         "colour": "179 202 255"
     },
     "36046": {
@@ -1845,6 +2305,8 @@
         "proper": "60Iot Gem",
         "mag": "3.780",
         "spect": "G9III+...",
+        "dist": "36.9004",
+        "con": "Gem",
         "colour": "255 231 196"
     },
     "36145": {
@@ -1853,6 +2315,8 @@
         "proper": "21    Lyn",
         "mag": "4.610",
         "spect": "A1V",
+        "dist": "83.8926",
+        "con": "Lyn",
         "colour": "181 199 255"
     },
     "36188": {
@@ -1861,6 +2325,8 @@
         "proper": "Gomeisa",
         "mag": "2.890",
         "spect": "B8Vvar",
+        "dist": "49.5786",
+        "con": "CMi",
         "colour": "177 195 255"
     },
     "36377": {
@@ -1869,6 +2335,8 @@
         "proper": "Sig Pup",
         "mag": "3.250",
         "spect": "K5III SB",
+        "dist": "59.3824",
+        "con": "Pup",
         "colour": "255 204 138"
     },
     "36850": {
@@ -1877,6 +2345,8 @@
         "proper": "Castor",
         "mag": "1.580",
         "spect": "A2Vm",
+        "dist": "15.5958",
+        "con": "Gem",
         "colour": "187 203 255"
     },
     "36962": {
@@ -1885,6 +2355,8 @@
         "proper": "69Ups Gem",
         "mag": "4.060",
         "spect": "K5III",
+        "dist": "83.0565",
+        "con": "Gem",
         "colour": "255 204 138"
     },
     "37279": {
@@ -1893,6 +2365,8 @@
         "proper": "Procyon",
         "mag": "0.400",
         "spect": "F5IV-V",
+        "dist": "3.5142",
+        "con": "CMi",
         "colour": "241 239 255"
     },
     "37447": {
@@ -1901,6 +2375,8 @@
         "proper": "26Alp Mon",
         "mag": "3.940",
         "spect": "K0III",
+        "dist": "45.3104",
+        "con": "Mon",
         "colour": "255 227 190"
     },
     "37504": {
@@ -1909,6 +2385,8 @@
         "proper": "Zet Vol",
         "mag": "3.930",
         "spect": "K0III",
+        "dist": "43.2339",
+        "con": "Vol",
         "colour": "255 227 190"
     },
     "37740": {
@@ -1917,6 +2395,8 @@
         "proper": "77Kap Gem",
         "mag": "3.570",
         "spect": "G8III",
+        "dist": "43.3463",
+        "con": "Gem",
         "colour": "255 231 199"
     },
     "37826": {
@@ -1925,6 +2405,8 @@
         "proper": "Pollux",
         "mag": "1.160",
         "spect": "K0IIIvar",
+        "dist": "10.3584",
+        "con": "Gem",
         "colour": "255 227 190"
     },
     "38146": {
@@ -1933,6 +2415,8 @@
         "proper": "HIP 38146",
         "mag": "5.320",
         "spect": "G2",
+        "dist": "86.2813",
+        "con": "Pup",
         "colour": "255 241 221"
     },
     "39429": {
@@ -1941,6 +2425,8 @@
         "proper": "Naos",
         "mag": "2.210",
         "spect": "O5IAf",
+        "dist": "332.2259",
+        "con": "Pup",
         "colour": "155 176 255"
     },
     "39757": {
@@ -1949,6 +2435,8 @@
         "proper": "15Rho Pup",
         "mag": "2.830",
         "spect": "F2mF5IIp",
+        "dist": "19.4818",
+        "con": "Pup",
         "colour": "229 233 255"
     },
     "39794": {
@@ -1957,6 +2445,8 @@
         "proper": "Eps Vol",
         "mag": "4.350",
         "spect": "B6IV",
+        "dist": "172.4138",
+        "con": "Vol",
         "colour": "175 194 255"
     },
     "39863": {
@@ -1965,6 +2455,8 @@
         "proper": "29Zet Mon",
         "mag": "4.360",
         "spect": "G2Ib",
+        "dist": "324.6753",
+        "con": "Mon",
         "colour": "255 236 205"
     },
     "39953": {
@@ -1973,6 +2465,8 @@
         "proper": "Gam2Vel",
         "mag": "1.750",
         "spect": "WC8 + O9I",
+        "dist": "342.4658",
+        "con": "Vel",
         "colour": "158 183 255"
     },
     "40526": {
@@ -1981,6 +2475,8 @@
         "proper": "17Bet Cnc",
         "mag": "3.530",
         "spect": "K4III",
+        "dist": "93.0233",
+        "con": "Cnc",
         "colour": "255 211 146"
     },
     "40702": {
@@ -1989,6 +2485,8 @@
         "proper": "Alp Cha",
         "mag": "4.050",
         "spect": "F5III",
+        "dist": "19.5618",
+        "con": "Cha",
         "colour": "242 240 255"
     },
     "40843": {
@@ -1997,6 +2495,8 @@
         "proper": "18Chi Cnc",
         "mag": "5.130",
         "spect": "F6V",
+        "dist": "18.2715",
+        "con": "Cnc",
         "colour": "244 241 255"
     },
     "41037": {
@@ -2005,6 +2505,8 @@
         "proper": "Avior",
         "mag": "1.860",
         "spect": "K3III+B2V",
+        "dist": "185.5288",
+        "con": "Car",
         "colour": "255 216 167"
     },
     "41075": {
@@ -2013,6 +2515,8 @@
         "proper": "31    Lyn",
         "mag": "4.250",
         "spect": "K5III",
+        "dist": "117.2333",
+        "con": "Lyn",
         "colour": "255 204 138"
     },
     "41312": {
@@ -2021,6 +2525,8 @@
         "proper": "Bet Vol",
         "mag": "3.770",
         "spect": "K2IIIvar",
+        "dist": "32.9707",
+        "con": "Vol",
         "colour": "255 221 175"
     },
     "41704": {
@@ -2029,6 +2535,8 @@
         "proper": "1Omi UMa",
         "mag": "3.350",
         "spect": "G4II-III",
+        "dist": "54.9149",
+        "con": "UMa",
         "colour": "255 237 209"
     },
     "42313": {
@@ -2037,6 +2545,8 @@
         "proper": "4Del Hya",
         "mag": "4.140",
         "spect": "A1Vnn",
+        "dist": "49.1642",
+        "con": "Hya",
         "colour": "181 199 255"
     },
     "42402": {
@@ -2045,6 +2555,8 @@
         "proper": "5Sig Hya",
         "mag": "4.450",
         "spect": "K2III",
+        "dist": "114.2857",
+        "con": "Hya",
         "colour": "255 221 175"
     },
     "42515": {
@@ -2053,6 +2565,8 @@
         "proper": "Bet Pyx",
         "mag": "3.970",
         "spect": "G5II/III",
+        "dist": "127.5510",
+        "con": "Pyx",
         "colour": "255 235 203"
     },
     "42536": {
@@ -2061,6 +2575,8 @@
         "proper": "HIP 42536",
         "mag": "3.600",
         "spect": "B3IV",
+        "dist": "151.2859",
+        "con": "Vel",
         "colour": "166 188 255"
     },
     "42568": {
@@ -2069,6 +2585,8 @@
         "proper": "HIP 42568",
         "mag": "4.310",
         "spect": "B1.5III",
+        "dist": "442.4779",
+        "con": "Car",
         "colour": "163 190 255"
     },
     "42799": {
@@ -2077,6 +2595,8 @@
         "proper": "7Eta Hya",
         "mag": "4.300",
         "spect": "B3V...",
+        "dist": "179.8561",
+        "con": "Hya",
         "colour": "165 185 255"
     },
     "42806": {
@@ -2085,6 +2605,8 @@
         "proper": "43Gam Cnc",
         "mag": "4.660",
         "spect": "A1IV",
+        "dist": "55.5556",
+        "con": "Cnc",
         "colour": "183 200 255"
     },
     "42828": {
@@ -2093,6 +2615,8 @@
         "proper": "Alp Pyx",
         "mag": "3.680",
         "spect": "B1.5III",
+        "dist": "269.5418",
+        "con": "Pyx",
         "colour": "163 190 255"
     },
     "42911": {
@@ -2101,6 +2625,8 @@
         "proper": "47Del Cnc",
         "mag": "3.940",
         "spect": "K0III",
+        "dist": "40.0320",
+        "con": "Cnc",
         "colour": "255 227 190"
     },
     "42913": {
@@ -2109,6 +2635,8 @@
         "proper": "Del Vel",
         "mag": "1.930",
         "spect": "A1V",
+        "dist": "24.6975",
+        "con": "Vel",
         "colour": "181 199 255"
     },
     "43103": {
@@ -2117,6 +2645,8 @@
         "proper": "48Iot Cnc",
         "mag": "4.030",
         "spect": "G8Iab:",
+        "dist": "101.5228",
+        "con": "Cnc",
         "colour": "255 220 167"
     },
     "43109": {
@@ -2125,6 +2655,8 @@
         "proper": "11Eps Hya",
         "mag": "3.380",
         "spect": "G0III-IV",
+        "dist": "39.6354",
+        "con": "Hya",
         "colour": "255 242 233"
     },
     "43234": {
@@ -2133,6 +2665,8 @@
         "proper": "13Rho Hya",
         "mag": "4.350",
         "spect": "A0Vn",
+        "dist": "108.5776",
+        "con": "Hya",
         "colour": "185 201 255"
     },
     "43409": {
@@ -2141,6 +2675,8 @@
         "proper": "Gam Pyx",
         "mag": "4.020",
         "spect": "K3III",
+        "dist": "63.5728",
+        "con": "Pyx",
         "colour": "255 216 167"
     },
     "43813": {
@@ -2149,6 +2685,8 @@
         "proper": "16Zet Hya",
         "mag": "3.110",
         "spect": "G8III-IV",
+        "dist": "51.2558",
+        "con": "Hya",
         "colour": "255 231 199"
     },
     "44066": {
@@ -2157,6 +2695,8 @@
         "proper": "65Alp Cnc",
         "mag": "4.260",
         "spect": "A5m",
+        "dist": "57.7367",
+        "con": "Cnc",
         "colour": "194 210 255"
     },
     "44127": {
@@ -2165,6 +2705,8 @@
         "proper": "9Iot UMa",
         "mag": "3.120",
         "spect": "A7IV",
+        "dist": "14.5096",
+        "con": "UMa",
         "colour": "192 207 255"
     },
     "44248": {
@@ -2173,6 +2715,8 @@
         "proper": "Gl 332A",
         "mag": "3.960",
         "spect": "F5V",
+        "dist": "16.0694",
+        "con": "Lyn",
         "colour": "248 247 255"
     },
     "44382": {
@@ -2181,6 +2725,8 @@
         "proper": "Alp Vol",
         "mag": "4.000",
         "spect": "Am",
+        "dist": "38.2995",
+        "con": "Vol",
         "colour": "192 208 255"
     },
     "44471": {
@@ -2189,6 +2735,8 @@
         "proper": "12Kap UMa",
         "mag": "3.570",
         "spect": "A1Vn",
+        "dist": "109.8901",
+        "con": "UMa",
         "colour": "181 199 255"
     },
     "44700": {
@@ -2197,6 +2745,8 @@
         "proper": "HIP 44700",
         "mag": "4.560",
         "spect": "G8Ib-II",
+        "dist": "250.6266",
+        "con": "Lyn",
         "colour": "255 220 167"
     },
     "44816": {
@@ -2205,6 +2755,8 @@
         "proper": "Lam Vel",
         "mag": "2.230",
         "spect": "K4Ib-II",
+        "dist": "166.9449",
+        "con": "Vel",
         "colour": "255 201 118"
     },
     "45080": {
@@ -2213,6 +2765,8 @@
         "proper": "HIP 45080",
         "mag": "3.430",
         "spect": "B2IV",
+        "dist": "136.9863",
+        "con": "Car",
         "colour": "159 179 255"
     },
     "45238": {
@@ -2221,6 +2775,8 @@
         "proper": "Miaplacidus",
         "mag": "1.670",
         "spect": "A2IV",
+        "dist": "34.6981",
+        "con": "Car",
         "colour": "186 202 255"
     },
     "45336": {
@@ -2229,6 +2785,8 @@
         "proper": "22The Hya",
         "mag": "3.890",
         "spect": "B9.5V",
+        "dist": "34.7947",
+        "con": "Hya",
         "colour": "182 201 255"
     },
     "45556": {
@@ -2237,6 +2795,8 @@
         "proper": "Tureis",
         "mag": "2.210",
         "spect": "A8Ib",
+        "dist": "234.7418",
+        "con": "Car",
         "colour": "210 221 255"
     },
     "45688": {
@@ -2245,6 +2805,8 @@
         "proper": "38    Lyn",
         "mag": "3.820",
         "spect": "A1V",
+        "dist": "38.2702",
+        "con": "Lyn",
         "colour": "181 199 255"
     },
     "45860": {
@@ -2253,6 +2815,8 @@
         "proper": "40Alp Lyn",
         "mag": "3.140",
         "spect": "M0IIIvar",
+        "dist": "62.2665",
+        "con": "Lyn",
         "colour": "255 203 132"
     },
     "45941": {
@@ -2261,6 +2825,8 @@
         "proper": "Kap Vel",
         "mag": "2.470",
         "spect": "B2IV",
+        "dist": "175.4386",
+        "con": "Vel",
         "colour": "159 179 255"
     },
     "46390": {
@@ -2269,6 +2835,8 @@
         "proper": "Alphard",
         "mag": "1.990",
         "spect": "K3III",
+        "dist": "55.2792",
+        "con": "Hya",
         "colour": "255 216 167"
     },
     "46509": {
@@ -2277,6 +2845,8 @@
         "proper": "31Tau1Hya",
         "mag": "4.590",
         "spect": "F6V",
+        "dist": "17.3340",
+        "con": "Hya",
         "colour": "244 241 255"
     },
     "46651": {
@@ -2285,6 +2855,8 @@
         "proper": "Psi Vel",
         "mag": "3.600",
         "spect": "F2IV",
+        "dist": "18.8147",
+        "con": "Vel",
         "colour": "227 230 255"
     },
     "46733": {
@@ -2293,6 +2865,8 @@
         "proper": "23    UMa",
         "mag": "3.650",
         "spect": "F0IV",
+        "dist": "23.8152",
+        "con": "UMa",
         "colour": "218 224 255"
     },
     "46776": {
@@ -2301,6 +2875,8 @@
         "proper": "32Tau2Hya",
         "mag": "4.540",
         "spect": "A3V",
+        "dist": "158.7302",
+        "con": "Hya",
         "colour": "191 207 255"
     },
     "46853": {
@@ -2309,6 +2885,8 @@
         "proper": "25The UMa",
         "mag": "3.170",
         "spect": "F6IV",
+        "dist": "13.4789",
+        "con": "UMa",
         "colour": "241 239 255"
     },
     "46952": {
@@ -2317,6 +2895,8 @@
         "proper": "10    LMi",
         "mag": "4.540",
         "spect": "G8III",
+        "dist": "56.7215",
+        "con": "LMi",
         "colour": "255 231 199"
     },
     "47908": {
@@ -2325,6 +2905,8 @@
         "proper": "Ras Elased Australis",
         "mag": "2.970",
         "spect": "G0II",
+        "dist": "75.6430",
+        "con": "Leo",
         "colour": "255 244 233"
     },
     "48319": {
@@ -2333,6 +2915,8 @@
         "proper": "29Ups UMa",
         "mag": "3.780",
         "spect": "F0IV",
+        "dist": "35.6379",
+        "con": "UMa",
         "colour": "218 224 255"
     },
     "48356": {
@@ -2341,6 +2925,8 @@
         "proper": "39Ups1Hya",
         "mag": "4.110",
         "spect": "G6/G8III",
+        "dist": "80.9061",
+        "con": "Hya",
         "colour": "255 233 198"
     },
     "48402": {
@@ -2349,6 +2935,8 @@
         "proper": "30Phi UMa",
         "mag": "4.550",
         "spect": "A3IV",
+        "dist": "156.0062",
+        "con": "UMa",
         "colour": "190 205 255"
     },
     "48455": {
@@ -2357,6 +2945,8 @@
         "proper": "24Mu  Leo",
         "mag": "3.880",
         "spect": "K0III",
+        "dist": "38.0518",
+        "con": "Leo",
         "colour": "255 227 190"
     },
     "48774": {
@@ -2365,6 +2955,8 @@
         "proper": "Phi Vel",
         "mag": "3.520",
         "spect": "B5Ib",
+        "dist": "487.8049",
+        "con": "Vel",
         "colour": "179 202 255"
     },
     "48926": {
@@ -2373,6 +2965,8 @@
         "proper": "Eta Ant",
         "mag": "5.230",
         "spect": "A8IV",
+        "dist": "33.3111",
+        "con": "Ant",
         "colour": "208 217 255"
     },
     "49583": {
@@ -2381,6 +2975,8 @@
         "proper": "30Eta Leo",
         "mag": "3.480",
         "spect": "A0Ib",
+        "dist": "389.1051",
+        "con": "Leo",
         "colour": "187 206 255"
     },
     "49593": {
@@ -2389,6 +2985,8 @@
         "proper": "21    LMi",
         "mag": "4.490",
         "spect": "A7V",
+        "dist": "28.2406",
+        "con": "LMi",
         "colour": "200 213 255"
     },
     "49641": {
@@ -2397,6 +2995,8 @@
         "proper": "15Alp Sex",
         "mag": "4.480",
         "spect": "A0III",
+        "dist": "86.8810",
+        "con": "Sex",
         "colour": "188 205 255"
     },
     "49669": {
@@ -2405,6 +3005,8 @@
         "proper": "Regulus",
         "mag": "1.360",
         "spect": "B7V",
+        "dist": "24.3132",
+        "con": "Leo",
         "colour": "173 191 255"
     },
     "49841": {
@@ -2413,6 +3015,8 @@
         "proper": "41Lam Hya",
         "mag": "3.610",
         "spect": "K0III",
+        "dist": "34.5066",
+        "con": "Hya",
         "colour": "255 227 190"
     },
     "50099": {
@@ -2421,6 +3025,8 @@
         "proper": "Ome Car",
         "mag": "3.290",
         "spect": "B8III",
+        "dist": "104.8218",
+        "con": "Car",
         "colour": "175 193 255"
     },
     "50191": {
@@ -2429,6 +3035,8 @@
         "proper": "HIP 50191",
         "mag": "3.850",
         "spect": "A2V",
+        "dist": "31.0752",
+        "con": "Vel",
         "colour": "187 203 255"
     },
     "50335": {
@@ -2437,6 +3045,8 @@
         "proper": "36Zet Leo",
         "mag": "3.430",
         "spect": "F0III",
+        "dist": "84.0336",
+        "con": "Leo",
         "colour": "213 222 255"
     },
     "50371": {
@@ -2445,6 +3055,8 @@
         "proper": "HIP 50371",
         "mag": "3.390",
         "spect": "K3II",
+        "dist": "201.6129",
+        "con": "Car",
         "colour": "255 220 166"
     },
     "50372": {
@@ -2453,6 +3065,8 @@
         "proper": "33Lam UMa",
         "mag": "3.450",
         "spect": "A2IV",
+        "dist": "42.1585",
+        "con": "UMa",
         "colour": "186 202 255"
     },
     "50583": {
@@ -2461,6 +3075,8 @@
         "proper": "Algieba",
         "mag": "2.010",
         "spect": "K0III",
+        "dist": "39.8883",
+        "con": "Leo",
         "colour": "255 227 190"
     },
     "50801": {
@@ -2469,6 +3085,8 @@
         "proper": "34Mu  UMa",
         "mag": "3.060",
         "spect": "M0III SB",
+        "dist": "70.6215",
+        "con": "UMa",
         "colour": "255 203 132"
     },
     "51069": {
@@ -2477,6 +3095,8 @@
         "proper": "42Mu  Hya",
         "mag": "3.830",
         "spect": "K4III",
+        "dist": "71.7875",
+        "con": "Hya",
         "colour": "255 211 146"
     },
     "51172": {
@@ -2485,6 +3105,8 @@
         "proper": "Alp Ant",
         "mag": "4.280",
         "spect": "K4III",
+        "dist": "112.2334",
+        "con": "Ant",
         "colour": "255 211 146"
     },
     "51232": {
@@ -2493,6 +3115,8 @@
         "proper": "HIP 51232",
         "mag": "3.810",
         "spect": "F2II",
+        "dist": "411.5226",
+        "con": "Car",
         "colour": "229 233 255"
     },
     "51233": {
@@ -2501,6 +3125,8 @@
         "proper": "31Bet LMi",
         "mag": "4.200",
         "spect": "G8III-IV",
+        "dist": "47.1921",
+        "con": "LMi",
         "colour": "255 231 199"
     },
     "51437": {
@@ -2509,6 +3135,8 @@
         "proper": "30Bet Sex",
         "mag": "5.080",
         "spect": "B6V",
+        "dist": "124.0695",
+        "con": "Sex",
         "colour": "172 189 255"
     },
     "51839": {
@@ -2517,6 +3145,8 @@
         "proper": "Gam Cha",
         "mag": "4.110",
         "spect": "M0III",
+        "dist": "128.0410",
+        "con": "Cha",
         "colour": "255 203 132"
     },
     "51986": {
@@ -2525,6 +3155,8 @@
         "proper": "HIP 51986",
         "mag": "3.840",
         "spect": "A3m+...",
+        "dist": "26.8384",
+        "con": "Vel",
         "colour": "190 207 255"
     },
     "52419": {
@@ -2533,6 +3165,8 @@
         "proper": "The Car",
         "mag": "2.740",
         "spect": "B0Vp",
+        "dist": "139.6648",
+        "con": "Car",
         "colour": "156 178 255"
     },
     "52468": {
@@ -2541,6 +3175,8 @@
         "proper": "HIP 52468",
         "mag": "4.580",
         "spect": "K3Ib",
+        "dist": "349.6503",
+        "con": "Car",
         "colour": "255 204 128"
     },
     "52727": {
@@ -2549,6 +3185,8 @@
         "proper": "Mu  Vel",
         "mag": "2.690",
         "spect": "G5III SB",
+        "dist": "35.9195",
+        "con": "Vel",
         "colour": "255 236 211"
     },
     "52943": {
@@ -2557,6 +3195,8 @@
         "proper": "Nu  Hya",
         "mag": "3.110",
         "spect": "K0/K1III",
+        "dist": "44.0723",
+        "con": "Hya",
         "colour": "255 226 180"
     },
     "53229": {
@@ -2565,6 +3205,8 @@
         "proper": "46    LMi",
         "mag": "3.790",
         "spect": "K0III-IV",
+        "dist": "29.0867",
+        "con": "LMi",
         "colour": "255 227 190"
     },
     "53253": {
@@ -2573,6 +3215,8 @@
         "proper": "Gl 404.1",
         "mag": "3.780",
         "spect": "K0III-IV...",
+        "dist": "29.1290",
+        "con": "Car",
         "colour": "255 227 190"
     },
     "53740": {
@@ -2581,6 +3225,8 @@
         "proper": "7Alp Crt",
         "mag": "4.080",
         "spect": "K1III",
+        "dist": "48.8043",
+        "con": "Crt",
         "colour": "255 223 181"
     },
     "53910": {
@@ -2589,6 +3235,8 @@
         "proper": "Merak",
         "mag": "2.340",
         "spect": "A1V",
+        "dist": "24.4499",
+        "con": "UMa",
         "colour": "181 199 255"
     },
     "54061": {
@@ -2597,6 +3245,8 @@
         "proper": "Dubhe",
         "mag": "1.810",
         "spect": "F7V comp",
+        "dist": "37.6790",
+        "con": "UMa",
         "colour": "246 243 255"
     },
     "54463": {
@@ -2605,6 +3255,8 @@
         "proper": "HIP 54463",
         "mag": "3.930",
         "spect": "G0Ia0",
+        "dist": "100000.0000",
+        "con": "Car",
         "colour": "255 239 219"
     },
     "54539": {
@@ -2613,6 +3265,8 @@
         "proper": "52Psi UMa",
         "mag": "3.000",
         "spect": "K1III",
+        "dist": "44.3066",
+        "con": "UMa",
         "colour": "255 223 181"
     },
     "54682": {
@@ -2621,6 +3275,8 @@
         "proper": "11Bet Crt",
         "mag": "4.460",
         "spect": "A1V",
+        "dist": "104.2753",
+        "con": "Crt",
         "colour": "181 199 255"
     },
     "54872": {
@@ -2629,6 +3285,8 @@
         "proper": "Zosma",
         "mag": "2.560",
         "spect": "A4V",
+        "dist": "17.9147",
+        "con": "Leo",
         "colour": "197 211 255"
     },
     "54879": {
@@ -2637,6 +3295,8 @@
         "proper": "70The Leo",
         "mag": "3.330",
         "spect": "A2V",
+        "dist": "50.6073",
+        "con": "Leo",
         "colour": "187 203 255"
     },
     "55282": {
@@ -2645,6 +3305,8 @@
         "proper": "12Del Crt",
         "mag": "3.560",
         "spect": "K0III",
+        "dist": "56.9476",
+        "con": "Crt",
         "colour": "255 227 190"
     },
     "55687": {
@@ -2653,6 +3315,8 @@
         "proper": "14Eps Crt",
         "mag": "4.810",
         "spect": "K5III",
+        "dist": "115.3403",
+        "con": "Crt",
         "colour": "255 204 138"
     },
     "55705": {
@@ -2661,6 +3325,8 @@
         "proper": "15Gam Crt",
         "mag": "4.060",
         "spect": "A9V",
+        "dist": "25.2398",
+        "con": "Crt",
         "colour": "219 224 255"
     },
     "56211": {
@@ -2669,6 +3335,8 @@
         "proper": "1Lam Dra",
         "mag": "3.820",
         "spect": "M0IIIvar",
+        "dist": "102.1450",
+        "con": "Dra",
         "colour": "255 203 132"
     },
     "56343": {
@@ -2677,6 +3345,8 @@
         "proper": "Xi  Hya",
         "mag": "3.540",
         "spect": "G8III",
+        "dist": "39.7456",
+        "con": "Hya",
         "colour": "255 231 199"
     },
     "56480": {
@@ -2685,6 +3355,8 @@
         "proper": "HIP 56480",
         "mag": "4.620",
         "spect": "B9V",
+        "dist": "130.7190",
+        "con": "Cen",
         "colour": "181 198 255"
     },
     "56561": {
@@ -2693,6 +3365,8 @@
         "proper": "Lam Cen",
         "mag": "3.110",
         "spect": "B9II:",
+        "dist": "128.7001",
+        "con": "Cen",
         "colour": "182 201 255"
     },
     "56633": {
@@ -2701,6 +3375,8 @@
         "proper": "21The Crt",
         "mag": "4.700",
         "spect": "B9.5Vn",
+        "dist": "85.9845",
+        "con": "Crt",
         "colour": "182 201 255"
     },
     "57283": {
@@ -2709,6 +3385,8 @@
         "proper": "27Zet Crt",
         "mag": "4.710",
         "spect": "G8III",
+        "dist": "108.2251",
+        "con": "Crt",
         "colour": "255 231 199"
     },
     "57363": {
@@ -2717,6 +3395,8 @@
         "proper": "Lam Mus",
         "mag": "3.630",
         "spect": "A7III",
+        "dist": "38.9864",
+        "con": "Mus",
         "colour": "210 219 255"
     },
     "57380": {
@@ -2725,6 +3405,8 @@
         "proper": "3Nu  Vir",
         "mag": "4.040",
         "spect": "M0III",
+        "dist": "90.0901",
+        "con": "Vir",
         "colour": "255 203 132"
     },
     "57399": {
@@ -2733,6 +3415,8 @@
         "proper": "63Chi UMa",
         "mag": "3.690",
         "spect": "K0III",
+        "dist": "56.3063",
+        "con": "UMa",
         "colour": "255 227 190"
     },
     "57632": {
@@ -2741,6 +3425,8 @@
         "proper": "Denebola",
         "mag": "2.140",
         "spect": "A3Vvar",
+        "dist": "10.9999",
+        "con": "Leo",
         "colour": "191 207 255"
     },
     "57936": {
@@ -2749,6 +3435,8 @@
         "proper": "Bet Hya",
         "mag": "4.290",
         "spect": "Ap Si",
+        "dist": "94.9668",
+        "con": "Hya",
         "colour": "192 208 255"
     },
     "58001": {
@@ -2757,6 +3445,8 @@
         "proper": "Phad",
         "mag": "2.410",
         "spect": "A0V SB",
+        "dist": "25.5037",
+        "con": "UMa",
         "colour": "185 201 255"
     },
     "58188": {
@@ -2765,6 +3455,8 @@
         "proper": "30Eta Crt",
         "mag": "5.170",
         "spect": "A0V",
+        "dist": "77.1010",
+        "con": "Crt",
         "colour": "185 201 255"
     },
     "59196": {
@@ -2773,6 +3465,8 @@
         "proper": "Del Cen",
         "mag": "2.580",
         "spect": "B2IVne",
+        "dist": "127.2265",
+        "con": "Cen",
         "colour": "159 179 255"
     },
     "59199": {
@@ -2781,6 +3475,8 @@
         "proper": "1Alp Crv",
         "mag": "4.020",
         "spect": "F0IV/V",
+        "dist": "14.9365",
+        "con": "Crv",
         "colour": "218 224 255"
     },
     "59316": {
@@ -2789,6 +3485,8 @@
         "proper": "2Eps Crv",
         "mag": "3.020",
         "spect": "K2III",
+        "dist": "97.4659",
+        "con": "Crv",
         "colour": "255 221 175"
     },
     "59747": {
@@ -2797,6 +3495,8 @@
         "proper": "Del Cru",
         "mag": "2.790",
         "spect": "B2IV",
+        "dist": "105.8201",
+        "con": "Cru",
         "colour": "159 179 255"
     },
     "59774": {
@@ -2805,6 +3505,8 @@
         "proper": "Megrez",
         "mag": "3.320",
         "spect": "A3Vvar",
+        "dist": "24.6853",
+        "con": "UMa",
         "colour": "191 207 255"
     },
     "59803": {
@@ -2813,6 +3515,8 @@
         "proper": "Gienah Ghurab",
         "mag": "2.580",
         "spect": "B8III",
+        "dist": "47.1032",
+        "con": "Crv",
         "colour": "175 193 255"
     },
     "60000": {
@@ -2821,6 +3525,8 @@
         "proper": "Bet Cha",
         "mag": "4.240",
         "spect": "B5Vn",
+        "dist": "91.4913",
+        "con": "Cha",
         "colour": "170 191 255"
     },
     "60030": {
@@ -2829,6 +3535,8 @@
         "proper": "13    Vir",
         "mag": "5.900",
         "spect": "A5Vn",
+        "dist": "114.5475",
+        "con": "Vir",
         "colour": "202 215 255"
     },
     "60718": {
@@ -2837,6 +3545,8 @@
         "proper": "Acrux",
         "mag": "0.770",
         "spect": "B0.5IV",
+        "dist": "98.7167",
+        "con": "Cru",
         "colour": "162 188 255"
     },
     "60742": {
@@ -2845,6 +3555,8 @@
         "proper": "15Gam Com",
         "mag": "4.350",
         "spect": "K2IIICN+...",
+        "dist": "51.2821",
+        "con": "Com",
         "colour": "255 221 175"
     },
     "60823": {
@@ -2853,6 +3565,8 @@
         "proper": "Sig Cen",
         "mag": "3.910",
         "spect": "B3V",
+        "dist": "126.2626",
+        "con": "Cen",
         "colour": "165 185 255"
     },
     "60965": {
@@ -2861,6 +3575,8 @@
         "proper": "Algorab",
         "mag": "2.940",
         "spect": "B9.5V",
+        "dist": "26.6312",
+        "con": "Crv",
         "colour": "182 201 255"
     },
     "61084": {
@@ -2869,6 +3585,8 @@
         "proper": "Gacrux",
         "mag": "1.590",
         "spect": "M4III",
+        "dist": "27.1518",
+        "con": "Cru",
         "colour": "255 206 127"
     },
     "61174": {
@@ -2877,6 +3595,8 @@
         "proper": "8Eta Crv",
         "mag": "4.300",
         "spect": "F2V",
+        "dist": "18.2815",
+        "con": "Crv",
         "colour": "236 239 255"
     },
     "61199": {
@@ -2885,6 +3605,8 @@
         "proper": "Gam Mus",
         "mag": "3.840",
         "spect": "B5V",
+        "dist": "99.6016",
+        "con": "Mus",
         "colour": "170 191 255"
     },
     "61281": {
@@ -2893,6 +3615,8 @@
         "proper": "5Kap Dra",
         "mag": "3.850",
         "spect": "B6IIIp",
+        "dist": "150.3759",
+        "con": "Dra",
         "colour": "170 190 255"
     },
     "61317": {
@@ -2901,6 +3625,8 @@
         "proper": "8Bet CVn",
         "mag": "4.240",
         "spect": "G0V",
+        "dist": "8.4395",
+        "con": "CVn",
         "colour": "255 248 252"
     },
     "61359": {
@@ -2909,6 +3635,8 @@
         "proper": "Kraz",
         "mag": "2.650",
         "spect": "G5II",
+        "dist": "44.6628",
+        "con": "Crv",
         "colour": "255 235 203"
     },
     "61585": {
@@ -2917,6 +3645,8 @@
         "proper": "Alp Mus",
         "mag": "2.690",
         "spect": "B2IV-V",
+        "dist": "96.7118",
+        "con": "Mus",
         "colour": "159 179 255"
     },
     "61932": {
@@ -2925,6 +3655,8 @@
         "proper": "Gam Cen",
         "mag": "2.200",
         "spect": "A1IV",
+        "dist": "39.9042",
+        "con": "Cen",
         "colour": "183 200 255"
     },
     "61941": {
@@ -2933,6 +3665,8 @@
         "proper": "Porrima",
         "mag": "2.740",
         "spect": "F0V+...",
+        "dist": "11.6850",
+        "con": "Vir",
         "colour": "224 229 255"
     },
     "62322": {
@@ -2941,6 +3675,8 @@
         "proper": "Bet Mus",
         "mag": "3.040",
         "spect": "B2V",
+        "dist": "104.7120",
+        "con": "Mus",
         "colour": "160 180 255"
     },
     "62434": {
@@ -2949,6 +3685,8 @@
         "proper": "Becrux",
         "mag": "1.250",
         "spect": "B0.5III",
+        "dist": "85.3971",
+        "con": "Cru",
         "colour": "162 188 255"
     },
     "62956": {
@@ -2957,6 +3695,8 @@
         "proper": "Alioth",
         "mag": "1.760",
         "spect": "A0p",
+        "dist": "25.3100",
+        "con": "UMa",
         "colour": "184 202 255"
     },
     "63090": {
@@ -2965,6 +3705,8 @@
         "proper": "43Del Vir",
         "mag": "3.390",
         "spect": "M3III",
+        "dist": "60.8273",
+        "con": "Vir",
         "colour": "255 200 119"
     },
     "63125": {
@@ -2973,6 +3715,8 @@
         "proper": "Cor Caroli",
         "mag": "2.890",
         "spect": "A0spe...",
+        "dist": "35.1989",
+        "con": "CVn",
         "colour": "184 202 255"
     },
     "63608": {
@@ -2981,6 +3725,8 @@
         "proper": "Vindemiatrix",
         "mag": "2.850",
         "spect": "G8IIIvar",
+        "dist": "33.6022",
+        "con": "Vir",
         "colour": "255 231 199"
     },
     "64166": {
@@ -2989,6 +3735,8 @@
         "proper": "45Psi Hya",
         "mag": "4.940",
         "spect": "K0III",
+        "dist": "70.9723",
+        "con": "Hya",
         "colour": "255 227 190"
     },
     "64241": {
@@ -2997,6 +3745,8 @@
         "proper": "42Alp Com",
         "mag": "4.320",
         "spect": "F5V",
+        "dist": "17.8253",
+        "con": "Com",
         "colour": "248 247 255"
     },
     "64394": {
@@ -3005,6 +3755,8 @@
         "proper": "43Bet Com",
         "mag": "4.230",
         "spect": "G0V",
+        "dist": "9.1291",
+        "con": "Com",
         "colour": "255 248 252"
     },
     "64962": {
@@ -3013,6 +3765,8 @@
         "proper": "46Gam Hya",
         "mag": "2.990",
         "spect": "G8III",
+        "dist": "41.0341",
+        "con": "Hya",
         "colour": "255 231 199"
     },
     "65109": {
@@ -3021,6 +3775,8 @@
         "proper": "Iot Cen",
         "mag": "2.750",
         "spect": "A2V",
+        "dist": "18.0213",
+        "con": "Cen",
         "colour": "187 203 255"
     },
     "65378": {
@@ -3029,6 +3785,8 @@
         "proper": "Mizar",
         "mag": "2.230",
         "spect": "A2V",
+        "dist": "26.3089",
+        "con": "UMa",
         "colour": "187 203 255"
     },
     "65474": {
@@ -3037,6 +3795,8 @@
         "proper": "Spica",
         "mag": "0.980",
         "spect": "B1V",
+        "dist": "76.5697",
+        "con": "Vir",
         "colour": "160 182 255"
     },
     "65936": {
@@ -3045,6 +3805,8 @@
         "proper": "HIP 65936",
         "mag": "3.900",
         "spect": "G8II/III",
+        "dist": "277.7778",
+        "con": "Cen",
         "colour": "255 229 189"
     },
     "66249": {
@@ -3053,6 +3815,8 @@
         "proper": "79Zet Vir",
         "mag": "3.380",
         "spect": "A3V",
+        "dist": "22.7118",
+        "con": "Vir",
         "colour": "191 207 255"
     },
     "66657": {
@@ -3061,6 +3825,8 @@
         "proper": "Eps Cen",
         "mag": "2.290",
         "spect": "B1III",
+        "dist": "131.0616",
+        "con": "Cen",
         "colour": "158 177 255"
     },
     "67301": {
@@ -3069,6 +3835,8 @@
         "proper": "Alkaid",
         "mag": "1.850",
         "spect": "B3V SB",
+        "dist": "31.8674",
+        "con": "UMa",
         "colour": "165 185 255"
     },
     "67459": {
@@ -3077,6 +3845,8 @@
         "proper": "5Ups Boo",
         "mag": "4.050",
         "spect": "K5IIIvar",
+        "dist": "80.7754",
+        "con": "Boo",
         "colour": "255 204 138"
     },
     "67464": {
@@ -3085,6 +3855,8 @@
         "proper": "Nu  Cen",
         "mag": "3.410",
         "spect": "B2IV",
+        "dist": "133.8688",
+        "con": "Cen",
         "colour": "159 179 255"
     },
     "67472": {
@@ -3093,6 +3865,8 @@
         "proper": "Mu  Cen",
         "mag": "3.470",
         "spect": "B2IV-Ve",
+        "dist": "155.0388",
+        "con": "Cen",
         "colour": "159 179 255"
     },
     "67927": {
@@ -3101,6 +3875,8 @@
         "proper": "Mufrid",
         "mag": "2.680",
         "spect": "G0IV",
+        "dist": "11.3960",
+        "con": "Boo",
         "colour": "255 248 245"
     },
     "68002": {
@@ -3109,6 +3885,8 @@
         "proper": "Zet Cen",
         "mag": "2.550",
         "spect": "B2.5IV",
+        "dist": "117.0960",
+        "con": "Cen",
         "colour": "165 192 255"
     },
     "68282": {
@@ -3117,6 +3895,8 @@
         "proper": "Ups1Cen",
         "mag": "3.870",
         "spect": "B2IV-V",
+        "dist": "131.0616",
+        "con": "Cen",
         "colour": "159 179 255"
     },
     "68520": {
@@ -3125,6 +3905,8 @@
         "proper": "93Tau Vir",
         "mag": "4.230",
         "spect": "A3V",
+        "dist": "68.9655",
+        "con": "Vir",
         "colour": "191 207 255"
     },
     "68702": {
@@ -3133,6 +3915,8 @@
         "proper": "Hadar",
         "mag": "0.610",
         "spect": "B1III",
+        "dist": "120.1923",
+        "con": "Cen",
         "colour": "158 177 255"
     },
     "68756": {
@@ -3141,6 +3925,8 @@
         "proper": "Thuban",
         "mag": "3.670",
         "spect": "A0III SB",
+        "dist": "92.9368",
+        "con": "Dra",
         "colour": "188 205 255"
     },
     "68933": {
@@ -3149,6 +3935,8 @@
         "proper": "Menkent",
         "mag": "2.060",
         "spect": "K0IIIb",
+        "dist": "18.0343",
+        "con": "Cen",
         "colour": "255 227 190"
     },
     "69427": {
@@ -3157,6 +3945,8 @@
         "proper": "98Kap Vir",
         "mag": "4.180",
         "spect": "K3III",
+        "dist": "78.1250",
+        "con": "Vir",
         "colour": "255 216 167"
     },
     "69673": {
@@ -3165,6 +3955,8 @@
         "proper": "Arcturus",
         "mag": "-0.050",
         "spect": "K2IIIp",
+        "dist": "11.2575",
+        "con": "Boo",
         "colour": "255 221 175"
     },
     "69701": {
@@ -3173,6 +3965,8 @@
         "proper": "99Iot Vir",
         "mag": "4.070",
         "spect": "F7V",
+        "dist": "22.2370",
+        "con": "Vir",
         "colour": "246 243 255"
     },
     "70576": {
@@ -3181,6 +3975,8 @@
         "proper": "Tau2Lup",
         "mag": "4.330",
         "spect": "A7:+...",
+        "dist": "97.8474",
+        "con": "Lup",
         "colour": "197 213 255"
     },
     "70638": {
@@ -3189,6 +3985,8 @@
         "proper": "Del Oct",
         "mag": "4.310",
         "spect": "K2III",
+        "dist": "91.6590",
+        "con": "Oct",
         "colour": "255 221 175"
     },
     "71053": {
@@ -3197,6 +3995,8 @@
         "proper": "25Rho Boo",
         "mag": "3.570",
         "spect": "K3III",
+        "dist": "49.0918",
+        "con": "Boo",
         "colour": "255 216 167"
     },
     "71075": {
@@ -3205,6 +4005,8 @@
         "proper": "27Gam Boo",
         "mag": "3.040",
         "spect": "A7IIIvar",
+        "dist": "26.6099",
+        "con": "Boo",
         "colour": "210 219 255"
     },
     "71352": {
@@ -3213,6 +4015,8 @@
         "proper": "Eta Cen",
         "mag": "2.330",
         "spect": "B1Vn + A",
+        "dist": "93.7207",
+        "con": "Cen",
         "colour": "160 182 255"
     },
     "71536": {
@@ -3221,6 +4025,8 @@
         "proper": "Rho Lup",
         "mag": "4.050",
         "spect": "B5V",
+        "dist": "96.8992",
+        "con": "Lup",
         "colour": "170 191 255"
     },
     "71683": {
@@ -3229,6 +4035,8 @@
         "proper": "Rigil Kentaurus",
         "mag": "-0.010",
         "spect": "G2V",
+        "dist": "1.3248",
+        "con": "Cen",
         "colour": "255 245 242"
     },
     "71795": {
@@ -3237,6 +4045,8 @@
         "proper": "30Zet Boo",
         "mag": "3.780",
         "spect": "A3IVn",
+        "dist": "53.8793",
+        "con": "Boo",
         "colour": "190 205 255"
     },
     "71860": {
@@ -3245,6 +4055,8 @@
         "proper": "Alp Lup",
         "mag": "2.300",
         "spect": "B1.5III",
+        "dist": "142.4501",
+        "con": "Lup",
         "colour": "163 190 255"
     },
     "71908": {
@@ -3253,6 +4065,8 @@
         "proper": "Alp Cir",
         "mag": "3.180",
         "spect": "F1Vp",
+        "dist": "16.5700",
+        "con": "Cir",
         "colour": "230 234 255"
     },
     "71957": {
@@ -3261,6 +4075,8 @@
         "proper": "107Mu  Vir",
         "mag": "3.870",
         "spect": "F2III",
+        "dist": "18.2715",
+        "con": "Vir",
         "colour": "241 241 255"
     },
     "72105": {
@@ -3269,6 +4085,8 @@
         "proper": "Izar",
         "mag": "2.350",
         "spect": "A0",
+        "dist": "62.1118",
+        "con": "Boo",
         "colour": "184 202 255"
     },
     "72220": {
@@ -3277,6 +4095,8 @@
         "proper": "109    Vir",
         "mag": "3.730",
         "spect": "A0V",
+        "dist": "41.2371",
+        "con": "Vir",
         "colour": "185 201 255"
     },
     "72370": {
@@ -3285,6 +4105,8 @@
         "proper": "Alp Aps",
         "mag": "3.830",
         "spect": "K5III",
+        "dist": "136.9863",
+        "con": "Aps",
         "colour": "255 204 138"
     },
     "72607": {
@@ -3293,6 +4115,8 @@
         "proper": "Kochab",
         "mag": "2.070",
         "spect": "K4IIIvar",
+        "dist": "40.1445",
+        "con": "UMi",
         "colour": "255 211 146"
     },
     "72622": {
@@ -3301,6 +4125,8 @@
         "proper": "Zubenelgenubi",
         "mag": "2.750",
         "spect": "A3IV",
+        "dist": "23.2396",
+        "con": "Lib",
         "colour": "190 205 255"
     },
     "73273": {
@@ -3309,6 +4135,8 @@
         "proper": "Bet Lup",
         "mag": "2.680",
         "spect": "B2III",
+        "dist": "117.3709",
+        "con": "Lup",
         "colour": "159 180 255"
     },
     "73334": {
@@ -3317,6 +4145,8 @@
         "proper": "Kap Cen",
         "mag": "3.130",
         "spect": "B2IV",
+        "dist": "117.5088",
+        "con": "Cen",
         "colour": "159 179 255"
     },
     "73555": {
@@ -3325,6 +4155,8 @@
         "proper": "42Bet Boo",
         "mag": "3.490",
         "spect": "G8III",
+        "dist": "69.0608",
+        "con": "Boo",
         "colour": "255 231 199"
     },
     "73714": {
@@ -3333,6 +4165,8 @@
         "proper": "20Sig Lib",
         "mag": "3.250",
         "spect": "M3/M4III",
+        "dist": "88.4173",
+        "con": "Lib",
         "colour": "255 201 119"
     },
     "74395": {
@@ -3341,6 +4175,8 @@
         "proper": "Zet Lup",
         "mag": "3.410",
         "spect": "G8III",
+        "dist": "35.9712",
+        "con": "Lup",
         "colour": "255 231 199"
     },
     "74666": {
@@ -3349,6 +4185,8 @@
         "proper": "49Del Boo",
         "mag": "3.460",
         "spect": "G8III",
+        "dist": "37.3413",
+        "con": "Boo",
         "colour": "255 231 199"
     },
     "74785": {
@@ -3357,6 +4195,8 @@
         "proper": "Zubeneschemali",
         "mag": "2.610",
         "spect": "B8V",
+        "dist": "56.7537",
+        "con": "Lib",
         "colour": "177 195 255"
     },
     "74824": {
@@ -3365,6 +4205,8 @@
         "proper": "Bet Cir",
         "mag": "4.070",
         "spect": "A3V",
+        "dist": "30.5530",
+        "con": "Cir",
         "colour": "191 207 255"
     },
     "74946": {
@@ -3373,6 +4215,8 @@
         "proper": "Gam TrA",
         "mag": "2.870",
         "spect": "A1V",
+        "dist": "56.3698",
+        "con": "TrA",
         "colour": "181 199 255"
     },
     "75097": {
@@ -3381,6 +4225,8 @@
         "proper": "13Gam UMi",
         "mag": "3.000",
         "spect": "A3II-III",
+        "dist": "149.2537",
+        "con": "UMi",
         "colour": "190 207 255"
     },
     "75141": {
@@ -3389,6 +4235,8 @@
         "proper": "Del Lup",
         "mag": "3.220",
         "spect": "B1.5IV",
+        "dist": "271.0027",
+        "con": "Lup",
         "colour": "163 190 255"
     },
     "75177": {
@@ -3397,6 +4245,8 @@
         "proper": "Phi1Lup",
         "mag": "3.570",
         "spect": "K5III",
+        "dist": "84.3170",
+        "con": "Lup",
         "colour": "255 204 138"
     },
     "75323": {
@@ -3405,6 +4255,8 @@
         "proper": "Gam Cir",
         "mag": "4.480",
         "spect": "B5III + F8",
+        "dist": "137.5516",
+        "con": "Cir",
         "colour": "168 189 255"
     },
     "75458": {
@@ -3413,6 +4265,8 @@
         "proper": "12Iot Dra",
         "mag": "3.290",
         "spect": "K2III",
+        "dist": "31.0270",
+        "con": "Dra",
         "colour": "255 221 175"
     },
     "75695": {
@@ -3421,6 +4275,8 @@
         "proper": "3Bet CrB",
         "mag": "3.660",
         "spect": "F0p",
+        "dist": "34.2818",
+        "con": "CrB",
         "colour": "203 217 255"
     },
     "76127": {
@@ -3429,6 +4285,8 @@
         "proper": "4The CrB",
         "mag": "4.140",
         "spect": "B6Vnn",
+        "dist": "115.0748",
+        "con": "CrB",
         "colour": "172 189 255"
     },
     "76267": {
@@ -3437,6 +4295,8 @@
         "proper": "Alphekka",
         "mag": "2.220",
         "spect": "A0V",
+        "dist": "23.0097",
+        "con": "CrB",
         "colour": "185 201 255"
     },
     "76276": {
@@ -3445,6 +4305,8 @@
         "proper": "13Del Ser",
         "mag": "3.800",
         "spect": "F0IV",
+        "dist": "69.9301",
+        "con": "Ser",
         "colour": "218 224 255"
     },
     "76297": {
@@ -3453,6 +4315,8 @@
         "proper": "Gam Lup",
         "mag": "2.800",
         "spect": "B2IV",
+        "dist": "129.0323",
+        "con": "Lup",
         "colour": "159 179 255"
     },
     "76333": {
@@ -3461,6 +4325,8 @@
         "proper": "38Gam Lib",
         "mag": "3.910",
         "spect": "K0III",
+        "dist": "50.0250",
+        "con": "Lib",
         "colour": "255 227 190"
     },
     "76552": {
@@ -3469,6 +4335,8 @@
         "proper": "Ome Lup",
         "mag": "4.340",
         "spect": "K4.5III",
+        "dist": "67.0241",
+        "con": "Lup",
         "colour": "255 218 161"
     },
     "76952": {
@@ -3477,6 +4345,8 @@
         "proper": "8Gam CrB",
         "mag": "3.810",
         "spect": "A1Vs",
+        "dist": "44.7828",
+        "con": "CrB",
         "colour": "181 199 255"
     },
     "77055": {
@@ -3485,6 +4355,8 @@
         "proper": "16Zet UMi",
         "mag": "4.290",
         "spect": "A3Vn",
+        "dist": "113.1222",
+        "con": "UMi",
         "colour": "191 207 255"
     },
     "77070": {
@@ -3493,6 +4365,8 @@
         "proper": "Unukalhai",
         "mag": "2.630",
         "spect": "K2III",
+        "dist": "22.6757",
+        "con": "Ser",
         "colour": "255 221 175"
     },
     "77233": {
@@ -3501,6 +4375,8 @@
         "proper": "28Bet Ser",
         "mag": "3.650",
         "spect": "A3V",
+        "dist": "47.5511",
+        "con": "Ser",
         "colour": "191 207 255"
     },
     "77450": {
@@ -3509,6 +4385,8 @@
         "proper": "35Kap Ser",
         "mag": "4.090",
         "spect": "M1III",
+        "dist": "117.0960",
+        "con": "Ser",
         "colour": "255 200 121"
     },
     "77512": {
@@ -3517,6 +4395,8 @@
         "proper": "10Del CrB",
         "mag": "4.590",
         "spect": "G5III-IV",
+        "dist": "52.1376",
+        "con": "CrB",
         "colour": "255 236 211"
     },
     "77516": {
@@ -3525,6 +4405,8 @@
         "proper": "32Mu  Ser",
         "mag": "3.540",
         "spect": "A0V",
+        "dist": "52.0021",
+        "con": "Ser",
         "colour": "185 201 255"
     },
     "77622": {
@@ -3533,6 +4415,8 @@
         "proper": "37Eps Ser",
         "mag": "3.710",
         "spect": "A2m",
+        "dist": "21.5983",
+        "con": "Ser",
         "colour": "188 205 255"
     },
     "77634": {
@@ -3541,6 +4425,8 @@
         "proper": "5Chi Lup",
         "mag": "3.970",
         "spect": "B9.5III-IV",
+        "dist": "59.8444",
+        "con": "Lup",
         "colour": "182 201 255"
     },
     "77760": {
@@ -3549,6 +4435,8 @@
         "proper": "1Chi Her",
         "mag": "4.600",
         "spect": "F9V",
+        "dist": "15.8932",
+        "con": "Her",
         "colour": "255 247 252"
     },
     "77853": {
@@ -3557,6 +4445,8 @@
         "proper": "46The Lib",
         "mag": "4.130",
         "spect": "K0III",
+        "dist": "51.6529",
+        "con": "Lib",
         "colour": "255 227 190"
     },
     "77952": {
@@ -3565,6 +4455,8 @@
         "proper": "Bet TrA",
         "mag": "2.830",
         "spect": "F2III",
+        "dist": "12.3778",
+        "con": "TrA",
         "colour": "241 241 255"
     },
     "78072": {
@@ -3573,6 +4465,8 @@
         "proper": "41Gam Ser",
         "mag": "3.850",
         "spect": "F6V",
+        "dist": "11.2537",
+        "con": "Ser",
         "colour": "244 241 255"
     },
     "78159": {
@@ -3581,6 +4475,8 @@
         "proper": "13Eps CrB",
         "mag": "4.140",
         "spect": "K3III",
+        "dist": "67.8887",
+        "con": "CrB",
         "colour": "255 216 167"
     },
     "78265": {
@@ -3589,6 +4485,8 @@
         "proper": "6Pi  Sco",
         "mag": "2.890",
         "spect": "B1V + B2V",
+        "dist": "179.5332",
+        "con": "Sco",
         "colour": "160 182 255"
     },
     "78384": {
@@ -3597,6 +4495,8 @@
         "proper": "Eta Lup",
         "mag": "3.420",
         "spect": "B2.5IV",
+        "dist": "135.5014",
+        "con": "Lup",
         "colour": "165 192 255"
     },
     "78401": {
@@ -3605,6 +4505,8 @@
         "proper": "Dschubba",
         "mag": "2.290",
         "spect": "B0.2IV",
+        "dist": "150.6024",
+        "con": "Sco",
         "colour": "162 188 255"
     },
     "78493": {
@@ -3613,6 +4515,8 @@
         "proper": "14Iot CrB",
         "mag": "4.980",
         "spect": "A0p...",
+        "dist": "95.6023",
+        "con": "CrB",
         "colour": "184 202 255"
     },
     "78527": {
@@ -3621,6 +4525,8 @@
         "proper": "13The Dra",
         "mag": "4.010",
         "spect": "F8IV-V",
+        "dist": "21.0349",
+        "con": "Dra",
         "colour": "255 252 253"
     },
     "78639": {
@@ -3629,6 +4535,8 @@
         "proper": "Eta Nor",
         "mag": "4.650",
         "spect": "G8III",
+        "dist": "67.2948",
+        "con": "Nor",
         "colour": "255 231 199"
     },
     "78820": {
@@ -3637,6 +4545,8 @@
         "proper": "Graffias",
         "mag": "2.560",
         "spect": "B0.5V",
+        "dist": "123.9157",
+        "con": "Sco",
         "colour": "162 188 255"
     },
     "78970": {
@@ -3645,6 +4555,8 @@
         "proper": "HIP 78970",
         "mag": "5.720",
         "spect": "F0/F2V",
+        "dist": "54.7945",
+        "con": "Lup",
         "colour": "203 217 255"
     },
     "79509": {
@@ -3653,6 +4565,8 @@
         "proper": "Kap Nor",
         "mag": "4.950",
         "spect": "G4III",
+        "dist": "131.2336",
+        "con": "Nor",
         "colour": "255 243 233"
     },
     "79822": {
@@ -3661,6 +4575,8 @@
         "proper": "21Eta UMi",
         "mag": "4.950",
         "spect": "F5V",
+        "dist": "29.7354",
+        "con": "UMi",
         "colour": "248 247 255"
     },
     "79882": {
@@ -3669,6 +4585,8 @@
         "proper": "2Eps Oph",
         "mag": "3.230",
         "spect": "G8III",
+        "dist": "32.6371",
+        "con": "Oph",
         "colour": "255 231 199"
     },
     "79992": {
@@ -3677,6 +4595,8 @@
         "proper": "22Tau Her",
         "mag": "3.910",
         "spect": "B5IV",
+        "dist": "94.2507",
+        "con": "Her",
         "colour": "172 192 255"
     },
     "80000": {
@@ -3685,6 +4605,8 @@
         "proper": "Gam2Nor",
         "mag": "4.010",
         "spect": "G8III",
+        "dist": "39.4789",
+        "con": "Nor",
         "colour": "255 231 199"
     },
     "80170": {
@@ -3693,6 +4615,8 @@
         "proper": "20Gam Her",
         "mag": "3.740",
         "spect": "A9III",
+        "dist": "59.0667",
+        "con": "Her",
         "colour": "209 219 255"
     },
     "80331": {
@@ -3701,6 +4625,8 @@
         "proper": "14Eta Dra",
         "mag": "2.730",
         "spect": "G8III",
+        "dist": "28.2326",
+        "con": "Dra",
         "colour": "255 231 199"
     },
     "80582": {
@@ -3709,6 +4635,8 @@
         "proper": "Eps Nor",
         "mag": "4.460",
         "spect": "B4V",
+        "dist": "162.6016",
+        "con": "Nor",
         "colour": "164 184 255"
     },
     "80763": {
@@ -3717,6 +4645,8 @@
         "proper": "Antares",
         "mag": "1.060",
         "spect": "M1Ib + B2.5V",
+        "dist": "169.7793",
+        "con": "Sco",
         "colour": "255 202 138"
     },
     "80816": {
@@ -3725,6 +4655,8 @@
         "proper": "Kornephoros",
         "mag": "2.780",
         "spect": "G8III",
+        "dist": "42.6621",
+        "con": "Her",
         "colour": "255 231 199"
     },
     "81065": {
@@ -3733,6 +4665,8 @@
         "proper": "Gam Aps",
         "mag": "3.860",
         "spect": "K0IV SB",
+        "dist": "47.9157",
+        "con": "Aps",
         "colour": "255 225 189"
     },
     "81126": {
@@ -3741,6 +4675,8 @@
         "proper": "35Sig Her",
         "mag": "4.200",
         "spect": "B9Vvar",
+        "dist": "96.5251",
+        "con": "Her",
         "colour": "181 198 255"
     },
     "81266": {
@@ -3749,6 +4685,8 @@
         "proper": "23Tau Sco",
         "mag": "2.820",
         "spect": "B0V",
+        "dist": "145.3488",
+        "con": "Sco",
         "colour": "156 178 255"
     },
     "81377": {
@@ -3757,6 +4695,8 @@
         "proper": "13Zet Oph",
         "mag": "2.540",
         "spect": "O9.5V",
+        "dist": "112.2334",
+        "con": "Oph",
         "colour": "160 186 255"
     },
     "81693": {
@@ -3765,6 +4705,8 @@
         "proper": "40Zet Her",
         "mag": "2.810",
         "spect": "F9IV",
+        "dist": "10.7158",
+        "con": "Her",
         "colour": "255 250 249"
     },
     "81833": {
@@ -3773,6 +4715,8 @@
         "proper": "44Eta Her",
         "mag": "3.480",
         "spect": "G8III-IV",
+        "dist": "33.3111",
+        "con": "Her",
         "colour": "255 231 199"
     },
     "81852": {
@@ -3781,6 +4725,8 @@
         "proper": "Bet Aps",
         "mag": "4.230",
         "spect": "K0III",
+        "dist": "48.1232",
+        "con": "Aps",
         "colour": "255 227 190"
     },
     "82080": {
@@ -3789,6 +4735,8 @@
         "proper": "22Eps UMi",
         "mag": "4.210",
         "spect": "G5IIIvar",
+        "dist": "93.1966",
+        "con": "UMi",
         "colour": "255 236 211"
     },
     "82273": {
@@ -3797,6 +4745,8 @@
         "proper": "Atria",
         "mag": "1.910",
         "spect": "K2IIb-IIIa",
+        "dist": "119.7605",
+        "con": "TrA",
         "colour": "255 222 170"
     },
     "82363": {
@@ -3805,6 +4755,8 @@
         "proper": "Eta Ara",
         "mag": "3.770",
         "spect": "K5III",
+        "dist": "91.7431",
+        "con": "Ara",
         "colour": "255 204 138"
     },
     "82396": {
@@ -3813,6 +4765,8 @@
         "proper": "26Eps Sco",
         "mag": "2.290",
         "spect": "K2IIIb",
+        "dist": "19.5351",
+        "con": "Sco",
         "colour": "255 221 175"
     },
     "82514": {
@@ -3821,6 +4775,8 @@
         "proper": "Mu 1Sco",
         "mag": "3.000",
         "spect": "B1.5IV + B",
+        "dist": "153.6098",
+        "con": "Sco",
         "colour": "163 190 255"
     },
     "82671": {
@@ -3829,6 +4785,8 @@
         "proper": "Zet1Sco",
         "mag": "4.700",
         "spect": "B1Iae",
+        "dist": "787.4016",
+        "con": "Sco",
         "colour": "168 193 255"
     },
     "83000": {
@@ -3837,6 +4795,8 @@
         "proper": "27Kap Oph",
         "mag": "3.190",
         "spect": "K2IIIvar",
+        "dist": "28.0426",
+        "con": "Oph",
         "colour": "255 221 175"
     },
     "83081": {
@@ -3845,6 +4805,8 @@
         "proper": "Zet Ara",
         "mag": "3.120",
         "spect": "K5III",
+        "dist": "149.0313",
+        "con": "Ara",
         "colour": "255 204 138"
     },
     "83207": {
@@ -3853,6 +4815,8 @@
         "proper": "58Eps Her",
         "mag": "3.920",
         "spect": "A0V",
+        "dist": "47.5285",
+        "con": "Her",
         "colour": "185 201 255"
     },
     "83895": {
@@ -3861,6 +4825,8 @@
         "proper": "22Zet Dra",
         "mag": "3.170",
         "spect": "B6III",
+        "dist": "100.7049",
+        "con": "Dra",
         "colour": "170 190 255"
     },
     "84012": {
@@ -3869,6 +4835,8 @@
         "proper": "35Eta Oph",
         "mag": "2.430",
         "spect": "A2.5Va",
+        "dist": "27.0929",
+        "con": "Oph",
         "colour": "188 205 255"
     },
     "84143": {
@@ -3877,6 +4845,8 @@
         "proper": "Eta Sco",
         "mag": "3.320",
         "spect": "F3p",
+        "dist": "22.5276",
+        "con": "Sco",
         "colour": "235 237 255"
     },
     "84379": {
@@ -3885,6 +4855,8 @@
         "proper": "65Del Her",
         "mag": "3.120",
         "spect": "A3IVv SB",
+        "dist": "23.0362",
+        "con": "Her",
         "colour": "190 205 255"
     },
     "84380": {
@@ -3893,6 +4865,8 @@
         "proper": "67Pi  Her",
         "mag": "3.160",
         "spect": "K3IIvar",
+        "dist": "115.4734",
+        "con": "Her",
         "colour": "255 220 166"
     },
     "84606": {
@@ -3901,6 +4875,8 @@
         "proper": "69    Her",
         "mag": "4.640",
         "spect": "A2V",
+        "dist": "53.7924",
+        "con": "Her",
         "colour": "187 203 255"
     },
     "84880": {
@@ -3909,6 +4885,8 @@
         "proper": "53Nu  Ser",
         "mag": "4.320",
         "spect": "A0/A1V",
+        "dist": "62.3053",
+        "con": "Ser",
         "colour": "184 202 255"
     },
     "85112": {
@@ -3917,6 +4895,8 @@
         "proper": "75Rho Her",
         "mag": "4.150",
         "spect": "B9.5III",
+        "dist": "120.6273",
+        "con": "Her",
         "colour": "182 201 255"
     },
     "85258": {
@@ -3925,6 +4905,8 @@
         "proper": "Bet Ara",
         "mag": "2.840",
         "spect": "K3Ib-II",
+        "dist": "198.0198",
+        "con": "Ara",
         "colour": "255 204 128"
     },
     "85267": {
@@ -3933,6 +4915,8 @@
         "proper": "Gam Ara",
         "mag": "3.310",
         "spect": "B1Ib",
+        "dist": "341.2969",
+        "con": "Ara",
         "colour": "168 193 255"
     },
     "85670": {
@@ -3941,6 +4925,8 @@
         "proper": "Rastaban",
         "mag": "2.790",
         "spect": "G2II",
+        "dist": "116.5501",
+        "con": "Dra",
         "colour": "255 241 221"
     },
     "85693": {
@@ -3949,6 +4935,8 @@
         "proper": "76Lam Her",
         "mag": "4.410",
         "spect": "K3IIIvar",
+        "dist": "113.2503",
+        "con": "Her",
         "colour": "255 216 167"
     },
     "85727": {
@@ -3957,6 +4945,8 @@
         "proper": "Del Ara",
         "mag": "3.600",
         "spect": "B8V",
+        "dist": "60.6796",
+        "con": "Ara",
         "colour": "177 195 255"
     },
     "85755": {
@@ -3965,6 +4955,8 @@
         "proper": "51    Oph",
         "mag": "4.780",
         "spect": "A0V",
+        "dist": "124.3781",
+        "con": "Oph",
         "colour": "185 201 255"
     },
     "85792": {
@@ -3973,6 +4965,8 @@
         "proper": "Alp Ara",
         "mag": "2.840",
         "spect": "B2Vne",
+        "dist": "81.9672",
+        "con": "Ara",
         "colour": "160 180 255"
     },
     "85822": {
@@ -3981,6 +4975,8 @@
         "proper": "23Del UMi",
         "mag": "4.350",
         "spect": "A1Vn",
+        "dist": "52.7704",
+        "con": "UMi",
         "colour": "181 199 255"
     },
     "85829": {
@@ -3989,6 +4985,8 @@
         "proper": "25Nu 2Dra",
         "mag": "4.860",
         "spect": "Am",
+        "dist": "30.4878",
+        "con": "Dra",
         "colour": "192 208 255"
     },
     "85927": {
@@ -3997,6 +4995,8 @@
         "proper": "Shaula",
         "mag": "1.620",
         "spect": "B1.5IV+...",
+        "dist": "175.1313",
+        "con": "Sco",
         "colour": "163 190 255"
     },
     "86032": {
@@ -4005,6 +5005,8 @@
         "proper": "Rasalhague",
         "mag": "2.080",
         "spect": "A5III",
+        "dist": "14.8965",
+        "con": "Oph",
         "colour": "202 215 255"
     },
     "86228": {
@@ -4013,6 +5015,8 @@
         "proper": "Sargas",
         "mag": "1.860",
         "spect": "F1II",
+        "dist": "92.0810",
+        "con": "Sco",
         "colour": "216 225 255"
     },
     "86263": {
@@ -4021,6 +5025,8 @@
         "proper": "55Xi  Ser",
         "mag": "3.540",
         "spect": "F0IIIp",
+        "dist": "32.2789",
+        "con": "Ser",
         "colour": "213 222 255"
     },
     "86414": {
@@ -4029,6 +5035,8 @@
         "proper": "85Iot Her",
         "mag": "3.820",
         "spect": "B3V SB",
+        "dist": "139.4700",
+        "con": "Her",
         "colour": "165 185 255"
     },
     "86565": {
@@ -4037,6 +5045,8 @@
         "proper": "56Omi Ser",
         "mag": "4.240",
         "spect": "A2Va",
+        "dist": "53.1067",
+        "con": "Ser",
         "colour": "187 203 255"
     },
     "86670": {
@@ -4045,6 +5055,8 @@
         "proper": "Kap Sco",
         "mag": "2.390",
         "spect": "B1.5III",
+        "dist": "148.1481",
+        "con": "Sco",
         "colour": "163 190 255"
     },
     "86742": {
@@ -4053,6 +5065,8 @@
         "proper": "Cebalrai",
         "mag": "2.760",
         "spect": "K2III",
+        "dist": "25.0941",
+        "con": "Oph",
         "colour": "255 221 175"
     },
     "86929": {
@@ -4061,6 +5075,8 @@
         "proper": "Eta Pav",
         "mag": "3.610",
         "spect": "K1III",
+        "dist": "107.9914",
+        "con": "Pav",
         "colour": "255 223 181"
     },
     "86974": {
@@ -4069,6 +5085,8 @@
         "proper": "86Mu  Her",
         "mag": "3.420",
         "spect": "G5IV",
+        "dist": "8.3105",
+        "con": "Her",
         "colour": "255 235 213"
     },
     "87072": {
@@ -4077,6 +5095,8 @@
         "proper": "3    Sgr",
         "mag": "4.530",
         "spect": "F7II",
+        "dist": "302.1148",
+        "con": "Sgr",
         "colour": "255 250 251"
     },
     "87073": {
@@ -4085,6 +5105,8 @@
         "proper": "Iot1Sco",
         "mag": "2.990",
         "spect": "F3Ia",
+        "dist": "591.7160",
+        "con": "Sco",
         "colour": "236 237 255"
     },
     "87585": {
@@ -4093,6 +5115,8 @@
         "proper": "32Xi  Dra",
         "mag": "3.730",
         "spect": "K2III",
+        "dist": "34.5066",
+        "con": "Dra",
         "colour": "255 221 175"
     },
     "87808": {
@@ -4101,6 +5125,8 @@
         "proper": "91The Her",
         "mag": "3.860",
         "spect": "K1IIvar",
+        "dist": "230.9469",
+        "con": "Her",
         "colour": "255 224 175"
     },
     "87833": {
@@ -4109,6 +5135,8 @@
         "proper": "Etamin",
         "mag": "2.240",
         "spect": "K5III",
+        "dist": "47.3037",
+        "con": "Dra",
         "colour": "255 204 138"
     },
     "87933": {
@@ -4117,6 +5145,8 @@
         "proper": "92Xi  Her",
         "mag": "3.700",
         "spect": "K0III",
+        "dist": "41.9463",
+        "con": "Her",
         "colour": "255 227 190"
     },
     "88635": {
@@ -4125,6 +5155,8 @@
         "proper": "Nash",
         "mag": "2.980",
         "spect": "K0III",
+        "dist": "29.7000",
+        "con": "Sgr",
         "colour": "255 227 190"
     },
     "88714": {
@@ -4133,6 +5165,8 @@
         "proper": "The Ara",
         "mag": "3.650",
         "spect": "B2Ib",
+        "dist": "249.3766",
+        "con": "Ara",
         "colour": "177 196 255"
     },
     "88794": {
@@ -4141,6 +5175,8 @@
         "proper": "103Omi Her",
         "mag": "3.840",
         "spect": "B9.5V",
+        "dist": "103.6269",
+        "con": "Her",
         "colour": "182 201 255"
     },
     "88866": {
@@ -4149,6 +5185,8 @@
         "proper": "Pi  Pav",
         "mag": "4.330",
         "spect": "Am",
+        "dist": "39.8565",
+        "con": "Pav",
         "colour": "192 208 255"
     },
     "89341": {
@@ -4157,6 +5195,8 @@
         "proper": "13Mu  Sgr",
         "mag": "3.840",
         "spect": "B2III:",
+        "dist": "100000.0000",
+        "con": "Sgr",
         "colour": "159 180 255"
     },
     "89642": {
@@ -4165,6 +5205,8 @@
         "proper": "Eta Sgr",
         "mag": "3.100",
         "spect": "M2III",
+        "dist": "44.7427",
+        "con": "Sgr",
         "colour": "255 198 118"
     },
     "89931": {
@@ -4173,6 +5215,8 @@
         "proper": "Kaus Meridionalis",
         "mag": "2.720",
         "spect": "K3III",
+        "dist": "106.6098",
+        "con": "Sgr",
         "colour": "255 216 167"
     },
     "89937": {
@@ -4181,6 +5225,8 @@
         "proper": "44Chi Dra",
         "mag": "3.550",
         "spect": "F7Vvar",
+        "dist": "8.0574",
+        "con": "Dra",
         "colour": "246 243 255"
     },
     "89962": {
@@ -4189,6 +5235,8 @@
         "proper": "58Eta Ser",
         "mag": "3.230",
         "spect": "K0III-IV",
+        "dist": "18.5426",
+        "con": "Ser",
         "colour": "255 227 190"
     },
     "90098": {
@@ -4197,6 +5245,8 @@
         "proper": "Xi  Pav",
         "mag": "4.350",
         "spect": "M1III SB",
+        "dist": "143.6782",
+        "con": "Pav",
         "colour": "255 200 121"
     },
     "90185": {
@@ -4205,6 +5255,8 @@
         "proper": "Kaus Australis",
         "mag": "1.790",
         "spect": "B9.5III",
+        "dist": "43.9367",
+        "con": "Sgr",
         "colour": "182 201 255"
     },
     "90422": {
@@ -4213,6 +5265,8 @@
         "proper": "Alp Tel",
         "mag": "3.490",
         "spect": "B3IV",
+        "dist": "85.1789",
+        "con": "Tel",
         "colour": "166 188 255"
     },
     "90496": {
@@ -4221,6 +5275,8 @@
         "proper": "Kaus Borealis",
         "mag": "2.820",
         "spect": "K1IIIb",
+        "dist": "23.9693",
+        "con": "Sgr",
         "colour": "255 223 181"
     },
     "90568": {
@@ -4229,6 +5285,8 @@
         "proper": "Zet Tel",
         "mag": "4.100",
         "spect": "G8/K0III",
+        "dist": "38.6997",
+        "con": "Tel",
         "colour": "255 229 189"
     },
     "90595": {
@@ -4237,6 +5295,8 @@
         "proper": "Gam Sct",
         "mag": "4.670",
         "spect": "A1IV/V",
+        "dist": "97.9432",
+        "con": "Sct",
         "colour": "183 200 255"
     },
     "90887": {
@@ -4245,6 +5305,8 @@
         "proper": "HIP 90887",
         "mag": "5.160",
         "spect": "A3V",
+        "dist": "70.2741",
+        "con": "CrA",
         "colour": "191 207 255"
     },
     "91117": {
@@ -4253,6 +5315,8 @@
         "proper": "Alp Sct",
         "mag": "3.850",
         "spect": "K2III",
+        "dist": "61.0501",
+        "con": "Sct",
         "colour": "255 221 175"
     },
     "91262": {
@@ -4261,6 +5325,8 @@
         "proper": "Vega",
         "mag": "0.030",
         "spect": "A0Vvar",
+        "dist": "7.6787",
+        "con": "Lyr",
         "colour": "185 201 255"
     },
     "91792": {
@@ -4269,6 +5335,8 @@
         "proper": "Zet Pav",
         "mag": "4.010",
         "spect": "K2III",
+        "dist": "66.9792",
+        "con": "Pav",
         "colour": "255 221 175"
     },
     "91875": {
@@ -4277,6 +5345,8 @@
         "proper": "Lam CrA",
         "mag": "5.110",
         "spect": "A0/A1V",
+        "dist": "62.9327",
+        "con": "CrA",
         "colour": "184 202 255"
     },
     "91971": {
@@ -4285,6 +5355,8 @@
         "proper": "6Zet1Lyr",
         "mag": "4.340",
         "spect": "Am",
+        "dist": "47.8698",
+        "con": "Lyr",
         "colour": "192 208 255"
     },
     "92041": {
@@ -4293,6 +5365,8 @@
         "proper": "27Phi Sgr",
         "mag": "3.170",
         "spect": "B8.5III",
+        "dist": "73.3676",
+        "con": "Sgr",
         "colour": "181 199 255"
     },
     "92175": {
@@ -4301,6 +5375,8 @@
         "proper": "Bet Sct",
         "mag": "4.220",
         "spect": "G5II...",
+        "dist": "280.8989",
+        "con": "Sct",
         "colour": "255 235 203"
     },
     "92202": {
@@ -4309,6 +5385,8 @@
         "proper": "HIP 92202",
         "mag": "5.380",
         "spect": "K0Ibpvar",
+        "dist": "100000.0000",
+        "con": "Sct",
         "colour": "255 221 181"
     },
     "92420": {
@@ -4317,6 +5395,8 @@
         "proper": "Sheliak",
         "mag": "3.520",
         "spect": "A8:V comp SB",
+        "dist": "294.9853",
+        "con": "Lyr",
         "colour": "199 214 255"
     },
     "92609": {
@@ -4325,6 +5405,8 @@
         "proper": "Lam Pav",
         "mag": "4.220",
         "spect": "B2II-III",
+        "dist": "438.5965",
+        "con": "Pav",
         "colour": "165 192 255"
     },
     "92791": {
@@ -4333,6 +5415,8 @@
         "proper": "12Del2Lyr",
         "mag": "4.220",
         "spect": "M4IIvar",
+        "dist": "225.7336",
+        "con": "Lyr",
         "colour": "255 199 114"
     },
     "92814": {
@@ -4341,6 +5425,8 @@
         "proper": "HIP 92814",
         "mag": "5.080",
         "spect": "B3II",
+        "dist": "429.1845",
+        "con": "Sct",
         "colour": "168 193 255"
     },
     "92855": {
@@ -4349,6 +5435,8 @@
         "proper": "Nunki",
         "mag": "2.050",
         "spect": "B2.5V",
+        "dist": "69.8324",
+        "con": "Sgr",
         "colour": "165 192 255"
     },
     "92946": {
@@ -4357,6 +5445,8 @@
         "proper": "63The1Ser",
         "mag": "4.620",
         "spect": "A5V",
+        "dist": "47.4158",
+        "con": "Ser",
         "colour": "202 215 255"
     },
     "92953": {
@@ -4365,6 +5455,8 @@
         "proper": "HIP 92953",
         "mag": "5.350",
         "spect": "G6III-IV",
+        "dist": "90.5797",
+        "con": "CrA",
         "colour": "255 236 215"
     },
     "92989": {
@@ -4373,6 +5465,8 @@
         "proper": "HIP 92989",
         "mag": "5.360",
         "spect": "B3V",
+        "dist": "131.9261",
+        "con": "CrA",
         "colour": "165 185 255"
     },
     "93015": {
@@ -4381,6 +5475,8 @@
         "proper": "Kap Pav",
         "mag": "4.400",
         "spect": "F5Ib-II:",
+        "dist": "153.3742",
+        "con": "Pav",
         "colour": "219 225 255"
     },
     "93085": {
@@ -4389,6 +5485,8 @@
         "proper": "37Xi 2Sgr",
         "mag": "3.520",
         "spect": "G8/K0II/III",
+        "dist": "111.9821",
+        "con": "Sgr",
         "colour": "255 229 189"
     },
     "93174": {
@@ -4397,6 +5495,8 @@
         "proper": "Eps CrA",
         "mag": "4.830",
         "spect": "F3IV/V",
+        "dist": "30.1841",
+        "con": "CrA",
         "colour": "227 230 255"
     },
     "93194": {
@@ -4405,6 +5505,8 @@
         "proper": "14Gam Lyr",
         "mag": "3.250",
         "spect": "B9III",
+        "dist": "190.1141",
+        "con": "Lyr",
         "colour": "178 195 255"
     },
     "93244": {
@@ -4413,6 +5515,8 @@
         "proper": "13Eps Aql",
         "mag": "4.020",
         "spect": "K2III",
+        "dist": "47.5059",
+        "con": "Aql",
         "colour": "255 221 175"
     },
     "93506": {
@@ -4421,6 +5525,8 @@
         "proper": "38Zet Sgr",
         "mag": "2.600",
         "spect": "A3IV",
+        "dist": "27.0416",
+        "con": "Sgr",
         "colour": "190 205 255"
     },
     "93542": {
@@ -4429,6 +5535,8 @@
         "proper": "Zet CrA",
         "mag": "4.740",
         "spect": "A0Vn",
+        "dist": "59.2066",
+        "con": "CrA",
         "colour": "185 201 255"
     },
     "93683": {
@@ -4437,6 +5545,8 @@
         "proper": "39Omi Sgr",
         "mag": "3.760",
         "spect": "K0III",
+        "dist": "43.5540",
+        "con": "Sgr",
         "colour": "255 227 190"
     },
     "93747": {
@@ -4445,6 +5555,8 @@
         "proper": "17Zet Aql",
         "mag": "2.990",
         "spect": "A0Vn",
+        "dist": "25.4582",
+        "con": "Aql",
         "colour": "185 201 255"
     },
     "93805": {
@@ -4453,6 +5565,8 @@
         "proper": "16Lam Aql",
         "mag": "3.430",
         "spect": "B9Vn",
+        "dist": "37.9219",
+        "con": "Aql",
         "colour": "181 198 255"
     },
     "93825": {
@@ -4461,6 +5575,8 @@
         "proper": "Gam CrA",
         "mag": "4.230",
         "spect": "F7IV-V",
+        "dist": "17.3040",
+        "con": "CrA",
         "colour": "240 239 255"
     },
     "93864": {
@@ -4469,6 +5585,8 @@
         "proper": "40Tau Sgr",
         "mag": "3.320",
         "spect": "K1/K2III",
+        "dist": "37.2856",
+        "con": "Sgr",
         "colour": "255 224 175"
     },
     "94005": {
@@ -4477,6 +5595,8 @@
         "proper": "Del CrA",
         "mag": "4.570",
         "spect": "K1III",
+        "dist": "54.7345",
+        "con": "CrA",
         "colour": "255 223 181"
     },
     "94114": {
@@ -4485,6 +5605,8 @@
         "proper": "Alp CrA",
         "mag": "4.110",
         "spect": "A0/A1V",
+        "dist": "38.4320",
+        "con": "CrA",
         "colour": "184 202 255"
     },
     "94160": {
@@ -4493,6 +5615,8 @@
         "proper": "Bet CrA",
         "mag": "4.100",
         "spect": "K0II/IIICN.",
+        "dist": "145.3488",
+        "con": "CrA",
         "colour": "255 226 180"
     },
     "94376": {
@@ -4501,6 +5625,8 @@
         "proper": "57Del Dra",
         "mag": "3.070",
         "spect": "G9III",
+        "dist": "29.8686",
+        "con": "Dra",
         "colour": "255 231 196"
     },
     "94648": {
@@ -4509,6 +5635,8 @@
         "proper": "60Tau Dra",
         "mag": "4.450",
         "spect": "K3III",
+        "dist": "44.8833",
+        "con": "Dra",
         "colour": "255 216 167"
     },
     "94779": {
@@ -4517,6 +5645,8 @@
         "proper": "1Kap Cyg",
         "mag": "3.800",
         "spect": "K0III",
+        "dist": "38.0662",
+        "con": "Cyg",
         "colour": "255 227 190"
     },
     "94820": {
@@ -4525,6 +5655,8 @@
         "proper": "43    Sgr",
         "mag": "4.880",
         "spect": "K0III",
+        "dist": "147.7105",
+        "con": "Sgr",
         "colour": "255 227 190"
     },
     "95168": {
@@ -4533,6 +5665,8 @@
         "proper": "44Rho1Sgr",
         "mag": "3.920",
         "spect": "F0III/IV",
+        "dist": "38.9257",
+        "con": "Sgr",
         "colour": "213 222 255"
     },
     "95294": {
@@ -4541,6 +5675,8 @@
         "proper": "Bet2Sgr",
         "mag": "4.270",
         "spect": "F2III",
+        "dist": "41.1353",
+        "con": "Sgr",
         "colour": "241 241 255"
     },
     "95347": {
@@ -4549,6 +5685,8 @@
         "proper": "Alp Sgr",
         "mag": "3.960",
         "spect": "B8V",
+        "dist": "55.7414",
+        "con": "Sgr",
         "colour": "177 195 255"
     },
     "95501": {
@@ -4557,6 +5695,8 @@
         "proper": "30Del Aql",
         "mag": "3.360",
         "spect": "F0IV",
+        "dist": "15.5255",
+        "con": "Aql",
         "colour": "218 224 255"
     },
     "95771": {
@@ -4565,6 +5705,8 @@
         "proper": "6Alp Vul",
         "mag": "4.440",
         "spect": "M0 comp",
+        "dist": "91.1577",
+        "con": "Vul",
         "colour": "255 207 133"
     },
     "95853": {
@@ -4573,6 +5715,8 @@
         "proper": "10Iot2Cyg",
         "mag": "3.760",
         "spect": "A5Vn",
+        "dist": "37.2024",
+        "con": "Cyg",
         "colour": "202 215 255"
     },
     "95947": {
@@ -4581,6 +5725,8 @@
         "proper": "Albireo",
         "mag": "3.050",
         "spect": "K3II+...",
+        "dist": "133.1558",
+        "con": "Cyg",
         "colour": "255 220 166"
     },
     "96406": {
@@ -4589,6 +5735,8 @@
         "proper": "51    Sgr",
         "mag": "5.640",
         "spect": "A1m...",
+        "dist": "90.2527",
+        "con": "Sgr",
         "colour": "186 204 255"
     },
     "96757": {
@@ -4597,6 +5745,8 @@
         "proper": "5Alp Sge",
         "mag": "4.390",
         "spect": "G0II",
+        "dist": "130.3781",
+        "con": "Sge",
         "colour": "255 244 233"
     },
     "96837": {
@@ -4605,6 +5755,8 @@
         "proper": "6Bet Sge",
         "mag": "4.390",
         "spect": "G8II",
+        "dist": "134.7709",
+        "con": "Sge",
         "colour": "255 229 189"
     },
     "97165": {
@@ -4613,6 +5765,8 @@
         "proper": "18Del Cyg",
         "mag": "2.860",
         "spect": "B9.5III",
+        "dist": "50.5817",
+        "con": "Cyg",
         "colour": "182 201 255"
     },
     "97278": {
@@ -4621,6 +5775,8 @@
         "proper": "Tarazed",
         "mag": "2.720",
         "spect": "K3II",
+        "dist": "121.0654",
+        "con": "Aql",
         "colour": "255 220 166"
     },
     "97365": {
@@ -4629,6 +5785,8 @@
         "proper": "7Del Sge",
         "mag": "3.680",
         "spect": "M2II + B6",
+        "dist": "182.1494",
+        "con": "Sge",
         "colour": "255 203 124"
     },
     "97433": {
@@ -4637,6 +5795,8 @@
         "proper": "63Eps Dra",
         "mag": "3.840",
         "spect": "G8III",
+        "dist": "45.3721",
+        "con": "Dra",
         "colour": "255 231 199"
     },
     "97649": {
@@ -4645,6 +5805,8 @@
         "proper": "Altair",
         "mag": "0.760",
         "spect": "A7IV-V",
+        "dist": "5.1295",
+        "con": "Aql",
         "colour": "192 207 255"
     },
     "97804": {
@@ -4653,6 +5815,8 @@
         "proper": "55Eta Aql",
         "mag": "3.870",
         "spect": "F6Ibv SB",
+        "dist": "423.7288",
+        "con": "Aql",
         "colour": "255 234 252"
     },
     "98032": {
@@ -4661,6 +5825,8 @@
         "proper": "Iot Sgr",
         "mag": "4.120",
         "spect": "K0III",
+        "dist": "55.7414",
+        "con": "Sgr",
         "colour": "255 227 190"
     },
     "98036": {
@@ -4669,6 +5835,8 @@
         "proper": "Alshain",
         "mag": "3.710",
         "spect": "G8IVvar",
+        "dist": "13.6986",
+        "con": "Aql",
         "colour": "255 233 211"
     },
     "98110": {
@@ -4677,6 +5845,8 @@
         "proper": "21Eta Cyg",
         "mag": "3.890",
         "spect": "K0IIIvar",
+        "dist": "41.3736",
+        "con": "Cyg",
         "colour": "255 227 190"
     },
     "98337": {
@@ -4685,6 +5855,8 @@
         "proper": "12Gam Sge",
         "mag": "3.510",
         "spect": "K5III",
+        "dist": "79.2393",
+        "con": "Sge",
         "colour": "255 204 138"
     },
     "98412": {
@@ -4693,6 +5865,8 @@
         "proper": "The1Sgr",
         "mag": "4.370",
         "spect": "B2.5IV",
+        "dist": "158.9825",
+        "con": "Sgr",
         "colour": "165 192 255"
     },
     "98495": {
@@ -4701,6 +5875,8 @@
         "proper": "Eps Pav",
         "mag": "3.970",
         "spect": "A0V",
+        "dist": "32.2165",
+        "con": "Pav",
         "colour": "185 201 255"
     },
     "98543": {
@@ -4709,6 +5885,8 @@
         "proper": "15    Vul",
         "mag": "4.660",
         "spect": "A4III",
+        "dist": "72.4638",
+        "con": "Vul",
         "colour": "196 209 255"
     },
     "98688": {
@@ -4717,6 +5895,8 @@
         "proper": "62    Sgr",
         "mag": "4.430",
         "spect": "M4III",
+        "dist": "137.5516",
+        "con": "Sgr",
         "colour": "255 206 127"
     },
     "98920": {
@@ -4725,6 +5905,8 @@
         "proper": "16Eta Sge",
         "mag": "5.090",
         "spect": "K2III",
+        "dist": "49.1642",
+        "con": "Sge",
         "colour": "255 221 175"
     },
     "99240": {
@@ -4733,6 +5915,8 @@
         "proper": "Del Pav",
         "mag": "3.550",
         "spect": "G5IV-Vvar",
+        "dist": "6.1084",
+        "con": "Pav",
         "colour": "255 235 213"
     },
     "99473": {
@@ -4741,6 +5925,8 @@
         "proper": "65The Aql",
         "mag": "3.240",
         "spect": "B9.5III",
+        "dist": "87.7963",
+        "con": "Aql",
         "colour": "182 201 255"
     },
     "100064": {
@@ -4749,6 +5935,8 @@
         "proper": "6Alp2Cap",
         "mag": "3.580",
         "spect": "G6/G8III",
+        "dist": "32.4465",
+        "con": "Cap",
         "colour": "255 233 198"
     },
     "100345": {
@@ -4757,6 +5945,8 @@
         "proper": "9Bet Cap",
         "mag": "3.050",
         "spect": "A5:n",
+        "dist": "100.2004",
+        "con": "Cap",
         "colour": "194 210 255"
     },
     "100453": {
@@ -4765,6 +5955,8 @@
         "proper": "Sadr",
         "mag": "2.230",
         "spect": "F8Ib",
+        "dist": "561.7978",
+        "con": "Cyg",
         "colour": "255 252 247"
     },
     "100751": {
@@ -4773,6 +5965,8 @@
         "proper": "Peacock",
         "mag": "1.940",
         "spect": "B2IV",
+        "dist": "54.8246",
+        "con": "Pav",
         "colour": "159 179 255"
     },
     "101421": {
@@ -4781,6 +5975,8 @@
         "proper": "2Eps Del",
         "mag": "4.030",
         "spect": "B6III",
+        "dist": "101.3171",
+        "con": "Del",
         "colour": "170 190 255"
     },
     "101769": {
@@ -4789,6 +5985,8 @@
         "proper": "6Bet Del",
         "mag": "3.640",
         "spect": "F5IV",
+        "dist": "30.9310",
+        "con": "Del",
         "colour": "241 239 255"
     },
     "101772": {
@@ -4797,6 +5995,8 @@
         "proper": "Alp Ind",
         "mag": "3.110",
         "spect": "K0III",
+        "dist": "30.1477",
+        "con": "Ind",
         "colour": "255 227 190"
     },
     "101958": {
@@ -4805,6 +6005,8 @@
         "proper": "9Alp Del",
         "mag": "3.770",
         "spect": "B9V",
+        "dist": "77.8210",
+        "con": "Del",
         "colour": "181 198 255"
     },
     "102098": {
@@ -4813,6 +6015,8 @@
         "proper": "Deneb",
         "mag": "1.250",
         "spect": "A2Ia",
+        "dist": "432.9004",
+        "con": "Cyg",
         "colour": "199 214 255"
     },
     "102281": {
@@ -4821,6 +6025,8 @@
         "proper": "11Del Del",
         "mag": "4.430",
         "spect": "A7IIIp d Del",
+        "dist": "68.4463",
+        "con": "Del",
         "colour": "210 219 255"
     },
     "102395": {
@@ -4829,6 +6035,8 @@
         "proper": "Bet Pav",
         "mag": "3.420",
         "spect": "A5IV",
+        "dist": "41.4250",
+        "con": "Pav",
         "colour": "212 220 255"
     },
     "102485": {
@@ -4837,6 +6045,8 @@
         "proper": "16Psi Cap",
         "mag": "4.130",
         "spect": "F5V",
+        "dist": "14.6778",
+        "con": "Cap",
         "colour": "248 247 255"
     },
     "102488": {
@@ -4845,6 +6055,8 @@
         "proper": "Gienah",
         "mag": "2.480",
         "spect": "K0III",
+        "dist": "22.2916",
+        "con": "Cyg",
         "colour": "255 227 190"
     },
     "102532": {
@@ -4853,6 +6065,8 @@
         "proper": "12Gam2Del",
         "mag": "4.270",
         "spect": "K1IV",
+        "dist": "38.7297",
+        "con": "Del",
         "colour": "255 216 171"
     },
     "102618": {
@@ -4861,6 +6075,8 @@
         "proper": "2Eps Aqr",
         "mag": "3.780",
         "spect": "A1V",
+        "dist": "63.6943",
+        "con": "Aqr",
         "colour": "181 199 255"
     },
     "102831": {
@@ -4869,6 +6085,8 @@
         "proper": "Alp Mic",
         "mag": "4.890",
         "spect": "G8III",
+        "dist": "116.0093",
+        "con": "Mic",
         "colour": "255 231 199"
     },
     "102978": {
@@ -4877,6 +6095,8 @@
         "proper": "18Ome Cap",
         "mag": "4.120",
         "spect": "K4III",
+        "dist": "258.3979",
+        "con": "Cap",
         "colour": "255 211 146"
     },
     "103227": {
@@ -4885,6 +6105,8 @@
         "proper": "Bet Ind",
         "mag": "3.670",
         "spect": "K0III",
+        "dist": "187.6173",
+        "con": "Ind",
         "colour": "255 227 190"
     },
     "103738": {
@@ -4893,6 +6115,8 @@
         "proper": "Gam Mic",
         "mag": "4.670",
         "spect": "G8III",
+        "dist": "70.2247",
+        "con": "Mic",
         "colour": "255 231 199"
     },
     "104139": {
@@ -4901,6 +6125,8 @@
         "proper": "23The Cap",
         "mag": "4.080",
         "spect": "A1V",
+        "dist": "49.7265",
+        "con": "Cap",
         "colour": "181 199 255"
     },
     "104521": {
@@ -4909,6 +6135,8 @@
         "proper": "5Gam Equ",
         "mag": "4.700",
         "spect": "F0p",
+        "dist": "36.2976",
+        "con": "Equ",
         "colour": "203 217 255"
     },
     "104732": {
@@ -4917,6 +6145,8 @@
         "proper": "64Zet Cyg",
         "mag": "3.210",
         "spect": "G8II SB",
+        "dist": "43.8789",
+        "con": "Cyg",
         "colour": "255 229 189"
     },
     "104858": {
@@ -4925,6 +6155,8 @@
         "proper": "7Del Equ",
         "mag": "4.470",
         "spect": "F5V+...",
+        "dist": "18.4877",
+        "con": "Equ",
         "colour": "248 247 255"
     },
     "104987": {
@@ -4933,6 +6165,8 @@
         "proper": "8Alp Equ",
         "mag": "3.920",
         "spect": "G0III+...",
+        "dist": "58.3431",
+        "con": "Equ",
         "colour": "255 242 233"
     },
     "105140": {
@@ -4941,6 +6175,8 @@
         "proper": "Eps Mic",
         "mag": "4.710",
         "spect": "A0V",
+        "dist": "55.8659",
+        "con": "Mic",
         "colour": "185 201 255"
     },
     "105199": {
@@ -4949,6 +6185,8 @@
         "proper": "Alderamin",
         "mag": "2.450",
         "spect": "A7IV-V",
+        "dist": "15.0376",
+        "con": "Cep",
         "colour": "192 207 255"
     },
     "105319": {
@@ -4957,6 +6195,8 @@
         "proper": "The Ind",
         "mag": "4.390",
         "spect": "A5V",
+        "dist": "30.2847",
+        "con": "Ind",
         "colour": "202 215 255"
     },
     "105515": {
@@ -4965,6 +6205,8 @@
         "proper": "32Iot Cap",
         "mag": "4.280",
         "spect": "G8III",
+        "dist": "60.3136",
+        "con": "Cap",
         "colour": "255 231 199"
     },
     "105570": {
@@ -4973,6 +6215,8 @@
         "proper": "10Bet Equ",
         "mag": "5.160",
         "spect": "A3V",
+        "dist": "101.4199",
+        "con": "Equ",
         "colour": "191 207 255"
     },
     "105858": {
@@ -4981,6 +6225,8 @@
         "proper": "Gam Pav",
         "mag": "4.210",
         "spect": "F6V",
+        "dist": "9.2618",
+        "con": "Pav",
         "colour": "244 241 255"
     },
     "105881": {
@@ -4989,6 +6235,8 @@
         "proper": "34Zet Cap",
         "mag": "3.770",
         "spect": "G4Ibp...",
+        "dist": "118.2033",
+        "con": "Cap",
         "colour": "255 231 193"
     },
     "106032": {
@@ -4997,6 +6245,8 @@
         "proper": "8Bet Cep",
         "mag": "3.230",
         "spect": "B2IIIv SB",
+        "dist": "210.0840",
+        "con": "Cep",
         "colour": "159 180 255"
     },
     "106278": {
@@ -5005,6 +6255,8 @@
         "proper": "Sadalsuud",
         "mag": "2.900",
         "spect": "G0Ib",
+        "dist": "164.7446",
+        "con": "Aqr",
         "colour": "255 239 219"
     },
     "106985": {
@@ -5013,6 +6265,8 @@
         "proper": "40Gam Cap",
         "mag": "3.690",
         "spect": "A7III:mp...",
+        "dist": "48.1464",
+        "con": "Cap",
         "colour": "210 219 255"
     },
     "107089": {
@@ -5021,6 +6275,8 @@
         "proper": "Nu  Oct",
         "mag": "3.730",
         "spect": "K0III",
+        "dist": "21.1999",
+        "con": "Oct",
         "colour": "255 227 190"
     },
     "107310": {
@@ -5029,6 +6285,8 @@
         "proper": "78Mu 1Cyg",
         "mag": "4.490",
         "spect": "F6V",
+        "dist": "22.2370",
+        "con": "Cyg",
         "colour": "244 241 255"
     },
     "107315": {
@@ -5037,6 +6295,8 @@
         "proper": "Enif",
         "mag": "2.380",
         "spect": "K2Ibvar",
+        "dist": "211.4165",
+        "con": "Peg",
         "colour": "255 211 135"
     },
     "107354": {
@@ -5045,6 +6305,8 @@
         "proper": "10Kap Peg",
         "mag": "4.140",
         "spect": "F5IV",
+        "dist": "34.2231",
+        "con": "Peg",
         "colour": "241 239 255"
     },
     "107556": {
@@ -5053,6 +6315,8 @@
         "proper": "49Del Cap",
         "mag": "2.850",
         "spect": "A5mF2 (IV)",
+        "dist": "11.8666",
+        "con": "Cap",
         "colour": "194 210 255"
     },
     "107608": {
@@ -5061,6 +6325,8 @@
         "proper": "10The PsA",
         "mag": "5.020",
         "spect": "A1V",
+        "dist": "98.4252",
+        "con": "PsA",
         "colour": "181 199 255"
     },
     "108085": {
@@ -5069,6 +6335,8 @@
         "proper": "Gam Gru",
         "mag": "3.000",
         "spect": "B8III",
+        "dist": "64.7249",
+        "con": "Gru",
         "colour": "175 193 255"
     },
     "108661": {
@@ -5077,6 +6345,8 @@
         "proper": "12Eta PsA",
         "mag": "5.430",
         "spect": "B8/B9V+...",
+        "dist": "250.6266",
+        "con": "PsA",
         "colour": "181 199 255"
     },
     "109074": {
@@ -5085,6 +6355,8 @@
         "proper": "Sadalmelik",
         "mag": "2.950",
         "spect": "G2Ib",
+        "dist": "160.5136",
+        "con": "Aqr",
         "colour": "255 236 205"
     },
     "109111": {
@@ -5093,6 +6365,8 @@
         "proper": "Lam Gru",
         "mag": "4.470",
         "spect": "M0III",
+        "dist": "74.2390",
+        "con": "Gru",
         "colour": "255 203 132"
     },
     "109139": {
@@ -5101,6 +6375,8 @@
         "proper": "33Iot Aqr",
         "mag": "4.290",
         "spect": "B8V",
+        "dist": "53.7057",
+        "con": "Aqr",
         "colour": "177 195 255"
     },
     "109176": {
@@ -5109,6 +6385,8 @@
         "proper": "24Iot Peg",
         "mag": "3.770",
         "spect": "F5V",
+        "dist": "11.7261",
+        "con": "Peg",
         "colour": "248 247 255"
     },
     "109268": {
@@ -5117,6 +6395,8 @@
         "proper": "Alnair",
         "mag": "1.730",
         "spect": "B7IV",
+        "dist": "30.9693",
+        "con": "Gru",
         "colour": "170 189 255"
     },
     "109352": {
@@ -5125,6 +6405,8 @@
         "proper": "27Pi 1Peg",
         "mag": "5.580",
         "spect": "G6III:",
+        "dist": "88.4956",
+        "con": "Peg",
         "colour": "255 236 215"
     },
     "109422": {
@@ -5133,6 +6415,8 @@
         "proper": "15Tau PsA",
         "mag": "4.940",
         "spect": "F6V",
+        "dist": "18.2782",
+        "con": "PsA",
         "colour": "244 241 255"
     },
     "109427": {
@@ -5141,6 +6425,8 @@
         "proper": "26The Peg",
         "mag": "3.520",
         "spect": "A2V",
+        "dist": "28.2965",
+        "con": "Peg",
         "colour": "187 203 255"
     },
     "109492": {
@@ -5149,6 +6435,8 @@
         "proper": "21Zet Cep",
         "mag": "3.390",
         "spect": "K1Ibv SB",
+        "dist": "256.4103",
+        "con": "Cep",
         "colour": "255 220 177"
     },
     "109937": {
@@ -5157,6 +6445,8 @@
         "proper": "1    Lac",
         "mag": "4.140",
         "spect": "K3III",
+        "dist": "190.4762",
+        "con": "Lac",
         "colour": "255 216 167"
     },
     "110003": {
@@ -5165,6 +6455,8 @@
         "proper": "43The Aqr",
         "mag": "4.170",
         "spect": "G8III-IV",
+        "dist": "57.4713",
+        "con": "Aqr",
         "colour": "255 231 199"
     },
     "110130": {
@@ -5173,6 +6465,8 @@
         "proper": "Alp Tuc",
         "mag": "2.870",
         "spect": "K3III",
+        "dist": "61.2370",
+        "con": "Tuc",
         "colour": "255 216 167"
     },
     "110395": {
@@ -5181,6 +6475,8 @@
         "proper": "48Gam Aqr",
         "mag": "3.860",
         "spect": "A0V",
+        "dist": "50.2008",
+        "con": "Aqr",
         "colour": "185 201 255"
     },
     "110538": {
@@ -5189,6 +6485,8 @@
         "proper": "3Bet Lac",
         "mag": "4.420",
         "spect": "G9III",
+        "dist": "52.1105",
+        "con": "Lac",
         "colour": "255 231 196"
     },
     "110609": {
@@ -5197,6 +6495,8 @@
         "proper": "4    Lac",
         "mag": "4.550",
         "spect": "B9Iab",
+        "dist": "689.6552",
+        "con": "Lac",
         "colour": "204 216 255"
     },
     "110960": {
@@ -5205,6 +6505,8 @@
         "proper": "55Zet1Aqr",
         "mag": "3.650",
         "spect": "F3III-IV",
+        "dist": "28.1690",
+        "con": "Aqr",
         "colour": "241 241 255"
     },
     "110997": {
@@ -5213,6 +6515,8 @@
         "proper": "Del1Gru",
         "mag": "3.970",
         "spect": "G6/G8III",
+        "dist": "94.8767",
+        "con": "Gru",
         "colour": "255 233 198"
     },
     "111022": {
@@ -5221,6 +6525,8 @@
         "proper": "5    Lac",
         "mag": "4.340",
         "spect": "M0II",
+        "dist": "505.0505",
+        "con": "Lac",
         "colour": "255 207 133"
     },
     "111104": {
@@ -5229,6 +6535,8 @@
         "proper": "6    Lac",
         "mag": "4.520",
         "spect": "B2IV",
+        "dist": "526.3158",
+        "con": "Lac",
         "colour": "159 179 255"
     },
     "111123": {
@@ -5237,6 +6545,8 @@
         "proper": "57Sig Aqr",
         "mag": "4.820",
         "spect": "A0IVs",
+        "dist": "88.8099",
+        "con": "Aqr",
         "colour": "179 197 255"
     },
     "111169": {
@@ -5245,6 +6555,8 @@
         "proper": "7Alp Lac",
         "mag": "3.760",
         "spect": "A1V",
+        "dist": "31.4564",
+        "con": "Lac",
         "colour": "181 199 255"
     },
     "111188": {
@@ -5253,6 +6565,8 @@
         "proper": "17Bet PsA",
         "mag": "4.290",
         "spect": "A1V",
+        "dist": "43.7828",
+        "con": "PsA",
         "colour": "181 199 255"
     },
     "111497": {
@@ -5261,6 +6575,8 @@
         "proper": "62Eta Aqr",
         "mag": "4.040",
         "spect": "B9IV-Vn",
+        "dist": "51.4668",
+        "con": "Aqr",
         "colour": "180 197 255"
     },
     "111954": {
@@ -5269,6 +6585,8 @@
         "proper": "18Eps PsA",
         "mag": "4.180",
         "spect": "B8V",
+        "dist": "149.2537",
+        "con": "PsA",
         "colour": "177 195 255"
     },
     "112029": {
@@ -5277,6 +6595,8 @@
         "proper": "42Zet Peg",
         "mag": "3.410",
         "spect": "B8.5V",
+        "dist": "62.6566",
+        "con": "Peg",
         "colour": "181 199 255"
     },
     "112122": {
@@ -5285,6 +6605,8 @@
         "proper": "Bet Gru",
         "mag": "2.070",
         "spect": "M5III",
+        "dist": "54.2594",
+        "con": "Gru",
         "colour": "255 197 124"
     },
     "112158": {
@@ -5293,6 +6615,8 @@
         "proper": "Matar",
         "mag": "2.930",
         "spect": "G2II-III..",
+        "dist": "65.7030",
+        "con": "Peg",
         "colour": "255 241 221"
     },
     "112405": {
@@ -5301,6 +6625,8 @@
         "proper": "Bet Oct",
         "mag": "4.130",
         "spect": "A9IV/V",
+        "dist": "45.7666",
+        "con": "Oct",
         "colour": "224 227 255"
     },
     "112440": {
@@ -5309,6 +6635,8 @@
         "proper": "47Lam Peg",
         "mag": "3.970",
         "spect": "G8II-III",
+        "dist": "111.9821",
+        "con": "Peg",
         "colour": "255 229 189"
     },
     "112447": {
@@ -5317,6 +6645,8 @@
         "proper": "46Xi  Peg",
         "mag": "4.200",
         "spect": "F7V",
+        "dist": "16.2973",
+        "con": "Peg",
         "colour": "246 243 255"
     },
     "112623": {
@@ -5325,6 +6655,8 @@
         "proper": "Eps Gru",
         "mag": "3.490",
         "spect": "A3V",
+        "dist": "39.5257",
+        "con": "Gru",
         "colour": "191 207 255"
     },
     "112716": {
@@ -5333,6 +6665,8 @@
         "proper": "71Tau2Aqr",
         "mag": "4.050",
         "spect": "K5III",
+        "dist": "97.3710",
+        "con": "Aqr",
         "colour": "255 204 138"
     },
     "112724": {
@@ -5341,6 +6675,8 @@
         "proper": "32Iot Cep",
         "mag": "3.500",
         "spect": "K0III",
+        "dist": "35.3482",
+        "con": "Cep",
         "colour": "255 227 190"
     },
     "112748": {
@@ -5349,6 +6685,8 @@
         "proper": "48Mu  Peg",
         "mag": "3.510",
         "spect": "M2III",
+        "dist": "32.5309",
+        "con": "Peg",
         "colour": "255 198 118"
     },
     "112961": {
@@ -5357,6 +6695,8 @@
         "proper": "73Lam Aqr",
         "mag": "3.730",
         "spect": "M2IIIvar",
+        "dist": "118.0638",
+        "con": "Aqr",
         "colour": "255 198 118"
     },
     "113136": {
@@ -5365,6 +6705,8 @@
         "proper": "76Del Aqr",
         "mag": "3.270",
         "spect": "A3V",
+        "dist": "49.2368",
+        "con": "Aqr",
         "colour": "191 207 255"
     },
     "113246": {
@@ -5373,6 +6715,8 @@
         "proper": "23Del PsA",
         "mag": "4.200",
         "spect": "G8III",
+        "dist": "47.2590",
+        "con": "PsA",
         "colour": "255 231 199"
     },
     "113368": {
@@ -5381,6 +6725,8 @@
         "proper": "Fomalhaut",
         "mag": "1.170",
         "spect": "A3V",
+        "dist": "7.7036",
+        "con": "PsA",
         "colour": "191 207 255"
     },
     "113638": {
@@ -5389,6 +6735,8 @@
         "proper": "Zet Gru",
         "mag": "4.110",
         "spect": "G8III",
+        "dist": "33.3778",
+        "con": "Gru",
         "colour": "255 231 199"
     },
     "113881": {
@@ -5397,6 +6745,8 @@
         "proper": "Scheat",
         "mag": "2.440",
         "spect": "M2II-IIIvar",
+        "dist": "60.0962",
+        "con": "Peg",
         "colour": "255 203 124"
     },
     "113963": {
@@ -5405,6 +6755,8 @@
         "proper": "Markab",
         "mag": "2.490",
         "spect": "B9.5III",
+        "dist": "40.8831",
+        "con": "Peg",
         "colour": "182 201 255"
     },
     "114131": {
@@ -5413,6 +6765,8 @@
         "proper": "The Gru",
         "mag": "4.280",
         "spect": "F5me...",
+        "dist": "40.4367",
+        "con": "Gru",
         "colour": "247 242 255"
     },
     "114341": {
@@ -5421,6 +6775,8 @@
         "proper": "88    Aqr",
         "mag": "3.680",
         "spect": "K1III",
+        "dist": "82.9876",
+        "con": "Aqr",
         "colour": "255 223 181"
     },
     "114421": {
@@ -5429,6 +6785,8 @@
         "proper": "Iot Gru",
         "mag": "3.880",
         "spect": "K0III SB",
+        "dist": "56.1798",
+        "con": "Gru",
         "colour": "255 227 190"
     },
     "114855": {
@@ -5437,6 +6795,8 @@
         "proper": "91Psi1Aqr",
         "mag": "4.240",
         "spect": "K0III",
+        "dist": "45.9348",
+        "con": "Aqr",
         "colour": "255 227 190"
     },
     "114971": {
@@ -5445,6 +6805,8 @@
         "proper": "6Gam Psc",
         "mag": "3.700",
         "spect": "G7III",
+        "dist": "42.3012",
+        "con": "Psc",
         "colour": "255 234 207"
     },
     "114996": {
@@ -5453,6 +6815,8 @@
         "proper": "Gam Tuc",
         "mag": "3.990",
         "spect": "F1III",
+        "dist": "23.0574",
+        "con": "Tuc",
         "colour": "227 232 255"
     },
     "115102": {
@@ -5461,6 +6825,8 @@
         "proper": "Gam Scl",
         "mag": "4.410",
         "spect": "K1III",
+        "dist": "55.8659",
+        "con": "Scl",
         "colour": "255 223 181"
     },
     "115438": {
@@ -5469,6 +6835,8 @@
         "proper": "98    Aqr",
         "mag": "3.960",
         "spect": "K0III",
+        "dist": "50.1002",
+        "con": "Aqr",
         "colour": "255 227 190"
     },
     "115738": {
@@ -5477,6 +6845,8 @@
         "proper": "8Kap Psc",
         "mag": "4.950",
         "spect": "A0p",
+        "dist": "47.0588",
+        "con": "Psc",
         "colour": "184 202 255"
     },
     "115830": {
@@ -5485,6 +6855,8 @@
         "proper": "10The Psc",
         "mag": "4.270",
         "spect": "K1III",
+        "dist": "45.5373",
+        "con": "Psc",
         "colour": "255 223 181"
     },
     "116231": {
@@ -5493,6 +6865,8 @@
         "proper": "Bet Scl",
         "mag": "4.380",
         "spect": "B9.5IVMNpe.",
+        "dist": "53.3618",
+        "con": "Scl",
         "colour": "182 201 255"
     },
     "116727": {
@@ -5501,6 +6875,8 @@
         "proper": "35Gam Cep",
         "mag": "3.210",
         "spect": "K1IV",
+        "dist": "14.1024",
+        "con": "Cep",
         "colour": "255 216 171"
     },
     "116771": {
@@ -5509,6 +6885,8 @@
         "proper": "17Iot Psc",
         "mag": "4.130",
         "spect": "F7V",
+        "dist": "13.7137",
+        "con": "Psc",
         "colour": "246 243 255"
     },
     "116928": {
@@ -5517,6 +6895,8 @@
         "proper": "18Lam Psc",
         "mag": "4.490",
         "spect": "A7V",
+        "dist": "32.6904",
+        "con": "Psc",
         "colour": "200 213 255"
     },
     "118268": {
@@ -5525,6 +6905,8 @@
         "proper": "28Ome Psc",
         "mag": "4.030",
         "spect": "F4IV",
+        "dist": "31.9898",
+        "con": "Psc",
         "colour": "234 235 255"
     }
 }

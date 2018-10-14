@@ -365,7 +365,6 @@ class Planets {
 			else {
 				window.location.hash = "#" + intersects[0].object.userData.object.name;
 			}
-			//planets.lookAtPlanet(intersects[0].object.userData.object);
 		}
 	}
 
