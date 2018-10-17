@@ -5,9 +5,8 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
 		<title>Stellar'ISEN</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.js"> </script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>-->
 		<script src="js/three.js"></script>
 		<script src="js/utils.js"></script>
 		<script src="js/DeviceOrientationControls.js"></script>
@@ -24,21 +23,12 @@
 		<div id="ui">
 
 			<div id="header">
-				<img src="res/images/astronaut.png" alt="User" id="userImage"
-					onmouseup="enable('menu');"/>
+				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
 				<input id="searchField" type="text" placeholder="Rechercher..."/>
 			</div>
 
 			<div id="footer">
-				<button class="nephritis-flat-button" onmousedown="event.stopPropagation();" onmouseup="
-						event.stopPropagation();
-						if (scene == skyScene) {
-							window.location.hash='#SystemeSolaire';
-						}
-				 		else {
-							window.location.hash='#Etoiles';
-						}
-					">Système solaire</button>
+
 			</div>
 
 		</div>
@@ -49,11 +39,10 @@
 
 				<div class="list-header">
 					<div class="list-name">Anonyme</div>
-					<div class="close" onclick="
-						disable('menu');
-					">&times;</div>
+					<div id="close-menu" class="close">&times;</div>
 				</div>
 
+				<button id="scene-switch" class="nephritis-flat-button list-button">Système solaire</button>
 				<button class="list-button">Connexion</button>
 				<button class="list-button">Création de compte</button>
 				<button class="list-button">À propos</button>
@@ -62,17 +51,15 @@
 
 		</div>
 
-		<div class="wrapper center disabled" id="infos-wrapper"
-			onmousedown="event.stopPropagation();"
-			onmouseup="event.stopPropagation();">
+		<!-- Modal dialog pour les infos d'étoiles -->
+
+		<div class="wrapper center disabled" id="infos-wrapper">
 			<div class="light disabled modal center" id="infos">
 				<div class="list">
 
 					<div class="infos-header">
 						<h1 id="objectName"></h1>
-						<div class="close" onclick="
-							window.history.back();
-						">&times;</div>
+						<div id="close-infos" class="close">&times;</div>
 					</div>
 
 					<div class="line">
@@ -94,17 +81,15 @@
 			</div>
 		</div>
 
+		<!-- Modal dialog pour les infos de planètes -->
+
 		<div class="wrapper right disabled" id="planet-infos-wrapper">
-			<div class="light disabled modal right" id="planet-infos"
-				onmousedown="event.stopPropagation();"
-				onmouseup="event.stopPropagation();">
+			<div class="light disabled modal right" id="planet-infos">
 				<div class="list">
 
 					<div class="infos-header">
 						<h1 id="planetName"></h1>
-						<div class="close" onclick="
-							window.history.back();
-						">&times;</div>
+						<div id="close-pinfos" class="close">&times;</div>
 					</div>
 
 				</div>
@@ -135,11 +120,54 @@
 
 			let previousHash = null;
 
-			document.addEventListener('mousemove', onMove, false);
-			document.addEventListener('mousedown', onMouseDown, false);
-			document.addEventListener('mouseup', onMouseUp, false);
-			document.addEventListener('touchstart', onTouchStart, false);
-			document.addEventListener('touchend', onTouchEnd, false);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setSize(window.innerWidth, window.innerHeight);
+			document.body.appendChild(renderer.domElement);
+
+			document.addEventListener('mousemove', onMove);
+			document.addEventListener('mousedown', onMouseDown);
+			document.addEventListener('mouseup', onMouseUp);
+			document.addEventListener('touchstart', onTouchStart);
+			document.addEventListener('touchend', onTouchEnd);
+
+			events =
+				[	[	'userImage'			,	'mouseup'		,	openMenu												]
+				,	[	'userImage'			,	'touchend'	,	openMenu												]
+				,	[	'userImage'			,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'userImage'			,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'close-menu'		,	'mouseup'		,	closeMenu												]
+				,	[	'close-menu'		,	'touchend'	,	closeMenu												]
+				,	[	'close-menu'		,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'close-menu'		,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'close-infos'		,	'mouseup'		,	closeInfos											]
+				,	[	'close-infos'		,	'touchend'	,	closeInfos											]
+				,	[	'close-infos'		,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'close-infos'		,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'close-pinfos'	,	'mouseup'		,	closePInfos											]
+				,	[	'close-pinfos'	,	'touchend'	,	closePInfos											]
+				,	[	'close-pinfos'	,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'close-pinfos'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'scene-switch'	,	'mouseup'		,	switchHash											]
+				,	[	'scene-switch'	,	'touchend'	,	switchHash											]
+				,	[	'scene-switch'	,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'scene-switch'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'infos-wrapper'	,	'mouseup'		,	(e) => { e.stopPropagation(); }	]
+				,	[	'infos-wrapper'	,	'touchend'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'infos-wrapper'	,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'infos-wrapper'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'planet-infos'	,	'mouseup'		,	(e) => { e.stopPropagation(); }	]
+				,	[	'planet-infos'	,	'touchend'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'planet-infos'	,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'planet-infos'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
+				,	[	'con-name'			,	'click'			,	(e) => {  }	]
+				]
+
+			for (let i = 0; i < events.length; i++) {
+				document.getElementById(events[i][0]).addEventListener
+					(	events[i][1]
+					,	events[i][2]
+					);
+			}
 
 			function switchScene() {
 				showLoading();
@@ -374,6 +402,37 @@
 				}
 				else {
 					planets.onTouchEnd(event);
+				}
+			}
+
+			function openMenu(event) {
+				event.stopPropagation();
+				enable('menu');
+			}
+
+			function closeMenu(event) {
+				event.stopPropagation();
+				disable('menu');
+			}
+
+			function closeInfos(event) {
+				event.stopPropagation();
+				window.history.back();
+			}
+
+			function closePInfos(event) {
+				event.stopPropagation();
+				window.history.back();
+			}
+
+			function switchHash(event) {
+				event.stopPropagation();
+				disable('menu');
+				if (scene == skyScene) {
+					window.location.hash='#SystemeSolaire';
+				}
+				else {
+					window.location.hash='#Etoiles';
 				}
 			}
 		</script>

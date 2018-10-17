@@ -12,14 +12,18 @@ var utils = {
 
 function enable(id) {
   let dom = document.getElementById(id);
-  dom.classList.remove('disabled');
-  dom.classList.add('enabled');
+  if (dom != null) {
+    dom.classList.remove('disabled');
+    dom.classList.add('enabled');
+  }
 }
 
 function disable(id) {
   let dom = document.getElementById(id);
-  dom.classList.remove('enabled');
-  dom.classList.add('disabled');
+  if (dom != null) {
+    dom.classList.remove('enabled');
+    dom.classList.add('disabled');
+  }
 }
 
 function toggle(id) {

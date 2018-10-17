@@ -4,9 +4,9 @@ class Planet {
 		this.distance = distance;
 		this.radius = radius;
 		this.tilt = tilt;
-		this.name = name
+		this.name = name;
 
-		console.log("Planet: constructor()");
+		this.moons = [];
 
 		this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
 		let material = new THREE.MeshBasicMaterial(

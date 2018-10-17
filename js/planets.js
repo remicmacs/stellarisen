@@ -27,11 +27,9 @@ class Planets {
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
 		// On met en place le renderer
-		this.renderer.setPixelRatio(window.devicePixelRatio);
+		/*this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(this.renderer.domElement);
-
-		console.log("Renderer set");
+		document.body.appendChild(this.renderer.domElement);*/
 
 		this.planets = [];
 
@@ -346,7 +344,8 @@ class Planets {
 	}
 
 	onClick(event) {
-		event.preventDefault();
+		console.log("Planets: clicked");
+		//event.preventDefault();
 		/* On prépare et on lance un raycast */
 		this.raycaster.setFromCamera(this.mouse, this.camera);
 		let intersects = this.raycaster.intersectObjects(this.scene.children);
@@ -375,7 +374,7 @@ class Planets {
 	}
 
 	onMouseDown(event) {
-
+		//event.stopPropagation();
 	}
 
 	onMouseUp(event) {
@@ -383,10 +382,8 @@ class Planets {
 	}
 
 	onTouchStart(event) {
-		this.previousX = event.touches[0].screenX;
-		this.previousY = event.touches[0].screenY;
-		this.mouse.x = this.previousX;
-		this.mouse.y = this.previousY;
+		this.mouse.x = event.touches[0].screenX;
+		this.mouse.y = event.touches[0].screenY;
 	}
 
 	onTouchEnd(event) {

@@ -45,9 +45,9 @@ class SkySphere {
 		}
 
 		// On met en place le renderer
-		this.renderer.setPixelRatio(window.devicePixelRatio);
+		/*this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(this.renderer.domElement);
+		document.body.appendChild(this.renderer.domElement);*/
 
 		//var mouse = new THREE.Vector2(), INTERSECTED;
 		this.raycaster = new THREE.Raycaster();
@@ -78,7 +78,7 @@ class SkySphere {
 		this.previousClosestStar = undefined;
 		this.previousClosestStarScale = new THREE.Vector3();
 
-		window.addEventListener('resize', this.rearrange);
+		window.addEventListener('resize', () => { this.rearrange(); });
 	}
 
 
@@ -438,14 +438,6 @@ class SkySphere {
 		this.raycaster.setFromCamera(this.mouse, this.camera );
 		let intersects = this.raycaster.intersectObjects(this.scene.children);
 		if (intersects.length > 0) {
-			//if ( INTERSECTED != intersects[ 0 ].object ) {
-				/**if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-				INTERSECTED = intersects[ 0 ].object;
-				INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-				INTERSECTED.material.emissive.setHex( 0xff0000 );**/
-			//	console.log("Intersected !");
-			//	alert(intersects[ 0 ].object.name);
-			//}
 			let starClicked = false;
 			let constellationClicked = false;
 			let objectIndex = 0;
@@ -489,21 +481,11 @@ class SkySphere {
 
 					setSpan("objectName", star.meshName);
 					setSpan("con-name", this.getConstellationName(star.constellation));
-					setSpan("star-distance", numeral(star.distance).format());
+					setSpan("star-distance", Math.round(star.distance));
 
 					setImgSrc("star-picture", "http://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra=" + star.ra + "&de=" + star.dec + "&output=PNG")
-
-					//window.open("http://server7.wikisky.org/imgcut?survey=DSS2&w=256&h=256&angle=1.25&ra=" + this.visor.star.ra + "&de=" + this.visor.star.dec + "&output=PNG");
 				}
 			}
-
-			if (starClicked || constellationClicked) {
-				alert(intersects[objectIndex].object.name);
-			}
-			else {
-				//alert(intersects[ 0 ].object.name);
-			}
-
 		} else {
 			//if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
 			INTERSECTED = null;
