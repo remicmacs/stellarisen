@@ -120,12 +120,12 @@ canvas {
 	animation:spin 4s linear infinite;
 }
 
-.enabled {
-  /* visibility: visible; */
+.visible {
+  visibility: visible;
 }
 
-.disabled {
-  /* visibility: hidden; */
+.hidden {
+  visibility: hidden;
 }
 
 .light {
@@ -150,6 +150,7 @@ canvas {
 .modal.center {
   border-radius: 5px;
   margin: 16px 16px 16px 16px;
+	max-width: 500px;
 }
 
 .modal.right {

@@ -45,3 +45,26 @@ function setImgSrc(id, src) {
   let dom = document.getElementById(id);
   dom.src = src;
 }
+
+function show(id) {
+  let dom = document.getElementById(id);
+  if (dom != null) {
+    dom.classList.remove('hidden');
+    dom.classList.add('visible');
+  }
+}
+
+function hide(id) {
+  let dom = document.getElementById(id);
+  if (dom != null) {
+    dom.classList.remove('visible');
+    dom.classList.add('hidden');
+  }
+}
+
+function setPlaceholder(id, content) {
+  let dom = document.getElementById(id);
+  if (dom != null) {
+    dom.placeholder = content;
+  }
+}

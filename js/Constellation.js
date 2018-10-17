@@ -1,9 +1,20 @@
 class Constellation {
-	constructor(ra, dec, fullName, links, stars) {
+	/*constructor(ra, dec, fullName, links, stars) {
 		this.ra = ra;
 		this.dec = dec;
-		this.fullName = fullName;
+		this.fullName = fullName;*/
+
+	constructor(dict) {
+		this.ra = dict["ra"];
+		this.dec = dict["dec"];
+		this.shortName = dict["shortName"];
+		this.fullName = dict["fullName"];
+
+		let links = dict["links"];
+		let stars = dict["stars"];
+
 		this.links = [];
+		this.stars = [];
 
 		let constellationLinks =
 			{	"ra": this.ra
@@ -11,13 +22,59 @@ class Constellation {
 			,	"lines": []
 			};
 
+		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
+
+		/* Pour chaque segment de la constellation, on va créer les
+		étoiles et les lignes qui seront affichées */
 		for (let j = 0; j < links.length; j++) {
+			let star;
+
+			/* On crée les étoiles seulement si elle n'est pas encore créée */
+			if (!this.isPresent(stars[links[j][0]]["proper"])) {
+				star = new Star
+					(	stars[links[j][0]]["ra"].valueOf()
+					,	stars[links[j][0]]["dec"].valueOf()
+					,	stars[links[j][0]]["mag"].valueOf()
+					,	new THREE.Color().fromArray
+						(	stars[links[j][0]]["colour"].split(" ").map
+							(	(x) => { return x / 255; } )
+						)
+					,	stars[links[j][0]]["proper"]
+					, stars[links[j][0]]["dist"].valueOf()
+					, stars[links[j][0]]["con"]
+					,	geometry
+					,	this
+					);
+
+				this.stars.push(star);
+			}
+
+			/* On crée les étoiles seulement si elle n'est pas encore créée */
+			if (!this.isPresent(stars[links[j][1]]["proper"])) {
+				star = new Star
+					(	stars[links[j][1]]["ra"].valueOf()
+					,	stars[links[j][1]]["dec"].valueOf()
+					,	stars[links[j][1]]["mag"].valueOf()
+					,	new THREE.Color().fromArray
+						(	stars[links[j][1]]["colour"].split(" ").map
+							(	(x) => { return x / 255; } )
+						)
+					,	stars[links[j][1]]["proper"]
+					, stars[links[j][1]]["dist"].valueOf()
+					, stars[links[j][1]]["con"]
+					,	geometry
+					,	this
+					);
+
+				this.stars.push(star);
+			}
+
 			let link = new Link
 				( stars[links[j][0]]["ra"].valueOf()
 				,	stars[links[j][1]]["ra"].valueOf()
 				,	stars[links[j][0]]["dec"].valueOf()
 				,	stars[links[j][1]]["dec"].valueOf()
-				,	fullName
+				,	this.fullName
 				);
 			this.links.push(link);
 		}
@@ -26,6 +83,10 @@ class Constellation {
 	addToScene(scene) {
 		for (let i = 0; i < this.links.length; i++) {
 			this.links[i].addToScene(scene);
+		}
+
+		for (let i = 0; i < this.stars.length; i++) {
+			this.stars[i].addToScene(scene);
 		}
 	}
 
@@ -75,4 +136,14 @@ class Constellation {
 			camera.getWorldQuaternion(constellationName.quaternion);
 		}
 	}
+
+	isPresent(starName) {
+		for (let i = 0; i < this.stars.length; i++) {
+			if (this.stars[i].meshName == starName) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

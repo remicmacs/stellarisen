@@ -42,7 +42,8 @@
 					<div id="close-menu" class="close">&times;</div>
 				</div>
 
-				<button id="scene-switch" class="nephritis-flat-button list-button">Système solaire</button>
+				<button id="scene-switch" class="list-button">Système solaire</button>
+				<button id="random-star" class="list-button">Une étoile au hasard !</button>
 				<button class="list-button">Connexion</button>
 				<button class="list-button">Création de compte</button>
 				<button class="list-button">À propos</button>
@@ -66,12 +67,18 @@
 						<img src="https://placehold.jp/150x150.png" id="star-picture"/>
 
 						<div class="column">
-							<div>
+							<div class="hidden" id="con-owning">
 								Appartient à la constellation de <span id="con-name"></span>
 							</div>
 
-							<div>
+							<div class="hidden" id="distance-text">
 								Se situe à une distance de <span id="star-distance"></span> année-lumières
+							</div>
+
+							<div class="hidden" id="star-list">
+								Étoiles constitutives :
+								<ul id="stars-ul">
+								</ul>
 							</div>
 						</div>
 
@@ -159,7 +166,8 @@
 				,	[	'planet-infos'	,	'touchend'	,	(e) => { e.stopPropagation(); }	]
 				,	[	'planet-infos'	,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
 				,	[	'planet-infos'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
-				,	[	'con-name'			,	'click'			,	(e) => {  }	]
+				,	[	'con-name'			,	'click'			,	lookAtConstellation							]
+				,	[	'random-star'		,	'click'			,	randomStar											]
 				]
 
 			for (let i = 0; i < events.length; i++) {
@@ -222,6 +230,7 @@
 				let state = (splinters.length > 1 ? splinters[1] : null);
 				let star = null;
 				let planet = null;
+				let constellation = null;
 
 				/* Si on entre "SystemeSolaire" et qu'il faut changer de scène */
 				if (hash == "SystemeSolaire" && scene == skyScene) {
@@ -264,9 +273,17 @@
 					}
 				}
 
+				for (let i = 0; i < skySphere.constellationObjects.length; i++) {
+					if (hash == skySphere.constellationObjects[i].nameObject.name) {
+						constellation = skySphere.constellationObjects[i];
+					}
+				}
+
 				previousHash == hash;
 
-				if (star != null && planet != null) {
+				if (star != null && planet != null ||
+					star != null && constellation != null ||
+					constellation != null && planet != null) {
 					console.log("Excuse me what the fuck ?");
 					window.location.replace("https://huit.re/PHJa91WW");
 				}
@@ -341,8 +358,10 @@
 						if (star != null) {
 							skySphere.lookAtStar(star);
 						}
+						else if (constellation != null) {
+							skySphere.lookAtConstellation(constellation);
+						}
 					}
-
 				}
 			}
 
@@ -417,7 +436,10 @@
 
 			function closeInfos(event) {
 				event.stopPropagation();
-				window.history.back();
+				//window.history.back();
+				//disable('infos-wrapper');
+				//disable('infos');
+				window.location.hash = window.location.hash.split("-")[0];
 			}
 
 			function closePInfos(event) {
@@ -429,11 +451,20 @@
 				event.stopPropagation();
 				disable('menu');
 				if (scene == skyScene) {
-					window.location.hash='#SystemeSolaire';
+					window.location.hash = '#SystemeSolaire';
 				}
 				else {
-					window.location.hash='#Etoiles';
+					window.location.hash = '#Etoiles';
 				}
+			}
+
+			function lookAtConstellation(event) {
+				window.location.hash = document.getElementById('con-name').innerHTML + "-open";
+			}
+
+			function randomStar(event) {
+				let random = Math.round(Math.random() * skySphere.starsObjects.length);
+				window.location.hash = skySphere.starsObjects[random].meshName + "-open";
 			}
 		</script>
 	</body>

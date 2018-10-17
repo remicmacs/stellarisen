@@ -1,5 +1,5 @@
 class Star {
-	constructor(ra, dec, magnitude, colour, name, distance, constellation, geometry) {
+	constructor(ra, dec, magnitude, colour, name, distance, constellation, geometry, constellationObject) {
 		this.ra = ra;
 		this.dec = dec;
 		this.magnitude = magnitude;
@@ -7,6 +7,7 @@ class Star {
 		this.meshName = name;
 		this.distance = distance;
 		this.constellation = constellation;
+		this.constellationObject = constellationObject;
 
 		//let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 		//geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
