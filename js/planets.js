@@ -171,9 +171,12 @@ class Planets {
 	}
 
 	update() {
+    /*
 		for (let i = 0; i < this.planets.length; i++) {
 			this.planets[i].mesh.rotation.y += 0.01;
-		}
+    }
+    */
+    this.planets.map((planet) => planet.mesh.rotation.y += 0.01);
 	}
 
 	lookAtAll() {
