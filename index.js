@@ -73,6 +73,34 @@ for (let i = 0; i < events.length; i++) {
 }
 console.log("Attached event listeners");
 
+function onLoad() {
+	if (skySphere.loaded && planets.loaded) {
+		const hash = window.location.hash.substring(1);
+		previousHash = hash;
+
+		if (hash !== '') {
+			updateHash(true);
+		} else {
+			// Initialize landing page (skymap)
+			camera = skySphere.camera;
+			scene = skyScene;
+			sceneUpdate = () => {
+				skySphere.update()
+			};
+		}
+
+		hideLoading();
+
+		// Launching scene update
+		const update = () => {
+			requestAnimationFrame(update);
+			TWEEN.update();
+			sceneUpdate();
+			renderer.render(scene, camera);
+		};
+		update();
+	}
+}
 /**
  * Handler for switching between skymap and solar system
  */
@@ -133,46 +161,125 @@ function findTarget(hash) {
 	return target;
 }
 
-function onLoad() {
-	if (skySphere.loaded && planets.loaded) {
-		const hash = window.location.hash.substring(1);
-		previousHash = hash;
-
-		if (hash !== '') {
-			updateHash(true);
-		} else {
-			// Initialize landing page (skymap)
-			camera = skySphere.camera;
-			scene = skyScene;
-			sceneUpdate = () => {
-				skySphere.update()
-			};
-		}
-
-		hideLoading();
-
-		// Launching scene update
-		const update = () => {
-			requestAnimationFrame(update);
-			TWEEN.update();
-			sceneUpdate();
-			renderer.render(scene, camera);
+/**
+ * Sets scene focus on target planet
+ * @param {*} starting boolean === true if application is just starting
+ * @param {*} state === "open" if info panel is open
+ * @param {*} planet string, name of the target planet
+ */
+function focusOnPlanet(starting, state, planet) {
+	// Reached a planet via a hyperlink
+	if (starting) {
+		home = false;
+		camera = planets.camera;
+		scene = planetsScene;
+		sceneUpdate = () => {
+			planets.update()
 		};
-		update();
+	}
+
+	// Opening info panel
+	if (state !== null && state === "open") {
+		enable('planet-infos-wrapper');
+		enable('planet-infos');
+	}
+
+	// Closing info panel
+	if (state === null) {
+		disable('planet-infos-wrapper');
+		disable('planet-infos');
+	}
+
+	// Changing scene starmap -> planets
+	if (home) {
+		showLoading();
+		setTimeout(() => {
+			camera = planets.camera;
+			scene = planetsScene;
+			sceneUpdate = () => {
+				planets.update()
+			};
+			hideLoading();
+			planets.lookAtPlanet(planet);
+			home = false;
+		}, 1000);
+	} else {
+		planets.lookAtPlanet(planet);
+	}
+	home = false;
+}
+/**
+ * Sets scene focus on target star|constellation
+ * @param {*} starting boolean === true if application is just starting
+ * @param {*} state === "open" if info panel is open
+ * @param {*} star string, name of the target star
+ * @param {*} constellation string, name of the target constellation
+ */
+function focusOnStarmapObject(starting, state, home, star, constellation) {
+	// If application is just loading, focusing on starmap scene
+	if (starting) {
+		camera = skySphere.camera;
+		scene = skyScene;
+		sceneUpdate = () => {
+			skySphere.update()
+		};
+	} else {
+		// Handling display of info panel
+		if (state !== null && state === "open") {
+			enable('infos-wrapper');
+			enable('infos');
+		}
+		if (state === null) {
+			disable('infos-wrapper');
+			disable('infos');
+		}
+		// If not at homepage, loading function is called
+		if (!home) {
+			showLoading();
+			setTimeout(() => mountStarmapAndLookAt(star, constellation), 1000);
+		}
+	} // End starting || !starting
+	lookAtSkymapTarget(star, constellation);
+}
+
+/**
+ * Makes scene look at at a starmap target
+ * @param {*} star 
+ * @param {*} constellation 
+ */
+function lookAtSkymapTarget(star, constellation) {
+	if (star !== null) {
+		skySphere.lookAtStar(star);
+	} else if (constellation !== null) {
+		skySphere.lookAtConstellation(constellation);
 	}
 }
 
-function updateHash(starting) {
-	// Destructuring hash to find root of id
-	const splinters = window.location.hash.substring(1).split("-");
-	const hash = decodeURI(splinters[0]);
-	const state = (splinters.length > 1 ? splinters[1] : null);
+/**
+ * Callable to mount starmap and look at target
+ */
+function mountStarmapAndLookAt(star, constellation) {
+	camera = skySphere.camera;
+	scene = skyScene;
+	home = true;
+	sceneUpdate = () => {
+		skySphere.update()
+	};
+	hideLoading();
+	lookAtSkymapTarget(star, constellation);
+}
 
-	// Switching scenes skymap <-> solar system
-	if ((hash === "SystemeSolaire" && scene === skyScene) ||
+/**
+ * Handle switching according to hash and global state and returns true if scene
+ * has switched, false if not
+ * @param {*} hash 
+ */
+function hasSceneSwitched(hash) {
+		// Switching scenes skymap <-> solar system
+		if ((hash === "SystemeSolaire" && scene === skyScene) ||
 		(hash === "Etoiles" && scene === planetsScene)) {
 		switchScene();
-		return;
+		return true;
 
 		// Switching from planet narrow view to wide view in solar system
 	} else if (hash === "SystemeSolaire") {
@@ -183,7 +290,7 @@ function updateHash(starting) {
 			planets.update()
 		};
 		planets.lookAtAll();
-		return;
+		return true;
 
 		// Switching to startup skymap view
 	} else if (hash === "Etoiles") {
@@ -194,9 +301,19 @@ function updateHash(starting) {
 			skySphere.update()
 		};
 		skySphere.rearrange();
-		return;
+		return true;
 	}
+	return false;
+}
 
+function updateHash(starting) {
+	// Destructuring hash to find root of id
+	const splinters = window.location.hash.substring(1).split("-");
+	const hash = decodeURI(splinters[0]);
+	const state = (splinters.length > 1 ? splinters[1] : null);
+
+	// Switching scenes, if needed, according to hash and global state of scene
+	const switched = hasSceneSwitched(hash);
 	// Finding target
 	const {
 		s: star,
@@ -205,7 +322,7 @@ function updateHash(starting) {
 	} = findTarget(hash);
 	previousHash = hash;
 
-	if (star === null && planet === null && constellation === null ||
+	if (!switched && star === null && planet === null && constellation === null ||
 		star !== null && planet !== null ||
 		star !== null && constellation !== null ||
 		constellation !== null && planet !== null) {
@@ -214,84 +331,11 @@ function updateHash(starting) {
 	}
 
 	if (planet !== null) {
-		if (starting) {
-			home = false;
-			camera = planets.camera;
-			scene = planetsScene;
-			sceneUpdate = () => {
-				planets.update()
-			};
-		}
-		if (state !== null && state === "open") {
-			enable('planet-infos-wrapper');
-			enable('planet-infos');
-		}
-		if (state === null) {
-			disable('planet-infos-wrapper');
-			disable('planet-infos');
-		}
-		if (home) {
-			showLoading();
-			setTimeout(() => {
-				// Initialisation à la page des planetes
-				home = false;
-				camera = planets.camera;
-				scene = planetsScene;
-				sceneUpdate = () => {
-					planets.update()
-				};
-				hideLoading();
-				planets.lookAtPlanet(planet);
-			}, 1000);
-		} else {
-			planets.lookAtPlanet(planet);
-		}
-		// Ici on va mettre tout ce qui est changement de planète
+		focusOnPlanet(starting, state, planet);
 	} else {
-		if (starting) {
-			camera = skySphere.camera;
-			scene = skyScene;
-			sceneUpdate = () => {
-				skySphere.update()
-			};
-		} else {
-			if (state !== null && state === "open") {
-				enable('infos-wrapper');
-				enable('infos');
-			}
-			if (state == null) {
-				disable('infos-wrapper');
-				disable('infos');
-			}
-			// Si on est pas sur l'écran des étoiles, on montre le loading
-			if (!home) {
-				showLoading();
-				setTimeout(function () {
-					camera = skySphere.camera;
-					scene = skyScene;
-					home = true;
-					sceneUpdate = () => {
-						skySphere.update()
-					};
-					hideLoading();
-
-					/* Une fois le loading fini, on bouge la caméra vers l'étoile */
-					if (star != null) {
-						skySphere.lookAtStar(star);
-					}
-				}, 1000);
-			}
-		}
-
-		/* Si on est déjà sur l'écran des étoiles, on bouge la caméra */
-		if (home) {
-			if (star != null) {
-				skySphere.lookAtStar(star);
-			} else if (constellation != null) {
-				skySphere.lookAtConstellation(constellation);
-			}
-		}
+		focusOnStarmapObject(starting, state, home, star, constellation);
 	}
+	return;
 }
 
 function hideLoading() {
