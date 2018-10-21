@@ -35,7 +35,7 @@ document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-events = [
+const events = [
 	['userImage', 'mouseup', openMenu],
 	['userImage', 'touchend', openMenu],
 	['userImage', 'mousedown', stopPropagation],
@@ -73,6 +73,9 @@ for (let i = 0; i < events.length; i++) {
 }
 console.log("Attached event listeners");
 
+/**
+ * Handler for switching between skymap and solar system
+ */
 function switchScene() {
 	showLoading();
 	setTimeout(function () {
@@ -96,15 +99,49 @@ function switchScene() {
 	}, 1000);
 }
 
+/**
+ * Function to find target of hash among possible objects
+ * @param {*} hash : the hash from the window URI, stripped from superfluous
+ * "-open" or other
+ */
+function findTarget(hash) {
+	let target = {};
+	target.s = null;
+	target.c = null;
+	target.p = null;
+
+	for (let i = 0; i < skySphere.starsObjects.length; i++) {
+		if (hash === skySphere.starsObjects[i].meshName) {
+			target.s = skySphere.starsObjects[i];
+		}
+	}
+
+	// ... planets, ...
+	for (let i = 0; i < planets.planets.length; i++) {
+		if (hash === planets.planets[i].name) {
+			target.p = planets.planets[i];
+		}
+	}
+
+	// ... or constellations.
+	for (let i = 0; i < skySphere.constellationObjects.length; i++) {
+		if (hash === skySphere.constellationObjects[i].nameObject.name) {
+			target.c = skySphere.constellationObjects[i];
+		}
+	}
+
+	return target;
+}
+
 function onLoad() {
 	if (skySphere.loaded && planets.loaded) {
-		let hash = window.location.hash.substring(1);
+		const hash = window.location.hash.substring(1);
 		previousHash = hash;
 
-		if (hash != '') {
+		if (hash !== '') {
 			updateHash(true);
 		} else {
-			// Initialisation à la page principale (skysphere)
+			// Initialize landing page (skymap)
 			camera = skySphere.camera;
 			scene = skyScene;
 			sceneUpdate = () => {
@@ -114,7 +151,8 @@ function onLoad() {
 
 		hideLoading();
 
-		var update = () => {
+		// Launching scene update
+		const update = () => {
 			requestAnimationFrame(update);
 			TWEEN.update();
 			sceneUpdate();
@@ -125,25 +163,19 @@ function onLoad() {
 }
 
 function updateHash(starting) {
-	let splinters = window.location.hash.substring(1).split("-");
-	let hash = decodeURI(splinters[0]);
-	let state = (splinters.length > 1 ? splinters[1] : null);
-	let star = null;
-	let planet = null;
-	let constellation = null;
+	// Destructuring hash to find root of id
+	const splinters = window.location.hash.substring(1).split("-");
+	const hash = decodeURI(splinters[0]);
+	const state = (splinters.length > 1 ? splinters[1] : null);
 
-	/* Si on entre "SystemeSolaire" et qu'il faut changer de scène */
-	if (hash == "SystemeSolaire" && scene == skyScene) {
+	// Switching scenes skymap <-> solar system
+	if ((hash === "SystemeSolaire" && scene === skyScene) ||
+		(hash === "Etoiles" && scene === planetsScene)) {
 		switchScene();
 		return;
-	}
-	/* Si on entre dans "Etoiles" et qu'il faut changer de scène */
-	else if (hash == "Etoiles" && scene == planetsScene) {
-		switchScene();
-		return;
-	}
-	/* Si on veut juste aller à l'ensemble du système solaire */
-	else if (hash == "SystemeSolaire") {
+
+		// Switching from planet narrow view to wide view in solar system
+	} else if (hash === "SystemeSolaire") {
 		home = false;
 		camera = planets.camera;
 		scene = planetsScene;
@@ -152,9 +184,9 @@ function updateHash(starting) {
 		};
 		planets.lookAtAll();
 		return;
-	}
-	/* Si on veut juste aller à l'ensemble des étoiles */
-	else if (hash == "Etoiles") {
+
+		// Switching to startup skymap view
+	} else if (hash === "Etoiles") {
 		home = true;
 		camera = skySphere.camera;
 		scene = skyScene;
@@ -165,27 +197,16 @@ function updateHash(starting) {
 		return;
 	}
 
-	for (let i = 0; i < skySphere.starsObjects.length; i++) {
-		if (hash === skySphere.starsObjects[i].meshName) {
-			star = skySphere.starsObjects[i];
-		}
-	}
-
-	for (let i = 0; i < planets.planets.length; i++) {
-		if (hash === planets.planets[i].name) {
-			planet = planets.planets[i];
-		}
-	}
-
-	for (let i = 0; i < skySphere.constellationObjects.length; i++) {
-		if (hash === skySphere.constellationObjects[i].nameObject.name) {
-			constellation = skySphere.constellationObjects[i];
-		}
-	}
-
+	// Finding target
+	const {
+		s: star,
+		c: constellation,
+		p: planet
+	} = findTarget(hash);
 	previousHash = hash;
 
-	if (star !== null && planet !== null ||
+	if (star === null && planet === null && constellation === null ||
+		star !== null && planet !== null ||
 		star !== null && constellation !== null ||
 		constellation !== null && planet !== null) {
 		console.log("Excuse me what the fuck ?");
