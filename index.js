@@ -35,6 +35,7 @@ document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
+<<<<<<< HEAD
 events =
 	[	[	'userImage'			,	'mouseup'		,	openMenu												]
 	,	[	'userImage'			,	'touchend'	,	openMenu												]
@@ -81,6 +82,45 @@ events =
 			);
 	}
 
+=======
+events = [
+	['userImage', 'mouseup', openMenu],
+	['userImage', 'touchend', openMenu],
+	['userImage', 'mousedown', stopPropagation],
+	['userImage', 'touchstart', stopPropagation],
+	['close-menu', 'mouseup', closeMenu],
+	['close-menu', 'touchend', closeMenu],
+	['close-menu', 'mousedown', stopPropagation],
+	['close-menu', 'touchstart', stopPropagation],
+	['close-infos', 'mouseup', closeInfos],
+	['close-infos', 'touchend', closeInfos],
+	['close-infos', 'mousedown', stopPropagation],
+	['close-infos', 'touchstart', stopPropagation],
+	['close-pinfos', 'mouseup', closePInfos],
+	['close-pinfos', 'touchend', closePInfos],
+	['close-pinfos', 'mousedown', stopPropagation],
+	['close-pinfos', 'touchstart', stopPropagation],
+	['scene-switch', 'mouseup', switchHash],
+	['scene-switch', 'touchend', switchHash],
+	['scene-switch', 'mousedown', stopPropagation],
+	['scene-switch', 'touchstart', stopPropagation],
+	['infos-wrapper', 'mouseup', stopPropagation],
+	['infos-wrapper', 'touchend', stopPropagation],
+	['infos-wrapper', 'mousedown', stopPropagation],
+	['infos-wrapper', 'touchstart', stopPropagation],
+	['planet-infos', 'mouseup', stopPropagation],
+	['planet-infos', 'touchend', stopPropagation],
+	['planet-infos', 'mousedown', stopPropagation],
+	['planet-infos', 'touchstart', stopPropagation],
+	['con-name', 'click', lookAtConstellation],
+	['random-star', 'click', randomStar]
+]
+
+for (let i = 0; i < events.length; i++) {
+	document.getElementById(events[i][0]).addEventListener(events[i][1], events[i][2]);
+}
+console.log("Attached event listeners");
+>>>>>>> 004684a... Not all call to `.map` are gold, Rémi
 
 function switchScene() {
 	showLoading();
