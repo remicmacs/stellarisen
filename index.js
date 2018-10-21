@@ -1,13 +1,13 @@
 //var noSleep = new NoSleep();
 //noSleep.enable();
 
-console.log("Hello, world");
+console.log("Loading init script");
 
-var skyScene = new THREE.Scene();
-var planetsScene = new THREE.Scene();
-var camera = null;
-var scene = null;
-var renderer = new THREE.WebGLRenderer({
+const skyScene = new THREE.Scene();
+const planetsScene = new THREE.Scene();
+let camera = null;
+let scene = null;
+const renderer = new THREE.WebGLRenderer({
 	antialias: true
 });
 
@@ -15,17 +15,19 @@ window.onhashchange = () => {
 	updateHash(false);
 };
 
-let skySphere = new SkySphere(skyScene, camera, renderer, onLoad);
-let planets = new Planets(planetsScene, camera, renderer, onLoad);
+const skySphere = new SkySphere(skyScene, camera, renderer, onLoad);
+const planets = new Planets(planetsScene, camera, renderer, onLoad);
 
 let sceneUpdate = null;
 let home = true;
 
 let previousHash = null;
 
+// Adding renderer to webpage
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+console.log("Renderer added to webpage");
 
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mousedown', onMouseDown);
@@ -36,68 +38,32 @@ document.addEventListener('touchend', onTouchEnd);
 events = [
 	['userImage', 'mouseup', openMenu],
 	['userImage', 'touchend', openMenu],
-	['userImage', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['userImage', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
+	['userImage', 'mousedown', stopPropagation],
+	['userImage', 'touchstart', stopPropagation],
 	['close-menu', 'mouseup', closeMenu],
 	['close-menu', 'touchend', closeMenu],
-	['close-menu', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['close-menu', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
+	['close-menu', 'mousedown', stopPropagation],
+	['close-menu', 'touchstart', stopPropagation],
 	['close-infos', 'mouseup', closeInfos],
 	['close-infos', 'touchend', closeInfos],
-	['close-infos', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['close-infos', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
+	['close-infos', 'mousedown', stopPropagation],
+	['close-infos', 'touchstart', stopPropagation],
 	['close-pinfos', 'mouseup', closePInfos],
 	['close-pinfos', 'touchend', closePInfos],
-	['close-pinfos', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['close-pinfos', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
+	['close-pinfos', 'mousedown', stopPropagation],
+	['close-pinfos', 'touchstart', stopPropagation],
 	['scene-switch', 'mouseup', switchHash],
 	['scene-switch', 'touchend', switchHash],
-	['scene-switch', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['scene-switch', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
-	['infos-wrapper', 'mouseup', (e) => {
-		e.stopPropagation();
-	}],
-	['infos-wrapper', 'touchend', (e) => {
-		e.stopPropagation();
-	}],
-	['infos-wrapper', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['infos-wrapper', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
-	['planet-infos', 'mouseup', (e) => {
-		e.stopPropagation();
-	}],
-	['planet-infos', 'touchend', (e) => {
-		e.stopPropagation();
-	}],
-	['planet-infos', 'mousedown', (e) => {
-		e.stopPropagation();
-	}],
-	['planet-infos', 'touchstart', (e) => {
-		e.stopPropagation();
-	}],
+	['scene-switch', 'mousedown', stopPropagation],
+	['scene-switch', 'touchstart', stopPropagation],
+	['infos-wrapper', 'mouseup', stopPropagation],
+	['infos-wrapper', 'touchend', stopPropagation],
+	['infos-wrapper', 'mousedown', stopPropagation],
+	['infos-wrapper', 'touchstart', stopPropagation],
+	['planet-infos', 'mouseup', stopPropagation],
+	['planet-infos', 'touchend', stopPropagation],
+	['planet-infos', 'mousedown', stopPropagation],
+	['planet-infos', 'touchstart', stopPropagation],
 	['con-name', 'click', lookAtConstellation],
 	['random-star', 'click', randomStar]
 ]
