@@ -71,6 +71,7 @@ events = [
 for (let i = 0; i < events.length; i++) {
 	document.getElementById(events[i][0]).addEventListener(events[i][1], events[i][2]);
 }
+console.log("Attached event listeners");
 
 function switchScene() {
 	showLoading();
