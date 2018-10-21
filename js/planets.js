@@ -347,25 +347,26 @@ class Planets {
 	}
 
 	onClick(event) {
-		console.log("Planets: clicked");
-		//event.preventDefault();
 		/* On prépare et on lance un raycast */
 		this.raycaster.setFromCamera(this.mouse, this.camera);
-		let intersects = this.raycaster.intersectObjects(this.scene.children);
+		const intersects = this.raycaster.intersectObjects(this.scene.children);
 
 		if (intersects.length > 0) {
-			let planetClicked = false;
-			let objectIndex = 0;
-			let hash = window.location.hash.substring(1);
-			if (hash == intersects[0].object.userData.object.name + "-open") {
+
+			const hash = window.location.hash.substring(1);
+
+			//const objname = intersects[0].object.userData.object.name;
+			const targetname = intersects[0].object.name;
+			if (hash === targetname + "-open") {
+				// If information panel is open, go back to focus
 				window.history.back();
-			}
-			else if (hash == intersects[0].object.userData.object.name) {
-				window.location.hash = "#" + intersects[0].object.userData.object.name + "-open";
-				document.getElementById('planetName').innerHTML = intersects[0].object.userData.object.name;
-			}
-			else {
-				window.location.hash = "#" + intersects[0].object.userData.object.name;
+			} else if (hash === targetname) {
+				// If target is already focused, open information panel
+				window.location.hash = "#" + targetname + "-open";
+				document.getElementById('planetName').innerHTML = targetname;
+			} else {
+				// If target has not been focused before, add hash
+				window.location.hash = "#" + targetname;
 			}
 		}
 	}
