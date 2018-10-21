@@ -10,6 +10,10 @@ var utils = {
   get ratio() { return (viewportIsPortrait() ?	window.innerWidth / window.innerHeight : window.innerHeight / window.innerWidth); }
 }
 
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
 function enable(id) {
   let dom = document.getElementById(id);
   if (dom != null) {
