@@ -17,6 +17,7 @@
 		<script src="js/Visor.js"></script>
 		<script src="js/planets.js"></script>
 		<script src="js/Planet.js"></script>
+		<script src="js/Horizon.js"></script>
 	</head>
 	<body>
 
@@ -40,6 +41,12 @@
 				<div class="list-header">
 					<div class="list-name">Anonyme</div>
 					<div id="close-menu" class="close">&times;</div>
+				</div>
+
+				<div class="line">
+					<button id="show-con" class="toggle on">&#11040;</button>
+					<button id="show-names" class="toggle on">T</button>
+					<button id="show-card" class="toggle on">&#x21e1;</button>
 				</div>
 
 				<button id="scene-switch" class="list-button">Système solaire</button>
@@ -168,6 +175,12 @@
 				,	[	'planet-infos'	,	'touchstart',	(e) => { e.stopPropagation(); }	]
 				,	[	'con-name'			,	'click'			,	lookAtConstellation							]
 				,	[	'random-star'		,	'click'			,	randomStar											]
+				,	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); }]
+				, [ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); }]
+				, [ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }]
+				,	[	'menu'					,	'click'			,	(e) => { e.stopPropagation(); }	]
+				,	[	'menu'					,	'mousedown'	,	(e) => { e.stopPropagation(); }	]
+				,	[	'menu'					,	'mouseup'		,	(e) => { e.stopPropagation(); }	]
 				]
 
 			for (let i = 0; i < events.length; i++) {
@@ -179,6 +192,7 @@
 
 			function switchScene() {
 				showLoading();
+				setPlaceholder("searchField", "Rechercher...");
 				setTimeout(function() {
 					if (home) {
 						camera = planets.camera;

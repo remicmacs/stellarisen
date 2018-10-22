@@ -7,8 +7,8 @@ class Link {
 			,	transparent: true
 			});
 
-		let firstCoord = SkySphere.raDecToCartesian(100, firstRa, firstDec);
-		let secondCoord = SkySphere.raDecToCartesian(100, secondRa, secondDec);
+		let firstCoord = SkySphere.raDecToCartesian(110, firstRa, firstDec);
+		let secondCoord = SkySphere.raDecToCartesian(110, secondRa, secondDec);
 		geometry.vertices.push(firstCoord);
 		geometry.vertices.push(secondCoord);
 

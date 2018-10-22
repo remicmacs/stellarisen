@@ -8,6 +8,9 @@ class SkySphere {
 
 		this.dragging = false;
 		this.mousedown = false;
+		this.showLinks = true;
+		this.showNames = true;
+		this.showHoriz = true;
 
 		this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
 		this.camera.position.set(0, 0, 0);
@@ -28,6 +31,7 @@ class SkySphere {
 		this.constellationObjects = [];
 		this.starsObjects = [];
 		this.visor = undefined;
+		this.horizon = undefined;
 
 		this.deviceIsMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 
@@ -53,6 +57,7 @@ class SkySphere {
 		this.skydomeTexture = undefined;
 		this.visorTexture = undefined;
 		this.lockedTexture = undefined;
+		this.starTexture = undefined;
 
 		/* On prépare des Loaders qui sont ajoutés au LoadingManager,
 		cela nous permet de suivre leur évolution et de prendre action lorsqu'ils
@@ -68,6 +73,7 @@ class SkySphere {
 		let skydomeTextureLoader  = new THREE.TextureLoader(this.loadingManager);
 		let visorTextureLoader = new THREE.TextureLoader(this.loadingManager);
 		let lockedTextureLoader = new THREE.TextureLoader(this.loadingManager);
+		let starTextureLoader = new THREE.TextureLoader(this.loadingManager);
 
 		/* On lance tous les chargements */
 
@@ -81,6 +87,7 @@ class SkySphere {
 		skydomeTextureLoader.load("res/images/milkyway.png", (texture) => { this.skydomeTexture = texture; });
 		visorTextureLoader.load("res/images/visor.png", (texture) => { this.visorTexture = texture; });
 		lockedTextureLoader.load("res/images/locked.png", (texture) => { this.lockedTexture = texture; });
+		starTextureLoader.load("res/images/star.png", (texture) => { this.starTexture = texture; });
 
 		this.previousClosestStar = undefined;
 		this.previousClosestStarScale = new THREE.Vector3();
@@ -224,7 +231,7 @@ class SkySphere {
 		}
 
 		this.addHorizonToScene();
-		this.addCardinalsToScene();
+		//this.addCardinalsToScene();
 
 		this.visor = new Visor(this.visorTexture, this.lockedTexture);
 		this.visor.addToScene(this.scene);
@@ -264,7 +271,8 @@ class SkySphere {
 				,	"fullName": constellationJson["name"]
 				,	"links" : constellationJson["links"]
 				, "stars" : this.json
-				}
+				, "starTexture": this.starTexture
+			};
 
 			let constellation = new Constellation(dict);
 			constellation.addToScene(this.scene);
@@ -296,52 +304,34 @@ class SkySphere {
 	 *	Add horizon to the scene
 	 */
 	addHorizonToScene() {
-		let geometry = new THREE.CircleGeometry( 110, 64 );
-		/* Enlever le dernier vertex permet de ne pas compléter la figure et de ne pas obtenir une surface */
-		geometry.vertices.shift();
-
-		let material;
-		material = new THREE.LineBasicMaterial({ color: 0x000050, linewidth: 3 });
-		let circle = new THREE.LineLoop(geometry, material);
-		circle.rotation.x = Math.PI / 2;
-		circle.rotation.y = 0;
-		circle.rotation.z = 0;
-		circle.position.y = 0.5;
-		this.scene.add(circle);
-
-		material = new THREE.LineBasicMaterial({ color: 0x500000, linewidth: 3 });
-		circle = new THREE.LineLoop(geometry, material);
-		circle.rotation.x = Math.PI / 2;
-		circle.rotation.y = 0;
-		circle.rotation.z = 0;
-		circle.position.y = -0.5;
-		this.scene.add(circle);
+		this.horizon = new Horizon(this.constellationFont);
+		this.horizon.addToScene(this.scene);
 	}
 
 
 	/**
 	 *	Add cardinals points to the scene
 	 */
-	addCardinalsToScene() {
-		let options = { font: this.constellationFont, size: 5, height: 1, curveSegments: 12, bevelEnabled: false };
-		let cardinals = [ "N", "S", "E", "W" ];
-		let cardinalsAngles = [ 0, Math.PI, -Math.PI / 2, Math.PI / 2 ];
-		let cardinalsPositions =
-			[	new THREE.Vector3(0, 4, -110)
-			,	new THREE.Vector3(0, 4, 110)
-			,	new THREE.Vector3(110, 4, 0)
-			,	new THREE.Vector3(-110, 4, 0)
-			];
-		for (let i = 0; i < cardinals.length; i++) {
-			let geometry = new THREE.TextGeometry(cardinals[i], options);
-			geometry.center();
-			let material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-			let mesh = new THREE.Mesh(geometry, material);
-			mesh.position.copy(cardinalsPositions[i]);
-			mesh.rotation.y = cardinalsAngles[i];
-			this.scene.add(mesh);
-		}
-	}
+	// addCardinalsToScene() {
+	// 	let options = { font: this.constellationFont, size: 5, height: 1, curveSegments: 12, bevelEnabled: false };
+	// 	let cardinals = [ "N", "S", "E", "W" ];
+	// 	let cardinalsAngles = [ 0, Math.PI, -Math.PI / 2, Math.PI / 2 ];
+	// 	let cardinalsPositions =
+	// 		[	new THREE.Vector3(0, 4, -110)
+	// 		,	new THREE.Vector3(0, 4, 110)
+	// 		,	new THREE.Vector3(110, 4, 0)
+	// 		,	new THREE.Vector3(-110, 4, 0)
+	// 		];
+	// 	for (let i = 0; i < cardinals.length; i++) {
+	// 		let geometry = new THREE.TextGeometry(cardinals[i], options);
+	// 		geometry.center();
+	// 		let material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+	// 		let mesh = new THREE.Mesh(geometry, material);
+	// 		mesh.position.copy(cardinalsPositions[i]);
+	// 		mesh.rotation.y = cardinalsAngles[i];
+	// 		this.scene.add(mesh);
+	// 	}
+	// }
 
 	static raDecToCartesian(r, ra, dec) {
 		/* La transformation de RA/DEC vers un repêre cartésien en passant par un repêre sphérique nécessite
@@ -375,6 +365,9 @@ class SkySphere {
 		);
 		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
 		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+
+		console.log(current);
+		console.log(target);
 
 		let diffX = Math.abs(current.x - target.x);
 		let diffY = Math.abs(current.y - target.y);
@@ -572,6 +565,72 @@ class SkySphere {
 	getConstellationName(short) {
 		return this.linksJson[short]["name"];
 	}
+
+	hideLinks() {
+		for (let i = 0; i < this.constellationObjects.length; i++) {
+			this.constellationObjects[i].hideLinks();
+		}
+		this.showLinks = false;
+	}
+
+	showAllLinks() {
+		for (let i = 0; i < this.constellationObjects.length; i++) {
+			this.constellationObjects[i].showLinks();
+		}
+		this.showLinks = true;
+	}
+
+	toggleLinks() {
+		if (this.showLinks) {
+			this.hideLinks();
+		}
+		else {
+			this.showAllLinks();
+		}
+	}
+
+	hideNames() {
+		for (let i = 0; i < this.constellationObjects.length; i++) {
+			this.constellationObjects[i].hideName();
+		}
+		this.showNames = false;
+	}
+
+	showAllNames() {
+		for (let i = 0; i < this.constellationObjects.length; i++) {
+			this.constellationObjects[i].showName();
+		}
+		this.showNames = true;
+	}
+
+	toggleNames() {
+		if (this.showNames) {
+			this.hideNames();
+		}
+		else {
+			this.showAllNames();
+		}
+	}
+
+	hideHorizon() {
+		this.horizon.hide();
+		this.showHoriz = false;
+	}
+
+	showHorizon() {
+		this.horizon.show();
+		this.showHoriz = true;
+	}
+
+	toggleHoriz() {
+		if (this.showHoriz) {
+			this.hideHorizon();
+		}
+		else {
+			this.showHorizon();
+		}
+	}
+
 }
 
 function polarRadianToCartesian(r, theta, phi) {

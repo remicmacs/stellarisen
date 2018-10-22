@@ -215,6 +215,7 @@ class Planets {
 			});
 
 			tween.start();
+			setPlaceholder("searchField", "Rechercher...");
 			this.updateRotations(viewportIsPortrait());
 			this.depth = 0;
 		}
@@ -314,6 +315,7 @@ class Planets {
 		}
 
 		this.depth = 1;
+		setPlaceholder("searchField", planet.name);
 		this.updateRotations(!viewportIsPortrait());
 	}
 

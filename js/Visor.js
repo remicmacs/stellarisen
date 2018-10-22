@@ -18,6 +18,7 @@ class Visor {
 			});
 		this.lockedSprite = new THREE.Sprite(this.lockedMaterial);
 		this.lockedSprite.position.z = -10;
+		this.lockedSprite.visible = false;
 		//this.lockedSprite.scale.multiplyScalar(1);
 
 		this.star = undefined;
@@ -39,7 +40,7 @@ class Visor {
 	setLocked(star) {
 		this.lockedSprite.position.copy(SkySphere.raDecToCartesian(10, star.ra, star.dec));
 		this.lockedSprite.visible = true;
-		
+
 		if (this.constellation != undefined) {
 			for (let i = 0; i < this.constellation.links.length; i++) {
 				let link = this.constellation.links[i];

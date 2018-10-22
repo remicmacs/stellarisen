@@ -1,25 +1,31 @@
 class Star {
-	constructor(ra, dec, magnitude, colour, name, distance, constellation, geometry, constellationObject) {
-		this.ra = ra;
-		this.dec = dec;
-		this.magnitude = magnitude;
-		this.colour = colour;
-		this.meshName = name;
-		this.distance = distance;
-		this.constellation = constellation;
-		this.constellationObject = constellationObject;
+	constructor(dict) {
+		this.ra = dict["ra"];
+		this.dec = dict["dec"];
+		this.magnitude = dict["magnitude"];
+		this.colour = dict["colour"];
+		this.meshName = dict["name"];
+		this.distance = dict["distance"];
+		this.constellation = dict["constellation"];
+		this.constellationObject = dict["constellationObject"];
 
-		//let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
-		//geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
-		this.material = new THREE.MeshBasicMaterial({ color: this.colour.getStyle(), transparent: true });
-		this.mesh = new THREE.Mesh(geometry, this.material);
+		this.material = new THREE.SpriteMaterial(
+			{	map: dict["texture"]
+			,	color: this.colour.getHex()
+			,	transparent: true
+			,	depthWrite: false
+			});
+		this.mesh = new THREE.Sprite(this.material);
 
 		this.position = this.mesh.position;
 		this.rotation = this.mesh.rotation;
 		this.scale = this.mesh.scale;
 
+		this.mesh.scale.multiplyScalar(4);
+		this.mesh.scale.multiplyScalar(this.getScaleFactor());
+
 		this.position.copy(SkySphere.raDecToCartesian(100, this.ra, this.dec));
-		this.scale.multiplyScalar(this.getScaleFactor());
+		//this.scale.multiplyScalar(this.getScaleFactor());
 
 		this.mesh.name = this.meshName;
 		this.mesh.userData = { "type": "star" };
