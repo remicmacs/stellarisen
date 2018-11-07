@@ -106,21 +106,8 @@ function onLoad() {
  */
 function switchScene() {
 	showLoading();
-<<<<<<< HEAD
+
 	setPlaceholder("searchField", "Rechercher...");
-	setTimeout(function() {
-		if (home) {
-			camera = planets.camera;
-			scene = planetsScene;
-			sceneUpdate = () => { planets.update() };
-			home = false;
-			planets.lookAtAll();
-		}
-		else {
-			camera = skySphere.camera;
-			scene = skyScene;
-			sceneUpdate = () => { skySphere.update() };
-=======
 	setTimeout(function () {
 		if (home) {
 			camera = planets.camera;
@@ -136,7 +123,6 @@ function switchScene() {
 			sceneUpdate = () => {
 				skySphere.update()
 			};
->>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 			home = true;
 		}
 		hideLoading();
@@ -417,11 +403,6 @@ function closeMenu(event) {
 	event.stopPropagation();
 	disable('menu');
 }
-<<<<<<< HEAD
-
-function closeInfos(event) {
-	event.stopPropagation();
-=======
 /**
  * Close the modal window with Star informations
  * @param {event} event 
@@ -429,33 +410,26 @@ function closeInfos(event) {
 function closeInfos(event) {
 	event.stopPropagation();
 	// DEAD CODE
->>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 	//window.history.back();
 	//disable('infos-wrapper');
 	//disable('infos');
 	window.location.hash = window.location.hash.split("-")[0];
 }
 
-<<<<<<< HEAD
-=======
 /**
  * Close the modal window with informations
  * @param {event} event Close modal window event
  */
->>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 function closePInfos(event) {
 	event.stopPropagation();
 	window.history.back();
 }
 
-<<<<<<< HEAD
-=======
 /**
  * Handler for hash changed event to switch between Constellation view and
  * Solar System view
  * @param {event} event Hash changed event
  */
->>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 function switchHash(event) {
 	event.stopPropagation();
 	disable('menu');
@@ -466,14 +440,6 @@ function switchHash(event) {
 	}
 }
 
-<<<<<<< HEAD
-function lookAtConstellation(event) {
-	window.location.hash = document.getElementById('con-name').innerHTML + "-open";
-}
-
-function randomStar(event) {
-	let random = Math.round(Math.random() * skySphere.starsObjects.length);
-=======
 /**
  * Handler for looking at Constellation event
  * @param {event} event Why an event if not consumed ?
@@ -489,6 +455,5 @@ function lookAtConstellation(event) {
  */
 function randomStar(event) {
 	const random = Math.round(Math.random() * skySphere.starsObjects.length);
->>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 	window.location.hash = skySphere.starsObjects[random].meshName + "-open";
 }
