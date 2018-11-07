@@ -106,11 +106,10 @@ function onLoad() {
  */
 function switchScene() {
 	showLoading();
-<<<<<<< HEAD
 
+	// For real doe ? http://m.memegen.com/7g0fj3.jpg
 	setPlaceholder("searchField", "Rechercher...");
-=======
->>>>>>> 4d66ac212a74c2ccf737a3a796e18fff83f8b2fe
+
 	setTimeout(function () {
 		if (home) {
 			camera = planets.camera;
@@ -277,18 +276,12 @@ function mountStarmapAndLookAt(star, constellation) {
 /**
  * Handle switching according to hash and global state and returns true if scene
  * has switched, false if not
- * @param {*} hash 
+ * @param {*} hash
  */
 function hasSceneSwitched(hash) {
-<<<<<<< HEAD
 	// Switching scenes skymap <-> solar system
 	if ((hash === "SystemeSolaire" && scene === skyScene) ||
 		((hash === "Etoiles" || hash === "") && scene === planetsScene)) {
-=======
-		// Switching scenes skymap <-> solar system
-		if ((hash === "SystemeSolaire" && scene === skyScene) ||
-		(hash === "Etoiles" && scene === planetsScene)) {
->>>>>>> 4d66ac212a74c2ccf737a3a796e18fff83f8b2fe
 		switchScene();
 		return true;
 
@@ -412,10 +405,7 @@ function closeMenu(event) {
 	event.stopPropagation();
 	disable('menu');
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 4d66ac212a74c2ccf737a3a796e18fff83f8b2fe
 /**
  * Close the modal window with Star informations
  * @param {event} event 
