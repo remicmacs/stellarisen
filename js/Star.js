@@ -1,13 +1,18 @@
+/**
+ * Star
+ * Class for holding stars informations
+ * @class
+ */
 class Star {
 	constructor(dict) {
-		this.ra = dict["ra"];
-		this.dec = dict["dec"];
-		this.magnitude = dict["magnitude"];
-		this.colour = dict["colour"];
-		this.meshName = dict["name"];
-		this.distance = dict["distance"];
-		this.constellation = dict["constellation"];
-		this.constellationObject = dict["constellationObject"];
+		this.ra = dict.ra;
+		this.dec = dict.dec;
+		this.magnitude = dict.magnitude;
+		this.colour = dict.colour;
+		this.meshName = dict.name;
+		this.distance = dict.distance;
+		this.constellation = dict.constellation;
+		this.constellationObject = dict.constellationObject;
 
 		this.material = new THREE.SpriteMaterial(
 			{	map: dict["texture"]
@@ -31,6 +36,11 @@ class Star {
 		this.mesh.userData = { "type": "star" };
 	}
 
+	/**
+	 * Adds the Star to the given Three.js scene
+	 * @param {Scene} scene Scene object from Three.js, represents the whole scene
+	 * viewed by the user
+	 */
 	addToScene(scene) {
 		scene.add(this.mesh);
 	}

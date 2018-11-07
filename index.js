@@ -35,52 +35,42 @@ document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-const events =
-	[	[	'userImage'			,	'mouseup'		,	openMenu												]
-	,	[	'userImage'			,	'touchend'	,	openMenu												]
-	,	[	'userImage'			,	'mousedown'	,	stopPropagation	]
-	,	[	'userImage'			,	'touchstart',	stopPropagation	]
-	,	[	'close-menu'		,	'mouseup'		,	closeMenu												]
-	,	[	'close-menu'		,	'touchend'	,	closeMenu												]
-	,	[	'close-menu'		,	'mousedown'	,	stopPropagation	]
-	,	[	'close-menu'		,	'touchstart',	stopPropagation	]
-	,	[	'close-infos'		,	'mouseup'		,	closeInfos											]
-	,	[	'close-infos'		,	'touchend'	,	closeInfos											]
-	,	[	'close-infos'		,	'mousedown'	,	stopPropagation	]
-	,	[	'close-infos'		,	'touchstart',	stopPropagation	]
-	,	[	'close-pinfos'	,	'mouseup'		,	closePInfos											]
-	,	[	'close-pinfos'	,	'touchend'	,	closePInfos											]
-	,	[	'close-pinfos'	,	'mousedown'	,	stopPropagation	]
-	,	[	'close-pinfos'	,	'touchstart',	stopPropagation	]
-	,	[	'scene-switch'	,	'mouseup'		,	switchHash											]
-	,	[	'scene-switch'	,	'touchend'	,	switchHash											]
-	,	[	'scene-switch'	,	'mousedown'	,	stopPropagation	]
-	,	[	'scene-switch'	,	'touchstart',	stopPropagation	]
-	,	[	'infos-wrapper'	,	'mouseup'		,	stopPropagation	]
-	,	[	'infos-wrapper'	,	'touchend'	,	stopPropagation	]
-	,	[	'infos-wrapper'	,	'mousedown'	,	stopPropagation	]
-	,	[	'infos-wrapper'	,	'touchstart',	stopPropagation	]
-	,	[	'planet-infos'	,	'mouseup'		,	stopPropagation	]
-	,	[	'planet-infos'	,	'touchend'	,	stopPropagation	]
-	,	[	'planet-infos'	,	'mousedown'	,	stopPropagation	]
-	,	[	'planet-infos'	,	'touchstart',	stopPropagation	]
-	,	[	'con-name'			,	'click'			,	lookAtConstellation							]
-	,	[	'random-star'		,	'click'			,	randomStar											]
-	,	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); }]
-	, [ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); }]
-	, [ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }]
-	,	[	'menu'					,	'click'			,	stopPropagation	]
-	,	[	'menu'					,	'mousedown'	,	stopPropagation	]
-	,	[	'menu'					,	'mouseup'		,	stopPropagation	]
-	]
+const events = [
+	['userImage', 'mouseup', openMenu],
+	['userImage', 'touchend', openMenu],
+	['userImage', 'mousedown', stopPropagation],
+	['userImage', 'touchstart', stopPropagation],
+	['close-menu', 'mouseup', closeMenu],
+	['close-menu', 'touchend', closeMenu],
+	['close-menu', 'mousedown', stopPropagation],
+	['close-menu', 'touchstart', stopPropagation],
+	['close-infos', 'mouseup', closeInfos],
+	['close-infos', 'touchend', closeInfos],
+	['close-infos', 'mousedown', stopPropagation],
+	['close-infos', 'touchstart', stopPropagation],
+	['close-pinfos', 'mouseup', closePInfos],
+	['close-pinfos', 'touchend', closePInfos],
+	['close-pinfos', 'mousedown', stopPropagation],
+	['close-pinfos', 'touchstart', stopPropagation],
+	['scene-switch', 'mouseup', switchHash],
+	['scene-switch', 'touchend', switchHash],
+	['scene-switch', 'mousedown', stopPropagation],
+	['scene-switch', 'touchstart', stopPropagation],
+	['infos-wrapper', 'mouseup', stopPropagation],
+	['infos-wrapper', 'touchend', stopPropagation],
+	['infos-wrapper', 'mousedown', stopPropagation],
+	['infos-wrapper', 'touchstart', stopPropagation],
+	['planet-infos', 'mouseup', stopPropagation],
+	['planet-infos', 'touchend', stopPropagation],
+	['planet-infos', 'mousedown', stopPropagation],
+	['planet-infos', 'touchstart', stopPropagation],
+	['con-name', 'click', lookAtConstellation],
+	['random-star', 'click', randomStar]
+]
 
-	for (let i = 0; i < events.length; i++) {
-		document.getElementById(events[i][0]).addEventListener
-			(	events[i][1]
-			,	events[i][2]
-			);
-	}
-
+for (let i = 0; i < events.length; i++) {
+	document.getElementById(events[i][0]).addEventListener(events[i][1], events[i][2]);
+}
 console.log("Attached event listeners");
 
 function onLoad() {
@@ -116,6 +106,7 @@ function onLoad() {
  */
 function switchScene() {
 	showLoading();
+<<<<<<< HEAD
 	setPlaceholder("searchField", "Rechercher...");
 	setTimeout(function() {
 		if (home) {
@@ -129,6 +120,23 @@ function switchScene() {
 			camera = skySphere.camera;
 			scene = skyScene;
 			sceneUpdate = () => { skySphere.update() };
+=======
+	setTimeout(function () {
+		if (home) {
+			camera = planets.camera;
+			scene = planetsScene;
+			sceneUpdate = () => {
+				planets.update()
+			};
+			home = false;
+			planets.lookAtAll();
+		} else {
+			camera = skySphere.camera;
+			scene = skyScene;
+			sceneUpdate = () => {
+				skySphere.update()
+			};
+>>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 			home = true;
 		}
 		hideLoading();
@@ -409,20 +417,45 @@ function closeMenu(event) {
 	event.stopPropagation();
 	disable('menu');
 }
+<<<<<<< HEAD
 
 function closeInfos(event) {
 	event.stopPropagation();
+=======
+/**
+ * Close the modal window with Star informations
+ * @param {event} event 
+ */
+function closeInfos(event) {
+	event.stopPropagation();
+	// DEAD CODE
+>>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 	//window.history.back();
 	//disable('infos-wrapper');
 	//disable('infos');
 	window.location.hash = window.location.hash.split("-")[0];
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * Close the modal window with informations
+ * @param {event} event Close modal window event
+ */
+>>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 function closePInfos(event) {
 	event.stopPropagation();
 	window.history.back();
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * Handler for hash changed event to switch between Constellation view and
+ * Solar System view
+ * @param {event} event Hash changed event
+ */
+>>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 function switchHash(event) {
 	event.stopPropagation();
 	disable('menu');
@@ -433,11 +466,29 @@ function switchHash(event) {
 	}
 }
 
+<<<<<<< HEAD
 function lookAtConstellation(event) {
 	window.location.hash = document.getElementById('con-name').innerHTML + "-open";
 }
 
 function randomStar(event) {
 	let random = Math.round(Math.random() * skySphere.starsObjects.length);
+=======
+/**
+ * Handler for looking at Constellation event
+ * @param {event} event Why an event if not consumed ?
+ */
+function lookAtConstellation(event) {
+	window.location.hash = document.getElementById('con-name')
+		.innerHTML + "-open";
+}
+
+/**
+ * Returns a random Star
+ * @param {event} event Why an event ?
+ */
+function randomStar(event) {
+	const random = Math.round(Math.random() * skySphere.starsObjects.length);
+>>>>>>> 602ed2b... Bug has magically disappeared (I hope)
 	window.location.hash = skySphere.starsObjects[random].meshName + "-open";
 }
