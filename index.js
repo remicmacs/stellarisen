@@ -336,7 +336,7 @@ function updateHash(starting) {
 
 	if (planet !== null) {
 		focusOnPlanet(starting, state, planet);
-	} else {
+	} else if (this.home) {
 		focusOnStarmapObject(starting, state, home, star, constellation);
 	}
 	return;
