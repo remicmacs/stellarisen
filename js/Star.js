@@ -1,5 +1,32 @@
+/**
+ * Star
+ * Class for holding stars informations
+ * @class
+ */
 class Star {
-	constructor(ra, dec, magnitude, colour, name, distance, constellation, geometry, constellationObject) {
+	/**
+	 * Constructor for Star
+	 * @param {*} ra
+	 * @param {*} dec
+	 * @param {*} magnitude
+	 * @param {*} colour
+	 * @param {*} name
+	 * @param {*} distance
+	 * @param {*} constellation
+	 * @param {*} geometry
+	 * @param {*} constellationObject
+	 */
+	constructor(
+		ra,
+		dec,
+		magnitude,
+		colour,
+		name,
+		distance,
+		constellation,
+		geometry,
+		constellationObject
+	) {
 		this.ra = ra;
 		this.dec = dec;
 		this.magnitude = magnitude;
@@ -11,6 +38,8 @@ class Star {
 
 		//let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 		//geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
+
+		// Creating 3D geometry object
 		this.material = new THREE.MeshBasicMaterial({ color: this.colour.getStyle(), transparent: true });
 		this.mesh = new THREE.Mesh(geometry, this.material);
 
@@ -25,6 +54,11 @@ class Star {
 		this.mesh.userData = { "type": "star" };
 	}
 
+	/**
+	 * Adds the Star to the given Three.js scene
+	 * @param {Scene} scene Scene object from Three.js, represents the whole scene
+	 * viewed by the user
+	 */
 	addToScene(scene) {
 		scene.add(this.mesh);
 	}
