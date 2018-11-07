@@ -7,6 +7,8 @@
 		<title>Stellar'ISEN</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
 		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>-->
 		<script src="js/three.js"></script>
@@ -29,38 +31,36 @@
 
 			<div id="header">
 				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
-				<input id="searchField" type="text" placeholder="Rechercher..."/>
-			</div>
-
-			<div id="footer">
-
+				<input id="searchField" class="light" type="text" placeholder="Rechercher..."/>
 			</div>
 
 		</div>
 
-		<div class="light disabled modal" id="menu">
+		<div class="wrapper left disabled" id="menu-wrapper">
+			<div class="light disabled modal left" id="menu">
 
-			<div class="list">
+				<div class="list">
 
-				<div class="list-header">
-					<div class="list-name">Anonyme</div>
-					<div id="close-menu" class="close">&times;</div>
+					<div class="list-header">
+						<h1>Anonyme</h1>
+						<div id="close-menu" class="close">&times;</div>
+					</div>
+
+					<div class="line">
+						<button id="show-con" class="toggle on white">&#11040;</button>
+						<button id="show-names" class="toggle on white">T</button>
+						<button id="show-card" class="toggle on white">&#x21e1;</button>
+					</div>
+
+					<button id="scene-switch" class="list-button white">Système solaire</button>
+					<button id="random-star" class="list-button white">Une étoile au hasard !</button>
+					<button class="list-button white">Connexion</button>
+					<button class="list-button white">Création de compte</button>
+					<button class="list-button white">À propos</button>
+
 				</div>
-
-				<div class="line">
-					<button id="show-con" class="toggle on">&#11040;</button>
-					<button id="show-names" class="toggle on">T</button>
-					<button id="show-card" class="toggle on">&#x21e1;</button>
-				</div>
-
-				<button id="scene-switch" class="list-button">Système solaire</button>
-				<button id="random-star" class="list-button">Une étoile au hasard !</button>
-				<button class="list-button">Connexion</button>
-				<button class="list-button">Création de compte</button>
-				<button class="list-button">À propos</button>
 
 			</div>
-
 		</div>
 
 		<!-- Modal dialog pour les infos d'étoiles -->
