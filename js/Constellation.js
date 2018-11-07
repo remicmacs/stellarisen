@@ -145,13 +145,15 @@ class Constellation {
 	updateNames(distance, camera) {
 		const constellationName = this.nameObject;
 
-		/* Hiding name above distance of 100 */
-		if (distance > 100 && constellationName.visible) {
-			constellationName.visible = false;
-		}
-		/* Showing name under 100 */
-		else if (distance < 100 && !constellationName.visible) {
-			constellationName.visible = true;
+		if (this.nameVisible) {
+			/* Hiding name above distance of 100 */
+			if (distance > 100 && constellationName.visible) {
+				constellationName.visible = false;
+			}
+			/* Showing name under 100 */
+			else if (distance < 100 && !constellationName.visible) {
+				constellationName.visible = true;
+			}
 		}
 
 

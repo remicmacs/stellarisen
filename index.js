@@ -62,10 +62,16 @@ const events = [
 	['infos-wrapper', 'touchstart', stopPropagation],
 	['planet-infos', 'mouseup', stopPropagation],
 	['planet-infos', 'touchend', stopPropagation],
-	['planet-infos', 'mousedown', stopPropagation],
-	['planet-infos', 'touchstart', stopPropagation],
-	['con-name', 'click', lookAtConstellation],
-	['random-star', 'click', randomStar]
+	[	'planet-infos'	,	'mousedown'	,	stopPropagation	],
+	[	'planet-infos'	,	'touchstart',	stopPropagation	],
+	[	'con-name'			,	'click'			,	lookAtConstellation							],
+	[	'random-star'		,	'click'			,	randomStar											],
+	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); }],
+	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); }],
+	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }],
+	[	'menu'					,	'click'			,	stopPropagation	],
+	[	'menu'					,	'mousedown'	,	stopPropagation	],
+	[	'menu'					,	'mouseup'		,	stopPropagation	]
 ]
 
 for (let i = 0; i < events.length; i++) {
