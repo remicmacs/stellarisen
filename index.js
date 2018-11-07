@@ -346,7 +346,7 @@ function updateHash(starting) {
 
 	if (planet !== null) {
 		focusOnPlanet(starting, state, planet);
-	} else if (this.home) {
+	} else if (hash !== 'SystemeSolaire') {
 		focusOnStarmapObject(starting, state, home, star, constellation);
 	}
 	return;
