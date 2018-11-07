@@ -402,19 +402,33 @@ function closeMenu(event) {
 	disable('menu');
 }
 
+/**
+ * Close the modal window with Star informations
+ * @param {event} event 
+ */
 function closeInfos(event) {
 	event.stopPropagation();
+	// DEAD CODE
 	//window.history.back();
 	//disable('infos-wrapper');
 	//disable('infos');
 	window.location.hash = window.location.hash.split("-")[0];
 }
 
+/**
+ * Close the modal window with informations
+ * @param {event} event Close modal window event
+ */
 function closePInfos(event) {
 	event.stopPropagation();
 	window.history.back();
 }
 
+/**
+ * Handler for hash changed event to switch between Constellation view and
+ * Solar System view
+ * @param {event} event Hash changed event
+ */
 function switchHash(event) {
 	event.stopPropagation();
 	disable('menu');
@@ -425,11 +439,20 @@ function switchHash(event) {
 	}
 }
 
+/**
+ * Handler for looking at Constellation event
+ * @param {event} event Why an event if not consumed ?
+ */
 function lookAtConstellation(event) {
-	window.location.hash = document.getElementById('con-name').innerHTML + "-open";
+	window.location.hash = document.getElementById('con-name')
+		.innerHTML + "-open";
 }
 
+/**
+ * Returns a random Star
+ * @param {event} event Why an event ?
+ */
 function randomStar(event) {
-	let random = Math.round(Math.random() * skySphere.starsObjects.length);
+	const random = Math.round(Math.random() * skySphere.starsObjects.length);
 	window.location.hash = skySphere.starsObjects[random].meshName + "-open";
 }

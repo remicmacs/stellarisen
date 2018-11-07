@@ -1,4 +1,20 @@
+/**
+ * Planet
+ * Geometry object to represent a planet
+ * @class
+ */
 class Planet {
+	/**
+	 * Planet constructor
+	 *
+	 * Takes all things needed to make a planets
+	 * @constructor
+	 * @param {*} texture 
+	 * @param {real} distance Represents the distance to the Sun
+	 * @param {real} radius Represents the radius of the planet
+	 * @param {real} tilt Angle of the planet's tilt relative to the ecliptic
+	 * @param {string} name Name of the planet
+	 */
 	constructor(texture, distance, radius, tilt, name) {
 		this.texture = texture;
 		this.distance = distance;
@@ -32,10 +48,20 @@ class Planet {
 		this.updateRotation();
 	}
 
+	/**
+	 * Adds the Planet to the given scene
+	 * @param {*} scene The Planet object will be added to this Three.js scene
+	 */
 	addToScene(scene) {
 		scene.add(this.mesh);
 	}
 
+	/**
+	 * Update procedure
+	 *
+	 * Called at every frame to animate the object in the scene
+	 * @param {boolean} portrait Tell if the scene is portrait or landscape
+	 */
 	updateRotation(portrait) {
 		const rotation = this.tilt +
 			(portrait ?
@@ -43,6 +69,7 @@ class Planet {
 				0
 			);
 
+		// Creating an angle for the rotation
 		const target = new THREE.Euler(0, 0, rotation);
 		const current = this.mesh.rotation.clone();
 
