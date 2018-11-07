@@ -83,7 +83,7 @@ class SkySphere {
 		linksFileLoader.load("res/links.json", (response) => { this.linksJson = JSON.parse(response) });
 
 		/* Ici on charge le bonus (textures et polices) */
-		constellationFontLoader.load('fonts/helvetiker_regular.typeface.json', (font) => { this.constellationFont = font; });
+		constellationFontLoader.load('fonts/Share_Regular.json', (font) => { this.constellationFont = font; });
 		skydomeTextureLoader.load("res/images/milkyway.png", (texture) => { this.skydomeTexture = texture; });
 		visorTextureLoader.load("res/images/visor.png", (texture) => { this.visorTexture = texture; });
 		lockedTextureLoader.load("res/images/locked.png", (texture) => { this.lockedTexture = texture; });
