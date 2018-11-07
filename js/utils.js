@@ -1,70 +1,120 @@
-function deviceIsMobile() { return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1); }
+/**
+ * @file Utilities functions for the Stellar'ISEN app. Functions added to global
+ * scope
+ */
 
-function viewportIsPortrait() { return (window.innerWidth / window.innerHeight) < 1; }
+/**
+ * Function to check if device is mobile
+ */
+function deviceIsMobile() {
+  return (
+    typeof window.orientation !== "undefined")
+    || (navigator.userAgent.indexOf('IEMobile') !== -1
+  );
+}
+
+/**
+ * Return whether device is displaying in portrait or landscape
+ */
+function viewportIsPortrait() {
+  return (window.innerWidth / window.innerHeight) < 1;
+}
 
 function map(x, in_min, in_max, out_min, out_max) {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-var utils = {
-  get ratio() { return (viewportIsPortrait() ?	window.innerWidth / window.innerHeight : window.innerHeight / window.innerWidth); }
+/**
+ * Setting a property `ratio` in a global constant `utils`
+ */
+const utils = {
+  get ratio() {
+    return (
+      viewportIsPortrait() ?
+      window.innerWidth / window.innerHeight :
+      window.innerHeight / window.innerWidth
+    );
+  }
 }
 
+function stopPropagation(event) {
+  event.stopPropagation();
+}
+
+/**
+ * Helper function to enable a HTML element
+ * @param {string} id The HTML id of the element
+ */
 function enable(id) {
-  let dom = document.getElementById(id);
-  if (dom != null) {
-    dom.classList.remove('disabled');
-    dom.classList.add('enabled');
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('disabled');
+    element.classList.add('enabled');
   }
 }
 
+/**
+ * Helper function to disable a HTML element
+ * @param {string} id The HTML id of the element
+ */
 function disable(id) {
-  let dom = document.getElementById(id);
-  if (dom != null) {
-    dom.classList.remove('enabled');
-    dom.classList.add('disabled');
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('enabled');
+    element.classList.add('disabled');
   }
 }
 
+/**
+ * Helper function to toggle a HTML element
+ * @param {string} id The HTML id of the element
+ */
 function toggle(id) {
-  let dom = document.getElementById(id);
-  if (dom.classList.contains('enabled')) {
+  const element = document.getElementById(id);
+  if (element.classList.contains('enabled')) {
     disable(id);
-  }
-  else {
+  } else {
     enable(id);
   }
 }
 
 function setSpan(id, content) {
-  let dom = document.getElementById(id);
-  dom.innerHTML = content;
+  const element = document.getElementById(id);
+  element.innerHTML = content;
 }
 
 function setImgSrc(id, src) {
-  let dom = document.getElementById(id);
-  dom.src = src;
+  const element = document.getElementById(id);
+  element.src = src;
 }
 
+/**
+ * Helper function to show a hidden HTML element
+ * @param {string} id The HTML id of the element
+ */
 function show(id) {
-  let dom = document.getElementById(id);
-  if (dom != null) {
-    dom.classList.remove('hidden');
-    dom.classList.add('visible');
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('hidden');
+    element.classList.add('visible');
   }
 }
 
+/**
+ * Helper function to hide a showed HTML element
+ * @param {string} id The HTML id of the element
+ */
 function hide(id) {
-  let dom = document.getElementById(id);
-  if (dom != null) {
-    dom.classList.remove('visible');
-    dom.classList.add('hidden');
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('visible');
+    element.classList.add('hidden');
   }
 }
 
 function setPlaceholder(id, content) {
-  let dom = document.getElementById(id);
-  if (dom != null) {
-    dom.placeholder = content;
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.placeholder = content;
   }
 }

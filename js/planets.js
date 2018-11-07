@@ -1,4 +1,19 @@
+/**
+ * Planets
+ * Object to manage the solar system scene
+ * @class
+ */
 class Planets {
+	/**
+	 * Planets constructor
+	 *
+	 * Takes all objects necessary to build a scene
+	 * @constructor
+	 * @param {Scene} scene Scene object from Three.js library
+	 * @param {Camera} camera Camera object from Three.js library
+	 * @param {Renderer} renderer Renderer object from Three.js library
+	 * @param {function} onLoad Handler for Scene loading
+	 */
 	constructor(scene, camera, renderer, onLoad) {
 		this.loaded = false;
 		this.onLoad = onLoad;
@@ -10,12 +25,12 @@ class Planets {
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
 
-		this.width = 16.285714285714285;
+		this.width = 16.285714285714285; // WTF magic number ?
 
 		this.target = null;
 
-		let portrait = viewportIsPortrait();
-		let ratio = utils.ratio;
+		const portrait = viewportIsPortrait();
+		const ratio = utils.ratio;
 		this.camera = new THREE.OrthographicCamera
 			(	-this.width * (portrait ? ratio : 1			)
 			,	this.width	* (portrait ? ratio : 1			)
@@ -98,32 +113,42 @@ class Planets {
 			,	"Pluton"
 			]
 
-		this.texturesObjects = new Array(10);
 		this.rings = null;
+
 		this.wasPortrait = viewportIsPortrait();
 
 		console.log("Variables set");
 
-		// Le LoadingManager va permettre d'interagir pendant le chargement de
-		// gros fichiers et potentiellement d'afficher un loader
+		// Adds a loader for an animation during long loadings
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
+		// Loading textures
+		this.texturesObjects = new Array(10);
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
 		for (let index = 0; index < this.textures.length; index++) {
-			this.textureLoader.load(this.textures[index], (texture) => { this.texturesObjects[index] = texture; })
+			this.textureLoader.load(
+				this.textures[index], 
+				(texture) => { this.texturesObjects[index] = texture; }
+				);
 		}
 
+		// Handles the resize event with custom method
 		window.addEventListener('resize', () => { this.rearrange(); });
 	}
 
+	/**
+	 * Handler for `resize` event
+	 * Process the new viewport size to find ideal camera position
+	 */
 	rearrange() {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-		let ratio = utils.ratio;
-		let portrait = viewportIsPortrait();
+		const ratio = utils.ratio;
+		const portrait = viewportIsPortrait();
 
+		// Calculating the optimal camera position
 		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
 		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
 		this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
@@ -138,7 +163,11 @@ class Planets {
 		this.camera.updateProjectionMatrix();
 	}
 
+	/**
+	 * Function to add every object to the scene
+	 */
 	addEverything() {
+		// Adding planets to scene
 		for (let index = 0; index < this.textures.length; index++) {
 			let planet = new Planet
 				(	this.texturesObjects[index]
@@ -151,6 +180,7 @@ class Planets {
 			this.planets.push(planet);
 		}
 
+		// Constructing rings for ringed planets
 		let geometry = new THREE.RingBufferGeometry(2.2, 3.2, 25);
 		let material = new THREE.MeshBasicMaterial(
 			{	color: '#E1C9A2'
@@ -170,15 +200,57 @@ class Planets {
 		this.onLoad();
 	}
 
+	/**
+	 * Update procedure
+	 * Defines the frames of animations for the scene
+	 */
 	update() {
 		for (let i = 0; i < this.planets.length; i++) {
 			this.planets[i].mesh.rotation.y += 0.01;
-		}
+    }
 	}
 
+	/**
+	 * Update procedure for the planets rotations
+	 * @param {boolean} portrait If the scene view is portrait or landscape
+	 */
+	updateRotations(portrait) {
+		for (let index = 0; index < this.planets.length; index++) {
+			this.planets[index].updateRotation(portrait);
+		}
+		this.updateRingsRotation(portrait);
+	}
+
+	/**
+	 * Update procedure for the rings
+	 * @param {boolean} portrait If the scene view is portrait or landscape
+	 */
+	updateRingsRotation(portrait) {
+
+		let rotation = -0.4660029 +
+			(	portrait
+			?	0
+			: Math.PI / 2
+			);
+
+		let target = new THREE.Euler(0, 0, rotation);
+		let current = this.rings.rotation.clone();
+		let tween = new TWEEN.Tween(current)
+			.to(target, 1000)
+			.easing(TWEEN.Easing.Bounce.Out);
+		tween.onUpdate(() => {
+			this.rings.rotation.z = current.z;
+		})
+		tween.start();
+	}
+
+	/**
+	 * Sets the view of the scene to show all solar system
+	 */
 	lookAtAll() {
 		this.target = null;
-		let current =
+		// Recover current position in scene
+		const current =
 			{	top: 		this.camera.top
 			,	bottom: this.camera.bottom
 			,	left: 	this.camera.left
@@ -188,10 +260,11 @@ class Planets {
 			};
 
 		if (this.depth == 1) {
-			let portrait = viewportIsPortrait();
-			let ratio = utils.ratio;
+			const portrait = viewportIsPortrait();
+			const ratio = utils.ratio;
 
-			let target =
+			// Set target camera position
+			const target =
 				{	left:		-this.width * (portrait ? ratio : 1			)
 				,	right:	this.width	* (portrait ? ratio : 1			)
 				, top:		this.width	* (portrait ? 1 		: ratio	)
@@ -200,6 +273,7 @@ class Planets {
 				,	angle: 	portrait ? -Math.PI / 2 : 0
 				};
 
+			// Create animation from current to target
 			let tween = new TWEEN.Tween(current)
 				.to(target, 1000)
 				.easing(TWEEN.Easing.Cubic.InOut);
@@ -221,22 +295,27 @@ class Planets {
 		}
 	}
 
+	/**
+	 * Sets the view of the scene focused on a specific planet
+	 * @param {*} planet The planet to look at
+	 */
 	lookAtPlanet(planet) {
 		if (planet == this.target) {
 			return;
 		}
 		this.target = planet;
 		planet.geometry.computeBoundingBox();
-		let box = planet.geometry.boundingBox;
+		const box = planet.geometry.boundingBox;
 
-		let ratio = utils.ratio;
-		let portrait = viewportIsPortrait();
+		const ratio = utils.ratio;
+		const portrait = viewportIsPortrait();
 
 		/*let max = box.max.x + (portrait ? 1 : 1);*/
-		let max = 3 * box.max.x;
-		let min = box.min.x;
+		const max = 3 * box.max.x;
+		const min = box.min.x;
 
-		let current =
+		// Recover current camera position
+		const current =
 			{	top: 		this.camera.top
 			,	bottom: this.camera.bottom
 			,	left: 	this.camera.left
@@ -245,8 +324,8 @@ class Planets {
 			, angle:	this.camera.rotation.z
 			};
 
-		/* On sélectionne la cible finale du déplacement */
-		let target =
+		// Compute target camera position
+		const target =
 			{	top:		max	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
 			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
 			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
@@ -255,8 +334,9 @@ class Planets {
 			, angle:	(portrait ? 0 : -Math.PI / 2)
 			};
 
+		// Computes the middle point for the animation
 		if (this.depth != 0) {
-			let middle =
+			const middle =
 				{	left: 	-this.width	* (portrait ? ratio : 1			)
 				,	right:	this.width	* (portrait ? ratio : 1			)
 				,	top:		this.width	* (portrait ? 1 		: ratio	)
@@ -265,11 +345,13 @@ class Planets {
 				,	angle:	(portrait ? -Math.PI / 2 : 0)
 				};
 
-			let tweenToMiddle = new TWEEN.Tween(current)
+			// Animation to the middle
+			const tweenToMiddle = new TWEEN.Tween(current)
 				.to(middle, 1000)
 				.easing(TWEEN.Easing.Cubic.InOut);
 
-			let tweenToEnd = new TWEEN.Tween(middle)
+			// Animation middle to end
+			const tweenToEnd = new TWEEN.Tween(middle)
 				.to(target, 1000)
 				.easing(TWEEN.Easing.Cubic.InOut);
 
@@ -297,7 +379,7 @@ class Planets {
 			tweenToMiddle.start();
 		}
 		else if (this.depth == 0) {
-			let tweenToEnd = new TWEEN.Tween(current)
+			const tweenToEnd = new TWEEN.Tween(current)
 				.to(target, 1000)
 				.easing(TWEEN.Easing.Cubic.InOut);
 
@@ -319,52 +401,27 @@ class Planets {
 		this.updateRotations(!viewportIsPortrait());
 	}
 
-	updateRotations(portrait) {
-		for (let index = 0; index < this.planets.length; index++) {
-			this.planets[index].updateRotation(portrait);
-		}
-		this.updateRingsRotation(portrait);
-	}
-
-	updateRingsRotation(portrait) {
-
-		let rotation = -0.4660029 +
-			(	portrait
-			?	0
-			: Math.PI / 2
-			);
-
-		let target = new THREE.Euler(0, 0, rotation);
-		let current = this.rings.rotation.clone();
-		let tween = new TWEEN.Tween(current)
-			.to(target, 1000)
-			.easing(TWEEN.Easing.Bounce.Out);
-		tween.onUpdate(() => {
-			this.rings.rotation.z = current.z;
-		})
-		tween.start();
-	}
-
 	onClick(event) {
-		console.log("Planets: clicked");
-		//event.preventDefault();
 		/* On prépare et on lance un raycast */
 		this.raycaster.setFromCamera(this.mouse, this.camera);
-		let intersects = this.raycaster.intersectObjects(this.scene.children);
+		const intersects = this.raycaster.intersectObjects(this.scene.children);
 
 		if (intersects.length > 0) {
-			let planetClicked = false;
-			let objectIndex = 0;
-			let hash = window.location.hash.substring(1);
-			if (hash == intersects[0].object.userData.object.name + "-open") {
+
+			const hash = window.location.hash.substring(1);
+
+			//const objname = intersects[0].object.userData.object.name;
+			const targetname = intersects[0].object.name;
+			if (hash === targetname + "-open") {
+				// If information panel is open, go back to focus
 				window.history.back();
-			}
-			else if (hash == intersects[0].object.userData.object.name) {
-				window.location.hash = "#" + intersects[0].object.userData.object.name + "-open";
-				document.getElementById('planetName').innerHTML = intersects[0].object.userData.object.name;
-			}
-			else {
-				window.location.hash = "#" + intersects[0].object.userData.object.name;
+			} else if (hash === targetname) {
+				// If target is already focused, open information panel
+				window.location.hash = "#" + targetname + "-open";
+				document.getElementById('planetName').innerHTML = targetname;
+			} else {
+				// If target has not been focused before, add hash
+				window.location.hash = "#" + targetname;
 			}
 		}
 	}

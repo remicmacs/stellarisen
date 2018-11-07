@@ -1,32 +1,54 @@
+/**
+ * Constellation
+ * Class to hold constellation data
+ * @class
+ */
 class Constellation {
-	constructor(dict) {
-		this.ra = dict["ra"];
-		this.dec = dict["dec"];
-		this.shortName = dict["shortName"];
-		this.fullName = dict["fullName"];
+	// Dead code
+	/*constructor(ra, dec, fullName, links, stars) {
+		this.ra = ra;
+		this.dec = dec;
+		this.fullName = fullName;*/
 
-		let links = dict["links"];
-		let stars = dict["stars"];
+	/**
+	 * Constructor for Constellation object
+	 * @constructor
+	 * @param {Object} dict Contains all parameters
+	 */
+	constructor(dict) {
+		this.ra = dict.ra;
+		this.dec = dict.dec;
+		this.shortName = dict.shortName;
+		this.fullName = dict.fullName;
+
+		const links = dict.links;
+		const stars = dict.stars;
 
 		this.links = [];
 		this.stars = [];
 
 		this.nameVisible = true;
 
-		let constellationLinks =
+
+		// Dead code
+		/*let constellationLinks =
 			{	"ra": this.ra
 			,	"dec": this.dec
 			,	"lines": []
-			};
+			};*/
 
-		let geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
+		const geometry = new THREE.SphereBufferGeometry(0.75, 10, 10);
 
-		/* Pour chaque segment de la constellation, on va créer les
-		étoiles et les lignes qui seront affichées */
+		/* For each link of Constellation, creating stars and lines to display */
 		for (let j = 0; j < links.length; j++) {
 			let star;
 
-			/* On crée les étoiles seulement si elle n'est pas encore créée */
+			/**
+			 *  @TODO :This part could be simplified with a HashMap ({} in JS)
+			 * `this.stars` would be an object rather than an Array, and checking
+			 * every start would be O(log(n)) rather than O(n)
+			 */
+			/* Creating starting point Star only if not yet created */
 			if (!this.isPresent(stars[links[j][0]]["proper"])) {
 				let args =
 					{	"ra": stars[links[j][0]]["ra"].valueOf()
@@ -48,7 +70,7 @@ class Constellation {
 				this.stars.push(star);
 			}
 
-			/* On crée les étoiles seulement si elle n'est pas encore créée */
+			/* Creating end point Star only if not yet created */
 			if (!this.isPresent(stars[links[j][1]]["proper"])) {
 				let args =
 					{	"ra": stars[links[j][1]]["ra"].valueOf()
@@ -70,13 +92,13 @@ class Constellation {
 				this.stars.push(star);
 			}
 
-			let link = new Link
-				( stars[links[j][0]]["ra"].valueOf()
+			const link = new Link(
+				stars[links[j][0]]["ra"].valueOf()
 				,	stars[links[j][1]]["ra"].valueOf()
 				,	stars[links[j][0]]["dec"].valueOf()
 				,	stars[links[j][1]]["dec"].valueOf()
 				,	this.fullName
-				);
+			);
 			this.links.push(link);
 		}
 	}
@@ -91,17 +113,21 @@ class Constellation {
 		}
 	}
 
+	/**
+	 * Generates a 3D text object to add to a Three.js scene
+	 * @param {*} font
+	 */
 	generateName(font) {
-		let options = { font: font, size: 2.5, height: 0.1, curveSegments: 12, bevelEnabled: false };
+		const options = { font: font, size: 2.5, height: 0.1, curveSegments: 12, bevelEnabled: false };
 
-		let material = new THREE.MeshBasicMaterial(
+		const material = new THREE.MeshBasicMaterial(
 			{	color: 0xffffff
 			,	transparent: true
 			});
-		let geometry = new THREE.TextBufferGeometry(this.fullName, options);
+		const geometry = new THREE.TextBufferGeometry(this.fullName, options);
 		geometry.center();
 		this.nameObject = new THREE.Mesh(geometry, material);
-		let coord = SkySphere.raDecToCartesian(110, this.ra, this.dec);
+		const coord = SkySphere.raDecToCartesian(110, this.ra, this.dec);
 		this.nameObject.position.copy(coord);
 		this.nameObject.name = this.fullName;
 	}
@@ -110,39 +136,45 @@ class Constellation {
 		scene.add(this.nameObject);
 	}
 
+	/**
+	 * Update procedure to handle the size and orientation of the text
+	 * representing the names of the constellation
+	 * @param {real} distance Represents the distance of the Constellation object
+	 * @param {Camera} camera Camera object from Three.js
+	 */
 	updateNames(distance, camera) {
-		if (this.nameVisible) {
-			let constellationName = this.nameObject;
+		const constellationName = this.nameObject;
 
-			/* Au dessus de 100 unités, on cache l'objet */
-			if (distance > 100 && constellationName.visible) {
-				constellationName.visible = false;
-			}
-			/* En dessous de 100 unités, on montre l'objet */
-			else if (distance < 100 && !constellationName.visible) {
-				constellationName.visible = true;
-			}
+		/* Hiding name above distance of 100 */
+		if (distance > 100 && constellationName.visible) {
+			constellationName.visible = false;
+		}
+		/* Showing name under 100 */
+		else if (distance < 100 && !constellationName.visible) {
+			constellationName.visible = true;
+		}
 
-			/* En dessous de 100 unités, on change l'opacité de l'objet */
-			if (distance < 100) {
-				/* En dessous de 50 unités, l'objet est totalement visible */
-				if (distance < 50) {
-					constellationName.material.opacity = 1;
-				}
-				/* Entre 50 et 100 unités, son opacité dépend de sa distance */
-				else {
-					constellationName.material.opacity = 1 - ((distance - 50) / 50);
-				}
 
-				/* On force les textes à toujours être alignés avec la caméra */
-				camera.getWorldQuaternion(constellationName.quaternion);
+		if (distance < 100) {
+			/* Distance < 50 : opacity max */
+			if (distance < 50) {
+				constellationName.material.opacity = 1;
+			/* Distance [50;100[ : opacity depends on distance */
+			} else {
+				constellationName.material.opacity = 1 - ((distance - 50) / 50);
 			}
+			/* Texts are always aligned to Camera view */
+			camera.getWorldQuaternion(constellationName.quaternion);
 		}
 	}
 
+	/**
+	 * Checks the existence of a star in a Constellation
+	 * @param {string} starName The name of the Star we want to check existence
+	 */
 	isPresent(starName) {
 		for (let i = 0; i < this.stars.length; i++) {
-			if (this.stars[i].meshName == starName) {
+			if (this.stars[i].meshName === starName) {
 				return true;
 			}
 		}
