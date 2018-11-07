@@ -4,9 +4,13 @@
 console.log("Loading init script");
 
 const skyScene = new THREE.Scene();
+skyScene.background = new THREE.Color(0x001b44);
 const planetsScene = new THREE.Scene();
+planetsScene.background = new THREE.Color(0x001b44);
 let camera = null;
+
 let scene = null;
+
 const renderer = new THREE.WebGLRenderer({
 	antialias: true
 });
@@ -254,8 +258,8 @@ function focusOnStarmapObject(starting, state, home, star, constellation) {
 
 /**
  * Makes scene look at at a starmap target
- * @param {*} star 
- * @param {*} constellation 
+ * @param {*} star
+ * @param {*} constellation
  */
 function lookAtSkymapTarget(star, constellation) {
 	if (star !== null) {
@@ -414,7 +418,7 @@ function closeMenu(event) {
 
 /**
  * Close the modal window with Star informations
- * @param {event} event 
+ * @param {event} event
  */
 function closeInfos(event) {
 	event.stopPropagation();

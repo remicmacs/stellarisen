@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8"/>
@@ -5,6 +6,7 @@
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
 		<title>Stellar'ISEN</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
 		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>-->
 		<script src="js/three.js"></script>
@@ -20,6 +22,8 @@
 		<script src="js/Horizon.js"></script>
 	</head>
 	<body>
+		<div id="threejscanvas">
+		</div>
 
 		<div id="ui">
 
@@ -66,7 +70,7 @@
 				<div class="list">
 
 					<div class="infos-header">
-						<h1 id="objectName"></h1>
+						<h1 class="f1" id="objectName"></h1>
 						<div id="close-infos" class="close">&times;</div>
 					</div>
 
