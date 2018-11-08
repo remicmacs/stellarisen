@@ -489,9 +489,15 @@ class SkySphere {
 
 		// Building the modal dialog content by hand for now
 		// TODO: AJAJ code to do 'round here
-		show('con-owning');
+		/*show('con-owning');
 		show('distance-text');
-		hide('star-list');
+		hide('star-list');*/
+		if (isVisible('constellation-panel')) {
+			show('star-panel');
+		  hide('constellation-panel');
+		  hide('login-panel');
+		  hide('register-panel');
+		}
 
 		setSpan("objectName", star.meshName);
 		setSpan("con-name", this.getConstellationName(star.constellation));
@@ -547,11 +553,16 @@ class SkySphere {
 
 		tween.start();
 
-		hide('con-owning');
-		hide('distance-text');
-		setSpan("objectName", constellation.fullName);
+		/*hide('con-owning');
+		hide('distance-text');*/
+		hide('star-panel');
+	  show('constellation-panel');
+	  hide('login-panel');
+	  hide('register-panel');
+
+		setSpan("constellation-title", constellation.fullName);
 		setPlaceholder("searchField", constellation.fullName);
-		show('star-list');
+		//show('star-list');
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
 

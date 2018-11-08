@@ -112,9 +112,64 @@ function hide(id) {
   }
 }
 
+function isHidden(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    return element.classList.contains("hidden");
+  }
+}
+
+function isVisible(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    return element.classList.contains("visible");
+  }
+}
+
 function setPlaceholder(id, content) {
   const element = document.getElementById(id);
   if (element != null) {
     element.placeholder = content;
   }
+}
+
+/**
+ * Helper function to show the modal panel in the center
+ */
+function showCenterModal() {
+  enable('infos-wrapper');
+  enable('infos');
+}
+
+/**
+ * Helper function to hide the modal panel in the center
+ */
+function hideCenterModal() {
+  disable('infos');
+  disable('infos-wrapper');
+
+  hide('star-panel');
+  hide('constellation-panel');
+  hide('login-panel');
+  hide('register-panel');
+}
+
+function showLogin() {
+  hide('star-panel');
+  hide('constellation-panel');
+  show('login-panel');
+  hide('register-panel');
+
+  showCenterModal();
+  disable('menu');
+}
+
+function showRegister() {
+  hide('star-panel');
+  hide('constellation-panel');
+  hide('login-panel');
+  show('register-panel');
+
+  showCenterModal();
+  disable('menu');
 }

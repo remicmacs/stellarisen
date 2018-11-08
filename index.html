@@ -5,8 +5,8 @@
 		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
 		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
 		<title>Stellar'ISEN</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
@@ -41,13 +41,10 @@
 			<div class="light disabled modal left" id="menu">
 
 				<div class="list">
+					<div id="close-menu" class="close">&#171;</div>
+					<h1>Anonyme</h1>
 
-					<div class="list-header">
-						<h1>Anonyme</h1>
-						<div id="close-menu" class="close">&times;</div>
-					</div>
-
-					<div class="line">
+					<div class="line toggles">
 						<button id="show-con" class="toggle on white">&#11040;</button>
 						<button id="show-names" class="toggle on white">T</button>
 						<button id="show-card" class="toggle on white">&#x21e1;</button>
@@ -55,8 +52,8 @@
 
 					<button id="scene-switch" class="list-button white">Système solaire</button>
 					<button id="random-star" class="list-button white">Une étoile au hasard !</button>
-					<button class="list-button white">Connexion</button>
-					<button class="list-button white">Création de compte</button>
+					<button id="connect-button" class="list-button white">Connexion</button>
+					<button id="register-button" class="list-button white">Création de compte</button>
 					<button class="list-button white">À propos</button>
 
 				</div>
@@ -68,35 +65,58 @@
 
 		<div class="wrapper center disabled" id="infos-wrapper">
 			<div class="light disabled modal center" id="infos">
-				<div class="list">
 
-					<div class="infos-header">
+				<div id="close-infos" class="close">&times;</div>
+
+				<div class="panel hidden" id="star-panel">
+					<div class="column">
 						<h1 class="f1" id="objectName"></h1>
-						<div id="close-infos" class="close">&times;</div>
-					</div>
-
-					<div class="line">
-						<img src="https://placehold.jp/150x150.png" id="star-picture"/>
-
-						<div class="column">
-							<div class="hidden" id="con-owning">
-								Appartient à la constellation de <span id="con-name"></span>
-							</div>
-
-							<div class="hidden" id="distance-text">
-								Se situe à une distance de <span id="star-distance"></span> année-lumières
-							</div>
-
-							<div class="hidden" id="star-list">
-								Étoiles constitutives :
-								<ul id="stars-ul">
-								</ul>
+						<div class="line">
+							<img src="https://placehold.jp/150x150.png" id="star-picture"/>
+							<div class="column">
+								<div class="visible" id="con-owning">
+									Appartient à la constellation de <span id="con-name"></span>
+								</div>
+								<div class="visible" id="distance-text">
+									Se situe à une distance de <span id="star-distance"></span> année-lumières
+								</div>
 							</div>
 						</div>
-
 					</div>
-
 				</div>
+
+				<div class="panel hidden" id="constellation-panel">
+					<h1 class="f1" id="constellation-title"></h1>
+					<div class="column">
+						Étoiles constitutives :
+						<ul id="stars-ul">
+						</ul>
+					</div>
+				</div>
+
+				<div class="panel hidden" id="login-panel">
+					<h1 class="f1">Connection</h1>
+					<div class="column">
+						<form action="/login.php">
+							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input><br>
+							<input name="password" type="password" required placeholder="Mot de passe"></input><br>
+					    <input type="submit" class="green" value="Connection"></input>
+					  </form>
+					</div>
+				</div>
+
+				<div class="panel hidden" id="register-panel">
+					<h1 class="f1">Enregistrement</h1>
+					<div class="column">
+						<form action="/register.php">
+							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input><br>
+							<input name="password" type="password" placeholder="Mot de passe" required></input><br>
+							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input><br>
+					    <input type="submit" class="green" value="S'enregistrer"></input>
+					  </form>
+					</div>
+				</div>
+
 			</div>
 		</div>
 

@@ -75,7 +75,9 @@ const events = [
 	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }],
 	[	'menu'					,	'click'			,	stopPropagation	],
 	[	'menu'					,	'mousedown'	,	stopPropagation	],
-	[	'menu'					,	'mouseup'		,	stopPropagation	]
+	[	'menu'					,	'mouseup'		,	stopPropagation	],
+	[ 'connect-button', 'click', showLogin ],
+	[ 'register-button', 'click', showRegister ]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -240,12 +242,11 @@ function focusOnStarmapObject(starting, state, home, star, constellation) {
 	} else {
 		// Handling display of info panel
 		if (state !== null && state === "open") {
-			enable('infos-wrapper');
-			enable('infos');
+			showCenterModal();
+			show('star-panel');
 		}
 		if (state === null) {
-			disable('infos-wrapper');
-			disable('infos');
+			hideCenterModal();
 		}
 		// If not at homepage, loading function is called
 		if (!home) {
@@ -433,7 +434,12 @@ function closeInfos(event) {
 	//window.history.back();
 	//disable('infos-wrapper');
 	//disable('infos');
-	window.location.hash = window.location.hash.split("-")[0];
+	if (isVisible('star-panel') || isVisible('constellation-panel')) {
+		window.location.hash = window.location.hash.split("-")[0];
+	}
+	else {
+		hideCenterModal();
+	}
 }
 
 /**
