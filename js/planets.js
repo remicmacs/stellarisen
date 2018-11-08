@@ -10,11 +10,10 @@ class Planets {
 	 * Takes all objects necessary to build a scene
 	 * @constructor
 	 * @param {Scene} scene Scene object from Three.js library
-	 * @param {Camera} camera Camera object from Three.js library
 	 * @param {Renderer} renderer Renderer object from Three.js library
 	 * @param {function} onLoad Handler for Scene loading
 	 */
-	constructor(scene, camera, renderer, onLoad) {
+	constructor(scene, renderer, onLoad) {
 		this.loaded = false;
 		this.onLoad = onLoad;
 		this.scene = scene;
@@ -29,6 +28,7 @@ class Planets {
 
 		this.target = null;
 
+		// Instantiating Camera
 		const portrait = viewportIsPortrait();
 		const ratio = utils.ratio;
 		this.camera = new THREE.OrthographicCamera

@@ -19,8 +19,8 @@ window.onhashchange = () => {
 	updateHash(false);
 };
 
-const skySphere = new SkySphere(skyScene, camera, renderer, onLoad);
-const planets = new Planets(planetsScene, camera, renderer, onLoad);
+const skySphere = new SkySphere(skyScene, renderer, onLoad);
+const planets = new Planets(planetsScene, renderer, onLoad);
 
 let sceneUpdate = null;
 let home = true;
@@ -336,10 +336,17 @@ function updateHash(starting) {
 	} = findTarget(hash);
 	previousHash = hash;
 
-	if (!switched && star === null && planet === null && constellation === null ||
+	if (
+		!switched && star === null && planet === null && constellation === null
+	) {
+		window.location.hash = '#Etoiles';
+		return;
+	}
+	if (
 		star !== null && planet !== null ||
 		star !== null && constellation !== null ||
-		constellation !== null && planet !== null) {
+		constellation !== null && planet !== null
+		) {
 		console.log("Excuse me what the fuck ?");
 		window.location.replace("https://huit.re/PHJa91WW");
 	}

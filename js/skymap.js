@@ -1,9 +1,20 @@
+/**
+ * Represents the landing page skymap
+ *
+ * @class SkySphere
+ */
 class SkySphere {
-	constructor(scene, camera, renderer, onLoad) {
+	/**
+	 * Creates an instance of SkySphere.
+	 * @param {Scene} scene Three.js Scene object
+	 * @param {Renderer} renderer Three.js Renderer object
+	 * @param {function} onLoad Handler for onload browser event
+	 * @memberof SkySphere
+	 */
+	constructor(scene, renderer, onLoad) {
 		this.loaded = false;
 		this.onLoad = onLoad;
 		this.scene = scene;
-		this.camera = camera;
 		this.renderer = renderer;
 
 		this.dragging = false;
@@ -12,18 +23,28 @@ class SkySphere {
 		this.showNames = true;
 		this.showHoriz = true;
 
-		this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+		// Instantiating Camera
+		this.camera = new THREE.PerspectiveCamera(
+			60,
+			window.innerWidth / window.innerHeight,
+			1,
+			10000
+		);
 		this.camera.position.set(0, 0, 0);
 		this.camera.lookAt(0, 0, -1);
 
-		/* Avec le startTime, on va s'assurer que le chargement s'affiche au moins pendant un temps donné */
+		/*
+		 * The clock ensures loading screen will display for a minimum time
+		 */
 		this.loadingClock = new THREE.Clock();
 		this.loadingClock.start();
 		this.clock = new THREE.Clock(true);
 		this.mouse = new THREE.Vector2();
 
-		// Le LoadingManager va permettre d'interagir pendant le chargement de gros fichiers
-		// et potentiellement d'afficher un loader
+		/*
+		 * Loading manager allow interaction during non-blocking long file loading
+		 * and displays a loader animation.
+		 */
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onProgress = this.onProgress;
 		this.loadingManager.onLoad = () => { this.addEverything(); };
@@ -33,7 +54,8 @@ class SkySphere {
 		this.visor = undefined;
 		this.horizon = undefined;
 
-		this.deviceIsMobile = (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+		this.deviceIsMobile = (typeof window.orientation !== "undefined")
+		|| (navigator.userAgent.indexOf('IEMobile') !== -1);
 
 		// La caméra est incluse dans un objet qui sera utilisé pour le contrôle du pitch (haut/bas)
 		// Cet objet est lui-même inclus dans le contrôle du yaw (gauche/droite)
