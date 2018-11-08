@@ -41,97 +41,42 @@ class Planets {
 			);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
-		// On met en place le renderer
-		/*this.renderer.setPixelRatio(window.devicePixelRatio);
-		this.renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(this.renderer.domElement);*/
-
 		this.planets = [];
-
-		this.textures =
-			[	"res/images/planets/sun.png"
-			,	"res/images/planets/mercury.png"
-			,	"res/images/planets/venus.png"
-			,	"res/images/planets/earth.png"
-			,	"res/images/planets/mars.png"
-			,	"res/images/planets/jupiter.png"
-			,	"res/images/planets/saturn.png"
-			,	"res/images/planets/uranus.png"
-			,	"res/images/planets/neptune.png"
-			,	"res/images/planets/pluto.png"
-			]
-
-		this.distances =
-			[	-24
-			,	-13
-			,	-9
-			,	-6.7
-			,	-4.7
-			,	1.5
-			,	5.5
-			,	9
-			,	12
-			,	14
-			]
-
-		this.radius =
-			[	10
-			,	0.38555
-			,	0.95623
-			,	1.00672
-			,	0.5357
-			,	1.6
-			,	1.4
-			,	1.1
-			,	1.1
-			,	0.18744
-			]
-
-		this.tilts =
-			[	-0.1265364		// Soleil
-			,	-0.0005235988	// Mercure
-			,	-0.04607669		// Venus
-			,	-0.408407		// Terre
-			,	-0.43964844		// Mars
-			,	-0.05462881 	// Jupiter
-			,	-0.4660029		// Saturne
-			,	-1.4351842		// Uranus
-			,	-0.49427724		// Neptune
-			,	-1.0030407		// Pluto
-			]
-
-		this.names =
-			[	"Soleil"
-			,	"Mercure"
-			,	"Venus"
-			,	"Terre"
-			,	"Mars"
-			,	"Jupiter"
-			,	"Saturne"
-			,	"Uranus"
-			,	"Neptune"
-			,	"Pluton"
-			]
-
 		this.rings = null;
-
 		this.wasPortrait = viewportIsPortrait();
-
-		console.log("Variables set");
 
 		// Adds a loader for an animation during long loadings
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
 		// Loading textures
-		this.texturesObjects = new Array(10);
+		this.texturesObjects = [];
+		this.moonsTextures = [];
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
-		for (let index = 0; index < this.textures.length; index++) {
-			this.textureLoader.load(
-				this.textures[index], 
-				(texture) => { this.texturesObjects[index] = texture; }
-				);
-		}
+
+		this.jsonLoader = new THREE.FileLoader(this.loadingManager);
+		this.jsonLoader.load("res/planets.json", (response) => {
+				this.json = JSON.parse(response);
+				let planetJson;
+				let moonJson;
+				for (planetJson in this.json) {
+
+					// On met les textures des planètes à charger
+					this.textureLoader.load(
+						this.json[planetJson]["texture"],
+						(texture) => { this.texturesObjects.push(texture); }
+					);
+
+					for (moonJson in this.json[planetJson]["moons"]) {
+
+						// On met les textures des lunes à charger
+						this.textureLoader.load(
+							this.json[planetJson]["moons"][moonJson]["texture"],
+							(texture) => { this.moonsTextures.push(texture); }
+						)
+					}
+				}
+		});
 
 		// Handles the resize event with custom method
 		window.addEventListener('resize', () => { this.rearrange(); });
@@ -167,17 +112,45 @@ class Planets {
 	 * Function to add every object to the scene
 	 */
 	addEverything() {
-		// Adding planets to scene
-		for (let index = 0; index < this.textures.length; index++) {
+		let moonsTexturesIndex = 0;
+
+		// On crée les planètes
+		for (let index = 0; index < Object.keys(this.json).length; index++) {
+			let planetJson = this.json[Object.keys(this.json)[index]];
 			let planet = new Planet
 				(	this.texturesObjects[index]
-				,	this.distances[index]
-				,	this.radius[index]
-				,	this.tilts[index]
-				,	this.names[index]
+				,	planetJson["distance"]
+				,	planetJson["radius"]
+				,	planetJson["tilt"]
+				,	Object.keys(this.json)[index]
 				);
 			planet.addToScene(this.scene);
 			this.planets.push(planet);
+
+			// On passe à la planète suivante si la courante n'a pas de lunes
+			if (typeof planetJson["moons"] === "undefined") {
+				continue;
+			}
+
+			let moons = [];
+
+			// On crée les lunes
+			for (let moonIndex = 0; moonIndex < Object.keys(planetJson["moons"]).length; moonIndex++) {
+				let moonJson = planetJson["moons"][Object.keys(planetJson["moons"])[moonIndex]];
+
+				let moon = new Moon
+					(	this.moonsTextures[moonsTexturesIndex]
+					,	moonJson["distance"]
+					, moonJson["radius"]
+					, Object.keys(planetJson["moons"])[moonIndex]
+					, planet.mesh.position
+					);
+				this.scene.add(moon.mesh);
+				moons.push(moon);
+				moonsTexturesIndex++;
+			}
+
+			planet.moons = moons;
 		}
 
 		// Constructing rings for ringed planets
@@ -202,11 +175,11 @@ class Planets {
 
 	/**
 	 * Update procedure
-	 * Defines the frames of animations for the scene
+	 * Called on every frame. Used to update planets/moons rotations and display
 	 */
 	update() {
-		for (let i = 0; i < this.planets.length; i++) {
-			this.planets[i].mesh.rotation.y += 0.01;
+		for (let index = 0; index < this.planets.length; index++) {
+			this.planets[index].update();
     }
 	}
 

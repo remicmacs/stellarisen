@@ -32,7 +32,7 @@ class Planet {
 			map: this.texture
 		});
 
-		// Mapping texture
+		// Creating the mesh
 		this.mesh = new THREE.Mesh(this.geometry, material);
 
 		// Positionning object in scene
@@ -57,9 +57,8 @@ class Planet {
 	}
 
 	/**
-	 * Update procedure
-	 *
-	 * Called at every frame to animate the object in the scene
+	 * Update the rotation on a change in device orientation.
+	 * Animates the bouncing planets
 	 * @param {boolean} portrait Tell if the scene is portrait or landscape
 	 */
 	updateRotation(portrait) {
@@ -81,5 +80,17 @@ class Planet {
 			this.mesh.rotation.z = current.z;
 		})
 		tween.start(); // Launching animation
+	}
+
+
+	/**
+	 * Update procedure
+	 * Called on every frame, mainly used to update rotation of planets
+	 */
+	update() {
+		for (let index = 0; index < this.moons.length; index++) {
+			this.moons[index].update();
+		}
+		this.mesh.rotation.y += 0.01;
 	}
 }
