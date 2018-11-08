@@ -59,21 +59,30 @@ class Planets {
 				this.json = JSON.parse(response);
 				let planetJson;
 				let moonJson;
-				for (planetJson in this.json) {
+				let moonIndex = 0;
+
+				for (let index = 0; index < Object.keys(this.json).length; index++) {
+					let planetName = Object.keys(this.json)[index];
+					let planetJson = this.json[planetName];
 
 					// On met les textures des planètes à charger
 					this.textureLoader.load(
-						this.json[planetJson]["texture"],
-						(texture) => { this.texturesObjects.push(texture); }
+						planetJson["texture"],
+						(texture) => { this.texturesObjects[index] = texture; }
 					);
 
-					for (moonJson in this.json[planetJson]["moons"]) {
+					for (moonJson in planetJson["moons"]) {
+
+						// DIRTY HACK : ça force la fonction arrow à prendre la valeur courante de moonIndex plutôt que sa référence
+						let m = moonIndex;
 
 						// On met les textures des lunes à charger
 						this.textureLoader.load(
-							this.json[planetJson]["moons"][moonJson]["texture"],
-							(texture) => { this.moonsTextures.push(texture); }
+							planetJson["moons"][moonJson]["texture"],
+							(texture) => { this.moonsTextures[m] = texture; console.log(m); }
 						)
+
+						moonIndex++;
 					}
 				}
 		});
