@@ -20,6 +20,7 @@ class Planets {
 		this.camera = camera;
 		this.renderer = renderer;
 		this.depth = 0;
+		this.body = null;
 
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
@@ -79,7 +80,7 @@ class Planets {
 						// On met les textures des lunes à charger
 						this.textureLoader.load(
 							planetJson["moons"][moonJson]["texture"],
-							(texture) => { this.moonsTextures[m] = texture; console.log(m); }
+							(texture) => { this.moonsTextures[m] = texture; }
 						)
 
 						moonIndex++;
@@ -199,6 +200,9 @@ class Planets {
 	updateRotations(portrait) {
 		for (let index = 0; index < this.planets.length; index++) {
 			this.planets[index].updateRotation(portrait);
+			for (let moonIndex = 0; moonIndex < this.planets[index].moons.length; moonIndex++) {
+				this.planets[index].moons[moonIndex].updateRotation(portrait);
+			}
 		}
 		this.updateRingsRotation(portrait);
 	}
@@ -242,6 +246,11 @@ class Planets {
 			};
 
 		if (this.depth == 1) {
+			// On cache les lunes qui sont montrées (depht = 1, niveau des planètes)
+			for (let index = 0; index < this.body.moons.length; index++) {
+				this.body.moons[index].hide();
+			}
+
 			const portrait = viewportIsPortrait();
 			const ratio = utils.ratio;
 
@@ -285,6 +294,7 @@ class Planets {
 		if (planet == this.target) {
 			return;
 		}
+
 		this.target = planet;
 		planet.geometry.computeBoundingBox();
 		const box = planet.geometry.boundingBox;
@@ -318,6 +328,11 @@ class Planets {
 
 		// Computes the middle point for the animation
 		if (this.depth != 0) {
+			// On cache les lunes qui sont montrées (depht = 1, niveau des planètes)
+			for (let index = 0; index < this.body.moons.length; index++) {
+				this.body.moons[index].hide();
+			}
+
 			const middle =
 				{	left: 	-this.width	* (portrait ? ratio : 1			)
 				,	right:	this.width	* (portrait ? ratio : 1			)
@@ -357,6 +372,12 @@ class Planets {
 				this.camera.updateProjectionMatrix();
 			});
 
+			tweenToEnd.onComplete(() => {
+				for (let index = 0; index < planet.moons.length; index++) {
+					planet.moons[index].show();
+				}
+			});
+
 			tweenToMiddle.chain(tweenToEnd);
 			tweenToMiddle.start();
 		}
@@ -375,10 +396,17 @@ class Planets {
 				this.camera.updateProjectionMatrix();
 			});
 
+			tweenToEnd.onComplete(() => {
+				for (let index = 0; index < planet.moons.length; index++) {
+					planet.moons[index].show();
+				}
+			});
+
 			tweenToEnd.start();
 		}
 
 		this.depth = 1;
+		this.body = planet;
 		setPlaceholder("searchField", planet.name);
 		this.updateRotations(!viewportIsPortrait());
 	}
