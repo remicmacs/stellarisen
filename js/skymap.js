@@ -47,19 +47,24 @@ class SkySphere {
 		 */
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onProgress = this.onProgress;
-		this.loadingManager.onLoad = () => { this.addEverything(); };
+		this.loadingManager.onLoad = () => {
+			this.addEverything();
+		};
 
 		this.constellationObjects = [];
 		this.starsObjects = [];
 		this.visor = undefined;
 		this.horizon = undefined;
 
-		this.deviceIsMobile = (typeof window.orientation !== "undefined")
-		|| (navigator.userAgent.indexOf('IEMobile') !== -1);
+		this.deviceIsMobile = (typeof window.orientation !== "undefined") ||
+			(navigator.userAgent.indexOf('IEMobile') !== -1);
 
-		// La caméra est incluse dans un objet qui sera utilisé pour le contrôle du pitch (haut/bas)
-		// Cet objet est lui-même inclus dans le contrôle du yaw (gauche/droite)
-		// Cela permet de faire des rotations style FPS (on détache les repères)
+		/*
+		 * Camera is included in a pitch object used for control of pitch
+		 *  (up / down) axis.
+		 * The pitch object is included in yaw control object (left / right axis)
+		 * Allows for FPS-style rotation with unattached coordinate systems
+		 */
 		this.pitchObject = new THREE.Object3D();
 		this.yawObject = new THREE.Object3D();
 		this.pitchObject.add(this.camera);
@@ -85,106 +90,143 @@ class SkySphere {
 		cela nous permet de suivre leur évolution et de prendre action lorsqu'ils
 		ont fini */
 
-		/* Chargement des étoiles */
-		let starsFileLoader = new THREE.FileLoader(this.loadingManager);
-		/* Chargement des constellations */
-		let linksFileLoader = new THREE.FileLoader(this.loadingManager);
-		/* Chargement du texte */
-		let constellationFontLoader = new THREE.FontLoader(this.loadingManager);
-		/* Chargement de la texture du skydome */
-		let skydomeTextureLoader  = new THREE.TextureLoader(this.loadingManager);
-		let visorTextureLoader = new THREE.TextureLoader(this.loadingManager);
-		let lockedTextureLoader = new THREE.TextureLoader(this.loadingManager);
-		let starTextureLoader = new THREE.TextureLoader(this.loadingManager);
+		// Instantiating stars ...
+		const starsFileLoader = new THREE.FileLoader(this.loadingManager);
+		// ... constellations ...
+		const linksFileLoader = new THREE.FileLoader(this.loadingManager);
+		// ... font ...
+		const constellationFontLoader = new THREE.FontLoader(this.loadingManager);
+		// ... and textures loaders
+		const skydomeTextureLoader = new THREE.TextureLoader(this.loadingManager);
+		const visorTextureLoader = new THREE.TextureLoader(this.loadingManager);
+		const lockedTextureLoader = new THREE.TextureLoader(this.loadingManager);
+		const starTextureLoader = new THREE.TextureLoader(this.loadingManager);
 
-		/* On lance tous les chargements */
+		// Loading data
+		// @TODO: replace by XHR / DB calls
+		starsFileLoader.load('res/stars.json', (response) => {
+			this.json = JSON.parse(response);
+		});
+		linksFileLoader.load("res/links.json", (response) => {
+			this.linksJson = JSON.parse(response)
+		});
 
-		/* Ici on a le chargement des données. Ça doit être remplacé à l'avenir
-		(probablement) par des requêtes à une BDD */
-		starsFileLoader.load('res/stars.json', (response) => { this.json = JSON.parse(response); });
-		linksFileLoader.load("res/links.json", (response) => { this.linksJson = JSON.parse(response) });
-
-		/* Ici on charge le bonus (textures et polices) */
-		constellationFontLoader.load('fonts/Share_Regular.json', (font) => { this.constellationFont = font; });
-		skydomeTextureLoader.load("res/images/milkyway.png", (texture) => { this.skydomeTexture = texture; });
-		visorTextureLoader.load("res/images/visor.png", (texture) => { this.visorTexture = texture; });
-		lockedTextureLoader.load("res/images/locked.png", (texture) => { this.lockedTexture = texture; });
-		starTextureLoader.load("res/images/star.png", (texture) => { this.starTexture = texture; });
+		// Launching all resources loaders
+		constellationFontLoader.load('fonts/Share_Regular.json', (font) => {
+			this.constellationFont = font;
+		});
+		skydomeTextureLoader.load("res/images/milkyway.png", (texture) => {
+			this.skydomeTexture = texture;
+		});
+		visorTextureLoader.load("res/images/visor.png", (texture) => {
+			this.visorTexture = texture;
+		});
+		lockedTextureLoader.load("res/images/locked.png", (texture) => {
+			this.lockedTexture = texture;
+		});
+		starTextureLoader.load("res/images/star.png", (texture) => {
+			this.starTexture = texture;
+		});
 
 		this.previousClosestStar = undefined;
 		this.previousClosestStarScale = new THREE.Vector3();
 
-		window.addEventListener('resize', () => { this.rearrange(); });
+		window.addEventListener('resize', () => {
+			this.rearrange();
+		});
 	}
 
 
+	/**
+	 * Update procedure for SkySphere object
+	 * @memberof SkySphere
+	/**
+	 *
+	 *
+	 * @memberof SkySphere
+	 */
 	update() {
-		// Pas utilisé pour le moment, mais le delta de temps entre les frames peut être utile pour les animations
-		let delta = this.clock.getDelta();
+		/* Not used for now but could be useful for animations to now time deltas
+		 *  betwen frames */
+		// const delta = this.clock.getDelta();
 
 		if (this.deviceIsMobile) {
 			this.controls.update();
 		}
 
-		let sphereRaycast = new THREE.Vector3();
+		const sphereRaycast = new THREE.Vector3();
 		if (this.deviceIsMobile) {
-			sphereRaycast.setFromSphericalCoords(-100, this.camera.rotation.x + Math.PI / 2, this.camera.rotation.y);
-		}
-		else {
-			sphereRaycast.setFromSphericalCoords(-100, this.pitchObject.rotation.x + Math.PI / 2, this.yawObject.rotation.y);
+			sphereRaycast.setFromSphericalCoords(
+				-100,
+				this.camera.rotation.x + Math.PI / 2,
+				this.camera.rotation.y
+				);
+		} else {
+			sphereRaycast.setFromSphericalCoords(
+				-100,
+				this.pitchObject.rotation.x + Math.PI / 2,
+				this.yawObject.rotation.y
+			);
 			this.raycaster.setFromCamera(this.mouse, this.camera );
 		}
 
-		/* Mise à jour des noms des constellations :
-		- Changement de transparence en fonction de la distance
-		- Alignement avec la caméra */
+		/*
+		 * Udpdating constellation names :
+		 *  * Changing opacity according to distance
+		 *  * Aligning to camera
+		 */
 		for (let i = 0; i < this.constellationObjects.length; i++) {
-			let constellationName = this.constellationObjects[i].nameObject;
+			const constellationName = this.constellationObjects[i].nameObject;
 
 			/* On calcule une distance entre un raycast projeté sur la sphère de 100 unités et l'objet étudié */
-			let distance = sphereRaycast.distanceTo(constellationName.position);
+			/*
+			 * Processing the distance between the camera's view raycast on the
+			 * SkySphere and the current object's position.
+			 */
+			const distance = sphereRaycast.distanceTo(constellationName.position);
 			this.constellationObjects[i].updateNames(distance, this.camera);
 		}
 
 
 		let minDistance = 100;
 		let minDistanceObject = undefined;
-		let distanceThreshold = 10;
-		let angle = new THREE.Spherical();
-		let projection = new THREE.Vector3();
+		const distanceThreshold = 10;
+		const angle = new THREE.Spherical();
+		const projection = new THREE.Vector3();
 		if (!this.deviceIsMobile) {
-			/* On récupère le vecteur de magnitude de la direction du raycaster
-			qu'on transforme en coordonnées sphériques */
+			/*
+			 * Recovering magnitud vector of raycast in cartesian coordinates casted
+			 *  in spherical.
+			 */
 			angle.setFromCartesianCoords(
 				this.raycaster.ray.direction.x,
 				this.raycaster.ray.direction.y,
 				this.raycaster.ray.direction.z
 			);
 
-			/* On récupère alors les angle phi et theta pour faire une projection
-			sur la sphère */
+			/*
+			 * Using spherical to cast a projection on sphere
+			 */
 			projection.setFromSphericalCoords(100, angle.phi, angle.theta);
 		}
 
-		/* On cherche l'objet le plus proche du curseur */
+		/*
+		 * Finding object closest to cursor
+		 */
 		for (let i = 0; i < this.starsObjects.length; i++) {
-			let star = this.starsObjects[i];
+			const star = this.starsObjects[i];
 			let distance = 100;
 
-			// Weird comma-first notation, je sais pas si c'est comme ça qu'il
-			// faudrait faire
-			distance =
-				(	this.deviceIsMobile
-				?	sphereRaycast
-				: projection
-				)
-				.distanceTo(star.position)
-				;
+			distance = (
+					this.deviceIsMobile ?
+					sphereRaycast :
+					projection
+				).distanceTo(star.position);
 
-			/* Si on est en dessous d'un seuil, on cherche le minimum */
+			/*
+			 * Looking for minimum only below a threshold
+			 */
 			if (distance < distanceThreshold) {
-
-				/* Recherche du minimum */
 				if (distance < minDistance) {
 					minDistance = distance;
 					minDistanceObject = star;
@@ -193,14 +235,16 @@ class SkySphere {
 		}
 
 		/* Si on a trouvé une étoile proche, on déplace le curseur */
+		/*
+		 * Sticking cursor to nearest object, if found any
+		 */
 		if (minDistanceObject != undefined) {
 			if (minDistanceObject != this.previousClosestStar) {
 				this.visor.setTarget(minDistanceObject);
 				//console.log("Closest star: " + minDistanceObject.meshName);
 			}
 			this.previousClosestStar = minDistanceObject;
-		}
-		else {
+		} else {
 			this.previousClosestStar = undefined;
 			if (this.visor != undefined && this.visor.isVisible()) {
 				this.visor.hide();
@@ -258,19 +302,19 @@ class SkySphere {
 		this.visor = new Visor(this.visorTexture, this.lockedTexture);
 		this.visor.addToScene(this.scene);
 
-		/* Garanti un temps minimum pour l'affichage du loading */
+		// Displays loading for a minimum time
 		while (this.loadingClock.getElapsedTime() < 1) {}
 
-		/* Suppression de l'horloge de loading */
+		// Stopping loading clock
 		this.loadingClock.stop();
-		delete this.loadingClock;
 
-		/* On recharge la taille du renderer et on update le pixel ratio
-		(sinon ça s'affiche pas sur mon téléphone) */
+		/*
+		 * Changing Renderer size and pixel ratio for phone display
+		 */
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		this.camera.aspect = window.innerWidth / window.innerHeight;
-  	this.camera.updateProjectionMatrix();
+		this.camera.updateProjectionMatrix();
 
 		this.loaded = true;
 		this.onLoad();
@@ -281,22 +325,22 @@ class SkySphere {
 	 *	Add constellations to the scene
 	 */
 	addConstellationsToScene() {
-		let count = Object.keys(this.linksJson).length;
+		const count = Object.keys(this.linksJson).length;
 
 		for (let i = 0; i < count; i++) {
-			let shortName = Object.keys(this.linksJson)[i];
-			let constellationJson = this.linksJson[shortName];
-			let dict =
-				{	"ra" : constellationJson["ra_barycenter"]
-				,	"dec" : constellationJson["dec_barycenter"]
-				, "shortName" : shortName
-				,	"fullName": constellationJson["name"]
-				,	"links" : constellationJson["links"]
-				, "stars" : this.json
-				, "starTexture": this.starTexture
+			const shortName = Object.keys(this.linksJson)[i];
+			const constellationJson = this.linksJson[shortName];
+			const dict = {
+				"ra": constellationJson["ra_barycenter"],
+				"dec": constellationJson["dec_barycenter"],
+				"shortName": shortName,
+				"fullName": constellationJson["name"],
+				"links": constellationJson["links"],
+				"stars": this.json,
+				"starTexture": this.starTexture
 			};
 
-			let constellation = new Constellation(dict);
+			const constellation = new Constellation(dict);
 			constellation.addToScene(this.scene);
 			constellation.generateName(this.constellationFont);
 			constellation.addNameToScene(this.scene);
@@ -310,12 +354,12 @@ class SkySphere {
 	 *	Add skydome to the scene
 	 */
 	addSkydomeToScene() {
-		let skyGeo = new THREE.SphereGeometry(150, 25, 25);
-		let material = new THREE.MeshBasicMaterial(
-			{	map: this.skydomeTexture
-			,	transparent: true
-			});
-		let sky = new THREE.Mesh(skyGeo, material);
+		const skyGeo = new THREE.SphereGeometry(150, 25, 25);
+		const material = new THREE.MeshBasicMaterial({
+			map: this.skydomeTexture,
+			transparent: true
+		});
+		const sky = new THREE.Mesh(skyGeo, material);
 		sky.material.side = THREE.BackSide;
 		sky.material.opacity = 0.3;
 		this.scene.add(sky);
@@ -355,15 +399,25 @@ class SkySphere {
 	// 	}
 	// }
 
+	/**
+	 * Converts RA/DEC coordinates to cartesian coordinates.
+	 *
+	* @static
+	 * @param {*} r
+	 * @param {*} ra RA value of RA/DEC coordinates system
+	 * @param {*} dec DEC value of RA/DEC coordinates system
+	 * @returns Cartesian coordinates for the SkySphere.
+	 * @memberof SkySphere
+	 */
 	static raDecToCartesian(r, ra, dec) {
-		/* La transformation de RA/DEC vers un repêre cartésien en passant par un repêre sphérique nécessite
-		de transformer les valeurs, le passage de coordonnées sphériques à des coordonnées cartésiennes de Three.js
-		utilisant les coordonnées sphériques classiques (voir https://threejs.org/docs/#api/en/math/Spherical)
-		alors que RA/DEC ne place pas les angles aux mêmes endroits.
-		RA va de 0 à 24, il faut donc le multiplier par 360 / 24 (= 15).
-		DEC ne s'incrémente pas dans le même sens ni depuis le même axe, il faut utiliser la valeur négative
-		à laquelle on ajoute 90° */
-		let coord = new THREE.Vector3().setFromSphericalCoords(
+		/* The conversion from RA/DEC to cartesion uses a first conversion to
+		 * spherical coordinates.
+		 * Three.js [uses spherical coordinates](https://threejs.org/docs/#api/en/math/Spherical)
+		 * RA: [0;24]. Multiplied by 360/24 (=15) to get degrees
+		 * DEC: To obtain degrees, using negative value plus 90° to get the
+		 * corresonding degree value
+		 */
+		const coord = new THREE.Vector3().setFromSphericalCoords(
 			r,
 			THREE.Math.degToRad(-dec + 90),
 			THREE.Math.degToRad(ra * 15)
@@ -371,6 +425,11 @@ class SkySphere {
 		return coord;
 	}
 
+	/**
+	 * Procedure to adapt SkySphere to display resizing
+	 *
+	 * @memberof SkySphere
+	 */
 	rearrange() {
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -378,38 +437,58 @@ class SkySphere {
 		this.camera.updateProjectionMatrix();
 	}
 
+	/**
+	 * Targets a star and launches animation to look at it.
+	 *
+	 * @param {*} star
+	 * @memberof SkySphere
+	 */
 	lookAtStar(star) {
-		let angle = new THREE.Spherical();
+		// Recovering angles and coordinates of star
+		const angle = new THREE.Spherical();
 		angle.setFromCartesianCoords(
 			star.position.x,
 			star.position.y,
 			star.position.z
 		);
-		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
-		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
+
+		// Recovering camera angle
+		const current = {
+			x: this.yawObject.rotation.y,
+			y: this.pitchObject.rotation.x
+		};
+
+		// Calculating final position
+		const target = {
+			x: angle.theta - Math.PI,
+			y: Math.PI / 2 - angle.phi
+		};
 
 		console.log(current);
 		console.log(target);
 
-		let diffX = Math.abs(current.x - target.x);
-		let diffY = Math.abs(current.y - target.y);
-		let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-		let max = Math.sqrt(2 * Math.pow(Math.PI, 2));
-		let time = (distance / max) * 3000;
+		const diffX = Math.abs(current.x - target.x);
+		const diffY = Math.abs(current.y - target.y);
+		const distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		const max = Math.sqrt(2 * Math.pow(Math.PI, 2));
+		const time = (distance / max) * 3000;
 
-		let tween = new TWEEN.Tween(current)
+		// Creating tween animation
+		const tween = new TWEEN.Tween(current)
 			.to(target, time)
 			.easing(TWEEN.Easing.Cubic.InOut);
 
 		tween.onUpdate(() => {
 			this.yawObject.rotation.y = current.x;
-		 	this.pitchObject.rotation.x = current.y;
+			this.pitchObject.rotation.x = current.y;
 		});
 
 		tween.start();
 		//this.visor.setTarget(star);
 		this.visor.setLocked(star);
 
+		// Building the modal dialog content by hand for now
+		// TODO: AJAJ code to do 'round here
 		show('con-owning');
 		show('distance-text');
 		hide('star-list');
@@ -420,32 +499,50 @@ class SkySphere {
 
 		setPlaceholder("searchField", star.meshName);
 
-		setImgSrc("star-picture", "http://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra=" + star.ra + "&de=" + star.dec + "&output=PNG")
+		setImgSrc(
+			"star-picture",
+			"http://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra="
+			 + star.ra + "&de=" + star.dec + "&output=PNG"
+		);
 	}
 
+	/**
+	 * Targets a constellation and launches animation to look at it.
+	 *
+	 * @param {*} constellation
+	 * @memberof SkySphere
+	 */
 	lookAtConstellation(constellation) {
-		let angle = new THREE.Spherical();
+		const angle = new THREE.Spherical();
 		angle.setFromCartesianCoords(
 			constellation.nameObject.position.x,
 			constellation.nameObject.position.y,
 			constellation.nameObject.position.z
 		);
-		let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
-		let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
 
-		let diffX = Math.abs(current.x - target.x);
-		let diffY = Math.abs(current.y - target.y);
-		let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-		let max = Math.sqrt(2 * Math.pow(Math.PI, 2));
-		let time = (distance / max) * 3000;
+		const current = {
+			x: this.yawObject.rotation.y,
+			y: this.pitchObject.rotation.x
+		};
 
-		let tween = new TWEEN.Tween(current)
+		const target = {
+			x: angle.theta - Math.PI,
+			y: Math.PI / 2 - angle.phi
+		};
+
+		const diffX = Math.abs(current.x - target.x);
+		const diffY = Math.abs(current.y - target.y);
+		const distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+		const max = Math.sqrt(2 * Math.pow(Math.PI, 2));
+		const time = (distance / max) * 3000;
+
+		const tween = new TWEEN.Tween(current)
 			.to(target, time)
 			.easing(TWEEN.Easing.Cubic.InOut);
 
 		tween.onUpdate(() => {
 			this.yawObject.rotation.y = current.x;
-		 	this.pitchObject.rotation.x = current.y;
+			this.pitchObject.rotation.x = current.y;
 		});
 
 		tween.start();
@@ -458,13 +555,17 @@ class SkySphere {
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
 
-		let list = document.getElementById('stars-ul');
+		const list = document.getElementById('stars-ul');
 		list.innerHTML = '';
 
+		// Display a list of stars that are part of the constellation
 		for (let i = 0; i < this.starsObjects.length; i++) {
-			if (this.starsObjects[i].constellationObject.fullName == constellation.fullName) {
-				let item = document.createElement('li');
-				let text = document.createTextNode(this.starsObjects[i].meshName);
+			if (
+				this.starsObjects[i].constellationObject.fullName
+				== constellation.fullName
+				) {
+				const item = document.createElement('li');
+				const text = document.createTextNode(this.starsObjects[i].meshName);
 				item.appendChild(text);
 				item.addEventListener('click', (event) => {
 					window.location.hash = text.textContent + "-open";
@@ -474,6 +575,14 @@ class SkySphere {
 		}
 	}
 
+	/**
+	 * Move event handler.
+	 *
+	 * Handles `mousemove` events.
+	 *
+	 * @param {*} event
+	 * @memberof SkySphere
+	 */
 	onMove(event) {
 		event.preventDefault();
 		this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -484,56 +593,60 @@ class SkySphere {
 		}
 	}
 
+	/**
+	 * Drag event handler.
+	 * @param {DragEvent} event
+	 */
 	onDrag(event) {
 		this.dragging = true;
 		this.yawObject.rotation.y += event.movementX * 0.01;
 		this.pitchObject.rotation.x += event.movementY * 0.01;
 
-		// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
-		this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+		// X rotation bounding. Avoids the camera to ever get upside-down
+		this.pitchObject.rotation.x = Math.max(
+			-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x)
+		);
 	}
 
+	/**
+	 * Click event handler.
+	 * @param {*} event
+	 */
 	onClick(event) {
-		// find intersections
-		this.raycaster.setFromCamera(this.mouse, this.camera );
-		let intersects = this.raycaster.intersectObjects(this.scene.children);
+		// Find intersections
+		this.raycaster.setFromCamera(this.mouse, this.camera);
+		const intersects = this.raycaster.intersectObjects(this.scene.children);
 		if (intersects.length > 0) {
-			let starClicked = false;
-			let constellationClicked = false;
-			let objectIndex = 0;
 
 			for (let i = 0; i < intersects.length; i++) {
-				/*if (intersects[i].object.userData["type"] == "star") {
-					objectIndex = i;
-					starClicked = true;
-					console.log("Star clicked !");
-					break;
-				}
-				else if (intersects[i].object.userData["type"] == "constellation") {
-					objectIndex = i;
-					constellationClicked = true;
-					console.log("Constellation clicked !");
-					break;
-				}*/
 				if (intersects[i].object == this.visor.sprite) {
-					let hash = window.location.hash.substring(1);
+					// let hash = window.location.hash.substring(1);
 					window.location.hash = "#" + this.visor.star.meshName;
-					let star = this.visor.star;
+					const star = this.visor.star;
 
-					let angle = new THREE.Spherical();
+					// Processing coordinates and transition values
+					const angle = new THREE.Spherical();
 					angle.setFromCartesianCoords(
 						star.position.x,
 						star.position.y,
 						star.position.z
 					);
-					let current = { x: this.yawObject.rotation.y, y: this.pitchObject.rotation.x };
-					let target = { x: angle.theta - Math.PI, y: Math.PI / 2 - angle.phi };
 
-					let diffX = Math.abs(current.x - target.x);
-					let diffY = Math.abs(current.y - target.y);
-					let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-					let max = Math.sqrt(2 * Math.pow(Math.PI, 2));
-					let time = (distance / max) * 3000;
+					const current = {
+						x: this.yawObject.rotation.y,
+						y: this.pitchObject.rotation.x
+					};
+
+					const target = {
+						x: angle.theta - Math.PI,
+						y: Math.PI / 2 - angle.phi
+					};
+
+					const diffX = Math.abs(current.x - target.x);
+					const diffY = Math.abs(current.y - target.y);
+					const distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+					const max = Math.sqrt(2 * Math.pow(Math.PI, 2));
+					const time = (distance / max) * 3000;
 
 					setTimeout(() => {
 						window.location.hash = "#" + star.meshName + "-open";
@@ -546,10 +659,21 @@ class SkySphere {
 		}
 	}
 
+	/**
+	 * Handles `mousedown` events.
+	 *
+	 * @memberof SkySphere
+	 */
 	onMouseDown() {
 		this.mousedown = true;
 	}
 
+	/**
+	 * Handles `mouseup` events.
+	 *
+	 * @param {*} event
+	 * @memberof SkySphere
+	 */
 	onMouseUp(event) {
 		if (!this.dragging) {
 			this.onClick(event);
@@ -558,6 +682,10 @@ class SkySphere {
 		this.dragging = false;
 	}
 
+	/**
+	 * Handles touch events
+	 * @param {*} event
+	 */
 	onTouchStart(event) {
 		this.previousX = event.touches[0].screenX;
 		this.previousY = event.touches[0].screenY;
@@ -565,22 +693,33 @@ class SkySphere {
 		this.mouse.y = this.previousY;
 	}
 
+	/**
+	 * Handles touchend event as clicks
+	 * @param {*} event
+	 */
 	onTouchEnd(event) {
 		this.onClick(event);
 	}
 
+	/**
+	 * Handles touch drag events
+	 * @param {*} event
+	 */
 	onFingerDrag(event) {
 		if (event.touches.length == 1) {
 			this.dragging = true;
-			var deltaX = this.previousX - event.touches[0].screenX;
-			var deltaY = this.previousY - event.touches[0].screenY;
+			const deltaX = this.previousX - event.touches[0].screenX;
+			const deltaY = this.previousY - event.touches[0].screenY;
 			this.previousX = event.touches[0].screenX;
 			this.previousY = event.touches[0].screenY;
 			this.yawObject.rotation.y += -deltaX * 0.002;
 			this.pitchObject.rotation.x += -deltaY * 0.002;
 
-			// On limite la rotation en X (on veut pas que la caméra puisse être à l'envers)
-			this.pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.pitchObject.rotation.x));
+			// X rotation bounding. Avoids the camera to ever get upside-down
+			this.pitchObject.rotation.x = Math.max(
+				-Math.PI / 2,
+				Math.min(Math.PI / 2, this.pitchObject.rotation.x)
+			);
 		}
 	}
 
@@ -588,6 +727,11 @@ class SkySphere {
 		return this.linksJson[short]["name"];
 	}
 
+	/**
+	 * Handler to hide links of constellations.
+	 *
+	 * @memberof SkySphere
+	 */
 	hideLinks() {
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			this.constellationObjects[i].hideLinks();
@@ -595,6 +739,10 @@ class SkySphere {
 		this.showLinks = false;
 	}
 
+	/**
+	 * Display all constellations links.
+	 * @memberof SkySphere
+	 */
 	showAllLinks() {
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			this.constellationObjects[i].showLinks();
@@ -602,15 +750,23 @@ class SkySphere {
 		this.showLinks = true;
 	}
 
+	/**
+	 * Toggle links of constellations visibility.
+	 * @memberof SkySphere
+	 */
 	toggleLinks() {
 		if (this.showLinks) {
 			this.hideLinks();
-		}
-		else {
+		} else {
 			this.showAllLinks();
 		}
 	}
 
+	/**
+	 * Handler to hide names of constellations.
+	 *
+	 * @memberof SkySphere
+	 */
 	hideNames() {
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			this.constellationObjects[i].hideName();
@@ -618,6 +774,11 @@ class SkySphere {
 		this.showNames = false;
 	}
 
+	/**
+	 * Handler to show names of constellations.
+	 *
+	 * @memberof SkySphere
+	 */
 	showAllNames() {
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			this.constellationObjects[i].showName();
@@ -625,40 +786,50 @@ class SkySphere {
 		this.showNames = true;
 	}
 
+	/**
+	 * Toggle name of constellations visibility.
+	 *
+	 * @memberof SkySphere
+	 */
 	toggleNames() {
 		if (this.showNames) {
 			this.hideNames();
-		}
-		else {
+		} else {
 			this.showAllNames();
 		}
 	}
 
+	/**
+	 * Handler to hide horizon.
+	 *
+	 * @memberof SkySphere
+	 */
 	hideHorizon() {
 		this.horizon.hide();
 		this.showHoriz = false;
 	}
 
+	/**
+	 * Handler to show horizon.
+	 *
+	 * @memberof SkySphere
+	 */
 	showHorizon() {
 		this.horizon.show();
 		this.showHoriz = true;
 	}
 
+	/**
+	 * Toggle horizon visibility.
+	 *
+	 * @memberof SkySphere
+	 */
 	toggleHoriz() {
 		if (this.showHoriz) {
 			this.hideHorizon();
-		}
-		else {
+		} else {
 			this.showHorizon();
 		}
 	}
 
-}
-
-function polarRadianToCartesian(r, theta, phi) {
-	let returned = [];
-	returned[0] = r * Math.cos(phi) * Math.sin(theta);
-	returned[1] = r * Math.sin(phi);
-	returned[2] = r * Math.cos(phi) * Math.cos(theta);
-	return returned;
 }
