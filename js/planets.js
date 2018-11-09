@@ -267,12 +267,13 @@ class Planets {
 			,	left: 	this.camera.left
 			, right: 	this.camera.right
 			,	x: 			this.camera.position.x
+			, y:			this.camera.position.y
 			, angle:	this.camera.rotation.z
 			, lightx: 0
 			, lighty: 24
 			};
 
-		if (this.depth == 1) {
+		if (this.depth != 0) {
 			// On cache les lunes qui sont montrées (depht = 1, niveau des planètes)
 			for (let index = 0; index < this.body.moons.length; index++) {
 				this.body.moons[index].hide();
@@ -288,6 +289,7 @@ class Planets {
 				, top:		this.width	* (portrait ? 1 		: ratio	)
 				, bottom:	-this.width * (portrait ? 1 		: ratio	)
 				, x: 			0
+				, y:			0
 				,	angle: 	portrait ? -Math.PI / 2 : 0
 				, lightx: -24
 				, lighty: 0
@@ -304,9 +306,10 @@ class Planets {
 				this.camera.top 				= current.top;
 				this.camera.bottom 			= current.bottom;
 				this.camera.position.x	= current.x;
+				this.camera.position.y	= current.y;
 				this.camera.rotation.z	= current.angle;
-				this.light.position.x = current.lightx;
-				this.light.position.y = current.lighty;
+				this.light.position.x		= current.lightx;
+				this.light.position.y		= current.lighty;
 				this.camera.updateProjectionMatrix();
 			});
 
@@ -344,6 +347,7 @@ class Planets {
 			,	left: 	this.camera.left
 			, right: 	this.camera.right
 			,	x: 			this.camera.position.x
+			, y:			this.camera.position.y
 			, angle:	this.camera.rotation.z
 			, lightx: this.light.position.x
 			, lighty: this.light.position.y
@@ -356,13 +360,14 @@ class Planets {
 			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, x: 			planet.mesh.position.x
+			, y:			0
 			, angle:	(portrait ? 0 : -Math.PI / 2)
 			, lightx: 0
 			, lighty: 24
 			};
 
 		// Computes the middle point for the animation
-		if (this.depth != 0) {
+		if (this.depth == 1) {
 			// On cache les lunes qui sont montrées (depht = 1, niveau des planètes)
 			for (let index = 0; index < this.body.moons.length; index++) {
 				this.body.moons[index].hide();
@@ -422,7 +427,7 @@ class Planets {
 			tweenToMiddle.chain(tweenToEnd);
 			tweenToMiddle.start();
 		}
-		else if (this.depth == 0) {
+		else {
 			const tweenToEnd = new TWEEN.Tween(current)
 				.to(target, 1000)
 				.easing(TWEEN.Easing.Cubic.InOut);
@@ -433,6 +438,7 @@ class Planets {
 				this.camera.top 				= current.top;
 				this.camera.bottom 			= current.bottom;
 				this.camera.position.x 	= current.x;
+				this.camera.position.y	= current.y;
 				this.camera.rotation.z 	= current.angle;
 				this.light.position.x = current.lightx;
 				this.light.position.y = current.lighty;
@@ -452,6 +458,75 @@ class Planets {
 		this.body = planet;
 		setPlaceholder("searchField", planet.name);
 		this.updateRotations(!viewportIsPortrait());
+	}
+
+	/**
+	 * Sets the view of the scene focused on a specific moon
+	 * @param {*} planet The planet to look at
+	 */
+	lookAtMoon(moon) {
+		if (moon == this.target) {
+			return;
+		}
+
+		this.target = moon;
+		console.log(moon);
+		moon.geometry.computeBoundingBox();
+		const box = moon.geometry.boundingBox;
+
+		const ratio = utils.ratio;
+		const portrait = viewportIsPortrait();
+
+		/*let max = box.max.x + (portrait ? 1 : 1);*/
+		const max = 3 * box.max.x;
+		const min = box.min.x;
+
+		// Recover current camera position
+		const current =
+			{	top: 		this.camera.top
+			,	bottom: this.camera.bottom
+			,	left: 	this.camera.left
+			, right: 	this.camera.right
+			,	y: 			this.camera.position.y
+			, angle:	this.camera.rotation.z
+			, lightx: this.light.position.x
+			, lighty: this.light.position.y
+			};
+
+		// Compute target camera position
+		const target =
+			{	top:		max	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
+			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
+			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
+			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
+			, y: 			moon.mesh.position.y
+			, angle:	(portrait ? -Math.PI / 2 : 0)
+			, lightx: -24
+			, lighty: 0
+			};
+
+		const tweenToEnd = new TWEEN.Tween(current)
+			.to(target, 1000)
+			.easing(TWEEN.Easing.Cubic.InOut);
+
+		tweenToEnd.onUpdate(() => {
+			this.camera.left 				= current.left;
+			this.camera.right 			= current.right;
+			this.camera.top 				= current.top;
+			this.camera.bottom 			= current.bottom;
+			this.camera.position.y 	= current.y;
+			this.camera.rotation.z 	= current.angle;
+			this.light.position.x = current.lightx;
+			this.light.position.y = current.lighty;
+			this.camera.updateProjectionMatrix();
+		});
+
+		tweenToEnd.start();
+
+		this.depth = 2;
+		this.body = moon;
+		setPlaceholder("searchField", moon.name);
+		this.updateRotations(viewportIsPortrait());
 	}
 
 	onClick(event) {

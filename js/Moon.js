@@ -7,7 +7,7 @@ class Moon {
     this.offset = offset;
 
     // Creating 3D geometry
-    const geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
+    this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
     const material = new THREE.MeshLambertMaterial({
       transparent: true,
       color: '#ffffff',
@@ -15,7 +15,7 @@ class Moon {
     });
 
     // Creating the mesh
-    this.mesh = new THREE.Mesh(geometry, material);
+    this.mesh = new THREE.Mesh(this.geometry, material);
 
     // Positionning the mesh
     //this.mesh.position.y = this.offset.y + this.distance;

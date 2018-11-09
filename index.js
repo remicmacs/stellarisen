@@ -153,6 +153,7 @@ function findTarget(hash) {
 	target.s = null;
 	target.c = null;
 	target.p = null;
+	target.m = null;
 
 	for (let i = 0; i < skySphere.starsObjects.length; i++) {
 		if (hash === skySphere.starsObjects[i].meshName) {
@@ -160,10 +161,18 @@ function findTarget(hash) {
 		}
 	}
 
-	// ... planets, ...
+	// ... planets and moons ...
 	for (let i = 0; i < planets.planets.length; i++) {
 		if (hash === planets.planets[i].name) {
 			target.p = planets.planets[i];
+			return target;
+		}
+
+		for (let j = 0; j < planets.planets[i].moons.length; j++) {
+			if (hash === planets.planets[i].moons[j].name) {
+				target.m = planets.planets[i].moons[j];
+				return target;
+			}
 		}
 	}
 
@@ -224,6 +233,49 @@ function focusOnPlanet(starting, state, planet) {
 	}
 	home = false;
 }
+
+function focusOnMoon(starting, state, moon) {
+	// Reached a moon via a hyperlink
+	if (starting) {
+		home = false;
+		camera = planets.camera;
+		scene = planetsScene;
+		sceneUpdate = () => {
+			planets.update()
+		};
+	}
+
+	// Opening info panel
+	if (state !== null && state === "open") {
+		enable('planet-infos-wrapper');
+		enable('planet-infos');
+	}
+
+	// Closing info panel
+	if (state === null) {
+		disable('planet-infos-wrapper');
+		disable('planet-infos');
+	}
+
+	// Changing scene starmap -> planets
+	if (home) {
+		showLoading();
+		setTimeout(() => {
+			camera = planets.camera;
+			scene = planetsScene;
+			sceneUpdate = () => {
+				planets.update()
+			};
+			hideLoading();
+			planets.lookAtPlanet(moon);
+			home = false;
+		}, 1000);
+	} else {
+		planets.lookAtMoon(moon);
+	}
+	home = false;
+}
+
 /**
  * Sets scene focus on target star|constellation
  * @param {*} starting boolean === true if application is just starting
@@ -333,12 +385,13 @@ function updateHash(starting) {
 	const {
 		s: star,
 		c: constellation,
-		p: planet
+		p: planet,
+		m: moon
 	} = findTarget(hash);
 	previousHash = hash;
 
 	if (
-		!switched && star === null && planet === null && constellation === null
+		!switched && star === null && planet === null && constellation === null && moon === null
 	) {
 		window.location.hash = '#Etoiles';
 		return;
@@ -354,6 +407,8 @@ function updateHash(starting) {
 
 	if (planet !== null) {
 		focusOnPlanet(starting, state, planet);
+	} else if (moon !== null) {
+		focusOnMoon(starting, state, moon);
 	} else if (hash !== 'SystemeSolaire') {
 		focusOnStarmapObject(starting, state, home, star, constellation);
 	}
