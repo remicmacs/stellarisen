@@ -22,6 +22,8 @@ class Planets {
 		this.depth = 0;
 		this.body = null;
 
+		this.light = null;
+
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
 
@@ -54,6 +56,10 @@ class Planets {
 		this.texturesObjects = [];
 		this.moonsTextures = [];
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+		this.textureLoader.load("res/images/planets/saturn_rings.png",
+			(response) => { this.ringTexture = response; }
+		);
 
 		this.jsonLoader = new THREE.FileLoader(this.loadingManager);
 		this.jsonLoader.load("res/planets.json", (response) => {
@@ -163,11 +169,30 @@ class Planets {
 			planet.moons = moons;
 		}
 
+		this.scene.add(new THREE.AmbientLight(0x553333));
+		this.light = new THREE.DirectionalLight(0xffffff, 1);
+		this.light.position.copy(new THREE.Vector3(-24, 0, 10));
+		this.scene.add(this.light);
+
 		// Constructing rings for ringed planets
-		let geometry = new THREE.RingBufferGeometry(2.2, 3.2, 25);
+		let geometry = new THREE.RingBufferGeometry(1.8, 3.2, 64);
+
+		// On arrange les UVs pour la texture
+		let uvs = geometry.attributes.uv.array;
+		for (let c = 0, j = 0; j <= 1; j ++ ) {
+		    for ( var i = 0; i <= 64; i ++ ) {
+						uvs[c++] = j;
+		        uvs[c++] = i / 64;
+
+		    }
+		}
+
 		let material = new THREE.MeshBasicMaterial(
 			{	color: '#E1C9A2'
 			,	side: THREE.DoubleSide
+			, map: this.ringTexture
+			, transparent: true
+			, opacity: 1
 			});
 
 		this.rings = new THREE.Mesh(geometry, material);
@@ -243,6 +268,8 @@ class Planets {
 			, right: 	this.camera.right
 			,	x: 			this.camera.position.x
 			, angle:	this.camera.rotation.z
+			, lightx: 0
+			, lighty: 24
 			};
 
 		if (this.depth == 1) {
@@ -262,6 +289,8 @@ class Planets {
 				, bottom:	-this.width * (portrait ? 1 		: ratio	)
 				, x: 			0
 				,	angle: 	portrait ? -Math.PI / 2 : 0
+				, lightx: -24
+				, lighty: 0
 				};
 
 			// Create animation from current to target
@@ -276,6 +305,8 @@ class Planets {
 				this.camera.bottom 			= current.bottom;
 				this.camera.position.x	= current.x;
 				this.camera.rotation.z	= current.angle;
+				this.light.position.x = current.lightx;
+				this.light.position.y = current.lighty;
 				this.camera.updateProjectionMatrix();
 			});
 
@@ -314,6 +345,8 @@ class Planets {
 			, right: 	this.camera.right
 			,	x: 			this.camera.position.x
 			, angle:	this.camera.rotation.z
+			, lightx: this.light.position.x
+			, lighty: this.light.position.y
 			};
 
 		// Compute target camera position
@@ -324,6 +357,8 @@ class Planets {
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, x: 			planet.mesh.position.x
 			, angle:	(portrait ? 0 : -Math.PI / 2)
+			, lightx: 0
+			, lighty: 24
 			};
 
 		// Computes the middle point for the animation
@@ -340,6 +375,8 @@ class Planets {
 				,	bottom:	-this.width	* (portrait ? 1 		: ratio	)
 				, x: 			(current.x + planet.mesh.position.x) / 2
 				,	angle:	(portrait ? -Math.PI / 2 : 0)
+				, lightx: -24
+				, lighty: 0
 				};
 
 			// Animation to the middle
@@ -359,6 +396,8 @@ class Planets {
 				this.camera.bottom 			= middle.bottom;
 				this.camera.position.x 	= middle.x;
 				this.camera.rotation.z 	= middle.angle;
+				this.light.position.x = middle.lightx;
+				this.light.position.y = middle.lighty;
 				this.camera.updateProjectionMatrix();
 			});
 
@@ -369,6 +408,8 @@ class Planets {
 				this.camera.bottom 			= current.bottom;
 				this.camera.position.x 	= current.x;
 				this.camera.rotation.z 	= current.angle;
+				this.light.position.x = current.lightx;
+				this.light.position.y = current.lighty;
 				this.camera.updateProjectionMatrix();
 			});
 
@@ -393,6 +434,8 @@ class Planets {
 				this.camera.bottom 			= current.bottom;
 				this.camera.position.x 	= current.x;
 				this.camera.rotation.z 	= current.angle;
+				this.light.position.x = current.lightx;
+				this.light.position.y = current.lighty;
 				this.camera.updateProjectionMatrix();
 			});
 

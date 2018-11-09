@@ -26,11 +26,22 @@ class Planet {
 
 		// Creating 3D geometry
 		this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
-		const material = new THREE.MeshBasicMaterial({
-			transparent: true,
-			color: '#ffffff',
-			map: this.texture
-		});
+		let material;
+		if (this.name === "Soleil") {
+			material = new THREE.MeshBasicMaterial({
+				transparent: true,
+				color: '#ffffff',
+				map: this.texture//,
+				//emissive: '#ffffff'
+			});
+		}
+		else {
+			material = new THREE.MeshLambertMaterial({
+				transparent: true,
+				color: '#ffffff',
+				map: this.texture
+			});
+		}
 
 		// Creating the mesh
 		this.mesh = new THREE.Mesh(this.geometry, material);

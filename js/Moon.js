@@ -8,7 +8,7 @@ class Moon {
 
     // Creating 3D geometry
     const geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshLambertMaterial({
       transparent: true,
       color: '#ffffff',
       map: this.texture
