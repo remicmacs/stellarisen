@@ -1,4 +1,13 @@
 *~
+
+# JSDoc
 out/
+
+# NPM / Node stuff
 node_modules/
+
+# Put editor BS here
 .vscode/
+
+# Vagrant / Puppet
+puphpet/config-custom.yaml
