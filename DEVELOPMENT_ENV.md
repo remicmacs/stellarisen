@@ -130,7 +130,7 @@ The mappings is stored in a JSON object. For example :
 ```json
 [
 	{
-		"localPath":"/the/absolute/path/to/stellarisen,
+		"localPath":"/the/absolute/path/to/stellarisen",
 		"remotePath":"/var/www/stellarisen"
 	},
 	{
