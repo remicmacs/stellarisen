@@ -10,4 +10,7 @@ node_modules/
 .vscode/
 
 # Vagrant / Puppet
-puphpet/config-custom.yaml
+sethosts.sh
+Vagrantfile
+puphpet/
+.vagrant/

@@ -4,7 +4,18 @@ The dev environment used is composed of a VM provisionned and orchestrated with
 Vagrant and Puppet. The website PuPHPet provides the Puppet configuration for
 provisionning the VM.
 
-TODO : save config.yaml custom file
+
+## First deployment
+
+### Requirements
+
+* Virtualbox
+* Vagrant >= 2.0
+
+unzip the vagrantbox.zip file in the local folder.
+
+launch set_hosts.sh script
+launch vagrant up
 
 ## Use of Vagrant box
 
