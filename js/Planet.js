@@ -15,12 +15,16 @@ class Planet {
 	 * @param {real} tilt Angle of the planet's tilt relative to the ecliptic
 	 * @param {string} name Name of the planet
 	 */
-	constructor(texture, distance, radius, tilt, name) {
+	constructor(texture, distance, radius, tilt, name, data) {
 		this.texture = texture;
 		this.distance = distance;
 		this.radius = radius;
 		this.tilt = tilt;
 		this.name = name;
+
+		this.mass = data.mass;
+		this.diameter = data.diameter;
+		this.gravity = data.gravity
 
 		this.moons = [];
 

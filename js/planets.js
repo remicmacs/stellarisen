@@ -62,7 +62,7 @@ class Planets {
 		);
 
 		this.jsonLoader = new THREE.FileLoader(this.loadingManager);
-		this.jsonLoader.load("res/planets.json", (response) => {
+		this.jsonLoader.load("res/planets_new.json", (response) => {
 				this.json = JSON.parse(response);
 				let planetJson;
 				let moonJson;
@@ -133,12 +133,18 @@ class Planets {
 		// On crée les planètes
 		for (let index = 0; index < Object.keys(this.json).length; index++) {
 			let planetJson = this.json[Object.keys(this.json)[index]];
+			let data =
+				{	"mass": planetJson["mass"]
+				, "diameter": planetJson["diameter"]
+				, "gravity": planetJson["gravity"]
+				};
 			let planet = new Planet
 				(	this.texturesObjects[index]
 				,	planetJson["distance"]
 				,	planetJson["radius"]
 				,	planetJson["tilt"]
 				,	Object.keys(this.json)[index]
+				, data
 				);
 			planet.addToScene(this.scene);
 			this.planets.push(planet);
@@ -460,6 +466,9 @@ class Planets {
 		this.depth = 1;
 		this.body = planet;
 		setPlaceholder("searchField", planet.name);
+		setSpan('planet-mass', planet.mass);
+		setSpan('planet-diameter', planet.diameter);
+		setSpan('planet-gravity', planet.gravity);
 		this.updateRotations(!viewportIsPortrait());
 	}
 
