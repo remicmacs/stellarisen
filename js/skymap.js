@@ -687,6 +687,7 @@ class SkySphere {
 	 */
 	onMouseUp(event) {
 		if (!this.dragging) {
+			this.yawObject.rotation.y = ((this.yawObject.rotation.y * 10000) % (2 * Math.PI * 10000)) / 10000;
 			this.onClick(event);
 		}
 		this.mousedown = false;

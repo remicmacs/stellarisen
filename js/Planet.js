@@ -102,6 +102,6 @@ class Planet {
 		for (let index = 0; index < this.moons.length; index++) {
 			this.moons[index].update();
 		}
-		this.mesh.rotation.y += 0.01;
+		this.mesh.rotation.y -= 0.01;
 	}
 }

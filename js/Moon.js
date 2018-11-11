@@ -1,10 +1,13 @@
 class Moon {
-  constructor(texture, distance, radius, name, offset) {
+  constructor(texture, distance, radius, name, offset, tilt, retrograde) {
     this.texture = texture;
     this.distance = distance;
     this.radius = radius;
     this.name = name;
     this.offset = offset;
+    this.tilt = -THREE.Math.degToRad(tilt);
+    this.retrograde = retrograde;
+    console.log(typeof this.retrograde);
 
     // Creating 3D geometry
     this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
@@ -37,7 +40,7 @@ class Moon {
 	 * @param {boolean} portrait Tell if the scene is portrait or landscape
 	 */
 	updateRotation(portrait) {
-		const rotation = (portrait ? -Math.PI / 2 : 0);
+		const rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
 
 		// Creating an angle for the rotation
 		const target = new THREE.Euler(0, 0, rotation);
@@ -58,7 +61,7 @@ class Moon {
 	 * Called on every frame, mainly used to update rotation of moons
 	 */
 	update() {
-		this.mesh.rotation.y += 0.01;
+		this.mesh.rotation.y += 0.01 * (this.retrograde ? -1 : 1);
 	}
 
   show() {

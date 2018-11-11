@@ -160,7 +160,10 @@ class Planets {
 					, moonJson["radius"]
 					, Object.keys(planetJson["moons"])[moonIndex]
 					, planet.mesh.position
+					, moonJson["tilt"]
+					, moonJson["retrograde"]
 					);
+				moon.mesh.rotation.z = THREE.Math.degToRad(moonJson["tilt"]);
 				this.scene.add(moon.mesh);
 				moons.push(moon);
 				moonsTexturesIndex++;
@@ -470,7 +473,6 @@ class Planets {
 		}
 
 		this.target = moon;
-		console.log(moon);
 		moon.geometry.computeBoundingBox();
 		const box = moon.geometry.boundingBox;
 
@@ -547,6 +549,7 @@ class Planets {
 				// If target is already focused, open information panel
 				window.location.hash = "#" + targetname + "-open";
 				document.getElementById('planetName').innerHTML = targetname;
+				document.getElementById('moonName').innerHTML = targetname;
 			} else {
 				// If target has not been focused before, add hash
 				window.location.hash = "#" + targetname;

@@ -150,26 +150,69 @@ function hideCenterModal() {
 
   hide('star-panel');
   hide('constellation-panel');
+}
+
+function showLeftModal() {
+  enable('menu');
+  //hide('login-panel');
+  //hide('register-panel');
+}
+
+function hideLeftModal() {
+  disable('menu');
+
+  hide('menu-panel');
   hide('login-panel');
   hide('register-panel');
+}
+
+function showRightModal() {
+  enable('planet-infos');
+  enable('planet-infos-wrapper');
+}
+
+function hideRightModal() {
+  disable('planet-infos');
+  disable('planet-infos-wrapper');
+
+  hide('planet-panel');
+  hide('moon-panel');
 }
 
 function showLogin() {
-  hide('star-panel');
-  hide('constellation-panel');
+  hide('menu-panel');
   show('login-panel');
   hide('register-panel');
 
-  showCenterModal();
-  disable('menu');
+  showLeftModal();
 }
 
 function showRegister() {
-  hide('star-panel');
-  hide('constellation-panel');
+  hide('menu-panel');
   hide('login-panel');
   show('register-panel');
 
-  showCenterModal();
-  disable('menu');
+  showLeftModal();
+}
+
+function showMenu() {
+  show('menu-panel');
+  hide('login-panel');
+  hide('register-panel');
+
+  showLeftModal();
+}
+
+function showPlanet() {
+  show('planet-panel');
+  hide('moon-panel');
+
+  showRightModal();
+}
+
+function showMoon() {
+  show('planet-panel');
+  hide('moon-panel');
+
+  showRightModal();
 }

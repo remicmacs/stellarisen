@@ -30,7 +30,8 @@
 			"Lune": {
 				"texture": "res/images/moons/moon.png",
 				"distance": -3,
-				"radius": 0.27
+				"radius": 0.27,
+				"tilt": 5.145
 			}
 		}
 	},
@@ -45,12 +46,14 @@
 			"Phobos": {
 				"texture": "res/images/moons/phobos.png",
 				"distance": -1.5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 1.08
 			},
 			"Deimos": {
 				"texture": "res/images/moons/deimos.png",
 				"distance": -2,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 1.79
 			}
 		}
 	},
@@ -65,22 +68,26 @@
 			"Io": {
 				"texture": "res/images/moons/io.png",
 				"distance": -3,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.04
 			},
 			"Europe": {
 				"texture": "res/images/moons/europa.png",
 				"distance": -4,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.47
 			},
 			"Callisto": {
 				"texture": "res/images/moons/callisto.png",
 				"distance": -5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.19
 			},
 			"Ganymede": {
 				"texture": "res/images/moons/ganymede.png",
 				"distance": -6,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.18
 			}
 		}
 	},
@@ -95,47 +102,50 @@
 			"Mimas": {
 				"texture": "res/images/moons/mimas.png",
 				"distance": -3,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 1.53
 			},
 			"Encelade": {
 				"texture": "res/images/moons/enceladus.png",
 				"distance": -3.4,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0
 			},
 			"Thetys": {
 				"texture": "res/images/moons/tethys.png",
 				"distance": -3.8,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 1.86
 			},
 			"Dione": {
 				"texture": "res/images/moons/dione.png",
 				"distance": -4.2,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.02
 			},
 			"Rhea": {
 				"texture": "res/images/moons/rhea.png",
 				"distance": -4.6,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.35
 			},
 			"Titan": {
 				"texture": "res/images/moons/titan.png",
 				"distance": -5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.33
 			},
 			"Hyperion": {
 				"texture": "res/images/moons/hyperion.png",
 				"distance": -5.4,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.43
 			},
 			"Japet": {
 				"texture": "res/images/moons/iapetus.png",
 				"distance": -5.8,
-				"radius": 0.15
-			},
-			"Phoebe": {
-				"texture": "res/images/moons/phoebe.png",
-				"distance": -6.2,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 14.72
 			}
 		}
 	},
@@ -150,27 +160,32 @@
 			"Ariel": {
 				"texture": "res/images/moons/ariel.png",
 				"distance": -2.5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.04
 			},
 			"Umbriel": {
 				"texture": "res/images/moons/umbriel.png",
 				"distance": -3,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.13
 			},
 			"Titania": {
 				"texture": "res/images/moons/titania.png",
 				"distance": -3.5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.08
 			},
 			"Oberon": {
 				"texture": "res/images/moons/oberon.png",
 				"distance": -4,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 0.07
 			},
 			"Miranda": {
 				"texture": "res/images/moons/miranda.png",
 				"distance": -4.5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 4.34
 			}
 		}
 	},
@@ -185,7 +200,9 @@
 			"Triton": {
 				"texture": "res/images/moons/triton.png",
 				"distance": -3.5,
-				"radius": 0.15
+				"radius": 0.15,
+				"tilt": 157.345,
+				"retrograde": true
 			}
 		}
 	}

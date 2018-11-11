@@ -44,18 +44,18 @@ const events = [
 	['userImage', 'touchend', openMenu],
 	['userImage', 'mousedown', stopPropagation],
 	['userImage', 'touchstart', stopPropagation],
-	['close-menu', 'mouseup', closeMenu],
-	['close-menu', 'touchend', closeMenu],
-	['close-menu', 'mousedown', stopPropagation],
-	['close-menu', 'touchstart', stopPropagation],
-	['close-infos', 'mouseup', closeInfos],
-	['close-infos', 'touchend', closeInfos],
-	['close-infos', 'mousedown', stopPropagation],
-	['close-infos', 'touchstart', stopPropagation],
-	['close-pinfos', 'mouseup', closePInfos],
-	['close-pinfos', 'touchend', closePInfos],
-	['close-pinfos', 'mousedown', stopPropagation],
-	['close-pinfos', 'touchstart', stopPropagation],
+	['close-left', 'mouseup', closeMenu],
+	['close-left', 'touchend', closeMenu],
+	['close-left', 'mousedown', stopPropagation],
+	['close-left', 'touchstart', stopPropagation],
+	['close-center', 'mouseup', closeInfos],
+	['close-center', 'touchend', closeInfos],
+	['close-center', 'mousedown', stopPropagation],
+	['close-center', 'touchstart', stopPropagation],
+	['close-right', 'mouseup', closePInfos],
+	['close-right', 'touchend', closePInfos],
+	['close-right', 'mousedown', stopPropagation],
+	['close-right', 'touchstart', stopPropagation],
 	['scene-switch', 'mouseup', switchHash],
 	['scene-switch', 'touchend', switchHash],
 	['scene-switch', 'mousedown', stopPropagation],
@@ -77,7 +77,10 @@ const events = [
 	[	'menu'					,	'mousedown'	,	stopPropagation	],
 	[	'menu'					,	'mouseup'		,	stopPropagation	],
 	[ 'connect-button', 'click', showLogin ],
-	[ 'register-button', 'click', showRegister ]
+	[ 'register-button', 'click', showRegister ],
+	[ 'back-connection', 'click', showMenu ],
+	[ 'back-register', 'click', showMenu ],
+	[ 'gotoregister', 'click', showRegister ]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -205,14 +208,16 @@ function focusOnPlanet(starting, state, planet) {
 
 	// Opening info panel
 	if (state !== null && state === "open") {
-		enable('planet-infos-wrapper');
-		enable('planet-infos');
+		/*enable('planet-infos-wrapper');
+		enable('planet-infos');*/
+		showPlanet();
 	}
 
 	// Closing info panel
 	if (state === null) {
-		disable('planet-infos-wrapper');
-		disable('planet-infos');
+		/*disable('planet-infos-wrapper');
+		disable('planet-infos');*/
+		hideRightModal();
 	}
 
 	// Changing scene starmap -> planets
@@ -247,14 +252,16 @@ function focusOnMoon(starting, state, moon) {
 
 	// Opening info panel
 	if (state !== null && state === "open") {
-		enable('planet-infos-wrapper');
-		enable('planet-infos');
+		/*enable('planet-infos-wrapper');
+		enable('planet-infos');*/
+		showMoon();
 	}
 
 	// Closing info panel
 	if (state === null) {
-		disable('planet-infos-wrapper');
-		disable('planet-infos');
+		/*disable('planet-infos-wrapper');
+		disable('planet-infos');*/
+		hideRightModal();
 	}
 
 	// Changing scene starmap -> planets
@@ -471,12 +478,14 @@ function onTouchEnd(event) {
 
 function openMenu(event) {
 	event.stopPropagation();
-	enable('menu');
+	//enable('menu');
+	showMenu();
 }
 
 function closeMenu(event) {
 	event.stopPropagation();
-	disable('menu');
+	//disable('menu');
+	hideLeftModal();
 }
 
 /**
@@ -513,7 +522,7 @@ function closePInfos(event) {
  */
 function switchHash(event) {
 	event.stopPropagation();
-	disable('menu');
+	closeMenu(event);
 	if (scene == skyScene) {
 		window.location.hash = '#SystemeSolaire';
 	} else {

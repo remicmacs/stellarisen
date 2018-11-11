@@ -38,6 +38,11 @@ canvas {
 
 .hidden {
   visibility: hidden;
+	/* display: none; */
+}
+
+.stretch-space {
+	flex-grow: 2;
 }
 
 /* BUTTONS
@@ -408,22 +413,66 @@ form {
   font-size: 22px;
 }
 
-.panel.hidden {
-	visibility: hidden;
-	display: none;
+.panel {
+	margin: 16px;
 }
 
-#close-infos {
+.panel.hidden {
+	/* display: none; */
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+}
+
+.panel.fade.hidden {
+	/* display: inherit; */
+	opacity: 0;
+}
+
+.panel.fade.visible {
+	opacity: 1;
+}
+
+.panel.fade {
+	transition: 0.5s 0.5s opacity;
+}
+
+#close-center {
 	position: absolute;
 	right: 16px;
 	font-size: 48px;
 }
 
-#close-menu {
+#close-left {
 	position: absolute;
 	right: 16px;
 	font-size: 48px;
 	top: 50%;
+}
+
+#close-right {
+	position: absolute;
+	left: 16px;
+	font-size: 48px;
+	top: 50%;
+}
+
+#close-top {
+	position: absolute;
+	bottom: 16px;
+	font-size: 48px;
+	left: 50%;
+}
+
+#back-connection, #back-register {
+	position: absolute;
+	bottom: 16px;
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	text-align: center;
 }
 
 
