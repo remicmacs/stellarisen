@@ -23,6 +23,8 @@ class SkySphere {
 		this.showNames = true;
 		this.showHoriz = true;
 
+		this.controlWithOrientation = true;
+
 		// Instantiating Camera
 		this.camera = new THREE.PerspectiveCamera(
 			60,
@@ -140,22 +142,18 @@ class SkySphere {
 	/**
 	 * Update procedure for SkySphere object
 	 * @memberof SkySphere
-	/**
-	 *
-	 *
-	 * @memberof SkySphere
 	 */
 	update() {
-		/* Not used for now but could be useful for animations to now time deltas
+		/* Not used for now but could be useful for animations to know time deltas
 		 *  betwen frames */
 		// const delta = this.clock.getDelta();
 
-		if (this.deviceIsMobile) {
+		if (this.deviceIsMobile && this.controlWithOrientation) {
 			this.controls.update();
 		}
 
 		const sphereRaycast = new THREE.Vector3();
-		if (this.deviceIsMobile) {
+		if (this.deviceIsMobile && this.controlWithOrientation) {
 			sphereRaycast.setFromSphericalCoords(
 				-100,
 				this.camera.rotation.x + Math.PI / 2,
@@ -444,6 +442,10 @@ class SkySphere {
 	 * @memberof SkySphere
 	 */
 	lookAtStar(star) {
+		if (deviceIsMobile() && this.controlWithOrientation) {
+			this.disableControlWithOrientation();
+		}
+
 		// Recovering angles and coordinates of star
 		const angle = new THREE.Spherical();
 		angle.setFromCartesianCoords(
@@ -463,9 +465,6 @@ class SkySphere {
 			x: angle.theta - Math.PI,
 			y: Math.PI / 2 - angle.phi
 		};
-
-		console.log(current);
-		console.log(target);
 
 		const diffX = Math.abs(current.x - target.x);
 		const diffY = Math.abs(current.y - target.y);
@@ -604,6 +603,20 @@ class SkySphere {
 		}
 	}
 
+	onTouchMove(event) {
+		// console.log("moving: " + this.mousedown);
+		// if (this.mousedown) {
+		// 	this.onFingerDrag(event);
+		// }
+		this.mouse.x = (event.touches[0].screenX / window.innerWidth) * 2 - 1;
+		this.mouse.y = -(event.touches[0].screenY / window.innerHeight) * 2 + 1;
+
+		if (this.controlWithOrientation) {
+			this.disableControlWithOrientation();
+		}
+		this.onFingerDrag(event);
+	}
+
 	/**
 	 * Drag event handler.
 	 * @param {DragEvent} event
@@ -699,10 +712,14 @@ class SkySphere {
 	 * @param {*} event
 	 */
 	onTouchStart(event) {
+		this.mouseDown = true;
+
 		this.previousX = event.touches[0].screenX;
 		this.previousY = event.touches[0].screenY;
 		this.mouse.x = this.previousX;
 		this.mouse.y = this.previousY;
+
+		//console.log("touch start: " + this.mouseDown);
 	}
 
 	/**
@@ -710,7 +727,14 @@ class SkySphere {
 	 * @param {*} event
 	 */
 	onTouchEnd(event) {
-		this.onClick(event);
+		//console.log("touch end: " + this.mousedown);
+		if (!this.dragging) {
+			this.yawObject.rotation.y = ((this.yawObject.rotation.y * 10000) % (2 * Math.PI * 10000)) / 10000;
+			this.onClick(event);
+		}
+
+		this.mouseDown = false;
+		this.dragging = false;
 	}
 
 	/**
@@ -841,6 +865,32 @@ class SkySphere {
 			this.hideHorizon();
 		} else {
 			this.showHorizon();
+		}
+	}
+
+	disableControlWithOrientation() {
+		this.controlWithOrientation = false;
+		unselect('set-orien');
+		let cameraRot = new THREE.Euler();
+		cameraRot.setFromQuaternion(this.camera.quaternion, "YXZ");
+		this.camera.lookAt(0, 0, -1);
+		this.yawObject.rotation.y = cameraRot.y;
+		this.pitchObject.rotation.x = cameraRot.x;
+	}
+
+	enableControlWithOrientation() {
+		this.controlWithOrientation = true;
+		select('set-orien');
+		this.controls.update();
+		this.yawObject.rotation.y = 0;
+		this.pitchObject.rotation.x = 0;
+	}
+
+	toggleControlWithOrientation() {
+		if (this.controlWithOrientation) {
+			this.disableControlWithOrientation();
+		} else {
+			this.enableControlWithOrientation();
 		}
 	}
 

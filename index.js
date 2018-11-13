@@ -19,6 +19,10 @@ window.onhashchange = () => {
 	updateHash(false);
 };
 
+if (deviceIsMobile()) {
+	show("set-orien");
+}
+
 const skySphere = new SkySphere(skyScene, renderer, onLoad);
 const planets = new Planets(planetsScene, renderer, onLoad);
 
@@ -36,6 +40,7 @@ console.log("Renderer added to webpage");
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mouseup', onMouseUp);
+document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
@@ -70,9 +75,9 @@ const events = [
 	[	'planet-infos'	,	'touchstart',	stopPropagation	],
 	[	'con-name'			,	'click'			,	lookAtConstellation							],
 	[	'random-star'		,	'click'			,	randomStar											],
-	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); }],
-	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); }],
-	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }],
+	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); toggle('show-con'); }],
+	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); toggle('show-names'); }],
+	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); toggle('show-card'); }],
 	[	'menu'					,	'click'			,	stopPropagation	],
 	[	'menu'					,	'mousedown'	,	stopPropagation	],
 	[	'menu'					,	'mouseup'		,	stopPropagation	],
@@ -80,7 +85,8 @@ const events = [
 	[ 'register-button', 'click', showRegister ],
 	[ 'back-connection', 'click', showMenu ],
 	[ 'back-register', 'click', showMenu ],
-	[ 'gotoregister', 'click', showRegister ]
+	[ 'gotoregister', 'click', showRegister ],
+	[	'set-orien',	'click',	() => { skySphere.toggleControlWithOrientation(); }]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -462,7 +468,7 @@ function onMouseUp(event) {
 
 function onTouchStart(event) {
 	if (home) {
-		skySphere.onTouchStart();
+		skySphere.onTouchStart(event);
 	} else {
 		planets.onTouchStart(event);
 	}
@@ -473,6 +479,14 @@ function onTouchEnd(event) {
 		skySphere.onTouchEnd(event);
 	} else {
 		planets.onTouchEnd(event);
+	}
+}
+
+function onTouchMove(event) {
+	if (home) {
+		skySphere.onTouchMove(event);
+	} else {
+		planets.onTouchMove(event);
 	}
 }
 

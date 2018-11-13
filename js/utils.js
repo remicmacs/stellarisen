@@ -71,10 +71,41 @@ function disable(id) {
  */
 function toggle(id) {
   const element = document.getElementById(id);
-  if (element.classList.contains('enabled')) {
+  if (element.classList.contains('toggle')) {
+    if (element.classList.contains('on')) {
+      unselect(id);
+    } else {
+      select(id);
+    }
+  }
+  else if (element.classList.contains('enabled')) {
     disable(id);
   } else {
     enable(id);
+  }
+}
+
+/**
+ * Helper function to select a toggle
+ * @param {string} id The HTML id of the element
+ */
+function select(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('off');
+    element.classList.add('on');
+  }
+}
+
+/**
+ * Helper function to unselect a toggle
+ * @param {string} id The HTML id of the element
+ */
+function unselect(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('on');
+    element.classList.add('off');
   }
 }
 

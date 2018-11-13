@@ -7,7 +7,6 @@ class Moon {
     this.offset = offset;
     this.tilt = -THREE.Math.degToRad(tilt);
     this.retrograde = retrograde;
-    console.log(typeof this.retrograde);
 
     // Creating 3D geometry
     this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);

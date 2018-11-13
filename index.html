@@ -48,6 +48,7 @@
 							<button id="show-con" class="toggle on white">&#11040;</button>
 							<button id="show-names" class="toggle on white">T</button>
 							<button id="show-card" class="toggle on white">&#x21e1;</button>
+							<button id="set-orien" class="toggle on white hidden">&#x21e1;</button>
 						</div>
 						<button id="scene-switch" class="list-button white">Système solaire</button>
 						<button id="random-star" class="list-button white">Une étoile au hasard !</button>
@@ -61,9 +62,9 @@
 					<div class="column">
 
 						<h1 class="f1">Connexion</h1>
-						<form action="/login.php">
-							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input><br>
-							<input name="password" type="password" required placeholder="Mot de passe"></input><br>
+						<form action="/login.php" class="column">
+							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
+							<input name="password" type="password" required placeholder="Mot de passe"></input>
 					    <input type="submit" class="green" value="Connexion"></input>
 					  </form>
 						<span id="gotoregister">Pas encore de compte ? Créez-en un !</span>
@@ -75,10 +76,10 @@
 				<div class="panel hidden fade" id="register-panel">
 					<div class="column">
 						<h1 class="f1">Enregistrement</h1>
-						<form action="/register.php">
-							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input><br>
-							<input name="password" type="password" placeholder="Mot de passe" required></input><br>
-							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input><br>
+						<form action="/register.php" class="column">
+							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
+							<input name="password" type="password" placeholder="Mot de passe" required></input>
+							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>
 					    <input type="submit" class="green" value="S'enregistrer"></input>
 					  </form>
 						<div class="stretch-space"></div>
