@@ -370,7 +370,7 @@ class Planets {
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, x: 			planet.mesh.position.x
 			, y:			0
-			, angle:	(portrait ? 0 : -Math.PI / 2)
+			, angle:	(portrait ? -Math.PI : -Math.PI / 2)
 			, lightx: 0
 			, lighty: 24
 			};
