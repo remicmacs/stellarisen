@@ -247,3 +247,36 @@ function showMoon() {
 
   showRightModal();
 }
+
+function setLeft(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('left');
+  }
+}
+
+function setTop(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('top');
+  }
+}
+
+function setRight(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('right');
+  }
+}

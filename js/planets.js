@@ -109,6 +109,14 @@ class Planets {
 		const ratio = utils.ratio;
 		const portrait = viewportIsPortrait();
 
+		if (portrait) {
+			setTop('planet-infos-wrapper');
+			setTop('planet-infos');
+		} else {
+			setRight('planet-infos-wrapper');
+			setRight('planet-infos');
+		}
+
 		// Calculating the optimal camera position
 		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
 		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
