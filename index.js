@@ -280,7 +280,7 @@ function focusOnMoon(starting, state, moon) {
 				planets.update()
 			};
 			hideLoading();
-			planets.lookAtPlanet(moon);
+			planets.lookAtMoon(moon);
 			home = false;
 		}, 1000);
 	} else {

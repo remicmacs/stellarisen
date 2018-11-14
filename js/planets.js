@@ -112,13 +112,14 @@ class Planets {
 		// Calculating the optimal camera position
 		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
 		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
-		this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
+		//this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
+		this.camera.top = 		this.width 	* (portrait ? 1			: ratio	);
 		this.camera.bottom =	-this.width * (portrait ? 1 		: ratio	);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
-		if (viewportIsPortrait() != this.wasPortrait) {
-			this.updateRotations(viewportIsPortrait());
-			this.wasPortrait = viewportIsPortrait();
+		if (portrait != this.wasPortrait) {
+			this.updateRotations(portrait);
+			this.wasPortrait = portrait;
 		}
 
 		this.camera.updateProjectionMatrix();
@@ -233,9 +234,9 @@ class Planets {
 	 */
 	updateRotations(portrait) {
 		for (let index = 0; index < this.planets.length; index++) {
-			this.planets[index].updateRotation(portrait);
+			this.planets[index].updateRotation(portrait, this.depth);
 			for (let moonIndex = 0; moonIndex < this.planets[index].moons.length; moonIndex++) {
-				this.planets[index].moons[moonIndex].updateRotation(portrait);
+				this.planets[index].moons[moonIndex].updateRotation(portrait, this.depth);
 			}
 		}
 		this.updateRingsRotation(portrait);
@@ -249,7 +250,7 @@ class Planets {
 
 		let rotation = -0.4660029 +
 			(	portrait
-			?	0
+			?	Math.PI
 			: Math.PI / 2
 			);
 
@@ -324,8 +325,8 @@ class Planets {
 
 			tween.start();
 			setPlaceholder("searchField", "Rechercher...");
-			this.updateRotations(viewportIsPortrait());
 			this.depth = 0;
+			this.updateRotations(portrait);
 		}
 	}
 
@@ -469,7 +470,7 @@ class Planets {
 		setSpan('planet-mass', planet.mass);
 		setSpan('planet-diameter', planet.diameter);
 		setSpan('planet-gravity', planet.gravity);
-		this.updateRotations(!viewportIsPortrait());
+		this.updateRotations(portrait);
 	}
 
 	/**
@@ -479,6 +480,10 @@ class Planets {
 	lookAtMoon(moon) {
 		if (moon == this.target) {
 			return;
+		}
+
+		if (moon.isHidden()) {
+			moon.show();
 		}
 
 		this.target = moon;
@@ -498,6 +503,7 @@ class Planets {
 			,	bottom: this.camera.bottom
 			,	left: 	this.camera.left
 			, right: 	this.camera.right
+			, x:			this.camera.position.x
 			,	y: 			this.camera.position.y
 			, angle:	this.camera.rotation.z
 			, lightx: this.light.position.x
@@ -510,7 +516,8 @@ class Planets {
 			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
 			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
-			, y: 			moon.mesh.position.y
+			, x:			moon.mesh.position.x
+			, y: 			moon.distance
 			, angle:	(portrait ? -Math.PI / 2 : 0)
 			, lightx: -24
 			, lighty: 0
@@ -525,6 +532,7 @@ class Planets {
 			this.camera.right 			= current.right;
 			this.camera.top 				= current.top;
 			this.camera.bottom 			= current.bottom;
+			this.camera.position.x	= current.x;
 			this.camera.position.y 	= current.y;
 			this.camera.rotation.z 	= current.angle;
 			this.light.position.x = current.lightx;
@@ -537,7 +545,7 @@ class Planets {
 		this.depth = 2;
 		this.body = moon;
 		setPlaceholder("searchField", moon.name);
-		this.updateRotations(viewportIsPortrait());
+		this.updateRotations(portrait);
 	}
 
 	onClick(event) {
