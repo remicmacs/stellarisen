@@ -59,13 +59,13 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+// Registering API Authentication middleware
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+//$app->middleware([App\Http\Middleware\ApiAuthentication::class]);
+
+$app->routeMiddleware(
+    ['apiauth' => App\Http\Middleware\ApiAuthentication::class]
+);
 
 /*
 |--------------------------------------------------------------------------

@@ -43,7 +43,12 @@ document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
-
+document.connect.onsubmit = function(event) {
+	console.log("Clickittyclick");
+	console.log(event);
+	AJAXSubmit(event.currentTarget);
+	event.preventDefault();
+};
 const events = [
 	['userImage', 'mouseup', openMenu],
 	['userImage', 'touchend', openMenu],

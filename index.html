@@ -23,6 +23,7 @@
 		<script src="js/Planet.js"></script>
 		<script src="js/Horizon.js"></script>
 		<script src="js/Moon.js"></script>
+		<script src="VanillaXMLHTTPRequest.js"></script>
 	</head>
 	<body>
 		<div id="threejscanvas">
@@ -62,7 +63,7 @@
 					<div class="column">
 
 						<h1 class="f1">Connexion</h1>
-						<form action="/login.php" class="column">
+						<form name="connect" action="api/public/connect" method="post" class="column">
 							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
 							<input name="password" type="password" required placeholder="Mot de passe"></input>
 					    <input type="submit" class="green" value="Connexion"></input>

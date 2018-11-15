@@ -11,12 +11,32 @@
 |
 */
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 
-$router->get('hello/{name}', function($name) {
+/*
+$router->get('hello/{name}',["apiauth", function($name) {
     $content = array("data" => "hello $name");
     $value = "application/json";
     return response()->json($content);
+}]);
+*/
+
+$router->post('connect', function(Request $request) {
+    $submitted_content = $request->content;
+    $postContent = $_POST;
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($username !== "remicmacs" || $password !== "prout") {
+        return response(array("error", "Unauthorized user"), 403);
+    }
+    $content = array("token" => "hello");
+    $value = "application/json";
+    //Cookie::queue('token', 'jesuisconnectesisijevousjure', 60);
+    return response($content)->withCookie(new Cookie('token', 'jesuisconnectesisijevousjure', 60));
 });
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
