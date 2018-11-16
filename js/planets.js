@@ -39,7 +39,7 @@ class Planets {
 			,	this.width	* (portrait ? ratio : 1			)
 			,	this.width	* (portrait ? 1 		: ratio	)
 			,	-this.width * (portrait ? 1 		: ratio	)
-			,	-500
+			,	0
 			,	1000
 			);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
@@ -56,6 +56,11 @@ class Planets {
 		this.texturesObjects = [];
 		this.moonsTextures = [];
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+		// this.textureLoader.load("res/images/sky2.jpg", (texture) => {
+		// 	this.skydomeTexture = texture;
+		// 	console.log("skydome texture loaded");
+		// });
 
 		this.textureLoader.load("res/images/planets/saturn_rings.png",
 			(response) => { this.ringTexture = response; }
@@ -138,6 +143,10 @@ class Planets {
 	 */
 	addEverything() {
 		let moonsTexturesIndex = 0;
+
+		// if (this.skydomeTexture != undefined) {
+		// 	this.addSkydomeToScene();
+		// }
 
 		// On crée les planètes
 		for (let index = 0; index < Object.keys(this.json).length; index++) {
@@ -224,6 +233,24 @@ class Planets {
 		this.updateRotations(viewportIsPortrait());
 		this.loaded = true;
 		this.onLoad();
+	}
+
+	/**
+	 *	Add skydome to the scene
+	 */
+	addSkydomeToScene() {
+		//const skyGeo = new THREE.SphereGeometry(50, 25, 25);
+		const skyGeo = new THREE.PlaneGeometry(36, 25, 1, 1);
+		const material = new THREE.MeshBasicMaterial({
+			map: this.skydomeTexture,
+			transparent: true
+		});
+		const sky = new THREE.Mesh(skyGeo, material);
+		//sky.material.side = THREE.BackSide;
+		sky.material.opacity = 0.5;
+		sky.position.z = -150;
+		//sky.rotation.x = Math.PI / 2 - 0.3;
+		this.scene.add(sky);
 	}
 
 	/**
@@ -475,6 +502,7 @@ class Planets {
 		this.depth = 1;
 		this.body = planet;
 		setPlaceholder("searchField", planet.name);
+		setSpan('planetName', planet.name);
 		setSpan('planet-mass', planet.mass);
 		setSpan('planet-diameter', planet.diameter);
 		setSpan('planet-gravity', planet.gravity);
@@ -553,6 +581,7 @@ class Planets {
 		this.depth = 2;
 		this.body = moon;
 		setPlaceholder("searchField", moon.name);
+		setSpan('moonName', moon.name);
 		this.updateRotations(portrait);
 	}
 
@@ -573,8 +602,6 @@ class Planets {
 			} else if (hash === targetname) {
 				// If target is already focused, open information panel
 				window.location.hash = "#" + targetname + "-open";
-				document.getElementById('planetName').innerHTML = targetname;
-				document.getElementById('moonName').innerHTML = targetname;
 			} else {
 				// If target has not been focused before, add hash
 				window.location.hash = "#" + targetname;

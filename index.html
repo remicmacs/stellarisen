@@ -31,7 +31,7 @@
 		<div id="ui">
 
 			<div id="header">
-				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
+				<img src="res/images/logo_256.png" alt="User" id="userImage"/>
 				<input id="searchField" class="light" type="text" placeholder="Rechercher..."/>
 			</div>
 
@@ -133,11 +133,19 @@
 				<div id="close-right" class="close">&#187;</div>
 
 				<div class="panel hidden fade" id="planet-panel">
-					<div class="column">
+					<!--<div class="column">
 						<h1 id="planetName"></h1>
 						<div>Masse : <span id="planet-mass"></span> 10^24kg</div>
 						<div>Diamètre : <span id="planet-diameter"></span> km</div>
 						<div>Gravité : <span id="planet-gravity"></span> (m/s²)</div>
+					</div>-->
+					<div class="column">
+						<h1 id="planetName"></h1>
+						<div class="grid">
+							<span class="one">Masse :</span><span class="second"><span id="planet-mass"></span> 10^24kg</span>
+							<span class="one">Diamètre :</span><span class="second"><span id="planet-diameter"></span> km</span>
+							<span class="one">Gravité : </span><span class="second"><span id="planet-gravity"></span> (m/s²)</span>
+						</div>
 					</div>
 				</div>
 

@@ -6,7 +6,7 @@ console.log("Loading init script");
 const skyScene = new THREE.Scene();
 skyScene.background = new THREE.Color(0x001b44);
 const planetsScene = new THREE.Scene();
-planetsScene.background = new THREE.Color(0x001b44);
+planetsScene.background = new THREE.Color(0x000d21);
 let camera = null;
 
 let scene = null;
@@ -260,6 +260,7 @@ function focusOnMoon(starting, state, moon) {
 	if (state !== null && state === "open") {
 		/*enable('planet-infos-wrapper');
 		enable('planet-infos');*/
+		console.log("Showing moon informations");
 		showMoon();
 	}
 

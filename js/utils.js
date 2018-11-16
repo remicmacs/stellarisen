@@ -242,8 +242,8 @@ function showPlanet() {
 }
 
 function showMoon() {
-  show('planet-panel');
-  hide('moon-panel');
+  show('moon-panel');
+  hide('planet-panel');
 
   showRightModal();
 }

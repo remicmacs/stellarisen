@@ -110,7 +110,7 @@ class SkySphere {
 			this.json = JSON.parse(response);
 		});
 		linksFileLoader.load("res/links.json", (response) => {
-			this.linksJson = JSON.parse(response)
+			this.linksJson = JSON.parse(response);
 		});
 
 		// Launching all resources loaders
@@ -175,8 +175,6 @@ class SkySphere {
 		 */
 		for (let i = 0; i < this.constellationObjects.length; i++) {
 			const constellationName = this.constellationObjects[i].nameObject;
-
-			/* On calcule une distance entre un raycast projeté sur la sphère de 100 unités et l'objet étudié */
 			/*
 			 * Processing the distance between the camera's view raycast on the
 			 * SkySphere and the current object's position.
