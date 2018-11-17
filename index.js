@@ -1,6 +1,9 @@
 //var noSleep = new NoSleep();
 //noSleep.enable();
 
+// MYJWT to store JWT token client-side
+localStorage.setItem("JWT", "");
+
 console.log("Loading init script");
 
 const skyScene = new THREE.Scene();
@@ -46,6 +49,18 @@ document.addEventListener('touchend', onTouchEnd);
 
 // Handler for connection with form
 document.connect.onsubmit = (new ConnectionHandler).connect;
+document.getElementById('test-button').onclick = (event) => {
+	fetch("api/public/connected/tartampion", {
+		method: 'GET',
+		headers: {
+			"Content-Type": "application/json; charset=utf-8",
+			// "Authorization": ("Bearer " + localStorage.getItem("JWT"))
+			// "Content-Type": "application/x-www-form-urlencoded",
+		}
+	}).then(res => res.json())
+	.then(console.log)
+	.catch(console.log);
+};
 
 const events = [
 	['userImage', 'mouseup', openMenu],

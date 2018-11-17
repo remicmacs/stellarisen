@@ -41,7 +41,11 @@ class ConnectionHandler {
     // If code is not 200 => display information in red modal div
     // else make connection window disappear, display username in menu,
     //   and modify menu options to display leaderboards (and account management)
-    .then(response => console.log('Success:', JSON.stringify(response)))
+    .then(response => {
+        console.log('Success:', JSON.stringify(response));
+        localStorage.setItem("JWT", response.JWT);
+      }
+    )
 
     // If this fails, it must be a network error and I frankly don't know what
     //   to do...

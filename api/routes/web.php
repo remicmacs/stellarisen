@@ -15,6 +15,12 @@ use App\Http\Controllers\ConnectionController;
 // Login route
 $router->post('connect', 'ConnectionController@connect');
 
+$router->get('connected/{name}', ['middleware' => 'apiauth', function ($name) {
+    $content = array("message" => "hello $name");
+    return response($content, 200)
+        ->header("Content-type", "application/json");
+}]);
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });

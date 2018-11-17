@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-// To be able to create cookies to attach to response
-use Symfony\Component\HttpFoundation\Cookie;
+use Illuminate\Http\Request;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 
+/**
+ * ConnectionController
+ *
+ * Controller for authentication process
+ */
 class ConnectionController extends Controller
 {
     private $jwt_secret;
@@ -48,6 +52,7 @@ class ConnectionController extends Controller
         if ($username === null || $password === null
             || $username !== "remicmacs" || $password !== "prout"
         ) {
+
             // @TODO
             // User credentials verification should take place here
 
@@ -59,9 +64,9 @@ class ConnectionController extends Controller
         // Must instantiate signer for signature
         $signer = new Sha256();
         // Manage JWT (Javascript Web Token) creation
-        $issuer_url = env("APP_URL");
+        $issuer_url = $_ENV['APP_URL'];
         // Trying to make jti as unique as possible
-        $jti_claim = hash("sha256", $username.$password.(time()));
+        $jti_claim = hash("sha256", $username.(time()));
         $token = (new Builder())
             // iss claim = issuer of the token
             ->setIssuer($issuer_url)
