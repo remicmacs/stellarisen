@@ -43,12 +43,37 @@ document.addEventListener('mouseup', onMouseUp);
 document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
+
+// Handler for connection with form
 document.connect.onsubmit = function(event) {
-	console.log("Clickittyclick");
-	console.log(event);
-	AJAXSubmit(event.currentTarget);
 	event.preventDefault();
-};
+
+	// Recovering form data
+	const data = new FormData(event.target);
+
+	/*
+	// Debug
+	const otherdata = {};
+	for (const pair of new FormData(event.target)) {
+		otherdata[pair[0]] = pair[1];
+	}
+	console.log(otherdata);
+	*/
+
+	// Recovering target URL
+	const url = event.target.action;
+	fetch(url, {
+		method: 'POST',
+		body: data,
+	})
+	// Unpack JSON body
+	.then(res => res.json())
+	// Handle all responses even 403 / 500s etc.
+	.then(response => console.log('Success:', JSON.stringify(response)))
+	// If this fails, it must be a network error
+	.catch(error => console.error("Fatal Error : ", error));
+}
+
 const events = [
 	['userImage', 'mouseup', openMenu],
 	['userImage', 'touchend', openMenu],
