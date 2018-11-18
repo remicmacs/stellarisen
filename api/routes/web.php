@@ -11,6 +11,10 @@
 |
 */
 use App\Http\Controllers\ConnectionController;
+use App\Http\Controllers\RegistrationController;
+
+// Register route
+$router->post('register', 'RegistrationController@register');
 
 // Login route
 $router->post('connect', 'ConnectionController@connect');

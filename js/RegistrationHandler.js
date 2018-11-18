@@ -1,21 +1,5 @@
-/**
- * Class to hold all state and methods for login process
- *
- * @class ConnectionHandler
- */
-class ConnectionHandler extends FormSubmitHandler {
-
-  /**
-   * Event handler for connection form
-   *
-   * Triggered on `submit` event.
-   *
-   * Intercept normal event behaviour and connects the user with AJAX requests
-   *
-   * @param {*} event
-   * @memberof ConnectionHandler
-   */
-  connect() {
+class RegistrationHandler extends FormSubmitHandler{
+  register() {
     fetch(this.url, {
       method: 'POST',
       body: this.data,
@@ -28,7 +12,7 @@ class ConnectionHandler extends FormSubmitHandler {
     // else make connection window disappear, display username in menu,
     //   and modify menu options to display leaderboards (and account management)
     .then(response => {
-        console.log('Authentication success:', JSON.stringify(response));
+        console.log('Registration success:', JSON.stringify(response));
       }
     )
 
@@ -39,9 +23,8 @@ class ConnectionHandler extends FormSubmitHandler {
       console.debug(error);
     });
   }
-
   handle(event){
     super.handle(event);
-    this.connect();
+    this.register();
   }
 }

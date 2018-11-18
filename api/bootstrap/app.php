@@ -82,6 +82,9 @@ $app->routeMiddleware(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+// Registering DAO Provider : enables one singleton DAO to be delivered
+// to classes needing it
+$app->register(App\Providers\DAOServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

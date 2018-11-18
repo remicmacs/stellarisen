@@ -23,7 +23,9 @@
 		<script src="js/Planet.js"></script>
 		<script src="js/Horizon.js"></script>
 		<script src="js/Moon.js"></script>
+		<script src="js/FormSubmitHandler.js"></script>
 		<script src="js/ConnectionHandler.js"></script>
+		<script src="js/RegistrationHandler.js"></script>
 	</head>
 	<body>
 		<div id="threejscanvas">
@@ -78,7 +80,7 @@
 				<div class="panel hidden fade" id="register-panel">
 					<div class="column">
 						<h1 class="f1">Enregistrement</h1>
-						<form action="/register.php" class="column">
+						<form name="register" action="api/public/register" method="post" class="column">
 							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
 							<input name="password" type="password" placeholder="Mot de passe" required></input>
 							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>

@@ -47,8 +47,10 @@ document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
+document.connect.onsubmit = (event) => (new ConnectionHandler).handle(event);
+document.register.onsubmit = (event) => (new RegistrationHandler).handle(event);
+// DEBUG
 // Handler for test connection button
-document.connect.onsubmit = (new ConnectionHandler).connect;
 document.getElementById('test-button').onclick = (event) => {
 	fetch("api/public/connected/tartampion", {
 		method: 'GET',
