@@ -4,6 +4,10 @@
  * @class ConnectionHandler
  */
 class ConnectionHandler extends FormSubmitHandler {
+  constructor(formReference) {
+    super();
+    this.form = formReference;
+  }
 
   /**
    * Event handler for connection form

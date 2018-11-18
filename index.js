@@ -47,8 +47,8 @@ document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-document.connect.onsubmit = (event) => (new ConnectionHandler).handle(event);
-document.register.onsubmit = (event) => (new RegistrationHandler).handle(event);
+document.connect.onsubmit = (event) => (new ConnectionHandler(event.target)).handle(event);
+document.register.onsubmit = (event) => (new RegistrationHandler(event.target)).handle(event);
 // DEBUG
 // Handler for test connection button
 document.getElementById('test-button').onclick = (event) => {
