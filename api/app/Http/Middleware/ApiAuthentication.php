@@ -27,14 +27,9 @@ class ApiAuthentication
      */
     public function handle($request, Closure $next){
         // Recover the Authorization token
-        $data = $request->headers->get('Authorization');
-        if ($data === null) {
-            $this->returnBadTokenResponse();
-        }
+        $jwt = $_COOKIE['access_token'];
 
-
-        // Verify if token is valid
-        $jwt = sscanf($data, "Bearer %s")[0];
+        // Verifying token
         $isvalid = $this->verify($jwt);
         if (!$isvalid) {
             $this->returnBadTokenResponse();
@@ -42,7 +37,9 @@ class ApiAuthentication
 
         $response = $next($request); // Call to next middleware
 
+        // @TODO
         // Adding new JWT
+
         return $response;
     }
 

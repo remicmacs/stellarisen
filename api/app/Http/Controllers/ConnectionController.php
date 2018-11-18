@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * ConnectionController
@@ -94,9 +95,20 @@ class ConnectionController extends Controller
         $token = (string) $token;
 
         // Attaching JWT to response
-        $content = array("JWT" => $token);
-        $value = "application/json";
+        $content = array(
+            "Message" => "JWT correctly set as \"access_token\" cookie"
+        );
+
         return response($content)
+            ->cookie(new Cookie(
+                "access_token",
+                $token,
+                time() + (3600 * 24 * 7),
+                '/',
+                null,
+                false, // set to true once in production (for HTTPS)
+                true
+            ))
             ->header("Content-type", "application/json");
     }
 }

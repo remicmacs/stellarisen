@@ -47,15 +47,13 @@ document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-// Handler for connection with form
+// Handler for test connection button
 document.connect.onsubmit = (new ConnectionHandler).connect;
 document.getElementById('test-button').onclick = (event) => {
 	fetch("api/public/connected/tartampion", {
 		method: 'GET',
 		headers: {
 			"Content-Type": "application/json; charset=utf-8",
-			// "Authorization": ("Bearer " + localStorage.getItem("JWT"))
-			// "Content-Type": "application/x-www-form-urlencoded",
 		}
 	}).then(res => res.json())
 	.then(console.log)

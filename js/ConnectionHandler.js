@@ -37,13 +37,13 @@ class ConnectionHandler {
     })
     // Unpack JSON body
     .then(res => res.json())
+
     // Handle all responses even 403 / 401 / 500s etc.
     // If code is not 200 => display information in red modal div
     // else make connection window disappear, display username in menu,
     //   and modify menu options to display leaderboards (and account management)
     .then(response => {
-        console.log('Success:', JSON.stringify(response));
-        localStorage.setItem("JWT", response.JWT);
+        console.log('Authentication success:', JSON.stringify(response));
       }
     )
 
