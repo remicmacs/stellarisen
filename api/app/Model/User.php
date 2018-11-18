@@ -4,30 +4,30 @@ namespace App\Model;
 
 class User {
   private $username;
-  private $email;
   private $hash;
+  private $userId;
+
+  public function getUserId() :int {
+    return $this->userId;
+  }
 
   public function getUsername() :string {
     return $this->username;
-  }
-
-  public function getEmail() :string {
-    return $this->email;
   }
 
   public function getHash() :string {
     return $this->hash;
   }
 
-  private function setUsername(string $username) {
+  public function setUsername(string $username) {
     $this->username = $username;
   }
 
-  private function setEmail(string $email) {
-    $this->email = $email;
+  public function setHash(string $hash) {
+    $this->hash = $hash;
   }
 
-  private function setHash(string $hash) {
-    $this->hash = $hash;
+  public function setUserId(int $userId) {
+    $this->userId = $userId;
   }
 }

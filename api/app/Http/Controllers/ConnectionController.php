@@ -42,11 +42,7 @@ class ConnectionController extends Controller
             INPUT_POST, 'username',
             FILTER_SANITIZE_FULL_SPECIAL_CHARS
         );
-        $password = filter_input(
-            INPUT_POST,
-            'password',
-            FILTER_SANITIZE_FULL_SPECIAL_CHARS
-        );
+        $password = (!empty($_POST['password']) ? $_POST['password'] : null);
 
         // If any of the vars is null, it means it was not set in $_POST
         // superglobal variable upon receiving request.
@@ -58,8 +54,7 @@ class ConnectionController extends Controller
             // User credentials verification should take place here
 
             // Add a message to display in modal window
-            return response(array("error", "Authentication failure"), 401)
-                ->header("Content-type", "application/json");
+            return response(array("error", "Authentication failure"), 401);
         }
 
         // Must instantiate signer for signature
@@ -96,19 +91,21 @@ class ConnectionController extends Controller
 
         // Attaching JWT to response
         $content = array(
-            "Message" => "JWT correctly set as \"access_token\" cookie"
+            "Message" => 'JWT correctly set as "access_token" cookie'
         );
 
         return response($content)
             ->cookie(new Cookie(
                 "access_token",
                 $token,
-                time() + (3600 * 24 * 7),
+                // no point in keeping the cookie longer than the validity of
+                // the JWT it holds
+                time() + 3600,
                 '/',
                 null,
-                false, // set to true once in production (for HTTPS)
+                // set to true once in production (for secure HTTPS cookie)
+                false,
                 true
             ));
-            //->header("Content-type", "application/json");
     }
 }

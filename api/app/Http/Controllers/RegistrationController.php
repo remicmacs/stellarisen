@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\UserDAO;
+use App\Model\User;
 use Illuminate\Http\Request;
 
 
@@ -43,18 +44,53 @@ class RegistrationController extends Controller {
           );
 
           return response($content, 400);
-            //->header("Content-type", "application/json");
       }
 
       $hash = \password_hash($password, PASSWORD_BCRYPT);
 
       // Instantiate user and save to db
+      $user = new User();
+      $user->setUsername($username);
+      $user->setHash($hash);
+
+      try {
+        $user = $this->userDAO->insertUser($user);
+
+      // Catching error inserting in database
+      } catch (\Illuminate\Database\QueryException $e) {
+        // Test if integrity constraint violation or not
+        $haystack = $e->getMessage();
+        $needle = "Integrity constraint violation";
+        if (strpos($haystack, $needle) !== false) {
+          $content = array(
+            "registrationError" =>
+            "Username already taken, please try another"
+          );
+
+          $statusCode = 400;
+
+        } else {
+          $content = array(
+            "registrationFailure" =>
+            "Unidentified failure.".
+            "Database might be unavailable, please contact the webmaster"
+          );
+
+          $statusCode = 500;
+        }
+
+        return response($content, $statusCode);
+      }
 
       // Create JWT and add to cookie
 
-      $content = array("hash" => $hash, "length" => strlen($hash));
+      $userId = $user->getUserId();
+
+      $content = array("userId:" => $userId,
+        "registrationSuccess" =>
+          "New user correctly inserted in database with userId ".$userId
+      );
 
       return response($content);
-        //->header("Content-type", "application/json");
   }
 }
