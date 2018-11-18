@@ -23,18 +23,28 @@ class RegistrationController extends Controller {
 
       // Control user already exists
 
-      $password = filter_input(
-        INPUT_POST,
-        'password',
-        FILTER_SANITIZE_FULL_SPECIAL_CHARS
-      );
-      $repassword = filter_input(
-        INPUT_POST,
-        'repassword',
-        FILTER_SANITIZE_FULL_SPECIAL_CHARS
+      $password = (!empty($_POST['password']) ? $_POST['password'] : null);
+      $repassword = (
+        !empty($_POST['repassword'])
+        ? $_POST['repassword']
+        : null
       );
 
       // Control user password matches
+
+      if (
+        $password === null
+        || $repassword === null
+        || $password !== $repassword
+      ) {
+          $content = array(
+            "registrationError" =>
+            "Password and confirmation do not match, please try again"
+          );
+
+          return response($content, 400);
+            //->header("Content-type", "application/json");
+      }
 
       $hash = \password_hash($password, PASSWORD_BCRYPT);
 
@@ -44,7 +54,7 @@ class RegistrationController extends Controller {
 
       $content = array("hash" => $hash, "length" => strlen($hash));
 
-      return response($content)
-      ->header("Content-type", "application/json");
+      return response($content);
+        //->header("Content-type", "application/json");
   }
 }

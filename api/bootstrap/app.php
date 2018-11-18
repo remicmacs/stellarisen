@@ -64,7 +64,11 @@ $app->singleton(
 //$app->middleware([App\Http\Middleware\ApiAuthentication::class]);
 
 $app->routeMiddleware(
-    ['apiauth' => App\Http\Middleware\ApiAuthentication::class]
+    [
+        'apiauth' => App\Http\Middleware\ApiAuthentication::class,
+        'jsoncontent' =>
+            App\Http\Middleware\ContentApplicationJSONMiddleware::class
+    ]
 );
 
 /*

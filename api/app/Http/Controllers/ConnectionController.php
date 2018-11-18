@@ -108,7 +108,7 @@ class ConnectionController extends Controller
                 null,
                 false, // set to true once in production (for HTTPS)
                 true
-            ))
-            ->header("Content-type", "application/json");
+            ));
+            //->header("Content-type", "application/json");
     }
 }
