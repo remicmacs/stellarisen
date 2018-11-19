@@ -21,10 +21,11 @@ class UserDAO implements DAO {
   }
 
   public function getById(string $id) {
-    $user = new User();
-    $rows = app('db')->table('users')->where('userid', (int) $id)->get();
+    $row = app('db')->table('users')->where('userid', (int) $id)->get()
+      ->first();
 
-    return $user;
+
+    return $this->hydrate($row);
   }
 
   /**
@@ -35,7 +36,6 @@ class UserDAO implements DAO {
    * @return User
    */
   public function getByUsername(string $username):User {
-    $user = new User();
     $rows = app('db')->table('users')->where('username', $username)->get();
     if($rows->isEmpty()) throw new NoSuchUserException(
       "User '".$username."' does not exist. Would you like to register ?"
@@ -43,6 +43,13 @@ class UserDAO implements DAO {
 
     $row = $rows->first();
 
+    $user = $this->hydrate($row);
+
+    return $user;
+  }
+
+  private function hydrate($row) {
+    $user = new User();
     $username = $row->username;
     $userid = $row->userid;
     $hash = $row->hash;
@@ -50,12 +57,6 @@ class UserDAO implements DAO {
     $user->setUserId($userid);
     $user->setUsername($username);
     $user->setHash($hash);
-
-
-    /*
-    foreach($rows as $user) {
-      $username2 = $user->name;
-    }*/
 
     return $user;
   }
