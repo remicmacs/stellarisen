@@ -8,6 +8,8 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use App\Exception\NoSuchUserException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -43,8 +45,17 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
-    {
+    public function render($request, Exception $exception) {
+        if ($exception instanceof \App\Exceptions\NoSuchUserException
+            || $exception
+                instanceof \App\Exceptions\AuthenticationFailureException
+        ) {
+            $message = $exception->getMessage();
+            return response(array(
+                "authenticationError" => $message
+            ), 401)
+                ->header('Content-type', 'application/json');
+        }
         return parent::render($request, $exception);
     }
 }

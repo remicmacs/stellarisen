@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Symfony\Component\HttpFoundation\Cookie;
+use App\Model\UserDAO;
+use App\Model\User;
+use App\Exceptions\AuthenticationFailureException;
+
 
 /**
  * ConnectionController
@@ -15,19 +19,23 @@ use Symfony\Component\HttpFoundation\Cookie;
 class ConnectionController extends Controller
 {
     private $jwt_secret;
+    private $userDAO;
+
+
     /**
-     * Create a new controller instance.
+     * Construtor for ConnectionController
      *
-     * @TODO: dependancy injection on UserRepository object
+     * Injects DAO object
      *
-     * @return void
+     * @param UserDAO $userDAO
      */
-    public function __construct()
+    public function __construct(UserDAO $userDAO)
     {
         // Recover config values
         $this->jwt_secret = env("JWT_SECRET");
 
-        // Maybe DI of Repository object
+        // DI of Repository object
+        $this->userDAO = $userDAO;
     }
 
     /**
@@ -46,17 +54,16 @@ class ConnectionController extends Controller
 
         // If any of the vars is null, it means it was not set in $_POST
         // superglobal variable upon receiving request.
-        if ($username === null || $password === null
-            || $username !== "remicmacs" || $password !== "prout"
-        ) {
-
-            // @TODO
-            // User credentials verification should take place here
-
+        if ($username === null || $password === null) {
             // Add a message to display in modal window
-            return response(array("error", "Authentication failure"), 401);
+            //return response(array("error" =>"Authentication failure"), 401);
+            throw new AuthenticationFailureException(
+                "Authentication failure : missing credentials"
+            );
         }
 
+                // User credentials verification should take place here
+                $user = $this->userDAO->getByUsername($username);
         // Must instantiate signer for signature
         $signer = new Sha256();
         // Manage JWT (Javascript Web Token) creation
@@ -78,7 +85,8 @@ class ConnectionController extends Controller
             // exp claim = timestamp for expiration time
             ->setExpiration(time() + 3600)
             // Set uid to avoid to recover uid every time in database
-            ->set('uid', 1)
+            // recover userid from user object
+            ->set('userid', 1)
             // Signing the JWT
             ->sign($signer, $this->jwt_secret)
             // Retrieves the generated token
