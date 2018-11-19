@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Symfony\Component\HttpFoundation\Cookie;
-use App\Model\UserDAO;
-use App\Model\User;
+use Symfony\Component\HttpFoundation\Cookie; // To add a cookie to headers
+use App\Model\UserDAO; // Repository object to access Users in database
 use App\Exceptions\AuthenticationFailureException;
+use App\Factories\JWTFactory; // To build a JWT to attach to response
 
 
 /**
@@ -18,24 +14,21 @@ use App\Exceptions\AuthenticationFailureException;
  */
 class ConnectionController extends Controller
 {
-    private $jwt_secret;
     private $userDAO;
-
+    private $JWTFactory;
 
     /**
-     * Construtor for ConnectionController
+     * Constructor for ConnectionController
      *
-     * Injects DAO object
+     * Injects DAO object and JWTFactory
      *
      * @param UserDAO $userDAO
      */
-    public function __construct(UserDAO $userDAO)
-    {
-        // Recover config values
-        $this->jwt_secret = env("JWT_SECRET");
-
+    public function __construct(UserDAO $userDAO, JWTFactory $JWTFactory){
         // DI of Repository object
         $this->userDAO = $userDAO;
+
+        $this->JWTFactory = $JWTFactory;
     }
 
     /**
@@ -44,6 +37,7 @@ class ConnectionController extends Controller
      * @return Illuminate\Http\Response
      */
     public function connect() {
+        // Recover form data
         // Sometimes, $_POST is unset, if the connection does not come from
         // dedicated web app.
         $username = filter_input(
@@ -55,65 +49,44 @@ class ConnectionController extends Controller
         // If any of the vars is null, it means it was not set in $_POST
         // superglobal variable upon receiving request.
         if ($username === null || $password === null) {
-            // Add a message to display in modal window
-            //return response(array("error" =>"Authentication failure"), 401);
             throw new AuthenticationFailureException(
                 "Authentication failure : missing credentials"
             );
         }
 
-                // User credentials verification should take place here
-                $user = $this->userDAO->getByUsername($username);
-        // Must instantiate signer for signature
-        $signer = new Sha256();
-        // Manage JWT (Javascript Web Token) creation
-        $issuer_url = $_ENV['APP_URL'];
-        // Trying to make jti as unique as possible
-        $jti_claim = hash("sha256", $username.(time()));
-        $token = (new Builder())
-            // iss claim = issuer of the token
-            ->setIssuer($issuer_url)
-            // aud claim = target audience for the token
-            ->setAudience($issuer_url)
-            // jti claim = unique id that will not have hash collision with
-            //    another generated JWT
-            ->setId($jti_claim, true)
-            // iat claim = timestamp when the JWT has been generated
-            ->setIssuedAt(time())
-            // nbf claim = timestamp of the beginning of the JWT validity period
-            ->setNotBefore(time() + 1)
-            // exp claim = timestamp for expiration time
-            ->setExpiration(time() + 3600)
-            // Set uid to avoid to recover uid every time in database
-            // recover userid from user object
-            ->set('userid', 1)
-            // Signing the JWT
-            ->sign($signer, $this->jwt_secret)
-            // Retrieves the generated token
-            ->getToken();
+        // User credentials verification
+        $user = $this->userDAO->getByUsername($username);
+        if(!password_verify($password, $user->getHash())) {
+            throw new AuthenticationFailureException(
+                "Authentication failure : bad password"
+            );
+        }
 
-        // Forcing token to be in string value
-        // __tostring() magin method of Token encodes in base64 and concatenates
-        // every three part of JWT (headers.claims.signature)
-        $token = (string) $token;
+        // Recovering a JWT
+        $token = $this->JWTFactory->getToken($user);
 
         // Attaching JWT to response
         $content = array(
             "Message" => 'JWT correctly set as "access_token" cookie'
         );
 
+        // Send response with token in cookie
         return response($content)
-            ->cookie(new Cookie(
-                "access_token",
-                $token,
-                // no point in keeping the cookie longer than the validity of
-                // the JWT it holds
-                time() + 3600,
-                '/',
-                null,
-                // set to true once in production (for secure HTTPS cookie)
-                false,
-                true
-            ));
+            ->cookie(
+                new Cookie(
+                    "access_token",
+                    $token,
+                    // no point in keeping the cookie longer than the validity
+                    //   of the JWT it holds
+                    time() + 3600,
+                    '/',
+                    null,
+                    // Secure flag
+                    // set to true once in production (for secure HTTPS cookie)
+                    false,
+                    // HttpOnly flag : forbids the JS to access the token
+                    true
+                )
+            );
     }
 }

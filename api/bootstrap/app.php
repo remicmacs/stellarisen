@@ -89,6 +89,12 @@ $app->routeMiddleware(
 // Registering DAO Provider : enables one singleton DAO to be delivered
 // to classes needing it
 $app->register(App\Providers\DAOServiceProvider::class);
+// Registering provider for JWT things
+$app->register(App\Providers\JWTBuilderProvider::class);
+$app->register(App\Providers\JWTSignerProvider::class);
+$app->register(App\Providers\JWTFactoryProvider::class);
+
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
