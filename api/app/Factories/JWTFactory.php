@@ -40,6 +40,7 @@ class JWTFactory {
   public function getToken(User $user) :string {
     // Trying to make jti as unique as possible
     $jti_claim = hash("sha256", $user->getUsername().(time()));
+
     $token = $this->builder
         // jti claim = unique id that will not have hash collision with
         //    another generated JWT

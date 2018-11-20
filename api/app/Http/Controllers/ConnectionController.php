@@ -25,9 +25,10 @@ class ConnectionController extends Controller
      * @param UserDAO $userDAO
      */
     public function __construct(UserDAO $userDAO, JWTFactory $JWTFactory){
-        // DI of Repository object
+        // DI of Repository object for database access
         $this->userDAO = $userDAO;
 
+        // DI of JWTFactory to provide JWT
         $this->JWTFactory = $JWTFactory;
     }
 
@@ -62,10 +63,10 @@ class ConnectionController extends Controller
             );
         }
 
-        // Recovering a JWT
+        // Creating a JWT
         $token = $this->JWTFactory->getToken($user);
 
-        // Attaching JWT to response
+        // @TODO: change success message
         $content = array(
             "Message" => 'JWT correctly set as "access_token" cookie'
         );

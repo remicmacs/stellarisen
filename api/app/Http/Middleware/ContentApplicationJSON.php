@@ -3,7 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+/**
+ * Middleware just adding header "Content-type : application/json" to all
+ * outgoing responses
+ */
 class ContentApplicationJSONMiddleware
 {
     /**

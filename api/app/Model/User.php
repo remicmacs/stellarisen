@@ -2,11 +2,15 @@
 
 namespace App\Model;
 
+/**
+ * Represent the application User's data
+ */
 class User {
   private $username;
   private $hash;
   private $userId;
 
+  // Getters
   public function getUserId() :int {
     return $this->userId;
   }
@@ -19,6 +23,7 @@ class User {
     return $this->hash;
   }
 
+  // Setters
   public function setUsername(string $username) {
     $this->username = $username;
   }
