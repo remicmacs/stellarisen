@@ -22,8 +22,8 @@ use Closure;
  */
 class ApiAuthentication
 {
-    private $parser;
-    private $signer;
+    private $parser;    // Token parser
+    private $signer;    // Token signer
     private $userDAO;
     private $JWTFactory;
     private $oldToken;
@@ -49,13 +49,14 @@ class ApiAuthentication
     public function handle($request, Closure $next){
         // Recover the Authorization token
         $jwt = $_COOKIE['access_token'];
+
         // Parse JWT string into a new token object
         $this->oldToken = $this->parser->parse((string) $jwt);
 
         // Verifying token
         $isvalid = $this->verify();
         if (!$isvalid) {
-            $this->returnBadTokenResponse();
+            return $this->returnBadTokenResponse();
         }
 
         $response = $next($request); // Call to next middleware
@@ -63,7 +64,6 @@ class ApiAuthentication
         // Recover userid in token
         $userid = $this->oldToken->getClaim("userid");
         $user = $this->userDAO->getById($userid);
-
 
         // Adding new JWT
         $token = $this->JWTFactory->getToken($user);
@@ -105,9 +105,6 @@ class ApiAuthentication
         // Validate the parsed token against validation data
         $validated = $this->oldToken->validate($validationData);
 
-        // Instantiate signer for signature verification
-        //$signer = new Sha256();
-
         // Perform verification & return boolean value
         return ($validated && $this->oldToken
             ->verify($this->signer, $jwt_secret)
@@ -117,6 +114,5 @@ class ApiAuthentication
     private function returnBadTokenResponse(){
         $content = array("Error" => "Bad token");
         return response($content, 401);
-            //->header("Content-type", "application/json");
     }
 }
