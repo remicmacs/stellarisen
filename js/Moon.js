@@ -1,5 +1,5 @@
 class Moon {
-  constructor(texture, distance, radius, name, offset, tilt, retrograde) {
+  constructor(texture, distance, radius, name, offset, tilt, retrograde, data) {
     this.texture = texture;
     this.distance = distance;
     this.radius = radius;
@@ -8,6 +8,10 @@ class Moon {
     this.tilt = -THREE.Math.degToRad(tilt);
     this.retrograde = retrograde;
     this.hidden = true;
+
+    this.mass = data.mass;
+    this.mass_exposant = data.mass_exposant
+    this.dimensions = data.dimensions;
 
     // Creating 3D geometry
     this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);

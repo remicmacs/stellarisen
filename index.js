@@ -9,7 +9,7 @@ console.log("Loading init script");
 const skyScene = new THREE.Scene();
 skyScene.background = new THREE.Color(0x001b44);
 const planetsScene = new THREE.Scene();
-planetsScene.background = new THREE.Color(0x001b44);
+planetsScene.background = new THREE.Color(0x000d21);
 let camera = null;
 
 let scene = null;
@@ -53,6 +53,7 @@ document.connect.onsubmit = (event) => (new ConnectionHandler(event.target, toas
 document.register.onsubmit = (event) => (new RegistrationHandler(event.target)).handle(event);
 // DEBUG
 // Handler for test connection button
+/*
 document.getElementById('test-button').onclick = (event) => {
 	fetch("api/public/connected/tartampion", {
 		method: 'GET',
@@ -63,6 +64,7 @@ document.getElementById('test-button').onclick = (event) => {
 	.then(console.log)
 	.catch(console.log);
 };
+*/
 
 const events = [
 	['userImage', 'mouseup', openMenu],
@@ -280,6 +282,7 @@ function focusOnMoon(starting, state, moon) {
 	if (state !== null && state === "open") {
 		/*enable('planet-infos-wrapper');
 		enable('planet-infos');*/
+		console.log("Showing moon informations");
 		showMoon();
 	}
 

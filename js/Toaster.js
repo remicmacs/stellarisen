@@ -39,6 +39,7 @@ class Toaster {
       "white",
       "br3",
       "mv0",
+      "mh3",
       "pv2",
       "ph3",
       "shadow-5"

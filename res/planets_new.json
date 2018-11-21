@@ -14,7 +14,10 @@
         "diameter": "4879",
         "gravity": "3.7",
         "daylength": "4222.6",
-        "yearlength": "88.0"
+        "yearlength": "88.0",
+        "meantemp": "167",
+        "perihelion": "46.0",
+        "aphelion": "69.8"
     },
     "Venus": {
         "texture": "res/images/planets/venus.png",
@@ -25,7 +28,10 @@
         "diameter": "12.104",
         "gravity": "8.9",
         "daylength": "2802.0",
-        "yearlength": "224.7"
+        "yearlength": "224.7",
+        "meantemp": "464",
+        "perihelion": "107.5",
+        "aphelion": "108.9"
     },
     "Terre": {
         "texture": "res/images/planets/earth.png",
@@ -37,14 +43,20 @@
                 "texture": "res/images/moons/moon.png",
                 "distance": -3,
                 "radius": 0.27,
-                "tilt": 5.145
+                "tilt": 5.145,
+                "mass": 734.6,
+                "mass_exposant": 20,
+                "diameter": "3472 km x 3476.2 km x 3472 km"
             }
         },
         "mass": "5.97",
         "diameter": "12.756",
         "gravity": "9.8",
         "daylength": "24.0",
-        "yearlength": "365.2"
+        "yearlength": "365.2",
+        "meantemp": "15",
+        "perihelion": "147.1",
+        "aphelion": "152.1"
     },
     "Mars": {
         "texture": "res/images/planets/mars.png",
@@ -56,20 +68,29 @@
                 "texture": "res/images/moons/phobos.png",
                 "distance": -1.5,
                 "radius": 0.15,
-                "tilt": 1.08
+                "tilt": 1.08,
+                "mass": 10.6,
+                "mass_exposant": 15,
+                "diameter": "26 km x 22.8 km x 18.4 km"
             },
             "Deimos": {
                 "texture": "res/images/moons/deimos.png",
                 "distance": -2,
                 "radius": 0.15,
-                "tilt": 1.79
+                "tilt": 1.79,
+                "mass": 2.4,
+                "mass_exposant": 15,
+                "diameter": "15.6 km x 12 km x 10.2 km"
             }
         },
         "mass": "0.642",
         "diameter": "6792",
         "gravity": "3.7",
         "daylength": "24.7",
-        "yearlength": "687.0"
+        "yearlength": "687.0",
+        "meantemp": "-65",
+        "perihelion": "206.6",
+        "aphelion": "249.2"
     },
     "Jupiter": {
         "texture": "res/images/planets/jupiter.png",
@@ -81,32 +102,47 @@
                 "texture": "res/images/moons/io.png",
                 "distance": -3,
                 "radius": 0.15,
-                "tilt": 0.04
+                "tilt": 0.04,
+                "mass": 893.2,
+                "mass_exposant": 20,
+                "diameter": "3643 km x 3643 km x 3643 km"
             },
             "Europe": {
                 "texture": "res/images/moons/europa.png",
                 "distance": -4,
                 "radius": 0.15,
-                "tilt": 0.47
-            },
-            "Callisto": {
-                "texture": "res/images/moons/callisto.png",
-                "distance": -5,
-                "radius": 0.15,
-                "tilt": 0.19
+                "tilt": 0.47,
+                "mass": 480.0,
+                "mass_exposant": 20,
+                "diameter": "3121.6 km x 3121.6 km x 3121.6 km"
             },
             "Ganymede": {
                 "texture": "res/images/moons/ganymede.png",
                 "distance": -6,
                 "radius": 0.15,
-                "tilt": 0.18
+                "tilt": 0.18,
+                "mass": 1481.9,
+                "mass_exposant": 20,
+                "diameter": "5262.4 km x 5262.4 km x 5262.4 km"
+            },
+            "Callisto": {
+                "texture": "res/images/moons/callisto.png",
+                "distance": -5,
+                "radius": 0.15,
+                "tilt": 0.19,
+                "mass": 1075.9,
+                "mass_exposant": 20,
+                "diameter": "4820.6 km x 4820.6 km x 4820.6 km"
             }
         },
         "mass": "1898",
         "diameter": "142.984",
         "gravity": "23.1",
         "daylength": "9.9",
-        "yearlength": "4331"
+        "yearlength": "4331",
+        "meantemp": "-110",
+        "perihelion": "740.5",
+        "aphelion": "816.6"
     },
     "Saturne": {
         "texture": "res/images/planets/saturn.png",
@@ -118,56 +154,83 @@
                 "texture": "res/images/moons/mimas.png",
                 "distance": -3,
                 "radius": 0.15,
-                "tilt": 1.53
+                "tilt": 1.53,
+                "mass": 0.379,
+                "mass_exposant": 20,
+                "diameter": "416 km x 394 km x 382 km"
             },
             "Encelade": {
                 "texture": "res/images/moons/enceladus.png",
                 "distance": -3.4,
                 "radius": 0.15,
-                "tilt": 0
+                "tilt": 0,
+                "mass": 1.08,
+                "mass_exposant": 20,
+                "diameter": "514 km x 502 km x 496 km"
             },
-            "Thetys": {
+            "Tethys": {
                 "texture": "res/images/moons/tethys.png",
                 "distance": -3.8,
                 "radius": 0.15,
-                "tilt": 1.86
+                "tilt": 1.86,
+                "mass": 6.18,
+                "mass_exposant": 20,
+                "diameter": "1076 km x 1056 km x 1052 km"
             },
             "Dione": {
                 "texture": "res/images/moons/dione.png",
                 "distance": -4.2,
                 "radius": 0.15,
-                "tilt": 0.02
+                "tilt": 0.02,
+                "mass": 11.0,
+                "mass_exposant": 20,
+                "diameter": "1126 km x 1122 km x 1120 km"
             },
             "Rhea": {
                 "texture": "res/images/moons/rhea.png",
                 "distance": -4.6,
                 "radius": 0.15,
-                "tilt": 0.35
+                "tilt": 0.35,
+                "mass": 23.1,
+                "mass_exposant": 20,
+                "diameter": "1530 km x 1526 km x 1524 km"
             },
             "Titan": {
                 "texture": "res/images/moons/titan.png",
                 "distance": -5,
                 "radius": 0.15,
-                "tilt": 0.33
+                "tilt": 0.33,
+                "mass": 1345.5,
+                "mass_exposant": 20,
+                "diameter": "5150 km x 5150 km x 5150 km"
             },
             "Hyperion": {
                 "texture": "res/images/moons/hyperion.png",
                 "distance": -5.4,
                 "radius": 0.15,
-                "tilt": 0.43
+                "tilt": 0.43,
+                "mass": 0.056,
+                "mass_exposant": 20,
+                "diameter": "360 km x 266 km x 206 km"
             },
             "Japet": {
                 "texture": "res/images/moons/iapetus.png",
                 "distance": -5.8,
                 "radius": 0.15,
-                "tilt": 14.72
+                "tilt": 14.72,
+                "mass": 18.1,
+                "mass_exposant": 20,
+                "diameter": "1492 km x 1492 km x 1424 km"
             }
         },
         "mass": "568",
         "diameter": "120.536",
         "gravity": "9.0",
         "daylength": "10.7",
-        "yearlength": "10.747"
+        "yearlength": "10.747",
+        "meantemp": "-140",
+        "perihelion": "1352.6",
+        "aphelion": "1514.5"
     },
     "Uranus": {
         "texture": "res/images/planets/uranus.png",
@@ -179,38 +242,56 @@
                 "texture": "res/images/moons/ariel.png",
                 "distance": -2.5,
                 "radius": 0.15,
-                "tilt": 0.04
+                "tilt": 0.04,
+                "mass": 12.9,
+                "mass_exposant": 20,
+                "diameter": "1162.2 km x 1155.8 km x 1155.4 km"
             },
             "Umbriel": {
                 "texture": "res/images/moons/umbriel.png",
                 "distance": -3,
                 "radius": 0.15,
-                "tilt": 0.13
+                "tilt": 0.13,
+                "mass": 12.2,
+                "mass_exposant": 20,
+                "diameter": "1169.4 km x 1169.4 km x 1169.4 km"
             },
             "Titania": {
                 "texture": "res/images/moons/titania.png",
                 "distance": -3.5,
                 "radius": 0.15,
-                "tilt": 0.08
+                "tilt": 0.08,
+                "mass": 34.2,
+                "mass_exposant": 20,
+                "diameter": "1577.8 km x 1577.8 km x 1577.8 km"
             },
             "Oberon": {
                 "texture": "res/images/moons/oberon.png",
                 "distance": -4,
                 "radius": 0.15,
-                "tilt": 0.07
+                "tilt": 0.07,
+                "mass": 28.8,
+                "mass_exposant": 20,
+                "diameter": "1522.8 km x 1522.8 km x 1522.8 km"
             },
             "Miranda": {
                 "texture": "res/images/moons/miranda.png",
                 "distance": -4.5,
                 "radius": 0.15,
-                "tilt": 4.34
+                "tilt": 4.34,
+                "mass": 0.66,
+                "mass_exposant": 20,
+                "diameter": "480 km x 468.4 km x 465.8 km"
             }
         },
         "mass": "86.8",
         "diameter": "51.118",
         "gravity": "8.7",
         "daylength": "17.2",
-        "yearlength": "30.589"
+        "yearlength": "30.589",
+        "meantemp": "-195",
+        "perihelion": "2741.3",
+        "aphelion": "3003.6"
     },
     "Neptune": {
         "texture": "res/images/planets/neptune.png",
@@ -223,13 +304,19 @@
                 "distance": -3.5,
                 "radius": 0.15,
                 "tilt": 157.345,
-                "retrograde": true
+                "retrograde": true,
+                "mass": 214.0,
+                "mass_exposant": 20,
+                "diameter": "2706.8 km x 2706.8 km x 2706.8 km"
             }
         },
         "mass": "102",
         "diameter": "49.528",
         "gravity": "11.0",
         "daylength": "16.1",
-        "yearlength": "59.8"
+        "yearlength": "59.8",
+        "meantemp": "-200",
+        "perihelion": "4444.5",
+        "aphelion": "4545.7"
     }
 }
