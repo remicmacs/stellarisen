@@ -183,6 +183,12 @@ class Planets {
 			for (let moonIndex = 0; moonIndex < Object.keys(planetJson["moons"]).length; moonIndex++) {
 				let moonJson = planetJson["moons"][Object.keys(planetJson["moons"])[moonIndex]];
 
+				data =
+					{	"mass": moonJson["mass"]
+					, "mass_exposant": moonJson["mass_exposant"]
+					, "dimensions": moonJson["diameter"]
+					};
+
 				let moon = new Moon
 					(	this.moonsTextures[moonsTexturesIndex]
 					,	moonJson["distance"]
@@ -191,6 +197,7 @@ class Planets {
 					, planet.mesh.position
 					, moonJson["tilt"]
 					, moonJson["retrograde"]
+					, data
 					);
 				moon.mesh.rotation.z = THREE.Math.degToRad(moonJson["tilt"]);
 				this.scene.add(moon.mesh);
@@ -592,6 +599,9 @@ class Planets {
 		this.body = moon;
 		setPlaceholder("searchField", moon.name);
 		setSpan('moonName', moon.name);
+		setSpan('moon-mass', moon.mass);
+		setSpan('moon-mass-exposant', moon.mass_exposant);
+		setSpan('moon-dimensions', moon.dimensions);
 		this.updateRotations(portrait);
 	}
 

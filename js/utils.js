@@ -111,7 +111,9 @@ function unselect(id) {
 
 function setSpan(id, content) {
   const element = document.getElementById(id);
-  element.innerHTML = content;
+  if (element != null) {
+    element.innerHTML = content;
+  }
 }
 
 function setImgSrc(id, src) {
