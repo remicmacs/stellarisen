@@ -25,6 +25,11 @@ class Planet {
 		this.mass = data.mass;
 		this.diameter = data.diameter;
 		this.gravity = data.gravity
+		this.daylength = data.daylength;
+		this.yearlength = data.yearlength;
+		this.aphelion = data.aphelion;
+		this.perihelion = data.perihelion;
+		this.meantemp = data.meantemp;
 
 		this.moons = [];
 

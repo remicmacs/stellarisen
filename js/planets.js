@@ -155,6 +155,11 @@ class Planets {
 				{	"mass": planetJson["mass"]
 				, "diameter": planetJson["diameter"]
 				, "gravity": planetJson["gravity"]
+				, "daylength": planetJson["daylength"]
+				, "yearlength": planetJson["yearlength"]
+				, "aphelion": planetJson["aphelion"]
+				, "perihelion": planetJson["perihelion"]
+				, "meantemp": planetJson["meantemp"]
 				};
 			let planet = new Planet
 				(	this.texturesObjects[index]
@@ -246,9 +251,9 @@ class Planets {
 			transparent: true
 		});
 		const sky = new THREE.Mesh(skyGeo, material);
-		//sky.material.side = THREE.BackSide;
+		sky.material.side = THREE.BackSide;
 		sky.material.opacity = 0.5;
-		sky.position.z = -150;
+		// sky.position.z = -150;
 		//sky.rotation.x = Math.PI / 2 - 0.3;
 		this.scene.add(sky);
 	}
@@ -506,6 +511,11 @@ class Planets {
 		setSpan('planet-mass', planet.mass);
 		setSpan('planet-diameter', planet.diameter);
 		setSpan('planet-gravity', planet.gravity);
+		setSpan('planet-daylength', planet.daylength);
+		setSpan('planet-yearlength', planet.yearlength);
+		setSpan('planet-aphelion', planet.aphelion);
+		setSpan('planet-perihelion', planet.perihelion);
+		setSpan('planet-meantemp', planet.meantemp);
 		this.updateRotations(portrait);
 	}
 
