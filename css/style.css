@@ -1,5 +1,7 @@
 :root {
 	--error-red:#ff4136;
+	--success-green: #19a974;
+	--information-blue: #357edd;
 }
 
 .b--error-red {
@@ -8,6 +10,22 @@
 
 .bg-error-red {
 	background-color: var(--error-red);
+}
+
+.b--success-green {
+	border-color: var(--success-green);
+}
+
+.bg-success-green {
+	background-color: var(--success-green);
+}
+
+.b--information-blue {
+	border-color: var(--information-blue);
+}
+
+.bg-information-blue {
+	background-color: var(--information-blue);
 }
 
 body {

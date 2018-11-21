@@ -1,55 +1,67 @@
+/**
+ * Class to build and attach toast messages
+ *
+ * @class Toaster
+ */
 class Toaster {
-  displayErrorToast(parent, errorMessage, errorType) {
-    // Recover form parent
-   // const parent = this.form.parentNode.parentNode;
 
-    // Creating textcard
-    const textCard = document.createElement('article');
-    textCard.classList.add(
-      "center",
-      "mw5",
-      "mw6-ns",
-      "b--error-red",
-      "br3",
-      "ba",
-      "mv1",
-      "shadow-1"
-    );
-    //textCard.id = "auth-textcard-info";
+  /**
+   * Build and attach a toast to a parent element
+   *
+   * Three types of toast are available : "error", "success" and "information"
+   * @param {Node} parent Parent node which will hold the toast
+   * @param {*} message
+   * @param {string} type "error"|"success"|"information"
+   */
+  displayGenericToast(parent, message, type) {
+    let color;
+    let messageTitle;
+    switch(type) {
+      case "error":
+        color = "error-red";
+        messageTitle = '<b class="white">Error : </b>';
+        break;
+      case "success":
+        color = "success-green";
+        messageTitle = '<b class="white">Success : </b>';
+        break;
+      case "information":
+      default:
+        color = "information-blue";
+        messageTitle = '<b class="white">Note : </b>';
+        break;
+    }
 
-    // Children of textcard
-    // Title
-    const title = document.createElement("h1");
-    textCard.appendChild(title);
-    title.classList.add(
+    const toast = document.createElement("p");
+    toast.classList.add(
       "f4",
-      "bg-error-red",
+      "bg-"+color,
       "white",
       "br3",
-      "br--top",
       "mv0",
       "pv2",
-      "ph3"
+      "ph3",
+      "shadow-5"
     );
-    title.innerHTML = errorType;
+    toast.innerHTML = messageTitle + message; // Title content
 
-    // Text body
-    const textCardBodyDiv = document.createElement('div');
-    textCardBodyDiv.classList.add("pa3", "bt", "b--error-red");
-    const paragraph = document.createElement("p");
-    textCardBodyDiv.appendChild(paragraph);
-    paragraph.innerHTML = errorMessage;
-    paragraph.classList.add("f6", "f5-ns", "lh-copy", "measure", "mv0");
-    textCard.appendChild(textCardBodyDiv);
+    // Adding textCard as children of the parent node
+    parent.appendChild(toast);
 
-    parent.appendChild(textCard);
-
-    const timeoutDuration = 5;
-
-    this.closeCountdown(textCard, timeoutDuration);
+    // @TODO: Set constant as global or inject value as parameter
+    const timeoutDuration = 3;
+    window.setTimeout(() => toast.remove(), timeoutDuration * 1000);
   }
 
-  closeCountdown(element, timeoutDuration) {
-    window.setTimeout(() => element.remove(), timeoutDuration * 1000);
+  displayErrorToast(parent, errorMessage) {
+    this.displayGenericToast(parent, errorMessage, "error");
+  }
+
+  displaySuccessToast(parent, successMessage) {
+    this.displayGenericToast(parent, successMessage, "success");
+  }
+
+  displayInformationToast(parent, infoMessage) {
+    this.displayGenericToast(parent, infoMessage, "information");
   }
 }
