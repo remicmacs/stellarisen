@@ -105,7 +105,40 @@
 				<div class="panel hidden fade" id="star-panel">
 					<div class="column">
 						<h1 class="f1" id="objectName"></h1>
-						<div class="line">
+
+						<div class="data-fragment shrink">
+							<div class="data-title">Photo</div>
+							<div class="data-content">
+								<div class="data-row">
+									<div class="data-value">
+										<img src="https://placehold.jp/150x150.png" id="star-picture"/>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Constellation</div>
+							<div class="data-content">
+								<div data="data-row">
+									<div class="data-value alone link" id="con-link">
+										<span id="con-name"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Distance</div>
+							<div class="data-content">
+								<div class="data-row">
+									<div class="data-value alone">
+										<span id="star-distance"></span><span>&nbsp;année-lumières</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--<div class="line">
 							<img src="https://placehold.jp/150x150.png" id="star-picture"/>
 							<div class="column">
 								<div id="con-owning">
@@ -115,16 +148,25 @@
 									Se situe à une distance de <span id="star-distance"></span> année-lumières
 								</div>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 
 				<div class="panel hidden fade" id="constellation-panel">
 					<div class="column">
 						<h1 class="f1" id="constellation-title"></h1>
-						Étoiles constitutives :
-						<ul id="stars-ul">
-						</ul>
+
+						<div class="data-fragment">
+							<div class="data-title">Étoiles constitutives</div>
+							<div class="data-content" id="stars-list">
+								<div class="data-row">
+									<div class="data-value alone">
+										<ul id="stars-ul"></ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -147,15 +189,21 @@
 							<div class="data-content">
 								<div class="data-row">
 									<div class="data-type">Masse</div>
-									<span id="planet-mass"></span><span> 10<sup>24</sup> kg</span>
+									<div class="data-value">
+										<span id="planet-mass"></span><span>&nbsp;10<sup>24</sup> kg</span>
+									</div>
 								</div>
 								<div class="data-row">
 									<div class="data-type">Diamètre</div>
-									<span id="planet-diameter"></span><span> kg</span>
+									<div class="data-value">
+										<span id="planet-diameter"></span><span>&nbsp;kg</span>
+									</div>
 								</div>
 								<div class="data-row">
 									<div class="data-type">Gravité</div>
-									<span id="planet-gravity"></span></span> (m/s²)</span>
+									<div class="data-value">
+										<span id="planet-gravity"></span></span>&nbsp;(m/s²)</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -165,19 +213,27 @@
 							<div class="data-content">
 								<div class="data-row">
 									<div class="data-type">Durée d'une journée</div>
-									<span id="planet-daylength"></span><span> heures</span>
+									<div class="data-value">
+										<span id="planet-daylength"></span><span>&nbsp;heures</span>
+									</div>
 								</div>
 								<div class="data-row">
 									<div class="data-type">Durée d'une année</div>
-									<span id="planet-yearlength"></span><span> jours terrestres</span>
+									<div class="data-value">
+										<span id="planet-yearlength"></span><span>&nbsp;jours terrestres</span>
+									</div>
 								</div>
 								<div class="data-row">
 									<div class="data-type">Aphélie</div>
-									<span id="planet-aphelion"></span><span> 10<sup>6</sup>km</span>
+									<div class="data-value">
+										<span id="planet-aphelion"></span><span>&nbsp;10<sup>6</sup>km</span>
+									</div>
 								</div>
 								<div class="data-row">
 									<div class="data-type">Périhélie</div>
-									<span id="planet-perihelion"></span><span> 10<sup>6</sup>km</span>
+									<div class="data-value">
+										<span id="planet-perihelion"></span><span>&nbsp;10<sup>6</sup>km</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -187,22 +243,12 @@
 							<div class="data-content">
 								<div class="data-row">
 									<div class="data-type">Température moyenne</div>
-									<span id="planet-meantemp"></span></span> °C</span>
+									<div class="data-value">
+										<span id="planet-meantemp"></span></span>&nbsp;°C</span>
+									</div>
 								</div>
 							</div>
 						</div>
-
-
-						<!--<div class="grid">
-							<span class="one">Masse :</span><span class="second"><span id="planet-mass"></span> 10<sup>24</sup> kg</span>
-							<span class="one">Diamètre :</span><span class="second"><span id="planet-diameter"></span> km</span>
-							<span class="one">Gravité : </span><span class="second"><span id="planet-gravity"></span> (m/s²)</span>
-							<span class="one">Durée d'une journée :</span><span class="second"><span id="planet-daylength"></span> heures</span>
-							<span class="one">Durée d'une année :</span><span class="second"><span id="planet-yearlength"></span> jours terrestres</span>
-							<span class="one">Aphélie : </span><span class="second"><span id="planet-aphelion"></span> 10<sup>6</sup>km</span>
-							<span class="one">Périhélie :</span><span class="second"><span id="planet-perihelion"></span> 10<sup>6</sup>km</span>
-							<span class="one">Température moyenne :</span><span class="second"><span id="planet-meantemp"></span> °C</span>
-						</div>-->
 
 					</div>
 				</div>
@@ -216,7 +262,11 @@
 							<div class="data-title">Masse</div>
 							<div class="data-content">
 								<div class="data-row">
-									<span id="moon-mass"></span><span> 10<sup id="moon-mass-exposant"></sup> kg</span>
+									<div class="data-value alone">
+										<div>
+											<span id="moon-mass"></span><span>&nbsp;10<sup id="moon-mass-exposant"></sup> kg</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -225,7 +275,9 @@
 							<div class="data-title">Dimensions</div>
 							<div class="data-content">
 								<div class="data-row">
-									<span id="moon-dimensions"></span>
+									<div class="data-value alone">
+										<span id="moon-dimensions"></span>
+									</div>
 								</div>
 							</div>
 						</div>

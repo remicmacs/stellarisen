@@ -563,7 +563,7 @@ class SkySphere {
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
 
-		const list = document.getElementById('stars-ul');
+		const list = document.getElementById('stars-list');
 		list.innerHTML = '';
 
 		// Display a list of stars that are part of the constellation
@@ -572,15 +572,40 @@ class SkySphere {
 				this.starsObjects[i].constellationObject.fullName
 				== constellation.fullName
 				) {
-				const item = document.createElement('li');
+				const row = document.createElement('div');
+				row.classList.add('data-row');
+				const value = document.createElement('div');
+				value.classList.add('data-value');
+				value.classList.add('alone');
+				value.classList.add('link');
+				row.appendChild(value);
 				const text = document.createTextNode(this.starsObjects[i].meshName);
-				item.appendChild(text);
-				item.addEventListener('click', (event) => {
+				value.appendChild(text);
+				value.addEventListener('click', (event) => {
 					window.location.hash = text.textContent + "-open";
 				})
-				list.appendChild(item);
+				list.appendChild(row);
 			}
 		}
+
+		// const list = document.getElementById('stars-ul');
+		// list.innerHTML = '';
+		//
+		// // Display a list of stars that are part of the constellation
+		// for (let i = 0; i < this.starsObjects.length; i++) {
+		// 	if (
+		// 		this.starsObjects[i].constellationObject.fullName
+		// 		== constellation.fullName
+		// 		) {
+		// 		const item = document.createElement('li');
+		// 		const text = document.createTextNode(this.starsObjects[i].meshName);
+		// 		item.appendChild(text);
+		// 		item.addEventListener('click', (event) => {
+		// 			window.location.hash = text.textContent + "-open";
+		// 		})
+		// 		list.appendChild(item);
+		// 	}
+		// }
 	}
 
 	/**

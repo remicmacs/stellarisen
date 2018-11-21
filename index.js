@@ -95,7 +95,7 @@ const events = [
 	['planet-infos', 'touchend', stopPropagation],
 	[	'planet-infos'	,	'mousedown'	,	stopPropagation	],
 	[	'planet-infos'	,	'touchstart',	stopPropagation	],
-	[	'con-name'			,	'click'			,	lookAtConstellation							],
+	[	'con-link'			,	'click'			,	lookAtConstellation	],
 	[	'random-star'		,	'click'			,	randomStar											],
 	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); toggle('show-con'); }],
 	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); toggle('show-names'); }],
