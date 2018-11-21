@@ -25,6 +25,11 @@ class Planet {
 		this.mass = data.mass;
 		this.diameter = data.diameter;
 		this.gravity = data.gravity
+		this.daylength = data.daylength;
+		this.yearlength = data.yearlength;
+		this.aphelion = data.aphelion;
+		this.perihelion = data.perihelion;
+		this.meantemp = data.meantemp;
 
 		this.moons = [];
 
@@ -76,12 +81,17 @@ class Planet {
 	 * Animates the bouncing planets
 	 * @param {boolean} portrait Tell if the scene is portrait or landscape
 	 */
-	updateRotation(portrait) {
-		const rotation = this.tilt +
-			(portrait ?
-				-Math.PI / 2 :
-				0
-			);
+	updateRotation(portrait, depth) {
+		let rotation;
+		if (depth === 0) {
+			rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
+		} else if (depth === 1) {
+			rotation = this.tilt + (portrait ? -Math.PI : -Math.PI / 2);
+		} else if (depth === 2) {
+			rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
+		} else {
+			return;
+		}
 
 		// Creating an angle for the rotation
 		const target = new THREE.Euler(0, 0, rotation);

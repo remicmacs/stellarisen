@@ -71,16 +71,49 @@ function disable(id) {
  */
 function toggle(id) {
   const element = document.getElementById(id);
-  if (element.classList.contains('enabled')) {
+  if (element.classList.contains('toggle')) {
+    if (element.classList.contains('on')) {
+      unselect(id);
+    } else {
+      select(id);
+    }
+  }
+  else if (element.classList.contains('enabled')) {
     disable(id);
   } else {
     enable(id);
   }
 }
 
+/**
+ * Helper function to select a toggle
+ * @param {string} id The HTML id of the element
+ */
+function select(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('off');
+    element.classList.add('on');
+  }
+}
+
+/**
+ * Helper function to unselect a toggle
+ * @param {string} id The HTML id of the element
+ */
+function unselect(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('on');
+    element.classList.add('off');
+  }
+}
+
 function setSpan(id, content) {
   const element = document.getElementById(id);
-  element.innerHTML = content;
+  if (element != null) {
+    element.innerHTML = content;
+  }
 }
 
 function setImgSrc(id, src) {
@@ -211,8 +244,41 @@ function showPlanet() {
 }
 
 function showMoon() {
-  show('planet-panel');
-  hide('moon-panel');
+  show('moon-panel');
+  hide('planet-panel');
 
   showRightModal();
+}
+
+function setLeft(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('left');
+  }
+}
+
+function setTop(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('top');
+  }
+}
+
+function setRight(id) {
+  const element = document.getElementById(id);
+  if (element != null) {
+    element.classList.remove('right');
+    element.classList.remove('left');
+    element.classList.remove('top');
+    element.classList.remove('bottom');
+    element.classList.add('right');
+  }
 }

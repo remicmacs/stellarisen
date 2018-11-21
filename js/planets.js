@@ -39,7 +39,7 @@ class Planets {
 			,	this.width	* (portrait ? ratio : 1			)
 			,	this.width	* (portrait ? 1 		: ratio	)
 			,	-this.width * (portrait ? 1 		: ratio	)
-			,	-500
+			,	0
 			,	1000
 			);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
@@ -56,6 +56,11 @@ class Planets {
 		this.texturesObjects = [];
 		this.moonsTextures = [];
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+		// this.textureLoader.load("res/images/sky2.jpg", (texture) => {
+		// 	this.skydomeTexture = texture;
+		// 	console.log("skydome texture loaded");
+		// });
 
 		this.textureLoader.load("res/images/planets/saturn_rings.png",
 			(response) => { this.ringTexture = response; }
@@ -109,16 +114,25 @@ class Planets {
 		const ratio = utils.ratio;
 		const portrait = viewportIsPortrait();
 
+		if (portrait) {
+			setTop('planet-infos-wrapper');
+			setTop('planet-infos');
+		} else {
+			setRight('planet-infos-wrapper');
+			setRight('planet-infos');
+		}
+
 		// Calculating the optimal camera position
 		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
 		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
-		this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
+		//this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
+		this.camera.top = 		this.width 	* (portrait ? 1			: ratio	);
 		this.camera.bottom =	-this.width * (portrait ? 1 		: ratio	);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
-		if (viewportIsPortrait() != this.wasPortrait) {
-			this.updateRotations(viewportIsPortrait());
-			this.wasPortrait = viewportIsPortrait();
+		if (portrait != this.wasPortrait) {
+			this.updateRotations(portrait);
+			this.wasPortrait = portrait;
 		}
 
 		this.camera.updateProjectionMatrix();
@@ -130,6 +144,10 @@ class Planets {
 	addEverything() {
 		let moonsTexturesIndex = 0;
 
+		// if (this.skydomeTexture != undefined) {
+		// 	this.addSkydomeToScene();
+		// }
+
 		// On crée les planètes
 		for (let index = 0; index < Object.keys(this.json).length; index++) {
 			let planetJson = this.json[Object.keys(this.json)[index]];
@@ -137,6 +155,11 @@ class Planets {
 				{	"mass": planetJson["mass"]
 				, "diameter": planetJson["diameter"]
 				, "gravity": planetJson["gravity"]
+				, "daylength": planetJson["daylength"]
+				, "yearlength": planetJson["yearlength"]
+				, "aphelion": planetJson["aphelion"]
+				, "perihelion": planetJson["perihelion"]
+				, "meantemp": planetJson["meantemp"]
 				};
 			let planet = new Planet
 				(	this.texturesObjects[index]
@@ -160,6 +183,12 @@ class Planets {
 			for (let moonIndex = 0; moonIndex < Object.keys(planetJson["moons"]).length; moonIndex++) {
 				let moonJson = planetJson["moons"][Object.keys(planetJson["moons"])[moonIndex]];
 
+				data =
+					{	"mass": moonJson["mass"]
+					, "mass_exposant": moonJson["mass_exposant"]
+					, "dimensions": moonJson["diameter"]
+					};
+
 				let moon = new Moon
 					(	this.moonsTextures[moonsTexturesIndex]
 					,	moonJson["distance"]
@@ -168,6 +197,7 @@ class Planets {
 					, planet.mesh.position
 					, moonJson["tilt"]
 					, moonJson["retrograde"]
+					, data
 					);
 				moon.mesh.rotation.z = THREE.Math.degToRad(moonJson["tilt"]);
 				this.scene.add(moon.mesh);
@@ -218,6 +248,24 @@ class Planets {
 	}
 
 	/**
+	 *	Add skydome to the scene
+	 */
+	addSkydomeToScene() {
+		//const skyGeo = new THREE.SphereGeometry(50, 25, 25);
+		const skyGeo = new THREE.PlaneGeometry(36, 25, 1, 1);
+		const material = new THREE.MeshBasicMaterial({
+			map: this.skydomeTexture,
+			transparent: true
+		});
+		const sky = new THREE.Mesh(skyGeo, material);
+		sky.material.side = THREE.BackSide;
+		sky.material.opacity = 0.5;
+		// sky.position.z = -150;
+		//sky.rotation.x = Math.PI / 2 - 0.3;
+		this.scene.add(sky);
+	}
+
+	/**
 	 * Update procedure
 	 * Called on every frame. Used to update planets/moons rotations and display
 	 */
@@ -233,9 +281,9 @@ class Planets {
 	 */
 	updateRotations(portrait) {
 		for (let index = 0; index < this.planets.length; index++) {
-			this.planets[index].updateRotation(portrait);
+			this.planets[index].updateRotation(portrait, this.depth);
 			for (let moonIndex = 0; moonIndex < this.planets[index].moons.length; moonIndex++) {
-				this.planets[index].moons[moonIndex].updateRotation(portrait);
+				this.planets[index].moons[moonIndex].updateRotation(portrait, this.depth);
 			}
 		}
 		this.updateRingsRotation(portrait);
@@ -249,7 +297,7 @@ class Planets {
 
 		let rotation = -0.4660029 +
 			(	portrait
-			?	0
+			?	Math.PI
 			: Math.PI / 2
 			);
 
@@ -324,8 +372,8 @@ class Planets {
 
 			tween.start();
 			setPlaceholder("searchField", "Rechercher...");
-			this.updateRotations(viewportIsPortrait());
 			this.depth = 0;
+			this.updateRotations(portrait);
 		}
 	}
 
@@ -370,7 +418,7 @@ class Planets {
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, x: 			planet.mesh.position.x
 			, y:			0
-			, angle:	(portrait ? 0 : -Math.PI / 2)
+			, angle:	(portrait ? -Math.PI : -Math.PI / 2)
 			, lightx: 0
 			, lighty: 24
 			};
@@ -466,10 +514,16 @@ class Planets {
 		this.depth = 1;
 		this.body = planet;
 		setPlaceholder("searchField", planet.name);
+		setSpan('planetName', planet.name);
 		setSpan('planet-mass', planet.mass);
 		setSpan('planet-diameter', planet.diameter);
 		setSpan('planet-gravity', planet.gravity);
-		this.updateRotations(!viewportIsPortrait());
+		setSpan('planet-daylength', planet.daylength);
+		setSpan('planet-yearlength', planet.yearlength);
+		setSpan('planet-aphelion', planet.aphelion);
+		setSpan('planet-perihelion', planet.perihelion);
+		setSpan('planet-meantemp', planet.meantemp);
+		this.updateRotations(portrait);
 	}
 
 	/**
@@ -479,6 +533,10 @@ class Planets {
 	lookAtMoon(moon) {
 		if (moon == this.target) {
 			return;
+		}
+
+		if (moon.isHidden()) {
+			moon.show();
 		}
 
 		this.target = moon;
@@ -498,6 +556,7 @@ class Planets {
 			,	bottom: this.camera.bottom
 			,	left: 	this.camera.left
 			, right: 	this.camera.right
+			, x:			this.camera.position.x
 			,	y: 			this.camera.position.y
 			, angle:	this.camera.rotation.z
 			, lightx: this.light.position.x
@@ -510,7 +569,8 @@ class Planets {
 			,	bottom:	min	/ (portrait ? ratio : 1			) - (portrait ? 0 : max / 3)
 			,	left:		min	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
 			, right:	max	/ (portrait ? 1 		: ratio	) - (portrait ? max / 3 : 0)
-			, y: 			moon.mesh.position.y
+			, x:			moon.mesh.position.x
+			, y: 			moon.distance
 			, angle:	(portrait ? -Math.PI / 2 : 0)
 			, lightx: -24
 			, lighty: 0
@@ -525,6 +585,7 @@ class Planets {
 			this.camera.right 			= current.right;
 			this.camera.top 				= current.top;
 			this.camera.bottom 			= current.bottom;
+			this.camera.position.x	= current.x;
 			this.camera.position.y 	= current.y;
 			this.camera.rotation.z 	= current.angle;
 			this.light.position.x = current.lightx;
@@ -537,7 +598,11 @@ class Planets {
 		this.depth = 2;
 		this.body = moon;
 		setPlaceholder("searchField", moon.name);
-		this.updateRotations(viewportIsPortrait());
+		setSpan('moonName', moon.name);
+		setSpan('moon-mass', moon.mass);
+		setSpan('moon-mass-exposant', moon.mass_exposant);
+		setSpan('moon-dimensions', moon.dimensions);
+		this.updateRotations(portrait);
 	}
 
 	onClick(event) {
@@ -557,8 +622,6 @@ class Planets {
 			} else if (hash === targetname) {
 				// If target is already focused, open information panel
 				window.location.hash = "#" + targetname + "-open";
-				document.getElementById('planetName').innerHTML = targetname;
-				document.getElementById('moonName').innerHTML = targetname;
 			} else {
 				// If target has not been focused before, add hash
 				window.location.hash = "#" + targetname;

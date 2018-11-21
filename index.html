@@ -23,6 +23,10 @@
 		<script src="js/Planet.js"></script>
 		<script src="js/Horizon.js"></script>
 		<script src="js/Moon.js"></script>
+		<script src="js/Toaster.js"></script>
+		<script src="js/FormSubmitHandler.js"></script>
+		<script src="js/ConnectionHandler.js"></script>
+		<script src="js/RegistrationHandler.js"></script>
 	</head>
 	<body>
 		<div id="threejscanvas">
@@ -31,7 +35,7 @@
 		<div id="ui">
 
 			<div id="header">
-				<img src="res/images/astronaut.png" alt="User" id="userImage"/>
+				<img src="res/images/logo_256.png" alt="User" id="userImage"/>
 				<input id="searchField" class="light" type="text" placeholder="Rechercher..."/>
 			</div>
 
@@ -48,11 +52,13 @@
 							<button id="show-con" class="toggle on white">&#11040;</button>
 							<button id="show-names" class="toggle on white">T</button>
 							<button id="show-card" class="toggle on white">&#x21e1;</button>
+							<button id="set-orien" class="toggle on white hidden">&#x21e1;</button>
 						</div>
 						<button id="scene-switch" class="list-button white">Système solaire</button>
 						<button id="random-star" class="list-button white">Une étoile au hasard !</button>
 						<button id="connect-button" class="list-button white">Connexion</button>
 						<button id="register-button" class="list-button white">Création de compte</button>
+						<!--<button id="test-button" class="list-button white">Test</button>-->
 						<button class="list-button white">À propos</button>
 					</div>
 				</div>
@@ -61,9 +67,9 @@
 					<div class="column">
 
 						<h1 class="f1">Connexion</h1>
-						<form action="/login.php">
-							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input><br>
-							<input name="password" type="password" required placeholder="Mot de passe"></input><br>
+						<form name="connect" action="api/public/connect" method="post" class="column">
+							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
+							<input name="password" type="password" required placeholder="Mot de passe"></input>
 					    <input type="submit" class="green" value="Connexion"></input>
 					  </form>
 						<span id="gotoregister">Pas encore de compte ? Créez-en un !</span>
@@ -75,10 +81,10 @@
 				<div class="panel hidden fade" id="register-panel">
 					<div class="column">
 						<h1 class="f1">Enregistrement</h1>
-						<form action="/register.php">
-							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input><br>
-							<input name="password" type="password" placeholder="Mot de passe" required></input><br>
-							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input><br>
+						<form name="register" action="api/public/register" method="post" class="column">
+							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
+							<input name="password" type="password" placeholder="Mot de passe" required></input>
+							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>
 					    <input type="submit" class="green" value="S'enregistrer"></input>
 					  </form>
 						<div class="stretch-space"></div>
@@ -132,17 +138,98 @@
 				<div id="close-right" class="close">&#187;</div>
 
 				<div class="panel hidden fade" id="planet-panel">
+
 					<div class="column">
 						<h1 id="planetName"></h1>
-						<div>Masse : <span id="planet-mass"></span> 10^24kg</div>
-						<div>Diamètre : <span id="planet-diameter"></span> km</div>
-						<div>Gravité : <span id="planet-gravity"></span> (m/s²)</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Données physiques</div>
+							<div class="data-content">
+								<div class="data-row">
+									<div class="data-type">Masse</div>
+									<span id="planet-mass"></span><span> 10<sup>24</sup> kg</span>
+								</div>
+								<div class="data-row">
+									<div class="data-type">Diamètre</div>
+									<span id="planet-diameter"></span><span> kg</span>
+								</div>
+								<div class="data-row">
+									<div class="data-type">Gravité</div>
+									<span id="planet-gravity"></span></span> (m/s²)</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Orbite et rotation</div>
+							<div class="data-content">
+								<div class="data-row">
+									<div class="data-type">Durée d'une journée</div>
+									<span id="planet-daylength"></span><span> heures</span>
+								</div>
+								<div class="data-row">
+									<div class="data-type">Durée d'une année</div>
+									<span id="planet-yearlength"></span><span> jours terrestres</span>
+								</div>
+								<div class="data-row">
+									<div class="data-type">Aphélie</div>
+									<span id="planet-aphelion"></span><span> 10<sup>6</sup>km</span>
+								</div>
+								<div class="data-row">
+									<div class="data-type">Périhélie</div>
+									<span id="planet-perihelion"></span><span> 10<sup>6</sup>km</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Environnement</div>
+							<div class="data-content">
+								<div class="data-row">
+									<div class="data-type">Température moyenne</div>
+									<span id="planet-meantemp"></span></span> °C</span>
+								</div>
+							</div>
+						</div>
+
+
+						<!--<div class="grid">
+							<span class="one">Masse :</span><span class="second"><span id="planet-mass"></span> 10<sup>24</sup> kg</span>
+							<span class="one">Diamètre :</span><span class="second"><span id="planet-diameter"></span> km</span>
+							<span class="one">Gravité : </span><span class="second"><span id="planet-gravity"></span> (m/s²)</span>
+							<span class="one">Durée d'une journée :</span><span class="second"><span id="planet-daylength"></span> heures</span>
+							<span class="one">Durée d'une année :</span><span class="second"><span id="planet-yearlength"></span> jours terrestres</span>
+							<span class="one">Aphélie : </span><span class="second"><span id="planet-aphelion"></span> 10<sup>6</sup>km</span>
+							<span class="one">Périhélie :</span><span class="second"><span id="planet-perihelion"></span> 10<sup>6</sup>km</span>
+							<span class="one">Température moyenne :</span><span class="second"><span id="planet-meantemp"></span> °C</span>
+						</div>-->
+
 					</div>
 				</div>
 
 				<div class="panel hidden fade" id="moon-panel">
 					<div class="column">
+
 						<h1 id="moonName"></h1>
+
+						<div class="data-fragment">
+							<div class="data-title">Masse</div>
+							<div class="data-content">
+								<div class="data-row">
+									<span id="moon-mass"></span><span> 10<sup id="moon-mass-exposant"></sup> kg</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="data-fragment">
+							<div class="data-title">Dimensions</div>
+							<div class="data-content">
+								<div class="data-row">
+									<span id="moon-dimensions"></span>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 

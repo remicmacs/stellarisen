@@ -134,8 +134,8 @@ The mappings is stored in a JSON object. For example :
 		"remotePath":"/var/www/stellarisen"
 	},
 	{
-		"remotePath":"/the/absolute/path/to/stellarisen/testfolder",
-		"localPath":"/home/remi/AP4/stellarisen/testfolder"
+		"remotePath":"/var/www/stellarisen/testfolder",
+		"localPath":"/the/absolute/path/to/stellarisen/testfolder"
 	}
 ]
 ```
@@ -167,3 +167,15 @@ in file `.vscode/launch.json` :
   ]
 }
 ```
+
+## Recovering server dependancies
+
+The [Composer dependancy manager](https://getcomposer.org/) is used to retrieve
+all libraries needed by the API, including development server.
+
+In `${StellarisenRoot}/api` folder :
+
+```shell
+$ composer install
+```
+TODO : add first Composer commands to Puppet shell provisionning of VM.

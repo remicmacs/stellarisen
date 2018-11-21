@@ -1,12 +1,15 @@
 //var noSleep = new NoSleep();
 //noSleep.enable();
 
+// MYJWT to store JWT token client-side
+localStorage.setItem("JWT", "");
+
 console.log("Loading init script");
 
 const skyScene = new THREE.Scene();
 skyScene.background = new THREE.Color(0x001b44);
 const planetsScene = new THREE.Scene();
-planetsScene.background = new THREE.Color(0x001b44);
+planetsScene.background = new THREE.Color(0x000d21);
 let camera = null;
 
 let scene = null;
@@ -18,6 +21,10 @@ const renderer = new THREE.WebGLRenderer({
 window.onhashchange = () => {
 	updateHash(false);
 };
+
+if (deviceIsMobile()) {
+	show("set-orien");
+}
 
 const skySphere = new SkySphere(skyScene, renderer, onLoad);
 const planets = new Planets(planetsScene, renderer, onLoad);
@@ -36,8 +43,28 @@ console.log("Renderer added to webpage");
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mouseup', onMouseUp);
+document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
+
+const toaster = new Toaster();
+
+document.connect.onsubmit = (event) => (new ConnectionHandler(event.target, toaster)).handle(event);
+document.register.onsubmit = (event) => (new RegistrationHandler(event.target)).handle(event);
+// DEBUG
+// Handler for test connection button
+/*
+document.getElementById('test-button').onclick = (event) => {
+	fetch("api/public/connected/tartampion", {
+		method: 'GET',
+		headers: {
+			"Content-Type": "application/json; charset=utf-8",
+		}
+	}).then(res => res.json())
+	.then(console.log)
+	.catch(console.log);
+};
+*/
 
 const events = [
 	['userImage', 'mouseup', openMenu],
@@ -70,9 +97,9 @@ const events = [
 	[	'planet-infos'	,	'touchstart',	stopPropagation	],
 	[	'con-name'			,	'click'			,	lookAtConstellation							],
 	[	'random-star'		,	'click'			,	randomStar											],
-	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); }],
-	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); }],
-	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); }],
+	[	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); toggle('show-con'); }],
+	[ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); toggle('show-names'); }],
+	[ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); toggle('show-card'); }],
 	[	'menu'					,	'click'			,	stopPropagation	],
 	[	'menu'					,	'mousedown'	,	stopPropagation	],
 	[	'menu'					,	'mouseup'		,	stopPropagation	],
@@ -80,7 +107,8 @@ const events = [
 	[ 'register-button', 'click', showRegister ],
 	[ 'back-connection', 'click', showMenu ],
 	[ 'back-register', 'click', showMenu ],
-	[ 'gotoregister', 'click', showRegister ]
+	[ 'gotoregister', 'click', showRegister ],
+	[	'set-orien',	'click',	() => { skySphere.toggleControlWithOrientation(); }]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -254,6 +282,7 @@ function focusOnMoon(starting, state, moon) {
 	if (state !== null && state === "open") {
 		/*enable('planet-infos-wrapper');
 		enable('planet-infos');*/
+		console.log("Showing moon informations");
 		showMoon();
 	}
 
@@ -274,7 +303,7 @@ function focusOnMoon(starting, state, moon) {
 				planets.update()
 			};
 			hideLoading();
-			planets.lookAtPlanet(moon);
+			planets.lookAtMoon(moon);
 			home = false;
 		}, 1000);
 	} else {
@@ -462,7 +491,7 @@ function onMouseUp(event) {
 
 function onTouchStart(event) {
 	if (home) {
-		skySphere.onTouchStart();
+		skySphere.onTouchStart(event);
 	} else {
 		planets.onTouchStart(event);
 	}
@@ -473,6 +502,14 @@ function onTouchEnd(event) {
 		skySphere.onTouchEnd(event);
 	} else {
 		planets.onTouchEnd(event);
+	}
+}
+
+function onTouchMove(event) {
+	if (home) {
+		skySphere.onTouchMove(event);
+	} else {
+		planets.onTouchMove(event);
 	}
 }
 

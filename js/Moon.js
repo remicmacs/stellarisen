@@ -1,5 +1,5 @@
 class Moon {
-  constructor(texture, distance, radius, name, offset, tilt, retrograde) {
+  constructor(texture, distance, radius, name, offset, tilt, retrograde, data) {
     this.texture = texture;
     this.distance = distance;
     this.radius = radius;
@@ -7,7 +7,11 @@ class Moon {
     this.offset = offset;
     this.tilt = -THREE.Math.degToRad(tilt);
     this.retrograde = retrograde;
-    console.log(typeof this.retrograde);
+    this.hidden = true;
+
+    this.mass = data.mass;
+    this.mass_exposant = data.mass_exposant
+    this.dimensions = data.dimensions;
 
     // Creating 3D geometry
     this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
@@ -39,8 +43,17 @@ class Moon {
 	 * Animates the bouncing planets
 	 * @param {boolean} portrait Tell if the scene is portrait or landscape
 	 */
-	updateRotation(portrait) {
-		const rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
+	updateRotation(portrait, depth) {
+    let rotation;
+		if (depth === 0) {
+			rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
+		} else if (depth === 1) {
+			rotation = this.tilt + (portrait ? -Math.PI : -Math.PI / 2);
+		} else if (depth === 2) {
+			rotation = this.tilt + (portrait ? -Math.PI / 2 : 0);
+		} else {
+			return;
+		}
 
 		// Creating an angle for the rotation
 		const target = new THREE.Euler(0, 0, rotation);
@@ -61,7 +74,7 @@ class Moon {
 	 * Called on every frame, mainly used to update rotation of moons
 	 */
 	update() {
-		this.mesh.rotation.y += 0.01 * (this.retrograde ? -1 : 1);
+		this.mesh.rotation.y -= 0.01 * (this.retrograde ? -1 : 1);
 	}
 
   show() {
@@ -72,6 +85,9 @@ class Moon {
       .easing(TWEEN.Easing.Cubic.InOut);
     tween.onUpdate(() => {
       this.mesh.position.y = current.x;
+    });
+    tween.onComplete(() => {
+      this.hidden = false;
     });
     tween.start();
   }
@@ -85,6 +101,13 @@ class Moon {
     tween.onUpdate(() => {
       this.mesh.position.y = current.x;
     });
+    tween.onComplete(() => {
+      this.hidden = true;
+    });
     tween.start();
+  }
+
+  isHidden() {
+    return this.hidden;
   }
 }
