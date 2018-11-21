@@ -1,3 +1,19 @@
 *~
+
+# JSDoc
 out/
+
+# NPM / Node stuff
 node_modules/
+
+# Put editor BS here
+.vscode/
+
+# Vagrant / Puppet
+sethosts.sh
+Vagrantfile
+puphpet/
+.vagrant/
+node_modules/
+.vscode/
+puphpet/config-custom.yaml
