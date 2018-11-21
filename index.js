@@ -47,7 +47,9 @@ document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-document.connect.onsubmit = (event) => (new ConnectionHandler(event.target)).handle(event);
+const toaster = new Toaster();
+
+document.connect.onsubmit = (event) => (new ConnectionHandler(event.target, toaster)).handle(event);
 document.register.onsubmit = (event) => (new RegistrationHandler(event.target)).handle(event);
 // DEBUG
 // Handler for test connection button
