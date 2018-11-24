@@ -50,22 +50,11 @@ document.addEventListener('touchend', onTouchEnd);
 
 const toaster = new Toaster();
 
-document.connect.onsubmit = (event) => (new ConnectionHandler(toaster)).handle(event);
-document.register.onsubmit = (event) => (new RegistrationHandler(toaster)).handle(event);
-// DEBUG
-// Handler for test connection button
-/*
-document.getElementById('test-button').onclick = (event) => {
-  fetch("api/public/connected/tartampion", {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    }
-  }).then(res => res.json())
-  .then(console.log)
-  .catch(console.log);
-};
-*/
+// Adding form submit event listeners
+const connectionHandler = new ConnectionHandler(toaster);
+const registrationHandler = new RegistrationHandler(toaster);
+document.connect.onsubmit = (event) => connectionHandler.handle(event);
+document.register.onsubmit = (event) => registrationHandler.handle(event);
 
 const events = [
   ['userImage', 'mouseup', openMenu],
@@ -94,23 +83,23 @@ const events = [
   ['infos-wrapper', 'touchstart', stopPropagation],
   ['planet-infos', 'mouseup', stopPropagation],
   ['planet-infos', 'touchend', stopPropagation],
-  [	'planet-infos'	,	'mousedown'	,	stopPropagation	],
-  [	'planet-infos'	,	'touchstart',	stopPropagation	],
-  [	'con-link'			,	'click'			,	lookAtConstellation	],
-  [	'random-star'		,	'click'			,	randomStar],
-  [	'show-con'			,	'click'			,	() => { skySphere.toggleLinks(); toggle('show-con'); }],
-  [ 'show-names'		, 'click'			,	() => { skySphere.toggleNames(); toggle('show-names'); }],
-  [ 'show-card'			,	'click'			,	() => { skySphere.toggleHoriz(); toggle('show-card'); }],
-  [	'menu'					,	'click'			,	stopPropagation	],
-  [	'menu'					,	'mousedown'	,	stopPropagation	],
-  [	'menu'					,	'mouseup'		,	stopPropagation	],
-  [ 'connect-button', 'click', showLogin ],
-  [ 'register-button', 'click', showRegister ],
-  [ 'back-connection', 'click', showMenu ],
-  [ 'back-register', 'click', showMenu ],
-  [ 'gotoregister', 'click', showRegister ],
-  [ 'set-orien',	'click',	() => { skySphere.toggleControlWithOrientation();}],
-  [ 'disconnect-button', 'click', disconnect]
+  ['planet-infos', 'mousedown', stopPropagation],
+  ['planet-infos', 'touchstart', stopPropagation],
+  ['con-link', 'click', lookAtConstellation],
+  ['random-star', 'click', randomStar],
+  ['show-con', 'click', () => {skySphere.toggleLinks(); toggle('show-con');}],
+  ['show-names', 'click', () => {skySphere.toggleNames(); toggle('show-names');}],
+  ['show-card', 'click', () => {skySphere.toggleHoriz(); toggle('show-card');}],
+  ['menu', 'click', stopPropagation],
+  ['menu', 'mousedown', stopPropagation],
+  ['menu', 'mouseup', stopPropagation],
+  ['connect-button', 'click', showLogin ],
+  ['register-button', 'click', showRegister ],
+  ['back-connection', 'click', showMenu ],
+  ['back-register', 'click', showMenu ],
+  ['gotoregister', 'click', showRegister ],
+  ['set-orien', 'click', () => { skySphere.toggleControlWithOrientation();}],
+  ['disconnect-button', 'click', disconnect]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -429,7 +418,11 @@ function updateHash(starting) {
   previousHash = hash;
 
   if (
-    !switched && star === null && planet === null && constellation === null && moon === null
+    !switched
+    && star === null
+    && planet === null
+    && constellation === null
+    && moon === null
   ) {
     window.location.hash = '#Etoiles';
     return;
@@ -443,11 +436,14 @@ function updateHash(starting) {
     window.location.replace("https://huit.re/PHJa91WW");
   }
 
+  const switchButton = document.getElementById("scene-switch");
+  switchButton.innerHTML = "Carte céleste";
   if (planet !== null) {
     focusOnPlanet(starting, state, planet);
   } else if (moon !== null) {
     focusOnMoon(starting, state, moon);
   } else if (hash !== 'SystemeSolaire') {
+    switchButton.innerHTML = "Système Solaire";
     focusOnStarmapObject(starting, state, home, star, constellation);
   }
   return;
@@ -564,8 +560,10 @@ function switchHash(event) {
   closeMenu(event);
   if (scene == skyScene) {
     window.location.hash = '#SystemeSolaire';
+    event.target.innerHTML = "Carte céleste";
   } else {
     window.location.hash = '#Etoiles';
+    event.target.innerHTML = "Système Solaire"
   }
 }
 
