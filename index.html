@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <meta charset="utf-8"/>
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
@@ -69,9 +69,9 @@
 
             <h1 class="f1">Connexion</h1>
             <form name="connect" action="api/public/connect" method="post" class="column">
-              <input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
-              <input name="password" type="password" required placeholder="Mot de passe"></input>
-              <input type="submit" class="green" value="Connexion"></input>
+              <input name="username" type="text" required placeholder="Nom d'utilisateur">
+              <input name="password" type="password" required placeholder="Mot de passe">
+              <input type="submit" class="green" value="Connexion">
             </form>
             <span id="gotoregister">Pas encore de compte ? Créez-en un !</span>
             <div class="stretch-space"></div>
@@ -83,10 +83,10 @@
           <div class="column">
             <h1 class="f1">Enregistrement</h1>
             <form name="register" action="api/public/register" method="post" class="column">
-              <input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
-              <input name="password" type="password" placeholder="Mot de passe" required></input>
-              <input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>
-              <input type="submit" class="green" value="S'enregistrer"></input>
+              <input name="username" type="text" placeholder="Nom d'utilisateur" required>
+              <input name="password" type="password" placeholder="Mot de passe" required>
+              <input name="repassword" type="password" placeholder="Retapez le mot de passe" required>
+              <input type="submit" class="green" value="S'enregistrer">
             </form>
             <div class="stretch-space"></div>
             <h2 id="back-register">Retour</h2>
@@ -105,14 +105,14 @@
 
         <div class="panel hidden fade" id="star-panel">
           <div class="column">
-            <h1 class="f1" id="objectName"></h1>
+            <h1 class="f1" id="objectName">Star name placeholder</h1>
 
             <div class="data-fragment shrink">
               <div class="data-title">Photo</div>
               <div class="data-content">
                 <div class="data-row">
                   <div class="data-value">
-                    <img src="https://placehold.jp/150x150.png" id="star-picture"/>
+                    <img alt="Star picture" src="https://placehold.jp/150x150.png" id="star-picture"/>
                   </div>
                 </div>
               </div>
@@ -121,7 +121,7 @@
             <div class="data-fragment">
               <div class="data-title">Constellation</div>
               <div class="data-content">
-                <div data="data-row">
+                <div class="data-row">
                   <div class="data-value alone link" id="con-link">
                     <span id="con-name"></span>
                   </div>
@@ -155,7 +155,7 @@
 
         <div class="panel hidden fade" id="constellation-panel">
           <div class="column">
-            <h1 class="f1" id="constellation-title"></h1>
+            <h1 class="f1" id="constellation-title">Constellation name placeholder</h1>
 
             <div class="data-fragment">
               <div class="data-title">Étoiles constitutives</div>
@@ -183,7 +183,7 @@
         <div class="panel hidden fade" id="planet-panel">
 
           <div class="column">
-            <h1 id="planetName"></h1>
+            <h1 id="planetName">Planet name placeholder</h1>
 
             <div class="data-fragment">
               <div class="data-title">Données physiques</div>
@@ -203,7 +203,7 @@
                 <div class="data-row">
                   <div class="data-type">Gravité</div>
                   <div class="data-value">
-                    <span id="planet-gravity"></span></span>&nbsp;(m/s²)</span>
+                    <span id="planet-gravity"></span><span>&nbsp;(m/s²)</span>
                   </div>
                 </div>
               </div>
@@ -245,7 +245,7 @@
                 <div class="data-row">
                   <div class="data-type">Température moyenne</div>
                   <div class="data-value">
-                    <span id="planet-meantemp"></span></span>&nbsp;°C</span>
+                    <span id="planet-meantemp"></span><span>&nbsp;°C</span>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@
         <div class="panel hidden fade" id="moon-panel">
           <div class="column">
 
-            <h1 id="moonName"></h1>
+            <h1 id="moonName">Moon name placeholder</h1>
 
             <div class="data-fragment">
               <div class="data-title">Masse</div>
