@@ -1,297 +1,298 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
-		<title>Stellar'ISEN</title>
-		<link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
-		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>-->
-		<script src="js/three.js"></script>
-		<script src="js/utils.js"></script>
-		<script src="js/DeviceOrientationControls.js"></script>
-		<script src="js/skymap.js"></script>
-		<script src="js/Star.js"></script>
-		<script src="js/Link.js"></script>
-		<script src="js/Constellation.js"></script>
-		<script src="js/Visor.js"></script>
-		<script src="js/planets.js"></script>
-		<script src="js/Planet.js"></script>
-		<script src="js/Horizon.js"></script>
-		<script src="js/Moon.js"></script>
-		<script src="js/Toaster.js"></script>
-		<script src="js/FormSubmitHandler.js"></script>
-		<script src="js/ConnectionHandler.js"></script>
-		<script src="js/RegistrationHandler.js"></script>
-	</head>
-	<body>
-		<div id="threejscanvas">
-		</div>
+  <head>
+    <meta charset="utf-8"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
+    <title>Stellar'ISEN</title>
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.2.0/Tween.min.js"> </script>
+   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/nosleep/0.6.0/NoSleep.js"> </script>-->
+    <script src="js/three.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/DeviceOrientationControls.js"></script>
+    <script src="js/skymap.js"></script>
+    <script src="js/Star.js"></script>
+    <script src="js/Link.js"></script>
+    <script src="js/Constellation.js"></script>
+    <script src="js/Visor.js"></script>
+    <script src="js/planets.js"></script>
+    <script src="js/Planet.js"></script>
+    <script src="js/Horizon.js"></script>
+    <script src="js/Moon.js"></script>
+    <script src="js/Toaster.js"></script>
+    <script src="js/FormSubmitHandler.js"></script>
+    <script src="js/ConnectionHandler.js"></script>
+    <script src="js/RegistrationHandler.js"></script>
+  </head>
+  <body>
+    <div id="threejscanvas">
+    </div>
 
-		<div id="ui">
+    <div id="ui">
 
-			<div id="header">
-				<img src="res/images/logo_256.png" alt="User" id="userImage" />
-				<input id="searchField" class="light shadow-1" type="text" placeholder="Rechercher..."/>
-			</div>
+      <div id="header">
+        <img src="res/images/logo_256.png" alt="User" id="userImage"/>
+        <input id="searchField" class="light" type="text" placeholder="Rechercher..."/>
+      </div>
 
-		</div>
+    </div>
 
-		<!--<div class="wrapper left disabled" id="menu-wrapper">-->
-			<div class="light disabled modal left" id="menu">
-				<div id="close-left" class="close">&#171;</div>
+    <!--<div class="wrapper left disabled" id="menu-wrapper">-->
+      <div class="light disabled modal left" id="menu">
+        <div id="close-left" class="close">&#171;</div>
 
-				<div class="panel hidden fade" id="menu-panel">
-					<div class="column">
-						<h1 class="f1">Anonyme</h1>
-						<div class="line toggles">
-							<button id="show-con" class="toggle on white">&#11040;</button>
-							<button id="show-names" class="toggle on white">T</button>
-							<button id="show-card" class="toggle on white">&#x21e1;</button>
-							<button id="set-orien" class="toggle on white hidden">&#x21e1;</button>
-						</div>
-						<button id="scene-switch" class="list-button white">Système solaire</button>
-						<button id="random-star" class="list-button white">Une étoile au hasard !</button>
-						<button id="connect-button" class="list-button white">Connexion</button>
-						<button id="register-button" class="list-button white">Création de compte</button>
-						<!--<button id="test-button" class="list-button white">Test</button>-->
-						<button class="list-button white">À propos</button>
-					</div>
-				</div>
+        <div class="panel hidden fade" id="menu-panel">
+          <div class="column">
+            <h1 id="menu-username" class="f1">Anonyme</h1>
+            <div class="line toggles">
+              <button id="show-con" class="toggle on white">&#11040;</button>
+              <button id="show-names" class="toggle on white">T</button>
+              <button id="show-card" class="toggle on white">&#x21e1;</button>
+              <button id="set-orien" class="toggle on white hidden">&#x21e1;</button>
+            </div>
+            <button id="scene-switch" class="list-button white">Système solaire</button>
+            <button id="random-star" class="list-button white">Une étoile au hasard !</button>
+            <button id="connect-button" class="list-button white">Connexion</button>
+            <button id="register-button" class="list-button white">Création de compte</button>
+            <button id="disconnect-button" class="hidden list-button white">Déconnexion</button>
+            <!--<button id="test-button" class="list-button white">Test</button>-->
+            <button class="list-button white">À propos</button>
+          </div>
+        </div>
 
-				<div class="panel hidden fade" id="login-panel">
-					<div class="column">
+        <div class="panel hidden fade" id="login-panel">
+          <div class="column">
 
-						<h1 class="f1">Connexion</h1>
-						<form name="connect" action="api/public/connect" method="post" class="column">
-							<input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
-							<input name="password" type="password" required placeholder="Mot de passe"></input>
-					    <input type="submit" class="green" value="Connexion"></input>
-					  </form>
-						<span id="gotoregister">Pas encore de compte ? Créez-en un !</span>
-						<div class="stretch-space"></div>
-						<h2 id="back-connection">Retour</h2>
-					</div>
-				</div>
+            <h1 class="f1">Connexion</h1>
+            <form name="connect" action="api/public/connect" method="post" class="column">
+              <input name="username" type="text" required placeholder="Nom d'utilisateur"></input>
+              <input name="password" type="password" required placeholder="Mot de passe"></input>
+              <input type="submit" class="green" value="Connexion"></input>
+            </form>
+            <span id="gotoregister">Pas encore de compte ? Créez-en un !</span>
+            <div class="stretch-space"></div>
+            <h2 id="back-connection">Retour</h2>
+          </div>
+        </div>
 
-				<div class="panel hidden fade" id="register-panel">
-					<div class="column">
-						<h1 class="f1">Enregistrement</h1>
-						<form name="register" action="api/public/register" method="post" class="column">
-							<input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
-							<input name="password" type="password" placeholder="Mot de passe" required></input>
-							<input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>
-					    <input type="submit" class="green" value="S'enregistrer"></input>
-					  </form>
-						<div class="stretch-space"></div>
-						<h2 id="back-register">Retour</h2>
-					</div>
-				</div>
+        <div class="panel hidden fade" id="register-panel">
+          <div class="column">
+            <h1 class="f1">Enregistrement</h1>
+            <form name="register" action="api/public/register" method="post" class="column">
+              <input name="username" type="text" placeholder="Nom d'utilisateur" required></input>
+              <input name="password" type="password" placeholder="Mot de passe" required></input>
+              <input name="repassword" type="password" placeholder="Retapez le mot de passe" required></input>
+              <input type="submit" class="green" value="S'enregistrer"></input>
+            </form>
+            <div class="stretch-space"></div>
+            <h2 id="back-register">Retour</h2>
+          </div>
+        </div>
 
-			</div>
-		<!--</div>-->
+      </div>
+    <!--</div>-->
 
-		<!-- Modal dialog pour les infos d'étoiles -->
+    <!-- Modal dialog pour les infos d'étoiles -->
 
-		<div class="wrapper center disabled" id="infos-wrapper">
-			<div class="light disabled modal center" id="infos">
+    <div class="wrapper center disabled" id="infos-wrapper">
+      <div class="light disabled modal center" id="infos">
 
-				<div id="close-center" class="close">&times;</div>
+        <div id="close-center" class="close">&times;</div>
 
-				<div class="panel hidden fade" id="star-panel">
-					<div class="column">
-						<h1 class="f1" id="objectName"></h1>
+        <div class="panel hidden fade" id="star-panel">
+          <div class="column">
+            <h1 class="f1" id="objectName"></h1>
 
-						<div class="data-fragment shrink shadow-1">
-							<div class="data-title">Photo</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-value">
-										<img src="https://placehold.jp/150x150.png" id="star-picture"/>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment shrink">
+              <div class="data-title">Photo</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-value">
+                    <img src="https://placehold.jp/150x150.png" id="star-picture"/>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Constellation</div>
-							<div class="data-content">
-								<div data="data-row">
-									<div class="data-value alone link" id="con-link">
-										<span id="con-name"></span>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Constellation</div>
+              <div class="data-content">
+                <div data="data-row">
+                  <div class="data-value alone link" id="con-link">
+                    <span id="con-name"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Distance</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-value alone">
-										<span id="star-distance"></span><span>&nbsp;année-lumières</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!--<div class="line">
-							<img src="https://placehold.jp/150x150.png" id="star-picture"/>
-							<div class="column">
-								<div id="con-owning">
-									Appartient à la constellation de <span id="con-name"></span>
-								</div>
-								<div id="distance-text">
-									Se situe à une distance de <span id="star-distance"></span> année-lumières
-								</div>
-							</div>
-						</div>-->
-					</div>
-				</div>
+            <div class="data-fragment">
+              <div class="data-title">Distance</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-value alone">
+                    <span id="star-distance"></span><span>&nbsp;année-lumières</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<div class="line">
+              <img src="https://placehold.jp/150x150.png" id="star-picture"/>
+              <div class="column">
+                <div id="con-owning">
+                  Appartient à la constellation de <span id="con-name"></span>
+                </div>
+                <div id="distance-text">
+                  Se situe à une distance de <span id="star-distance"></span> année-lumières
+                </div>
+              </div>
+            </div>-->
+          </div>
+        </div>
 
-				<div class="panel hidden fade" id="constellation-panel">
-					<div class="column">
-						<h1 class="f1" id="constellation-title"></h1>
+        <div class="panel hidden fade" id="constellation-panel">
+          <div class="column">
+            <h1 class="f1" id="constellation-title"></h1>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Étoiles constitutives</div>
-							<div class="data-content" id="stars-list">
-								<div class="data-row">
-									<div class="data-value alone">
-										<ul id="stars-ul"></ul>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Étoiles constitutives</div>
+              <div class="data-content" id="stars-list">
+                <div class="data-row">
+                  <div class="data-value alone">
+                    <ul id="stars-ul"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-					</div>
-				</div>
+          </div>
+        </div>
 
-			</div>
-		</div>
+      </div>
+    </div>
 
-		<!-- Modal dialog pour les infos de planètes -->
+    <!-- Modal dialog pour les infos de planètes -->
 
-		<div class="wrapper right disabled" id="planet-infos-wrapper">
-			<div class="light disabled modal right" id="planet-infos">
-				<div id="close-right" class="close">&#187;</div>
+    <div class="wrapper right disabled" id="planet-infos-wrapper">
+      <div class="light disabled modal right" id="planet-infos">
+        <div id="close-right" class="close">&#187;</div>
 
-				<div class="panel hidden fade" id="planet-panel">
+        <div class="panel hidden fade" id="planet-panel">
 
-					<div class="column">
-						<h1 id="planetName"></h1>
+          <div class="column">
+            <h1 id="planetName"></h1>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Données physiques</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-type">Masse</div>
-									<div class="data-value">
-										<span id="planet-mass"></span><span>&nbsp;10<sup>24</sup> kg</span>
-									</div>
-								</div>
-								<div class="data-row">
-									<div class="data-type">Diamètre</div>
-									<div class="data-value">
-										<span id="planet-diameter"></span><span>&nbsp;kg</span>
-									</div>
-								</div>
-								<div class="data-row">
-									<div class="data-type">Gravité</div>
-									<div class="data-value">
-										<span id="planet-gravity"></span></span>&nbsp;(m/s²)</span>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Données physiques</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-type">Masse</div>
+                  <div class="data-value">
+                    <span id="planet-mass"></span><span>&nbsp;10<sup>24</sup> kg</span>
+                  </div>
+                </div>
+                <div class="data-row">
+                  <div class="data-type">Diamètre</div>
+                  <div class="data-value">
+                    <span id="planet-diameter"></span><span>&nbsp;kg</span>
+                  </div>
+                </div>
+                <div class="data-row">
+                  <div class="data-type">Gravité</div>
+                  <div class="data-value">
+                    <span id="planet-gravity"></span></span>&nbsp;(m/s²)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Orbite et rotation</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-type">Durée d'une journée</div>
-									<div class="data-value">
-										<span id="planet-daylength"></span><span>&nbsp;heures</span>
-									</div>
-								</div>
-								<div class="data-row">
-									<div class="data-type">Durée d'une année</div>
-									<div class="data-value">
-										<span id="planet-yearlength"></span><span>&nbsp;jours terrestres</span>
-									</div>
-								</div>
-								<div class="data-row">
-									<div class="data-type">Aphélie</div>
-									<div class="data-value">
-										<span id="planet-aphelion"></span><span>&nbsp;10<sup>6</sup>km</span>
-									</div>
-								</div>
-								<div class="data-row">
-									<div class="data-type">Périhélie</div>
-									<div class="data-value">
-										<span id="planet-perihelion"></span><span>&nbsp;10<sup>6</sup>km</span>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Orbite et rotation</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-type">Durée d'une journée</div>
+                  <div class="data-value">
+                    <span id="planet-daylength"></span><span>&nbsp;heures</span>
+                  </div>
+                </div>
+                <div class="data-row">
+                  <div class="data-type">Durée d'une année</div>
+                  <div class="data-value">
+                    <span id="planet-yearlength"></span><span>&nbsp;jours terrestres</span>
+                  </div>
+                </div>
+                <div class="data-row">
+                  <div class="data-type">Aphélie</div>
+                  <div class="data-value">
+                    <span id="planet-aphelion"></span><span>&nbsp;10<sup>6</sup>km</span>
+                  </div>
+                </div>
+                <div class="data-row">
+                  <div class="data-type">Périhélie</div>
+                  <div class="data-value">
+                    <span id="planet-perihelion"></span><span>&nbsp;10<sup>6</sup>km</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Environnement</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-type">Température moyenne</div>
-									<div class="data-value">
-										<span id="planet-meantemp"></span></span>&nbsp;°C</span>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Environnement</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-type">Température moyenne</div>
+                  <div class="data-value">
+                    <span id="planet-meantemp"></span></span>&nbsp;°C</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-					</div>
-				</div>
+          </div>
+        </div>
 
-				<div class="panel hidden fade" id="moon-panel">
-					<div class="column">
+        <div class="panel hidden fade" id="moon-panel">
+          <div class="column">
 
-						<h1 id="moonName"></h1>
+            <h1 id="moonName"></h1>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Masse</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-value alone">
-										<div>
-											<span id="moon-mass"></span><span>&nbsp;10<sup id="moon-mass-exposant"></sup> kg</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Masse</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-value alone">
+                    <div>
+                      <span id="moon-mass"></span><span>&nbsp;10<sup id="moon-mass-exposant"></sup> kg</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-						<div class="data-fragment shadow-1">
-							<div class="data-title">Dimensions</div>
-							<div class="data-content">
-								<div class="data-row">
-									<div class="data-value alone">
-										<span id="moon-dimensions"></span>
-									</div>
-								</div>
-							</div>
-						</div>
+            <div class="data-fragment">
+              <div class="data-title">Dimensions</div>
+              <div class="data-content">
+                <div class="data-row">
+                  <div class="data-value alone">
+                    <span id="moon-dimensions"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-					</div>
-				</div>
+          </div>
+        </div>
 
-			</div>
-		</div>
+      </div>
+    </div>
 
-		<div id="loader-wrapper" class="wrapper center">
-			<img id="loader" src="res/images/planet.png" alt="">
-		</div>
+    <div id="loader-wrapper" class="wrapper center">
+      <img id="loader" src="res/images/planet.png" alt="">
+    </div>
 
-		<script src="index.js"></script>
-	</body>
+    <script src="index.js"></script>
+  </body>
 </html>

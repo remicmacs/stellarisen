@@ -233,7 +233,38 @@ function showMenu() {
   hide('login-panel');
   hide('register-panel');
 
+  emptyForm("connect");
+  emptyForm("register");
+  const usernameMenuTitle = document.getElementById("menu-username");
+
+  if (sessionStorage.getItem("isAuthenticated") === "true") {
+    hide("connect-button");
+    hide("register-button");
+    show("disconnect-button");
+
+    // Setting username in menu
+    usernameMenuTitle.innerHTML = sessionStorage.getItem("username");
+  } else {
+    show("connect-button");
+    show("register-button");
+    hide("disconnect-button");
+
+    // Setting username in menu
+    usernameMenuTitle.innerHTML = "Anonyme";
+  }
+
   showLeftModal();
+}
+
+function disconnect() {
+  sessionStorage.clear();
+  sessionStorage.setItem("isAuthenticated", "false");
+  sessionStorage.setItem("username", "");
+  showMenu();
+}
+
+function emptyForm(formName) {
+  document[formName].reset();
 }
 
 function showPlanet() {
