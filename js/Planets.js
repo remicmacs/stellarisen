@@ -85,6 +85,8 @@ class Planets {
 
 					for (moonJson in planetJson["moons"]) {
 
+						console.log(moonJson);
+
 						// DIRTY HACK : ça force la fonction arrow à prendre la valeur courante de moonIndex plutôt que sa référence
 						let m = moonIndex;
 
