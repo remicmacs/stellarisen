@@ -29,9 +29,8 @@ done
 # and modifying only the correct line
 
 # MySQL user and database creation
-mysql -u "root" -p"123" -e "source /var/www/stellarisen/create_user_and_db.sql;"
-#\
-#set password for 'stellarisen'@'%' := PASSWORD( '${password}' );"
+mysql -u "root" -p"123" -e "source /var/www/stellarisen/create_user_and_db.sql;\
+set password for 'stellarisen'@'%' := PASSWORD( '${password}' );"
 
 # Table creation and insertion of celestial bodies
 mysql -u "stellarisen" -D "stellarisen" -p"${password}" -e "source \

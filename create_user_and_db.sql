@@ -8,7 +8,6 @@ CREATE USER 'stellarisen'@'%'
 -- SET @hashed := PASSWORD(@userpassword );
 -- SELECT @hashed ;
 -- SET PASSWORD FOR 'stellarisen'@'%' := @hashed ;
-set password for 'stellarisen'@'%' := PASSWORD( @userpassword );
 GRANT USAGE ON *.* TO 'stellarisen'@'%' REQUIRE NONE
   WITH MAX_QUERIES_PER_HOUR 0
   MAX_CONNECTIONS_PER_HOUR 0
