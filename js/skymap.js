@@ -458,9 +458,13 @@ class SkySphere {
 			y: this.pitchObject.rotation.x
 		};
 
+		const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+		let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+		newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
 		// Calculating final position
 		const target = {
-			x: angle.theta - Math.PI,
+			x: newTheta,
 			y: Math.PI / 2 - angle.phi
 		};
 
@@ -478,6 +482,12 @@ class SkySphere {
 		tween.onUpdate(() => {
 			this.yawObject.rotation.y = current.x;
 			this.pitchObject.rotation.x = current.y;
+		});
+
+		tween.onComplete(() => {
+			this.yawObject.rotation.y = angle.theta - Math.PI;
+			//window.location.hash = "#" + star.meshName + "-open";
+			console.log("Test");
 		});
 
 		tween.start();
@@ -525,8 +535,13 @@ class SkySphere {
 			y: this.pitchObject.rotation.x
 		};
 
+		const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+		let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+		newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
+		// Calculating final position
 		const target = {
-			x: angle.theta - Math.PI,
+			x: newTheta,
 			y: Math.PI / 2 - angle.phi
 		};
 
@@ -663,8 +678,13 @@ class SkySphere {
 						y: this.pitchObject.rotation.x
 					};
 
+					const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+					let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+					newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
+					// Calculating final position
 					const target = {
-						x: angle.theta - Math.PI,
+						x: newTheta,
 						y: Math.PI / 2 - angle.phi
 					};
 
