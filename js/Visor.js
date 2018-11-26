@@ -63,17 +63,19 @@ class Visor {
 		this.lockedSprite.position.copy(SkySphere.raDecToCartesian(10, star.ra, star.dec));
 		this.lockedSprite.visible = true;
 
-		/*if (this.constellation !== undefined) {
+		if (this.constellation !== undefined) {
 			for (let i = 0; i < this.constellation.links.length; i++) {
 				let link = this.constellation.links[i];
 				link.line.material.color = new THREE.Color(0x555555);
 				link.line.material.linewidth = 2;
 			}
-		}*/
+			this.constellation = undefined;
+		}
 	}
 
 	setConstellation(constellation) {
 		this.constellation = constellation;
+		this.star = undefined;
 		for (let i = 0; i < constellation.links.length; i++) {
 			let link = constellation.links[i];
 			link.line.material.color = new THREE.Color(0x666666);

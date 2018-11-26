@@ -486,9 +486,6 @@ class SkySphere {
 
 		// Building the modal dialog content by hand for now
 		// TODO: AJAJ code to do 'round here
-		/*show('con-owning');
-		show('distance-text');
-		hide('star-list');*/
 		if (isVisible('constellation-panel')) {
 			show('star-panel');
 		  hide('constellation-panel');
@@ -922,6 +919,16 @@ class SkySphere {
 			const text = document.createTextNode(tag);
 			div.appendChild(text);
 			tags.appendChild(div);
+
+			// If the tag is the first tag (which should be the name of the current
+			// object), we make it non-clickabe. Otherwise, it should lend to the
+			// search for the same kind of objects
+			if (tag === focused.tags[0]) {
+				div.classList.add('non-clickable');
+			} else {
+				div.classList.add('clickable');
+				// Add here logic for searching objects of same type
+			}
 		}
 	}
 

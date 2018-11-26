@@ -628,6 +628,7 @@ form {
 .data-value.link {
 	cursor: pointer;
 	transition: background-color 0.5s;
+	text-decoration: underline;
 }
 
 .data-value.link:hover {
@@ -656,7 +657,15 @@ form {
 	height: 32px;
 	padding-left: 8px;
 	padding-right: 8px;
-	radius: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+}
+
+.tag.clickable {
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 
