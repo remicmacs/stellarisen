@@ -294,12 +294,16 @@ class Planets {
 	 * @param {boolean} portrait If the scene view is portrait or landscape
 	 */
 	updateRingsRotation(portrait) {
-
-		let rotation = -0.4660029 +
-			(	portrait
-			?	Math.PI
-			: Math.PI / 2
-			);
+		let rotation;
+		if (this.depth === 0) {
+			rotation = -0.4660029 + (portrait ? Math.PI : Math.PI / 2);
+		} else if (this.depth === 1) {
+			rotation = -0.4660029 + (portrait ? Math.PI / 2 : 0);
+		} else if (this.depth === 2) {
+			rotation = -0.4660029 + (portrait ? Math.PI : Math.PI / 2);
+		} else {
+			return;
+		}
 
 		let target = new THREE.Euler(0, 0, rotation);
 		let current = this.rings.rotation.clone();
