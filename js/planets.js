@@ -122,13 +122,34 @@ class Planets {
 			setRight('planet-infos');
 		}
 
-		// Calculating the optimal camera position
-		this.camera.left =  	-this.width * (portrait ? ratio : 1			);
-		this.camera.right = 	this.width	* (portrait ? ratio : 1			);
-		//this.camera.top = 		(this.width + (portrait ? 3 : 0))	* (portrait ? 1 		: ratio	);
-		this.camera.top = 		this.width 	* (portrait ? 1			: ratio	);
-		this.camera.bottom =	-this.width * (portrait ? 1 		: ratio	);
-		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
+		let max;
+		let min;
+
+		if (this.depth === 0) {
+			// Compute target camera position
+			this.camera.top = this.width	* (portrait ? 1 : ratio);
+			this.camera.bottom = -this.width * (portrait ? 1 : ratio);
+			this.camera.left = -this.width * (portrait ? ratio : 1);
+			this.camera.right = this.width	* (portrait ? ratio : 1);
+			this.camera.rotation.z = portrait ? -Math.PI / 2 : 0
+		} else {
+			this.target.geometry.computeBoundingBox();
+			const box = this.target.geometry.boundingBox;
+			max = 3 * box.max.x;
+			min = box.min.x;
+
+			// Compute target camera position
+			this.camera.top = max	/ (portrait ? ratio : 1) - (portrait ? 0 : max / 3);
+			this.camera.bottom = min / (portrait ? ratio : 1) - (portrait ? 0 : max / 3);
+			this.camera.left = min / (portrait ? 1 : ratio) - (portrait ? max / 3 : 0);
+			this.camera.right = max	/ (portrait ? 1 : ratio) - (portrait ? max / 3 : 0);
+
+			if (this.depth === 1) {
+				this.camera.rotation.z = (portrait ? -Math.PI : -Math.PI / 2);
+			} else {
+				this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
+			}
+		}
 
 		if (portrait != this.wasPortrait) {
 			this.updateRotations(portrait);
