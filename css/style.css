@@ -642,6 +642,23 @@ form {
 	box-shadow: 0 0 2px 2px #000 inset;
 }
 
+.tag-list {
+	display: flex;
+}
+
+.tag-list .tag {
+	margin: 5px;
+}
+
+.tag {
+	background-color: #357edd;
+	color: #eee8d5;
+	height: 32px;
+	padding-left: 8px;
+	padding-right: 8px;
+	radius: 3px;
+}
+
 
 /* ANIMATIONS
 ==============================================================================*/

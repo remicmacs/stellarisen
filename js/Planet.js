@@ -33,6 +33,8 @@ class Planet {
 
 		this.moons = [];
 
+		this.tags = [];
+
 		// Creating 3D geometry
 		this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
 		let material;
@@ -65,6 +67,10 @@ class Planet {
 		this.mesh.userData = {
 			object: this
 		};
+
+		this.tags.push(this.name);
+		this.tags.push("Planète");
+
 		this.updateRotation();
 	}
 

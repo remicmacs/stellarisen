@@ -499,8 +499,8 @@ class SkySphere {
 		setSpan("objectName", star.meshName);
 		setSpan("con-name", this.getConstellationName(star.constellation));
 		setSpan("star-distance", Math.round(star.distance * 3.262));
-
 		setPlaceholder("searchField", star.meshName);
+		this.updateTags();
 
 		setImgSrc(
 			"star-picture",
@@ -562,6 +562,7 @@ class SkySphere {
 		//show('star-list');
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
+		this.updateTags();
 
 		const list = document.getElementById('stars-list');
 		list.innerHTML = '';
@@ -587,25 +588,6 @@ class SkySphere {
 				list.appendChild(row);
 			}
 		}
-
-		// const list = document.getElementById('stars-ul');
-		// list.innerHTML = '';
-		//
-		// // Display a list of stars that are part of the constellation
-		// for (let i = 0; i < this.starsObjects.length; i++) {
-		// 	if (
-		// 		this.starsObjects[i].constellationObject.fullName
-		// 		== constellation.fullName
-		// 		) {
-		// 		const item = document.createElement('li');
-		// 		const text = document.createTextNode(this.starsObjects[i].meshName);
-		// 		item.appendChild(text);
-		// 		item.addEventListener('click', (event) => {
-		// 			window.location.hash = text.textContent + "-open";
-		// 		})
-		// 		list.appendChild(item);
-		// 	}
-		// }
 	}
 
 	/**
@@ -914,6 +896,32 @@ class SkySphere {
 			this.disableControlWithOrientation();
 		} else {
 			this.enableControlWithOrientation();
+		}
+	}
+
+	updateTags() {
+		let focused;
+		let tags;
+		if (this.visor.star != undefined) {
+			focused = this.visor.star;
+			tags = document.getElementById('stars-tags');
+			tags.innerHTML = '';
+		}
+		else if (this.visor.constellation != undefined) {
+			focused = this.visor.constellation;
+			tags = document.getElementById('constellations-tags');
+			tags.innerHTML = '';
+		}
+		else {
+			return;
+		}
+
+		for (let tag of focused.tags) {
+			const div = document.createElement('div');
+			div.classList.add('tag');
+			const text = document.createTextNode(tag);
+			div.appendChild(text);
+			tags.appendChild(div);
 		}
 	}
 
