@@ -9,10 +9,39 @@ create table users(
 );
 
 create table celestial_bodies(
-  id int(100) not null primary key auto_increment,
+  id int(10) not null primary key auto_increment,
   name varchar(100) not null unique,
   type varchar(13) not null,
   index (name)
+);
+
+create table labels(
+  label_id int(10) not null primary key auto_increment,
+  name varchar(100) not null unique,
+  index(name)
+);
+
+create table tags(
+  tag_id int(10) not null primary key auto_increment,
+  celestial_bodies_id int(10) not null,
+  label_id int(10) not null,
+  userid int(10) not null,
+  foreign key (celestial_bodies_id) references celestial_bodies(id),
+  foreign key (label_id) references labels(label_id),
+  foreign key (userid) references users(userid),
+  index(userid),
+  index(celestial_bodies_id)
+);
+
+create table favorite(
+  id int(100) not null primary key auto_increment,
+  userid int(10) not null,
+  celestial_bodies_id int(10) not null,
+  rank int(10) not null,
+  foreign key (userid) references users(userid),
+  foreign key (celestial_bodies_id) references celestial_bodies(id),
+  constraint checkrange check (rank between 0 and 9),
+  index(userid)
 );
 
 
