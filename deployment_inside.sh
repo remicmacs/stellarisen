@@ -22,11 +22,13 @@ echo '                                                              ';
 echo '                                                              ';
 echo '                                                              ';
 
-# Installing dependancies
-$(cd api/ && composer install);
 
 printf "This script is made to help the user deploy the application for the \n"
 printf "\"Stellar'ISEN\" school project.\n\n"
+
+# Installing dependancies
+$(cd api/ && composer install);
+printf "\n\n"
 
 # Ensure script is run from inside the VM, in the correct folder
 if [ x"$PWD" != x"/var/www/stellarisen" ] \
