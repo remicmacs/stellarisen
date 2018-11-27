@@ -22,6 +22,17 @@ $ sudo sh set_hosts.sh
 # Powering VM and provisionning it with Vagrant
 $ vagrant up
 ```
+
+Once the Vagrant box is up and running, some configuration is needed inside the
+VM to deploy the back-end correctly.
+
+```bash
+# Step inside the Vagrant box
+$ vagrant ssh
+# Move to web root
+(@stellarisen-lamp) $ cd /var/www/stellarisen
+# Launch deployment script
+(@stellarisen-lamp) $ ./deployment_inside.sh
 ## Use of Vagrant box
 
 The root of the Vagrant environment is the folder including `Vagrantfile` and
