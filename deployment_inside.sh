@@ -1,5 +1,30 @@
 #! /usr/bin/env bash
-printf "Welcome!\n\n"
+echo '$$\   $$\           $$\ $$\                                   ';
+echo '$$ |  $$ |          $$ |$$ |                                  ';
+echo '$$ |  $$ | $$$$$$\  $$ |$$ | $$$$$$\                          ';
+echo '$$$$$$$$ |$$  __$$\ $$ |$$ |$$  __$$\                         ';
+echo '$$  __$$ |$$$$$$$$ |$$ |$$ |$$ /  $$ |                        ';
+echo '$$ |  $$ |$$   ____|$$ |$$ |$$ |  $$ |                        ';
+echo '$$ |  $$ |\$$$$$$$\ $$ |$$ |\$$$$$$  |$$\                     ';
+echo '\__|  \__| \_______|\__|\__| \______/ $  |                    ';
+echo '                                      \_/                     ';
+echo '                                                              ';
+echo '                                                              ';
+echo '                                  $$\       $$\       $$\ $$\ ';
+echo '                                  $$ |      $$ |      $$ |$$ |';
+echo '$$\  $$\  $$\  $$$$$$\   $$$$$$\  $$ | $$$$$$$ |      $$ |$$ |';
+echo '$$ | $$ | $$ |$$  __$$\ $$  __$$\ $$ |$$  __$$ |      $$ |$$ |';
+echo '$$ | $$ | $$ |$$ /  $$ |$$ |  \__|$$ |$$ /  $$ |      \__|\__|';
+echo '$$ | $$ | $$ |$$ |  $$ |$$ |      $$ |$$ |  $$ |              ';
+echo '\$$$$$\$$$$  |\$$$$$$  |$$ |      $$ |\$$$$$$$ |      $$\ $$\ ';
+echo ' \_____\____/  \______/ \__|      \__| \_______|      \__|\__|';
+echo '                                                              ';
+echo '                                                              ';
+echo '                                                              ';
+
+# Installing dependancies
+$(cd api/ && composer install);
+
 printf "This script is made to help the user deploy the application for the \n"
 printf "\"Stellar'ISEN\" school project.\n\n"
 
@@ -45,16 +70,31 @@ jwtsecret=$(pwgen -s 65 1 )
 
 printf "Creating database... "
 # MySQL user and database creation
-mysql -u "root" -p"123" -e "source /var/www/stellarisen/create_user_and_db.sql;\
+mysql --abort-source-on-error -u "root" -p"123" \
+-e "source /var/www/stellarisen/create_user_and_db.sql; \
 set password for 'stellarisen'@'%' := PASSWORD( '${password}' );"
 
+exitcode=$?
+if [ $exitcode -ne 0 ]; then
+    printf "Failure!\nMySQL error while creating database !!\n"
+    printf "Exiting ..."
+    exit 1
+fi
+
 # Table creation and insertion of celestial bodies
-mysql -u "stellarisen" -D "stellarisen" -p"${password}" -e "source \
-/var/www/stellarisen/create_tables.sql;"
+mysql --abort-source-on-error -u "stellarisen" -D "stellarisen" \
+-p"${password}" -e "source /var/www/stellarisen/create_tables.sql;"
+
+exitcode=$?
+if [ $exitcode -ne 0 ]; then
+    printf "Failure!\nMySQL error while creating tables !!\n"
+    printf "Exiting ..."
+    exit 1
+fi
 
 printf "Success !! \n"
 
-# Generation of .env config file.
+# Generation of .env conf ig file.
 envfile="api/.env"
 referenceenvfile="api/.env.example"
 

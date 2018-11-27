@@ -7,7 +7,6 @@ drop table if exists labels;
 drop table if exists users;
 drop table if exists celestial_bodies;
 
-
 -- Creating tables without foreign keys
 create table users(
   userid int(10) not null primary key auto_increment,
