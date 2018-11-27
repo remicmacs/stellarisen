@@ -1,10 +1,19 @@
+-- Dropping tables with foreign key constraints first
+drop table if exists favorites;
+drop table if exists tags;
+
+-- Dropping tables without foreign keys
+drop table if exists labels;
 drop table if exists users;
 drop table if exists celestial_bodies;
 
+
+-- Creating tables without foreign keys
 create table users(
   userid int(10) not null primary key auto_increment,
   username varchar(100) not null unique,
   hash varchar(60) not null,
+  -- Speed up research on username
   index (username)
 );
 
@@ -12,15 +21,18 @@ create table celestial_bodies(
   id int(10) not null primary key auto_increment,
   name varchar(100) not null unique,
   type varchar(13) not null,
+  -- Speed up research on star name
   index (name)
 );
 
 create table labels(
   label_id int(10) not null primary key auto_increment,
   name varchar(100) not null unique,
+  -- Speed up research on the tag's content
   index(name)
 );
 
+-- A tag is a label, a user and a celestial_body
 create table tags(
   tag_id int(10) not null primary key auto_increment,
   celestial_bodies_id int(10) not null,
@@ -29,18 +41,25 @@ create table tags(
   foreign key (celestial_bodies_id) references celestial_bodies(id),
   foreign key (label_id) references labels(label_id),
   foreign key (userid) references users(userid),
+  -- A tuple (tag_id, celestial_bodies_id, label_id) must exist only once
+  -- because the user can only have one time a specific label on a star
+  constraint unique_tuple unique(tag_id, celestial_bodies_id, label_id),
+  -- Not sure if it is useful because these fields already are keys, so they
+  -- must be indexed.
   index(userid),
   index(celestial_bodies_id)
 );
 
-create table favorite(
+create table favorites(
   id int(100) not null primary key auto_increment,
   userid int(10) not null,
   celestial_bodies_id int(10) not null,
   rank int(10) not null,
   foreign key (userid) references users(userid),
   foreign key (celestial_bodies_id) references celestial_bodies(id),
+  -- A list of favorites has only 10 favorites (top 10)
   constraint checkrange check (rank between 0 and 9),
+  constraint unique_rank unique(userid, rank),
   index(userid)
 );
 
