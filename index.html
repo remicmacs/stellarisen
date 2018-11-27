@@ -36,7 +36,7 @@
 
       <div id="header">
         <img src="res/images/logo_256.png" alt="User" id="userImage"/>
-        <input id="searchField" class="light" type="text" placeholder="Rechercher..."/>
+        <input id="searchField" class="light shadow-1" type="text" placeholder="Rechercher..."/>
       </div>
 
     </div>
@@ -107,7 +107,7 @@
           <div class="column">
             <h1 class="f1" id="objectName">Star name placeholder</h1>
 
-            <div class="data-fragment shrink">
+            <div class="data-fragment shrink shadow-1">
               <div class="data-title">Photo</div>
               <div class="data-content">
                 <div class="data-row">
@@ -118,18 +118,18 @@
               </div>
             </div>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Constellation</div>
               <div class="data-content">
                 <div class="data-row">
                   <div class="data-value alone link" id="con-link">
-                    <span id="con-name"></span>
+                    <span id="con-name" class="clickable"></span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Distance</div>
               <div class="data-content">
                 <div class="data-row">
@@ -139,17 +139,8 @@
                 </div>
               </div>
             </div>
-            <!--<div class="line">
-              <img src="https://placehold.jp/150x150.png" id="star-picture"/>
-              <div class="column">
-                <div id="con-owning">
-                  Appartient à la constellation de <span id="con-name"></span>
-                </div>
-                <div id="distance-text">
-                  Se situe à une distance de <span id="star-distance"></span> année-lumières
-                </div>
-              </div>
-            </div>-->
+            <div id="stars-tags" class="tag-list">
+            </div>
           </div>
         </div>
 
@@ -157,7 +148,7 @@
           <div class="column">
             <h1 class="f1" id="constellation-title">Constellation name placeholder</h1>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Étoiles constitutives</div>
               <div class="data-content" id="stars-list">
                 <div class="data-row">
@@ -166,6 +157,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div id="constellations-tags" class="tag-list">
             </div>
 
           </div>
@@ -185,7 +179,7 @@
           <div class="column">
             <h1 id="planetName">Planet name placeholder</h1>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Données physiques</div>
               <div class="data-content">
                 <div class="data-row">
@@ -209,7 +203,7 @@
               </div>
             </div>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Orbite et rotation</div>
               <div class="data-content">
                 <div class="data-row">
@@ -239,7 +233,7 @@
               </div>
             </div>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Environnement</div>
               <div class="data-content">
                 <div class="data-row">
@@ -259,7 +253,7 @@
 
             <h1 id="moonName">Moon name placeholder</h1>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Masse</div>
               <div class="data-content">
                 <div class="data-row">
@@ -272,7 +266,7 @@
               </div>
             </div>
 
-            <div class="data-fragment">
+            <div class="data-fragment shadow-1">
               <div class="data-title">Dimensions</div>
               <div class="data-content">
                 <div class="data-row">

@@ -69,11 +69,13 @@ class Visor {
 				link.line.material.color = new THREE.Color(0x555555);
 				link.line.material.linewidth = 2;
 			}
+			this.constellation = undefined;
 		}
 	}
 
 	setConstellation(constellation) {
 		this.constellation = constellation;
+		this.star = undefined;
 		for (let i = 0; i < constellation.links.length; i++) {
 			let link = constellation.links[i];
 			link.line.material.color = new THREE.Color(0x666666);

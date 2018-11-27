@@ -29,6 +29,7 @@ class Constellation {
 
 		this.nameVisible = true;
 
+		this.tags = [];
 
 		// Dead code
 		/*let constellationLinks =
@@ -101,6 +102,9 @@ class Constellation {
 			);
 			this.links.push(link);
 		}
+
+		this.tags.push(this.fullName);
+		this.tags.push("Constellation");
 	}
 
 	addToScene(scene) {

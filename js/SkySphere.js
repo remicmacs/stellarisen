@@ -458,9 +458,13 @@ class SkySphere {
 			y: this.pitchObject.rotation.x
 		};
 
+		const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+		let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+		newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
 		// Calculating final position
 		const target = {
-			x: angle.theta - Math.PI,
+			x: newTheta,
 			y: Math.PI / 2 - angle.phi
 		};
 
@@ -480,15 +484,18 @@ class SkySphere {
 			this.pitchObject.rotation.x = current.y;
 		});
 
+		tween.onComplete(() => {
+			this.yawObject.rotation.y = angle.theta - Math.PI;
+			//window.location.hash = "#" + star.meshName + "-open";
+			console.log("Test");
+		});
+
 		tween.start();
 		//this.visor.setTarget(star);
 		this.visor.setLocked(star);
 
 		// Building the modal dialog content by hand for now
 		// TODO: AJAJ code to do 'round here
-		/*show('con-owning');
-		show('distance-text');
-		hide('star-list');*/
 		if (isVisible('constellation-panel')) {
 			show('star-panel');
 		  hide('constellation-panel');
@@ -499,8 +506,8 @@ class SkySphere {
 		setSpan("objectName", star.meshName);
 		setSpan("con-name", this.getConstellationName(star.constellation));
 		setSpan("star-distance", Math.round(star.distance * 3.262));
-
 		setPlaceholder("searchField", star.meshName);
+		this.updateTags();
 
 		setImgSrc(
 			"star-picture",
@@ -528,8 +535,13 @@ class SkySphere {
 			y: this.pitchObject.rotation.x
 		};
 
+		const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+		let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+		newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
+		// Calculating final position
 		const target = {
-			x: angle.theta - Math.PI,
+			x: newTheta,
 			y: Math.PI / 2 - angle.phi
 		};
 
@@ -562,6 +574,7 @@ class SkySphere {
 		//show('star-list');
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
+		this.updateTags();
 
 		const list = document.getElementById('stars-list');
 		list.innerHTML = '';
@@ -587,25 +600,6 @@ class SkySphere {
 				list.appendChild(row);
 			}
 		}
-
-		// const list = document.getElementById('stars-ul');
-		// list.innerHTML = '';
-		//
-		// // Display a list of stars that are part of the constellation
-		// for (let i = 0; i < this.starsObjects.length; i++) {
-		// 	if (
-		// 		this.starsObjects[i].constellationObject.fullName
-		// 		== constellation.fullName
-		// 		) {
-		// 		const item = document.createElement('li');
-		// 		const text = document.createTextNode(this.starsObjects[i].meshName);
-		// 		item.appendChild(text);
-		// 		item.addEventListener('click', (event) => {
-		// 			window.location.hash = text.textContent + "-open";
-		// 		})
-		// 		list.appendChild(item);
-		// 	}
-		// }
 	}
 
 	/**
@@ -684,8 +678,13 @@ class SkySphere {
 						y: this.pitchObject.rotation.x
 					};
 
+					const diffAngle = (angle.theta - Math.PI) - this.yawObject.rotation.y;
+					let newTheta = diffAngle < -Math.PI ? angle.theta + Math.PI : angle.theta - Math.PI;
+					newTheta = diffAngle > Math.PI ? newTheta - 2 * Math.PI : newTheta;
+
+					// Calculating final position
 					const target = {
-						x: angle.theta - Math.PI,
+						x: newTheta,
 						y: Math.PI / 2 - angle.phi
 					};
 
@@ -914,6 +913,42 @@ class SkySphere {
 			this.disableControlWithOrientation();
 		} else {
 			this.enableControlWithOrientation();
+		}
+	}
+
+	updateTags() {
+		let focused;
+		let tags;
+		if (this.visor.star != undefined) {
+			focused = this.visor.star;
+			tags = document.getElementById('stars-tags');
+			tags.innerHTML = '';
+		}
+		else if (this.visor.constellation != undefined) {
+			focused = this.visor.constellation;
+			tags = document.getElementById('constellations-tags');
+			tags.innerHTML = '';
+		}
+		else {
+			return;
+		}
+
+		for (let tag of focused.tags) {
+			const div = document.createElement('div');
+			div.classList.add('tag');
+			const text = document.createTextNode(tag);
+			div.appendChild(text);
+			tags.appendChild(div);
+
+			// If the tag is the first tag (which should be the name of the current
+			// object), we make it non-clickabe. Otherwise, it should lend to the
+			// search for the same kind of objects
+			if (tag === focused.tags[0]) {
+				div.classList.add('non-clickable');
+			} else {
+				div.classList.add('clickable');
+				// Add here logic for searching objects of same type
+			}
 		}
 	}
 

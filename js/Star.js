@@ -14,6 +14,8 @@ class Star {
 		this.constellation = dict.constellation;
 		this.constellationObject = dict.constellationObject;
 
+		this.tags = [];
+
 		this.material = new THREE.SpriteMaterial(
 			{	map: dict["texture"]
 			,	color: this.colour.getHex()
@@ -34,6 +36,9 @@ class Star {
 
 		this.mesh.name = this.meshName;
 		this.mesh.userData = { "type": "star" };
+
+		this.tags.push(this.meshName);
+		this.tags.push("Étoile");
 	}
 
 	/**

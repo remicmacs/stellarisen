@@ -13,6 +13,8 @@ class Moon {
     this.mass_exposant = data.mass_exposant
     this.dimensions = data.dimensions;
 
+    this.tags = [];
+
     // Creating 3D geometry
     this.geometry = new THREE.SphereBufferGeometry(this.radius, 50, 50);
     const material = new THREE.MeshLambertMaterial({
@@ -36,6 +38,9 @@ class Moon {
 		this.mesh.userData = {
 			object: this
 		};
+
+    this.tags.push(this.name);
+    this.tags.push("Lune");
   }
 
   /**

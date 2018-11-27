@@ -628,6 +628,7 @@ form {
 .data-value.link {
 	cursor: pointer;
 	transition: background-color 0.5s;
+	text-decoration: underline;
 }
 
 .data-value.link:hover {
@@ -640,6 +641,31 @@ form {
 
 .shadow-inset {
 	box-shadow: 0 0 2px 2px #000 inset;
+}
+
+.tag-list {
+	display: flex;
+}
+
+.tag-list .tag {
+	margin: 5px;
+}
+
+.tag {
+	background-color: #357edd;
+	color: #eee8d5;
+	height: 32px;
+	padding-left: 8px;
+	padding-right: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 3px;
+}
+
+.tag.clickable {
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 
