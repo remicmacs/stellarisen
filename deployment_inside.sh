@@ -71,7 +71,7 @@ jwtsecret=$(pwgen -s 65 1 )
 printf "Creating database... "
 # MySQL user and database creation
 mysql --abort-source-on-error -u "root" -p"123" \
--e "source /var/www/stellarisen/create_user_and_db.sql; \
+-e "source /var/www/stellarisen/database_scripts/create_user_and_db.sql; \
 set password for 'stellarisen'@'%' := PASSWORD( '${password}' );"
 
 exitcode=$?
@@ -83,7 +83,7 @@ fi
 
 # Table creation and insertion of celestial bodies
 mysql --abort-source-on-error -u "stellarisen" -D "stellarisen" \
--p"${password}" -e "source /var/www/stellarisen/create_tables.sql;"
+-p"${password}" -e "source /var/www/stellarisen/database_scripts/create_tables.sql;"
 
 exitcode=$?
 if [ $exitcode -ne 0 ]; then
