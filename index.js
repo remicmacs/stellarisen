@@ -7,6 +7,7 @@ sessionStorage.setItem("username", "");
 
 console.log("Loading init script");
 
+// Building scenes
 const skyScene = new THREE.Scene();
 skyScene.background = new THREE.Color(0x001b44);
 const planetsScene = new THREE.Scene();
@@ -18,14 +19,6 @@ let scene = null;
 const renderer = new THREE.WebGLRenderer({
   antialias: true
 });
-
-window.onhashchange = () => {
-  updateHash(false);
-};
-
-if (deviceIsMobile()) {
-  show("set-orien");
-}
 
 const skySphere = new SkySphere(skyScene, renderer, onLoad);
 const planets = new Planets(planetsScene, renderer, onLoad);
@@ -41,6 +34,16 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 console.log("Renderer added to webpage");
 
+// Attaching routing function
+window.onhashchange = () => {
+  updateHash(false);
+};
+
+if (deviceIsMobile()) {
+  show("set-orien");
+}
+
+// General events handling (movement controls)
 document.addEventListener('mousemove', onMove);
 document.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mouseup', onMouseUp);
@@ -48,14 +51,14 @@ document.addEventListener('touchmove', onTouchMove);
 document.addEventListener('touchstart', onTouchStart);
 document.addEventListener('touchend', onTouchEnd);
 
-const toaster = new Toaster();
-
 // Adding form submit event listeners
+const toaster = new Toaster();
 const connectionHandler = new ConnectionHandler(toaster);
 const registrationHandler = new RegistrationHandler(toaster);
 document.connect.onsubmit = (event) => connectionHandler.handle(event);
 document.register.onsubmit = (event) => registrationHandler.handle(event);
 
+// Specific events handling
 const events = [
   ['userImage', 'mouseup', openMenu],
   ['userImage', 'touchend', openMenu],
@@ -107,6 +110,11 @@ for (let i = 0; i < events.length; i++) {
 }
 console.log("Attached event listeners");
 
+
+/**
+ * Display loader on document loading
+ *
+ */
 function onLoad() {
   if (skySphere.loaded && planets.loaded) {
     const hash = window.location.hash.substring(1);
@@ -167,8 +175,8 @@ function switchScene() {
 
 /**
  * Function to find target of hash among possible objects
- * @param {*} hash : the hash from the window URI, stripped from superfluous
- * "-open" or other
+ * @param {string} hash : the hash from the window URI, stripped from
+ * superfluous "-open" or other
  */
 function findTarget(hash) {
   let target = {};
@@ -305,10 +313,10 @@ function focusOnMoon(starting, state, moon) {
 
 /**
  * Sets scene focus on target star|constellation
- * @param {*} starting boolean === true if application is just starting
- * @param {*} state === "open" if info panel is open
- * @param {*} star string, name of the target star
- * @param {*} constellation string, name of the target constellation
+ * @param {boolean} starting boolean === true if application is just starting
+ * @param {string} state === "open" if info panel is open
+ * @param {string} star string, name of the target star
+ * @param {string} constellation string, name of the target constellation
  */
 function focusOnStarmapObject(starting, state, home, star, constellation) {
   // If application is just loading, focusing on starmap scene
@@ -338,8 +346,8 @@ function focusOnStarmapObject(starting, state, home, star, constellation) {
 
 /**
  * Makes scene look at at a starmap target
- * @param {*} star
- * @param {*} constellation
+ * @param {string} star
+ * @param {string} constellation
  */
 function lookAtSkymapTarget(star, constellation) {
   if (star !== null) {
@@ -366,7 +374,7 @@ function mountStarmapAndLookAt(star, constellation) {
 /**
  * Handle switching according to hash and global state and returns true if scene
  * has switched, false if not
- * @param {*} hash
+ * @param {string} hash
  */
 function hasSceneSwitched(hash) {
   // Switching scenes skymap <-> solar system
@@ -400,6 +408,12 @@ function hasSceneSwitched(hash) {
   return false;
 }
 
+/**
+ * Handler for hash navigation
+ *
+ * @param {boolean} starting
+ * @returns
+ */
 function updateHash(starting) {
   // Destructuring hash to find root of id
   const splinters = window.location.hash.substring(1).split("-");
