@@ -24,10 +24,25 @@ class Favorites {
   }
 
   produceFavoritesList(favs) {
-    for (let fav of favs) {
+    this.favoritesList.innerHTML = "";
+    for (let i = 0 ; i < favs.length ; i++) {
+      const fav = favs[i];
       const liElt = document.createElement("li");
-      liElt.classList.add("f4");
-      liElt.innerHTML = fav;
+      liElt.classList.add("data-row");
+
+      const divElt = document.createElement("div");
+      divElt.classList.add(
+        "data-value",
+        "alone",
+        "link"
+      );
+      divElt.innerHTML = '<b>#'+ (i+1) + ' </b>    ' + fav;
+      divElt.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.hash = fav + "-open";
+      })
+
+      liElt.appendChild(divElt);
 
       this.favoritesList.appendChild(liElt);
 
