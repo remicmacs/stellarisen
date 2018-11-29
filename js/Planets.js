@@ -4,6 +4,7 @@
  * @class
  */
 class Planets {
+	
 	/**
 	 * Planets constructor
 	 *
@@ -68,10 +69,7 @@ class Planets {
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
-		// Instantiating the objects that will contain the textures, and the
-		// loader for the textures
-		this.texturesObjects = [];
-		this.moonsTextures = [];
+		// Instantiating the loader for the textures
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
 
 		// Starting the rings texture's loading. On completion, we'll store
@@ -79,12 +77,6 @@ class Planets {
 		this.textureLoader.load("res/images/planets/saturn_rings.png",
 			(response) => { this.ringTexture = response; }
 		);
-
-		// this.textureLoader.load("res/images/sky2.jpg", (texture) => {
-		// 	this.skydomeTexture = texture;
-		// 	console.log("skydome texture loaded");
-		// });
-
 
 		// Instantiating a file loader and starting it to load the planets
 		// informations. On Jsoncompletion, it will load the planets, the moons, and
@@ -94,29 +86,30 @@ class Planets {
 		this.jsonLoader.load("res/planets_new.json", (response) => {
 				this.json = response;
 
+				// We loop through the planets
 				const nbPlanets = Object.keys(this.json).length;
 				for (let index = 0; index < nbPlanets; index++) {
-					let planetName = Object.keys(this.json)[index];
-					let planetJson = this.json[planetName];
+					const planetName = Object.keys(this.json)[index];
+					const planetJson = this.json[planetName];
 
 					// We add the planet's texture for loading
-					this.textureLoader.load(
-						planetJson["texture"],
+					this.textureLoader.load(planetJson["texture"],
 						(texture) => { planetJson["texture"] = texture; }
 					);
 
+					// If the planet has no moons, no can go to the next iteration
 					if (typeof planetJson["moons"] === "undefined") {
 						continue;
 					}
 
+					// We loop through the moons
 					const nbMoons = Object.keys(planetJson["moons"]).length;
 					for (let moonIndex = 0; moonIndex < nbMoons; moonIndex++) {
-						let moonName = Object.keys(planetJson["moons"])[moonIndex];
-						let moonJson = planetJson["moons"][moonName];
+						const moonName = Object.keys(planetJson["moons"])[moonIndex];
+						const moonJson = planetJson["moons"][moonName];
 
-						// On met les textures des lunes à charger
-						this.textureLoader.load(
-							moonJson["texture"],
+						// We add the moon's texture for loading
+						this.textureLoader.load(moonJson["texture"],
 							(texture) => { moonJson["texture"] = texture; }
 						)
 					}
@@ -132,12 +125,15 @@ class Planets {
 	 * Process the new viewport size to find ideal camera position
 	 */
 	rearrange() {
+
+		// Update the viewport size
 		this.renderer.setPixelRatio(window.devicePixelRatio);
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 
 		const ratio = utils.ratio;
 		const portrait = viewportIsPortrait();
 
+		// Update the position of the information modal dialog
 		if (portrait) {
 			setTop('planet-infos-wrapper');
 			setTop('planet-infos');
@@ -146,40 +142,49 @@ class Planets {
 			setRight('planet-infos');
 		}
 
-		let max;
-		let min;
-
+		// If we are at the solar system, we have no specific target so
+		// we can set the camera to look at the whole scene
 		if (this.depth === 0) {
+
 			// Compute target camera position
 			this.camera.top    = this.width	 * (portrait ? 1     : ratio);
 			this.camera.bottom = -this.width * (portrait ? 1     : ratio);
 			this.camera.left   = -this.width * (portrait ? ratio : 1    );
 			this.camera.right  = this.width	 * (portrait ? ratio : 1    );
-			this.camera.rotation.z = portrait ? -Math.PI / 2 : 0
+			this.camera.rotation.z = portrait ? -Math.PI / 2 : 0;
+
 		} else {
+
+			// Compute the bounding box of the targetted object
 			this.target.geometry.computeBoundingBox();
-			const box = this.target.geometry.boundingBox;
-			max = 3 * box.max.x;
-			min = box.min.x;
+			const max = 3 * this.target.geometry.boundingBox.max.x;
+			const min = this.target.geometry.boundingBox.min.x;
 
 			// Compute target camera position
-			this.camera.top = max	/ (portrait ? ratio : 1) - (portrait ? 0 : max / 3);
-			this.camera.bottom = min / (portrait ? ratio : 1) - (portrait ? 0 : max / 3);
-			this.camera.left = min / (portrait ? 1 : ratio) - (portrait ? max / 3 : 0);
-			this.camera.right = max	/ (portrait ? 1 : ratio) - (portrait ? max / 3 : 0);
+			this.camera.top    =
+			  max / (portrait ? ratio : 1    ) - (portrait ? 0       : max / 3);
+			this.camera.bottom =
+			  min / (portrait ? ratio : 1    ) - (portrait ? 0       : max / 3);
+			this.camera.left   =
+			  min / (portrait ? 1     : ratio) - (portrait ? max / 3 : 0      );
+			this.camera.right  =
+			  max / (portrait ? 1     : ratio) - (portrait ? max / 3 : 0      );
 
+			// Compute target camera rotation
 			if (this.depth === 1) {
-				this.camera.rotation.z = (portrait ? -Math.PI : -Math.PI / 2);
+				this.camera.rotation.z = (portrait ? -Math.PI     : -Math.PI / 2);
 			} else {
-				this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
+				this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0           );
 			}
 		}
 
+		// If the orientation changed, we update the rotations
 		if (portrait != this.wasPortrait) {
 			this.updateRotations(portrait);
 			this.wasPortrait = portrait;
 		}
 
+		// Update the projection matrix to see any change
 		this.camera.updateProjectionMatrix();
 	}
 
@@ -187,15 +192,14 @@ class Planets {
 	 * Function to add every object to the scene
 	 */
 	addEverything() {
-		let moonsTexturesIndex = 0;
 
-		// if (this.skydomeTexture != undefined) {
-		// 	this.addSkydomeToScene();
-		// }
+		// We loop through the planets to create them
+		const nbPlanets = Object.keys(this.json).length;
+		for (let index = 0; index < nbPlanets; index++) {
+			const planetName = Object.keys(this.json)[index]
+			const planetJson = this.json[planetName];
 
-		// On crée les planètes
-		for (let index = 0; index < Object.keys(this.json).length; index++) {
-			let planetJson = this.json[Object.keys(this.json)[index]];
+			// This is the data we want to display in the modal dialog
 			let data =
 				{	"mass": planetJson["mass"]
 				, "diameter": planetJson["diameter"]
@@ -206,72 +210,73 @@ class Planets {
 				, "perihelion": planetJson["perihelion"]
 				, "meantemp": planetJson["meantemp"]
 				};
-			let planet = new Planet
+
+			// We create the planet and add it to the scene
+			const planet = new Planet
 				(	planetJson["texture"]
 				,	planetJson["distance"]
 				,	planetJson["radius"]
 				,	planetJson["tilt"]
-				,	Object.keys(this.json)[index]
+				,	planetName
 				, data
 				);
-			planet.addToScene(this.scene);
+			this.scene.add(planet.mesh);
 			this.planets.push(planet);
 
-			// On passe à la planète suivante si la courante n'a pas de lunes
+			// We go to the next planet if this one doesn't have moons
 			if (typeof planetJson["moons"] === "undefined") {
 				continue;
 			}
 
-			let moons = [];
+			// We loop through the moon and create them
+			const nbMoons = Object.keys(planetJson["moons"]).length;
+			for (let moonIndex = 0; moonIndex < nbMoons; moonIndex++) {
+				const moonName = Object.keys(planetJson["moons"])[moonIndex];
+				const moonJson = planetJson["moons"][moonName];
 
-			// On crée les lunes
-			for (let moonIndex = 0; moonIndex < Object.keys(planetJson["moons"]).length; moonIndex++) {
-				let moonJson = planetJson["moons"][Object.keys(planetJson["moons"])[moonIndex]];
-
+				// This is the data we want to display in the modal dialog
 				data =
 					{	"mass": moonJson["mass"]
 					, "mass_exposant": moonJson["mass_exposant"]
 					, "dimensions": moonJson["diameter"]
 					};
 
-				let moon = new Moon
+				// We create the moon and add it to the scene
+				const moon = new Moon
 					(	moonJson["texture"]
 					,	moonJson["distance"]
 					, moonJson["radius"]
-					, Object.keys(planetJson["moons"])[moonIndex]
+					, moonName
 					, planet.mesh.position
 					, moonJson["tilt"]
 					, moonJson["retrograde"]
 					, data
 					);
-				moon.mesh.rotation.z = THREE.Math.degToRad(moonJson["tilt"]);
 				this.scene.add(moon.mesh);
-				moons.push(moon);
-				moonsTexturesIndex++;
+				planet.moons.push(moon);
 			}
-
-			planet.moons = moons;
 		}
 
+		// Setting the light with ambient and a directional light
 		this.scene.add(new THREE.AmbientLight(0x553333));
 		this.light = new THREE.DirectionalLight(0xffffff, 1);
 		this.light.position.copy(new THREE.Vector3(-24, 0, 10));
 		this.scene.add(this.light);
 
 		// Constructing rings for ringed planets
-		let geometry = new THREE.RingBufferGeometry(1.8, 3.2, 64);
+		const geometry = new THREE.RingBufferGeometry(1.8, 3.2, 64);
 
-		// On arrange les UVs pour la texture
+		// We correct the UV for the rings texture
 		let uvs = geometry.attributes.uv.array;
 		for (let c = 0, j = 0; j <= 1; j ++ ) {
-		    for ( var i = 0; i <= 64; i ++ ) {
+		    for (let i = 0; i <= 64; i ++) {
 						uvs[c++] = j;
 		        uvs[c++] = i / 64;
-
 		    }
 		}
 
-		let material = new THREE.MeshBasicMaterial(
+		// Instantiating the material for the rings
+		const material = new THREE.MeshBasicMaterial(
 			{	color: '#E1C9A2'
 			,	side: THREE.DoubleSide
 			, map: this.ringTexture
@@ -279,6 +284,7 @@ class Planets {
 			, opacity: 1
 			});
 
+		// Creating the rings, setting their position and adding it to the scene
 		this.rings = new THREE.Mesh(geometry, material);
 		this.rings.position.z = -10;
 		this.rings.position.x = 5.5;
@@ -286,28 +292,12 @@ class Planets {
 		this.rings.rotation.y = Math.PI * 1.45;
 		this.scene.add(this.rings);
 
+		// We signal the end of setting the scene and rearrange/update to take
+		// device's orientation and viewport size in account
 		this.rearrange();
 		this.updateRotations(viewportIsPortrait());
 		this.loaded = true;
 		this.onLoad();
-	}
-
-	/**
-	 *	Add skydome to the scene
-	 */
-	addSkydomeToScene() {
-		//const skyGeo = new THREE.SphereGeometry(50, 25, 25);
-		const skyGeo = new THREE.PlaneGeometry(36, 25, 1, 1);
-		const material = new THREE.MeshBasicMaterial({
-			map: this.skydomeTexture,
-			transparent: true
-		});
-		const sky = new THREE.Mesh(skyGeo, material);
-		sky.material.side = THREE.BackSide;
-		sky.material.opacity = 0.5;
-		// sky.position.z = -150;
-		//sky.rotation.x = Math.PI / 2 - 0.3;
-		this.scene.add(sky);
 	}
 
 	/**

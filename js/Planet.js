@@ -62,6 +62,8 @@ class Planet {
 		this.mesh.position.x = this.distance;
 		this.mesh.rotation.reorder("ZYX");
 
+		this.mesh.rotation.z = THREE.Math.degToRad(this.tilt);
+
 		// Binding instance to Mesh object (why ?)
 		this.mesh.name = this.name;
 		this.mesh.userData = {
@@ -72,14 +74,6 @@ class Planet {
 		this.tags.push("Planète");
 
 		this.updateRotation();
-	}
-
-	/**
-	 * Adds the Planet to the given scene
-	 * @param {*} scene The Planet object will be added to this Three.js scene
-	 */
-	addToScene(scene) {
-		scene.add(this.mesh);
 	}
 
 	/**
