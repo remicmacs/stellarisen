@@ -1,6 +1,7 @@
 class Favorites {
   constructor(favoritesPanelElt) {
     this.favoritesPanelElt = favoritesPanelElt;
+    this.favoritesList = this.favoritesPanelElt.getElementsByTagName("ol")[0];
   }
 
   displayFavoritesPanel() {
@@ -16,9 +17,20 @@ class Favorites {
       method: 'GET'
     })
     .then((res) => res.json())
-    .then(console.log)
+    .then((json) => {this.produceFavoritesList(json)})
     .catch(error => {
       console.error("Fatal Error : ", error);
     });
+  }
+
+  produceFavoritesList(favs) {
+    for (let fav of favs) {
+      const liElt = document.createElement("li");
+      liElt.classList.add("f4");
+      liElt.innerHTML = fav;
+
+      this.favoritesList.appendChild(liElt);
+
+    }
   }
 }
