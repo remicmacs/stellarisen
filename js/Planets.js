@@ -14,89 +14,111 @@ class Planets {
 	 * @param {function} onLoad Handler for Scene loading
 	 */
 	constructor(scene, renderer, onLoad) {
+
+		// Indicate whether everything has been loaded in the scene
 		this.loaded = false;
+
+		// Registering the constructor arguments
 		this.onLoad = onLoad;
 		this.scene = scene;
-		this.camera = camera;
 		this.renderer = renderer;
+
+		// The depth is used to remember at which level (system, planet or moon) we
+		// are so we can animate consequently
 		this.depth = 0;
+
+		// Will contains the focused solar object
 		this.body = null;
 
+		// Let's have some lighting
 		this.light = null;
 
+		// The raycaster is used for detecting the clicked element
 		this.raycaster = new THREE.Raycaster();
 		this.mouse = new THREE.Vector2();
 
-		this.width = 16.285714285714285; // WTF magic number ?
+		// MAGIC NUMBER : it is actually the perfect half-width for looking
+		// at the whole system
+		this.width = 16.285714285714285;
 
+		// Holds the object we want to focus on
 		this.target = null;
 
 		// Instantiating Camera
 		const portrait = viewportIsPortrait();
 		const ratio = utils.ratio;
 		this.camera = new THREE.OrthographicCamera
-			(	-this.width * (portrait ? ratio : 1			)
-			,	this.width	* (portrait ? ratio : 1			)
-			,	this.width	* (portrait ? 1 		: ratio	)
-			,	-this.width * (portrait ? 1 		: ratio	)
-			,	0
-			,	1000
+			( -this.width * (portrait ? ratio : 1     )
+			, this.width  * (portrait ? ratio : 1     )
+			, this.width  * (portrait ? 1     : ratio )
+			, -this.width * (portrait ? 1     : ratio )
+			, 0
+			, 1000
 			);
 		this.camera.rotation.z = (portrait ? -Math.PI / 2 : 0);
 
+		// Instantiating the objects that will contain the planets and rings
 		this.planets = [];
 		this.rings = null;
+
+		// Used to detect a change in device orientation
 		this.wasPortrait = viewportIsPortrait();
 
-		// Adds a loader for an animation during long loadings
+		// Adds an asynchronous loader for big objects
 		this.loadingManager = new THREE.LoadingManager();
 		this.loadingManager.onLoad = () => { this.addEverything(); };
 
-		// Loading textures
+		// Instantiating the objects that will contain the textures, and the
+		// loader for the textures
 		this.texturesObjects = [];
 		this.moonsTextures = [];
 		this.textureLoader = new THREE.TextureLoader(this.loadingManager);
+
+		// Starting the rings texture's loading. On completion, we'll store
+		// the texture
+		this.textureLoader.load("res/images/planets/saturn_rings.png",
+			(response) => { this.ringTexture = response; }
+		);
 
 		// this.textureLoader.load("res/images/sky2.jpg", (texture) => {
 		// 	this.skydomeTexture = texture;
 		// 	console.log("skydome texture loaded");
 		// });
 
-		this.textureLoader.load("res/images/planets/saturn_rings.png",
-			(response) => { this.ringTexture = response; }
-		);
 
+		// Instantiating a file loader and starting it to load the planets
+		// informations. On Jsoncompletion, it will load the planets, the moons, and
+		// their textures
 		this.jsonLoader = new THREE.FileLoader(this.loadingManager);
+		this.jsonLoader.setResponseType("json");
 		this.jsonLoader.load("res/planets_new.json", (response) => {
-				this.json = JSON.parse(response);
-				let planetJson;
-				let moonJson;
-				let moonIndex = 0;
+				this.json = response;
 
-				for (let index = 0; index < Object.keys(this.json).length; index++) {
+				const nbPlanets = Object.keys(this.json).length;
+				for (let index = 0; index < nbPlanets; index++) {
 					let planetName = Object.keys(this.json)[index];
 					let planetJson = this.json[planetName];
 
-					// On met les textures des planètes à charger
+					// We add the planet's texture for loading
 					this.textureLoader.load(
 						planetJson["texture"],
-						(texture) => { this.texturesObjects[index] = texture; }
+						(texture) => { planetJson["texture"] = texture; }
 					);
 
-					for (moonJson in planetJson["moons"]) {
+					if (typeof planetJson["moons"] === "undefined") {
+						continue;
+					}
 
-						console.log(moonJson);
-
-						// DIRTY HACK : ça force la fonction arrow à prendre la valeur courante de moonIndex plutôt que sa référence
-						let m = moonIndex;
+					const nbMoons = Object.keys(planetJson["moons"]).length;
+					for (let moonIndex = 0; moonIndex < nbMoons; moonIndex++) {
+						let moonName = Object.keys(planetJson["moons"])[moonIndex];
+						let moonJson = planetJson["moons"][moonName];
 
 						// On met les textures des lunes à charger
 						this.textureLoader.load(
-							planetJson["moons"][moonJson]["texture"],
-							(texture) => { this.moonsTextures[m] = texture; }
+							moonJson["texture"],
+							(texture) => { moonJson["texture"] = texture; }
 						)
-
-						moonIndex++;
 					}
 				}
 		});
@@ -129,10 +151,10 @@ class Planets {
 
 		if (this.depth === 0) {
 			// Compute target camera position
-			this.camera.top = this.width	* (portrait ? 1 : ratio);
-			this.camera.bottom = -this.width * (portrait ? 1 : ratio);
-			this.camera.left = -this.width * (portrait ? ratio : 1);
-			this.camera.right = this.width	* (portrait ? ratio : 1);
+			this.camera.top    = this.width	 * (portrait ? 1     : ratio);
+			this.camera.bottom = -this.width * (portrait ? 1     : ratio);
+			this.camera.left   = -this.width * (portrait ? ratio : 1    );
+			this.camera.right  = this.width	 * (portrait ? ratio : 1    );
 			this.camera.rotation.z = portrait ? -Math.PI / 2 : 0
 		} else {
 			this.target.geometry.computeBoundingBox();
@@ -185,7 +207,7 @@ class Planets {
 				, "meantemp": planetJson["meantemp"]
 				};
 			let planet = new Planet
-				(	this.texturesObjects[index]
+				(	planetJson["texture"]
 				,	planetJson["distance"]
 				,	planetJson["radius"]
 				,	planetJson["tilt"]
@@ -213,7 +235,7 @@ class Planets {
 					};
 
 				let moon = new Moon
-					(	this.moonsTextures[moonsTexturesIndex]
+					(	moonJson["texture"]
 					,	moonJson["distance"]
 					, moonJson["radius"]
 					, Object.keys(planetJson["moons"])[moonIndex]
@@ -358,7 +380,8 @@ class Planets {
 			};
 
 		if (this.depth != 0) {
-			// On cache les lunes qui sont montrées (depht = 1, niveau des planètes)
+
+			// We hide the visible moons (depht = 1, planet level)
 			for (let index = 0; index < this.body.moons.length; index++) {
 				this.body.moons[index].hide();
 			}
