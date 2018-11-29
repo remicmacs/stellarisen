@@ -19,11 +19,15 @@ $router->post('register', 'RegistrationController@register');
 // Login route
 $router->post('connect', 'ConnectionController@connect');
 
-$router->get('connected/{name}', ['middleware' => 'apiauth', function ($name) {
-    $content = array("message" => "hello $name");
-    return response($content, 200)
-        ->header("Content-type", "application/json");
-}]);
+$router->group(['middleware' => 'apiauth'], function() use ($router) {
+    $router->get('connected/{name}', function ($name) {
+        $content = array("message" => "hello $name");
+        return response($content, 200)
+            ->header("Content-type", "application/json");
+    });
+
+    $router->get('favorites/{username}', 'FavoritesController@getUserFavs');
+});
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
