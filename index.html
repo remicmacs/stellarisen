@@ -27,6 +27,7 @@
     <script src="js/FormSubmitHandler.js"></script>
     <script src="js/ConnectionHandler.js"></script>
     <script src="js/RegistrationHandler.js"></script>
+    <script src="js/Favorites.js"></script>
   </head>
   <body>
     <div id="threejscanvas">
@@ -59,6 +60,7 @@
             <button id="connect-button" class="list-button white">Connexion</button>
             <button id="register-button" class="list-button white">Création de compte</button>
             <button id="disconnect-button" class="hidden list-button white">Déconnexion</button>
+            <button id="favorites-button" class="list-button white">Favoris</button>
             <!--<button id="test-button" class="list-button white">Test</button>-->
             <button class="list-button white">À propos</button>
           </div>
@@ -90,6 +92,17 @@
             </form>
             <div class="stretch-space"></div>
             <h2 id="back-register">Retour</h2>
+          </div>
+        </div>
+
+        <div class="panel hidden fade" id="favorites-panel">
+          <div class="column">
+            <h1 class="f1">Favoris</h1>
+            <h2 id="fav-username" class="f2">Top 10 de machin de toutes façons c'est un placeholder</h2>
+            <ol>
+            </ol>
+            <div class="stretch-space"></div>
+            <h2 id="back-favorites">Retour</h2>
           </div>
         </div>
 

@@ -214,8 +214,19 @@ function hideRightModal() {
 
 function showLogin() {
   hide('menu-panel');
-  show('login-panel');
   hide('register-panel');
+  hide('favorites-panel');
+  show('login-panel');
+
+  showLeftModal();
+}
+
+function showFavorites() {
+  hide('menu-panel');
+  hide('register-panel');
+  hide('login-panel');
+  show('favorites-panel');
+  favorites.displayFavoritesPanel();
 
   showLeftModal();
 }
@@ -223,6 +234,7 @@ function showLogin() {
 function showRegister() {
   hide('menu-panel');
   hide('login-panel');
+  hide('favorites-panel');
   show('register-panel');
 
   showLeftModal();
@@ -232,7 +244,9 @@ function showMenu() {
   show('menu-panel');
   hide('login-panel');
   hide('register-panel');
+  hide('favorites-panel');
 
+  // Emptying confidential data
   emptyForm("connect");
   emptyForm("register");
   const usernameMenuTitle = document.getElementById("menu-username");
@@ -241,6 +255,7 @@ function showMenu() {
     hide("connect-button");
     hide("register-button");
     show("disconnect-button");
+    show("favorites-button");
 
     // Setting username in menu
     usernameMenuTitle.innerHTML = sessionStorage.getItem("username");
@@ -248,6 +263,7 @@ function showMenu() {
     show("connect-button");
     show("register-button");
     hide("disconnect-button");
+    hide("favorites-button");
 
     // Setting username in menu
     usernameMenuTitle.innerHTML = "Anonyme";

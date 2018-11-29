@@ -59,6 +59,7 @@ create table favorites(
   -- A list of favorites has only 10 favorites (top 10)
   constraint checkrange check (rank between 0 and 9),
   constraint unique_rank unique(userid, rank),
+  constraint unique_celestial_body unique(userid, celestial_bodies_id),
   index(userid)
 );
 

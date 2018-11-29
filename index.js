@@ -58,6 +58,8 @@ const registrationHandler = new RegistrationHandler(toaster);
 document.connect.onsubmit = (event) => connectionHandler.handle(event);
 document.register.onsubmit = (event) => registrationHandler.handle(event);
 
+const favorites = new Favorites(document.getElementById("favorites-panel"));
+
 // Specific events handling
 const events = [
   ['userImage', 'mouseup', openMenu],
@@ -100,9 +102,11 @@ const events = [
   ['register-button', 'click', showRegister ],
   ['back-connection', 'click', showMenu ],
   ['back-register', 'click', showMenu ],
+  ['back-favorites', 'click', showMenu ],
   ['gotoregister', 'click', showRegister ],
   ['set-orien', 'click', () => { skySphere.toggleControlWithOrientation();}],
-  ['disconnect-button', 'click', disconnect]
+  ['disconnect-button', 'click', disconnect],
+  ['favorites-button', 'click', showFavorites]
 ]
 
 for (let i = 0; i < events.length; i++) {
