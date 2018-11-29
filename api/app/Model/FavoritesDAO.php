@@ -29,8 +29,10 @@ class FavoritesDAO implements DAO {
     $favs = array_fill(0, $size, "");
 
     foreach($rows as $row) {
-      $favs[$row["rank"]] = $row["name"];
+      $favs[$row->rank] = $row->name;
     }
+
+    return $favs;
   }
 
   public function getById(string $id) {
