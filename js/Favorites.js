@@ -182,6 +182,19 @@ class Favorites {
 
     this.produceFavoritesList(list);
 
+    fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(list)
+    })
+    .then((res) => res.json())
+    .then((res) => {console.log(res); this.produceFavoritesList(res["newlist"]); })
+    .catch(error => {
+      console.error("Fatal Error : ", error);
+    });
+
     //source.innerHTML = event.target.innerHTML;
 
     //event.target.innerHTML = event.dataTransfer.getData("text/plain");

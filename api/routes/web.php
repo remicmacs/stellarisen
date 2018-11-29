@@ -27,6 +27,7 @@ $router->group(['middleware' => 'apiauth'], function() use ($router) {
     });
 
     $router->get('favorites/{username}', 'FavoritesController@getUserFavs');
+    $router->post('favorites/{username}', 'FavoritesController@setUserFavs');
 });
 
 $router->get('/', function () use ($router) {

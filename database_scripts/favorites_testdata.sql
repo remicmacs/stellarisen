@@ -1,3 +1,5 @@
+DELETE FROM favorites WHERE userid = 1;
+
 INSERT INTO favorites (userid, celestial_bodies_id, rank) VALUES
 (1, 1, 0),
 (1, 2, 1),
