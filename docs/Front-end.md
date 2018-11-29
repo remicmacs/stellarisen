@@ -2,43 +2,45 @@
 
 ## Structure
 
-L'ensemble du site est défini dans une seule page HTML qui comprend l'ensemble des éléments ne faisant pas partie des scènes 3D (panneaux d'informations et menu). Les scènes 3D sont initialisées et affichées à l'aide de JavaScript.
+The whole website is defined in a single HTML page which includes all the elements that does not belong to the 3D scenes (information panels and menus). 3D scenes are initialized and displayed using JavaScript.
 
-### Les dialogues
+### Dialogs
 
-Les informations et menus sont regroupées dans des dialogues. Il existe 3 dialogues qui sont positionnés à gauche, au centre, et à droite (ou en haut sur mobile). Ces dialogues pouvant afficher des informations différentes (par exemple le dialogue gauche, utilisé par le menu, peut aussi afficher la page de login), ils contiennent différents panels qui seront affichés/cachés dynamiquement en fonction des informations que l'on veut faire apparaître dans le dialogue.
+Information dialogs and menus are grouped in modal dialogs. There is 3 kinds of dialogs which are placed on the left, on the center, and on the right (or the top, depending on the platform). Since these dialogs can display differents informations (for example, the left modal dialog, used by the menu, can also display the login page), they contains panels which are displayed/hidden dynamically based on the information we want to display.
 
-L'apparition/disparition des dialogues est gérées par le JavaScript lors des évènements de click, en ajoutant/supprimant les classes `hidden`/`visible`.
+Hidding/displaying dialogs is managed by the JavaScript on click events, by adding/removing the `hidden`/`visible` classes.
 
-L'apparition/disparition des panels est aussi gérée par le JavaScript en utilisant les mêmes classes. Afin de simplifier la gestion des différents panels dans un même dialogue, nous avons écrit des fonctions de simplification dans `utils.js`
+Hidding/displaying panels is also manage by the JavaScript by using the same classes. In order to simplify the panels management in a same modal dialog, we have written a few functions in `utils.js`.
 
-### Les caméras
+### Cameras
 
-#### Voûte étoilée
+#### Star map
 
-Sur la voûte étoilée, la caméra est une caméra en perspective. Cette caméra est intégrée dans un Object3D, lui même intégré dans un Object3D. La gestion des rotations en x et en y de ces Object3D permet d'appliquer des rotations indépendantes et d'éviter les problèmes d'orientation intrinsèques aux rotations dans les repêres sphériques.
+In the star map, the camera is a perspective camera. This camera is included in an Object3D (called `pitchObject`), which is included in another Object3D (called `yawObject`). This way, we can rotate the camera around the y angle by rotating the `yawObject` and around the x angle by rotating the `pitchObject` without having to deal with the issues caused by rotations in a spherical coordinates system.
 
-La rotation peut se faire de deux manières différentes, en fonction de l'appareil utilisé et de la manière dont l'utilisateur interagit. 
+Camera's rotation is managed in two different ways, depending on the device et the way the user interact with it.
 
-Sur plateforme desktop, la rotation de la caméra se fait en tirant à l'aide de la souris. Des fonctions attachées aux évènements d'appui et de relâchement de souris, ainsi que sur le mouvement de la souris, détectent un déplacement par tirage et modifie les rotations des objets contenant la caméra.
+On a desktop device, camera's rotation is obtained by dragging with the mouse. Listeners on `mouseup`, `mousedown`, and `mousemove` rotates the objects in which the camera is included in accordance with the movement made by the user.
 
-Sur plateforme mobile, la rotation de la caméra peut se faire soit à l'aide de l'accélèrométre, soit en tirant à l'aide du doigt. La rotation par accélèrométre utilise le script `DeviceOrientationControls.js` disponible dans les exemples livrés avec Three.js. Lorsque l'utilisateur déplace la caméra à l'aide du doigt, ou lorsqu'il clique sur un élément cliquable, la rotation par accélèrométre se désactive pour basculer sur le même système que sur plateforme desktop. L'utilisateur peut rebasculer sur la rotation par accélèrométre à l'aide d'un bouton dans le menu.
+On a mobile device, camera's rotation can be obtained either by dragging with the finger or by using the device's orientation. Device's orientation is managed by the `DeviceOrientationControls.js` script which is included in the Three.js examples. When the user moves the camera by dragging with the finger, or when he clicks on an element, the device's orientation is disabled and we switch to the same system than on desktop. The user can switch back to device's orientation by pressing a button in the menu.
 
-#### Système solaire
+#### Solar system
 
-Pour la vue du système solaire, nous avons adopté une caméra orthographique pour éviter la déformation due à la perspective. L'avantage d'une caméra orthographique est l'affichage des longueurs à la même échelle, peu importe leur distance. L'inconvénient est que, pour zoomer, on ne peut pas juste rapprocher la caméra de l'écran : il faut jouer avec les frontières du plan de projection.
+For the solar system, we chose an orthographic camera to avoid any deformation caused by the perspective. The advantage of an orthographic camera is that the lengths stays the same, no matter what our distance with the object is. The drawback is that for zooming on an object, we can't just bring the camera closer to the object : we have to play with the projection plane's limits.
+
+![Perspective camera vs orthographic camera](./res/cameras.png)
 
 ## JavaScript
 
 ### Three.js
 
-[Three.js](https://threejs.org/) est une librairie javascript permettant la rendu d'une scène 3D sur une balise de rendu canvas. Three.js utilise des technologies telles que WebGL, CSS3D et SVG. 
+[Three.js](https://threejs.org/) is a JavaScript library for rendering a 3D scene on a canvas DOM element. Three.js uses technologies like WebGL, CSS3D and SVG.
 
 ### Tween.js
 
-[Tween.js](https://github.com/tweenjs/tween.js/) est une librairie permettant de faire de l'interpolation de propriétés et qui implémente plusieurs fonctions d'interpolation.
+[Tween.js](https://github.com/tweenjs/tween.js/) is a javascript library for interpolating between two values (also called *tweening*) which includes multiple interpolation functions.
 
-Pour créer un Tween, il faut d'abord définir un objet source et un objet cible. Ceux-ci sont des dictionnaires comprenant les mêmes clés auxquelles sont associées les valeurs désirées. Le Tween peut alors être créé :
+To create a Tween, we first have to define a source and an target object. These are dictionaries containing the same key with the desired values. The Tween can then be created:
 
 ```javascript
 let coord = { x: 0 };
@@ -46,7 +48,7 @@ let end = { x: 24 };
 let tween = new TWEEN.Tween(start).to(end, 1000);
 ```
 
-À ceci, il peut être nécessaire d'ajouter une fonction qui se chargera de mettre à jour les valeurs que l'on veut voir interpolées à l'aide du callback onUpdate de Tween.js : 
+We then need to add a function that will update the real values we want to be tweened by defining the `onUpdate` callback:
 
 ```javascript
 tween.onUpdate(() => {
@@ -54,42 +56,43 @@ tween.onUpdate(() => {
 });
 ```
 
-Enfin, il est possible d'accomplir une action lors que l'interpolation est finie :
+Finally, we can do an action when the Tween is finished by defining the `onComplete` callback:
 
 ```javascript
-tween.onCompleted(() => {
-	console.log("Fini !");
+tween.onComplete(() => {
+	console.log("Finished!");
 });
 ```
 
-Bien sûr, il ne faut pas oublier de démarrer le Tween une fois celui-ci complétement défini avec `tween.run()`. La combinaison de ces 3 éléments est suffisante pour la plupart des besoins que nous ayons rencontrés. En fonction de l'animation désirée, il est aussi possible de choisir une fonction d'interpolation différente de celle par défaut (linéaire), par exemple :
+Of course, we shouldn't forget to start the Tween by running `tween.run()`. The combination of those three instructions is enough for most of our needs. Depending on the animation wanted, we can choose another tweening function, different from the default one, for example:
 
 ```javascript
 tween.easing(TWEEN.Easing.Quadratic.Out);
 ```
 
-Dans notre projet, nous utilisons Tween.js pour les animations de déplacement lors du clic sur un objet (étoile, planète ou lune).
+In our project, we're using Tween.js for all the movements when we're clicking on an object (star, planet or moon...).
 
 ### Classes
 
-Les classes sont définies selon le modèle introduits avec ECMAScript 2015. Ceci afin de garder une syntaxe plus proche des langages étudiés en cours tels que Java ou PHP. Au niveau de la structure de fichiers, nous avons choisi de faire un fichier par classe. Pour la partie front-end, nous avons 10 classes :
+The classes in our code is defined the way it was introduced in ECMAScript 2015 so we can keep a syntax that is closer to the languages seen in class like Java or PHP. For readability and maintainability purposes, we decided to follow the "one class one file"-rule.
 
-* Planets : il s'agit de la scène d'affichage des planètes et des lunes
-* SkyMap : il s'agit de la scène d'affichage de la voûte étoilée
-* Planet : définie une planète, sa géométrie, des fonctions d'aides pour l'affichage et la rotation de celle-ci, et les lunes qu'elle comprend
-* Moon : définie une lune, sa géométrie, et des fonctions d'aides pour l'affichage et la rotation de celle-ci
-* Star : définie une étoile, ses informations, et sa géométrie
-* Constellation : définie une constellation, et les étoiles et les liens qu'elle comprend
-* Link : définie un lien entre deux étoiles
-* Visor : définie le viseur utilisé dans la voûte céleste
-* Horizon : définie les deux barres séparant l'hémisphère Nord de l'hémisphère Sud dans la voûte céleste, et les points cardinaux
-* Toaster : il s'agit d'un élément DOM affiché lors d'une erreur de connexion
+For the front-end part, we have defined 10 classes:
 
-Les autres classes ne définissent pas d'éléments graphiques et ressortent donc plus du domaine du back-end.
+* Planets: it is the 3D scene for the planets and the moons
+* Skymap: it is the 3D scene for the star map
+* Planet: defines a planet, its geometry, its informations, and helping functions for displaying it
+* Moon: defines a moon, its geometry, its informations, and helping functions for displaying it
+* Star: defines a star, its geometry, and its informations
+* Constellation: defines a constellation, the stars it includes, and the links between them
+* Link: defines a visible link between two stars in a constellation
+* Visor: defines the visor used in the star map
+* Horizon: defines the two bars separating the north hemisphere with the south hemisphere, and the cardinal points
+* Toaster: a DOM element displayed when there is an issue with the login
+
+The other classes doesn't define a graphical elements and are used by the back-end.
 
 ## CSS
 
-La plupart du CSS a été écris à la main dans une approche modulaire par classes. En support du CSS que nous avons produit nous-même, nous avons utilisé [Tachyons](https://tachyons.io), un framework CSS 
-qui implémente un style simple et responsive.
+Most of the CSS have been written by hand (artisanally-made CSS) in a modular way, using classes. We also used [Tachyons](https://tachyons.io), a CSS framework which implements a simple and responsive style.
 
-Le CSS est aussi responsable des animations et transitions qui ne concernent pas la scène 3D.
+The CSS is also responsible for the animations and transitions of the DOM elements (this excludes the 3D scene).
