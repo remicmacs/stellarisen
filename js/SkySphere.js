@@ -486,12 +486,9 @@ class SkySphere {
 
 		tween.onComplete(() => {
 			this.yawObject.rotation.y = angle.theta - Math.PI;
-			//window.location.hash = "#" + star.meshName + "-open";
-			console.log("Test");
 		});
 
 		tween.start();
-		//this.visor.setTarget(star);
 		this.visor.setLocked(star);
 
 		// Building the modal dialog content by hand for now
@@ -508,6 +505,18 @@ class SkySphere {
 		setSpan("star-distance", Math.round(star.distance * 3.262));
 		setPlaceholder("searchField", star.meshName);
 		this.updateTags();
+
+		setImgSrc("star-picture", "res/images/image-loading.png");
+		const element = document.getElementById("star-picture");
+		element.classList.add("rotating");
+		element.addEventListener('load',
+			() => {
+				if (element.src != "res/images/image-loading.png") {
+					console.log(element.src);
+					element.classList.remove("rotating");
+				}
+			}
+		);
 
 		setImgSrc(
 			"star-picture",
