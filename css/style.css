@@ -713,3 +713,7 @@ ol.data-content {
     visibility: hidden;
   }
 }
+
+.over {
+  background-color: #357eddb0
+}
