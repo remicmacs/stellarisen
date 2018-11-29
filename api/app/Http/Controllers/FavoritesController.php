@@ -1,11 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use Symfony\Component\HttpFoundation\Cookie; // To add a cookie to headers
-use App\Model\UserDAO; // Repository object to access Users in database
-use App\Exceptions\AuthenticationFailureException;
-use App\Factories\JWTFactory; // To build a JWT to attach to response
-
+use App\Model\FavoritesDao;
 
 /**
  * ConnectionController
@@ -14,6 +10,12 @@ use App\Factories\JWTFactory; // To build a JWT to attach to response
  */
 class FavoritesController extends Controller
 {
+    private $favoritesDAO;
+
+    public function __construct(FavoritesDAO $favoritesDAO) {
+        $this->favoritesDAO = $favoritesDAO;
+    }
+
     public function getUserFavs(string $username) {
         return "Hello ". $username;
     }
