@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Exception\NoSuchUserException;
-
+use App\Exception\NoSuchStarException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,9 +52,24 @@ class Handler extends ExceptionHandler
         ) {
             $message = $exception->getMessage();
             return response(array(
-                "authenticationError" => $message
+                "message" => $message
             ), 401)
                 ->header('Content-type', 'application/json');
+        } else if ($exception instanceof \App\Exceptions\NoSuchStarException) {
+            $message = $exception->getMessage();
+            return response(
+                array(
+                    "message" => $message
+                ),
+                404
+            );
+        } else {
+            return response(
+                array(
+                    "message" => (get_class($exception))
+                ),
+                500
+            );
         }
         return parent::render($request, $exception);
     }

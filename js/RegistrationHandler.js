@@ -7,7 +7,7 @@
 class RegistrationHandler extends FormSubmitHandler{
   constructor(toaster) {
     super(toaster);
-    this.action = "Registration";
+    this.action = "Inscription";
   }
 
   handle(event) {
@@ -31,8 +31,8 @@ class RegistrationHandler extends FormSubmitHandler{
       const parent = this.form.parentNode.parentNode;
       this.toaster.displayErrorToast(
         parent,
-        "Password and password confirmation must match",
-        "Registration error:"
+        "Le mot de passe et la confirmation doivent correspondre",
+        "Erreur d'enregistrement :"
       );
       return false;
     }

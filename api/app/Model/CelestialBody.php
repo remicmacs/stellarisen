@@ -3,7 +3,7 @@
 namespace App\Model;
 
 /**
- * Represent the application User's data
+ * Represent a Celestial body data
  */
 class CelestialBody {
     private $name;

@@ -74,7 +74,7 @@ class FormSubmitHandler {
       this.toaster.displayErrorToast(
         parent,
         error,
-        "Fatal Error : "
+        "Erreur fatale : "
       )
     });
   }
@@ -116,7 +116,7 @@ class FormSubmitHandler {
 
       this.toaster.displaySuccessToast(
         columnMenu,
-        "Successfully authenticated"
+        "Inscription réussie !"
       );
 
     // If code is not 200 => display information in red modal div
@@ -126,7 +126,7 @@ class FormSubmitHandler {
 
       return this.toaster.displayErrorToast(
         parent,
-        response.authenticationError,
+        response.message,
         ""+ this.action + " error:"
       );
     }

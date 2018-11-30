@@ -266,9 +266,6 @@ class Favorites {
   /**
    * Last step of drag and drop sequence.
    *
-   * * Retrieves ol element and list of li elements inside it
-   * * 
-   *
    * @param {*} event
    * @returns
    * @memberof Favorites
@@ -277,7 +274,6 @@ class Favorites {
     event.preventDefault();
     event.stopPropagation(); // stops the browser from redirecting.
 
-    // 
     const parent = event.target.parentNode
 
     let list = parent.getElementsByTagName("li");
@@ -318,10 +314,28 @@ class Favorites {
       },
       body: JSON.stringify(list)
     })
-    .then((res) => res.json())
-    .then((res) => {this.produceFavoritesList(res["newlist"]);})
+    .then((res) => {
+      if (res.status === 404){
+        console.log("Error is erroring all right");
+
+        // Unpack error message and go to catch
+        return res.json().then(
+          (res) => {return Promise.reject(new Error(res.message));}
+        );
+      }
+      return res.json();
+    })
+    .then((res) => {
+      this.produceFavoritesList(res.newlist);
+      this.toaster.displaySuccessToast(
+        this.favoritesPanelElt,
+        "Nouvel ordre des favoris sauvegardé !"
+      );
+    })
     .catch(error => {
       console.error("Fatal Error : ", error);
+      this.toaster.displayErrorToast(this.favoritesPanelElt, error.message);
+      this.produceFavoritesList(list);
     });
     return false;
   }
