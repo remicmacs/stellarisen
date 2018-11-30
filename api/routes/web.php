@@ -20,10 +20,7 @@ $router->post('register', 'RegistrationController@register');
 $router->post('connect', 'ConnectionController@connect');
 
 // Unprotected search API
-$router->get('search/{query}', function($query) {
-    $content = array("message" => "Hey unconnected query '".$query."'");
-    return response($content, 200);
-});
+$router->get('search/{query}', 'SearchController@publicSearch');
 
 // Protected API routes
 $router->group(
@@ -33,21 +30,19 @@ $router->group(
     ],
     function() use ($router) {
         $router->get('/', function ($name) {
-            $content = array("message" => "hello $username");
-            return response($content, 200)
-                ->header("Content-type", "application/json");
-        }
-    );
+                $content = array("message" => "hello $username");
+                return response($content, 200)
+                    ->header("Content-type", "application/json");
+            }
+        );
 
-    $router->get('favorites', 'FavoritesController@getUserFavs');
-    $router->post('favorites', 'FavoritesController@setUserFavs');
+        $router->get('favorites', 'FavoritesController@getUserFavs');
+        $router->post('favorites', 'FavoritesController@setUserFavs');
 
-    // Protected search API
-    $router->get('search/{query}', function($query) {
-        $content = array("message" => "Hey connected query '".$query."'");
-        return response($content, 200);
-    });
-});
+        // Protected search API
+        $router->get('search/{query}', 'SearchController@authenticatedSearch');
+    }
+);
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
