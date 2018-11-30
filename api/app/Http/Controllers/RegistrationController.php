@@ -44,8 +44,8 @@ class RegistrationController extends Controller {
       // Control user already exists
       if ($this->userDAO->isUsernameused($username)) {
         $content = array(
-          "registrationError" =>
-          "Username already taken, please try another"
+          "message" =>
+          "Nom d'utilisateur indisponible."
         );
 
         $statusCode = 400;

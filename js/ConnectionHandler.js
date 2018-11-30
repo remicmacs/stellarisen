@@ -7,7 +7,7 @@
 class ConnectionHandler extends FormSubmitHandler {
   constructor(toaster) {
     super(toaster);
-    this.action = "Connection";
+    this.action = "Connexion";
   }
 
   handle(event){

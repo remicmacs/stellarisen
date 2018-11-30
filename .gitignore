@@ -17,3 +17,6 @@ puphpet/
 node_modules/
 .vscode/
 puphpet/config-custom.yaml
+
+# Temp files for testing purposes
+test.html

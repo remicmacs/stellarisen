@@ -19,16 +19,16 @@ class Toaster {
     switch(type) {
       case "error":
         color = "error-red";
-        messageTitle = '<b class="white">Error : </b>';
+        messageTitle = '<b class="white">Erreur : </b>';
         break;
       case "success":
         color = "success-green";
-        messageTitle = '<b class="white">Success : </b>';
+        messageTitle = '<b class="white">OK : </b>';
         break;
       case "information":
       default:
         color = "information-blue";
-        messageTitle = '<b class="white">Note : </b>';
+        messageTitle = '<b class="white">Info : </b>';
         break;
     }
 

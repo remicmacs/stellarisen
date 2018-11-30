@@ -5,7 +5,7 @@
     <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0" />
     <title>Stellar'ISEN</title>
-    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Megrim" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
@@ -27,6 +27,7 @@
     <script src="js/FormSubmitHandler.js"></script>
     <script src="js/ConnectionHandler.js"></script>
     <script src="js/RegistrationHandler.js"></script>
+    <script src="js/Favorites.js"></script>
   </head>
   <body>
     <div id="threejscanvas">
@@ -59,6 +60,7 @@
             <button id="connect-button" class="list-button white">Connexion</button>
             <button id="register-button" class="list-button white">Création de compte</button>
             <button id="disconnect-button" class="hidden list-button white">Déconnexion</button>
+            <button id="favorites-button" class="hidden list-button white">Favoris</button>
             <!--<button id="test-button" class="list-button white">Test</button>-->
             <button class="list-button white">À propos</button>
           </div>
@@ -90,6 +92,19 @@
             </form>
             <div class="stretch-space"></div>
             <h2 id="back-register">Retour</h2>
+          </div>
+        </div>
+
+        <div class="panel hidden fade" id="favorites-panel">
+          <div class="column">
+            <h1 class="f1">Favoris</h1>
+            <div class="data-fragment shadow-1">
+              <div id="fav-username" class="data-title">Top 10 de machin de toutes façons c'est un placeholder</div>
+              <ol class="data-content">
+              </ol>
+            </div>
+            <div class="stretch-space"></div>
+            <h2 id="back-favorites">Retour</h2>
           </div>
         </div>
 

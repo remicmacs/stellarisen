@@ -48,7 +48,7 @@ class JWTFactory {
         // iat claim = timestamp when the JWT has been generated
         ->setIssuedAt(time())
         // nbf claim = timestamp of the beginning of the JWT validity period
-        ->setNotBefore(time() + 1)
+        ->setNotBefore(time())
         // exp claim = timestamp for expiration time
         ->setExpiration(time() + 3600)
         // Set uid to avoid to recover uid every time in database
