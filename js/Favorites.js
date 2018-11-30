@@ -1,84 +1,206 @@
+/**
+ * Handle favorites panel logic.
+ *
+ * The management of the favorites is made through a drag and drop interface
+ * of an ordered list.
+ *
+ * @class Favorites
+ */
 class Favorites {
-  constructor(favoritesPanelElt) {
-    this.favoritesPanelElt = favoritesPanelElt;
+  /**
+   *Creates an instance of Favorites.
+   * @param {*} favoritesPanelElt The root element of the panel
+   * @memberof Favorites
+   */
+  constructor(toaster) {
+    this.toaster = toaster;
+    this.favoritesPanelElt = document.getElementById("favorites-panel");
+    // Retrieve reference to list element
     this.favoritesList = this.favoritesPanelElt.getElementsByTagName("ol")[0];
+
+    // State data to keep track of which elements are involved in drag and drop
     this.source = null;
     this.passedOverElt = null;
   }
 
+  /**
+   * If the user is authenticated, displays fetches his list of favorites
+   *
+   * @memberof Favorites
+   */
   displayFavoritesPanel() {
+    const usernameHeader = document.getElementById("fav-username");
     if (sessionStorage.getItem("isAuthenticated") === "true") {
-      const usernameHeader = document.getElementById("fav-username");
-      usernameHeader.innerHTML = "Top 10 de " + sessionStorage.getItem("username");
+      usernameHeader.innerHTML =
+        "Top 10 de " + sessionStorage.getItem("username");
+      this.getFavorites();
+    } else {
+      usernameHeader.innerHTML = "Qu'est-ce que vous faites ici ?";
+      this.toaster.displayErrorToast(
+        this.favoritesPanelElt,
+        "Vous ne devriez pas arriver ici sans être connecté"
+      );
     }
-    this.getFavorites();
   }
 
+  /**
+   * Fetches the favorites by requesting back-end API
+   *
+   * @memberof Favorites
+   */
   getFavorites() {
     fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
       method: 'GET'
     })
+    // Unpacking JSON body of response
     .then((res) => res.json())
+    // Displaying list of favorites
     .then((json) => {this.produceFavoritesList(json)})
     .catch(error => {
       console.error("Fatal Error : ", error);
     });
   }
 
+  /**
+   * Displays an ordered list of favorites
+   *
+   * @param {Array} favs List of ordered favorites
+   * @memberof Favorites
+   */
   produceFavoritesList(favs) {
+    // Cleaning previous content
     this.favoritesList.innerHTML = "";
+
+    // Creating a li element for every favorite listed
     for (let i = 0 ; i < favs.length ; i++) {
       const fav = favs[i];
-      const liElt = document.createElement("li");
-      liElt.setAttribute("draggable", "true");
-      liElt.classList.add(
-        "data-row",
-        "data-value",
-        "alone",
-        "link"
-      );
-      liElt.id = fav;
-      liElt.innerHTML = '<b>#'+ (i+1) + ' </b> : ' + fav;
-      liElt.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location.hash = fav + "-open";
-      })
+
+      // Creating draggable element
+      const liElt = this.createDraggableLiElement(fav, i);
 
       this.attachEventListeners(liElt);
 
       this.favoritesList.appendChild(liElt);
-
     }
   }
 
+  /**
+   * Attach must-have event listeners to implement drag and drop feature.
+   *
+   * @param {Element} elt the li element that will be attached event listeners
+   * @memberof Favorites
+   */
+  attachEventListeners(elt) {
+    elt.addEventListener(
+      'dragstart',
+      (event) => {this.handleDragStart(event)},
+      false
+    );
+
+    elt.addEventListener(
+      'dragover',
+      (event) => {this.handleDragOver(event)},
+      false
+    );
+
+    elt.addEventListener(
+      'dragenter',
+      (event) => {this.handleDragEnter(event)},
+      false
+    );
+
+    elt.addEventListener(
+      'dragleave',
+      (event) => {this.handleDragLeave(event)},
+      false
+    );
+
+    elt.addEventListener(
+      'dragend',
+      (event) => {this.handleDragEnd(event)},
+      false
+    );
+
+    elt.addEventListener(
+      'drop',
+      (event) => {this.handleDrop(event)},
+      false
+    );
+  }
+
+  /**
+   * Templating function for a list element
+   *
+   * @param {string} fav The name of the star that must also be a valid hash for
+   *    navigation
+   * @param {int} index The rank of the celestial object in the list of
+   *    favorites
+   * @returns
+   * @memberof Favorites
+   */
+  createDraggableLiElement(fav, index) {
+    // Creating container li element
+    const liElt = document.createElement("li");
+
+    // Setting style and making object draggable
+    liElt.setAttribute("draggable", "true");
+    liElt.classList.add(
+      "data-row",
+      "data-value",
+      "alone",
+      "link"
+    );
+
+    // Id attribute will hold valid string name as reference
+    liElt.id = fav;
+    liElt.innerHTML = '<b>#'+ (index+1) + ' </b> : ' + fav;
+
+    // Attaching event listener to handle link-style navigation
+    liElt.addEventListener('click', (event) => {
+      event.preventDefault();
+      window.location.hash = fav + "-open";
+    });
+
+    return liElt;
+  }
+
+  /**
+   * Handles beginning of drag event.
+   *
+   * * Make source element transparent for visible feedback
+   * * Define drag image visual
+   * * Define DataTransfer object data
+   * * Define allowed effect (cursor feedback)
+   * * Stores source element reference
+   *
+   * @param {DragEvent} event dragstart event
+   * @memberof Favorites
+   */
   handleDragStart(event) {
-    //console.log("Drag started");
-    //console.log("Element is ");
-    //console.log(event.target);
     event.target.style.opacity = '0.4';
+
     event.dataTransfer.setDragImage(event.target, 24, 32);
 
-    // Defining dataTransfer object content
-    event.dataTransfer.setData('text/plain', event.target.innerHTML);
+    event.dataTransfer.setData('text', event.target.id);
+
     event.dataTransfer.effectAllowed = "move";
 
     this.source = event.target;
   }
 
+  /**
+   * Handle behavior of hovered element during a drag and drop.
+   *
+   * @param {*} event
+   * @returns
+   * @memberof Favorites
+   */
   handleDragOver(event) {
-    //console.log("you are over ");
-    //console.log(event.target);
-    //console.log("Node type is " + event.target.nodeType);
-    //if (event.preventDefault) {
-      event.preventDefault(); // Necessary. Allows us to drop.
-    //}
+    event.preventDefault();
 
-    //console.log("Over : " + event.target.nodeName);
-
+    // Recovering reference to li element
     let liElt;
-
     const currElt = event.target;
-
     switch(currElt.nodeName) {
       case "#text":
         liElt = (currElt.parentNode.nodeName === "DIV")
@@ -93,36 +215,43 @@ class Favorites {
         break;
     }
 
+    // Storing reference to last hovered element for later handling
     this.passedOverElt = liElt;
 
+    // Adds feedback style to element
     liElt.classList.add("over");
 
-
-    event.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+    /*
+     * The visual feedback of the cursor should be the one authorized in
+     * the handleDragStart handler
+     */
+    event.dataTransfer.dropEffect = 'move';
 
     return false;
   }
 
   handleDragEnter(event) {
     event.preventDefault();
-    //console.log("Enter : " + event.target.nodeName);
-    if (
-      event.target.nodeType === Node.TEXT_NODE
-      || event.target.nodeName !== "LI"
-    ) {
-      return false;
-    }
-    //console.log("you enter ");
-    //console.log(event.target);
-    // this / event.target is the current hover target.
-    //event.target.classList.add('over');
   }
 
+  /**
+   * When a hovered element is no longer hovered, remove visual feedback.
+   *
+   * @param {*} event
+   * @memberof Favorites
+   */
   handleDragLeave(event) {
     // Removing background-color feedback of element cursor stopped hovering
     this.passedOverElt.classList.remove('over');
   }
 
+  /**
+   * When drag and drop is done, visual feedback must be removed from last
+   * element that was hovered but never leave.
+   *
+   * @param {*} event
+   * @memberof Favorites
+   */
   handleDragEnd(event) {
     // Removing background-color feedback of element we dropped on
     this.passedOverElt.classList.remove('over');
@@ -134,54 +263,54 @@ class Favorites {
   }
 
 
+  /**
+   * Last step of drag and drop sequence.
+   *
+   * * Retrieves ol element and list of li elements inside it
+   * * 
+   *
+   * @param {*} event
+   * @returns
+   * @memberof Favorites
+   */
   handleDrop(event) {
     event.preventDefault();
-    //console.log("oooohh he dropped it");
+    event.stopPropagation(); // stops the browser from redirecting.
 
-    //if (event.stopPropagation) {
-      event.stopPropagation(); // stops the browser from redirecting.
-    //}
-
-    //console.log("Source :");
-    //console.log(this.source);
-
-    //console.log("Bin : ");
-    //console.log(event.target);
-
+    // 
     const parent = event.target.parentNode
 
     let list = parent.getElementsByTagName("li");
     list = Array.from(list);
 
-    //console.log(list);
-
+    /*
+     * Finding source and target ids while unpacking li element to keep only
+     * the star name
+     */
     let sourceId = -1;
-    let binId = -1;
+    let targetId = -1;
     for (let i = 0 ; i < list.length ; i++) {
       if (list[i] === this.source) {
         sourceId = i;
       } else if (list[i] === event.target) {
-        binId = i;
+        targetId = i;
       }
 
       list[i] = list[i].id;
     }
 
-    //console.log("binId = " + binId);
-    //console.log("sourceId = " + sourceId);
-
+    // Reordering list of favorites
     let temp = list[sourceId];
     list.splice(sourceId, 1);
-    list.splice(binId, 0, temp);
+    list.splice(targetId, 0, temp);
 
-    // delete nodes
-
+    // Deleting previous list
     parent.innerHTML = "";
 
-    console.log(list);
-
+    // Displaying new favorites list
     this.produceFavoritesList(list);
 
+    // Save new order in API
     fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
       method: 'POST',
       headers: {
@@ -190,29 +319,10 @@ class Favorites {
       body: JSON.stringify(list)
     })
     .then((res) => res.json())
-    .then((res) => {console.log(res); this.produceFavoritesList(res["newlist"]); })
+    .then((res) => {this.produceFavoritesList(res["newlist"]);})
     .catch(error => {
       console.error("Fatal Error : ", error);
     });
-
-    //source.innerHTML = event.target.innerHTML;
-
-    //event.target.innerHTML = event.dataTransfer.getData("text/plain");
-
-    // See the section on the DataTransfer object. */
     return false;
-
   }
-
-
-
-  attachEventListeners(elt) {
-    elt.addEventListener('dragstart', (event) => {this.handleDragStart(event)}, false);
-    elt.addEventListener('dragover', (event) => {this.handleDragOver(event)}, false);
-    elt.addEventListener('dragenter', (event) => {this.handleDragEnter(event)}, false);
-    elt.addEventListener('dragleave', (event) => {this.handleDragLeave(event)}, false);
-    elt.addEventListener('dragend', (event) => {this.handleDragEnd(event)}, false);
-    elt.addEventListener('drop', (event) => {this.handleDrop(event)}, false);
-  }
-
 }

@@ -58,7 +58,8 @@ const registrationHandler = new RegistrationHandler(toaster);
 document.connect.onsubmit = (event) => connectionHandler.handle(event);
 document.register.onsubmit = (event) => registrationHandler.handle(event);
 
-const favorites = new Favorites(document.getElementById("favorites-panel"));
+// Adding favorites panel controller
+const favorites = new Favorites(toaster);
 
 // Specific events handling
 const events = [
