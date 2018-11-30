@@ -19,15 +19,23 @@ $router->post('register', 'RegistrationController@register');
 // Login route
 $router->post('connect', 'ConnectionController@connect');
 
-$router->group(['middleware' => 'apiauth'], function() use ($router) {
-    $router->get('connected/{name}', function ($name) {
-        $content = array("message" => "hello $name");
-        return response($content, 200)
-            ->header("Content-type", "application/json");
-    });
 
-    $router->get('favorites/{username}', 'FavoritesController@getUserFavs');
-    $router->post('favorites/{username}', 'FavoritesController@setUserFavs');
+// Protected API route
+$router->group(
+    [
+        'middleware' => 'apiauth',
+        'prefix' => 'connected/{username}'
+    ],
+    function() use ($router) {
+        $router->get('/', function ($name) {
+            $content = array("message" => "hello $username");
+            return response($content, 200)
+                ->header("Content-type", "application/json");
+        }
+    );
+
+    $router->get('favorites', 'FavoritesController@getUserFavs');
+    $router->post('favorites', 'FavoritesController@setUserFavs');
 });
 
 $router->get('/', function () use ($router) {

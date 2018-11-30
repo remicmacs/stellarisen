@@ -63,14 +63,14 @@ class Handler extends ExceptionHandler
                 ),
                 404
             );
-        } else {
+        }/* else {
             return response(
                 array(
                     "message" => (get_class($exception))
                 ),
                 500
             );
-        }
+        }*/
         return parent::render($request, $exception);
     }
 }

@@ -49,9 +49,13 @@ class Favorites {
    * @memberof Favorites
    */
   getFavorites() {
-    fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
-      method: 'GET'
-    })
+    fetch(
+      '/api/public/connected/'
+        + sessionStorage.getItem("username") +'/favorites',
+      {
+        method: 'GET'
+      }
+    )
     // Unpacking JSON body of response
     .then((res) => res.json())
     // Displaying list of favorites
@@ -379,7 +383,7 @@ class Favorites {
     let list = this.favoritesList.getElementsByTagName("li");
     list = Array.from(list);
     list = list.map((curLi) => curLi.id);
-    // Removing element 
+    // Removing element
     list = list.filter((curLi) => curLi !== liElt.id);
 
     this.updateList(list);
@@ -393,13 +397,17 @@ class Favorites {
    */
   updateList(list) {
     // Save new order in API
-    fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(list)
-    })
+    fetch(
+      '/api/public/connected/'
+        + sessionStorage.getItem("username") +'/favorites',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(list)
+      }
+    )
     .then((res) => {
       if (res.status === 404){
         // Unpack error message and go to catch
