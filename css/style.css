@@ -601,6 +601,10 @@ form {
   width: 100%;
 }
 
+.data-row.space-between {
+  justify-content: space-between;
+}
+
 .data-type {
   width: 100px;
   display: flex;
@@ -613,8 +617,11 @@ form {
   border-bottom: 1px solid #888888;
 }
 
-.data-value {
+.data-value, .data-index, .data-remove {
   display: flex;
+}
+
+.data-value {
   min-height: 32px;
   align-items: center;
   flex-wrap: wrap;
@@ -625,14 +632,37 @@ form {
   width: 100%;
 }
 
-.data-value.link {
+.data-value.link, .data-row.link {
   cursor: pointer;
   transition: background-color 0.5s;
   text-decoration: underline;
 }
 
-.data-value.link:hover {
+.data-value.link:hover, .data-row.link:hover {
   background-color: #888888;
+}
+
+.data-index, .data-remove {
+  text-decoration: none;
+  min-height: 32px;
+  align-items: center;
+}
+
+.data-index {
+  padding-left: 5%;
+}
+
+.data-remove {
+  padding-right: 5%;
+  transition: font-size 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
+
+}
+
+.data-remove:hover {
+  font-size: 175%;
+  color: var(--error-red);
+
 }
 
 ol.data-content {

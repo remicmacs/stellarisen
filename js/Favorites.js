@@ -72,7 +72,8 @@ class Favorites {
     this.favoritesList.innerHTML = "";
 
     // Creating a li element for every favorite listed
-    for (let i = 0 ; i < favs.length ; i++) {
+    let i = 0;
+    for (i = 0 ; i < favs.length ; i++) {
       const fav = favs[i];
 
       // Creating draggable element
@@ -81,6 +82,29 @@ class Favorites {
       this.attachEventListeners(liElt);
 
       this.favoritesList.appendChild(liElt);
+    }
+
+    if (i < 10) {
+      const buttonElt = document.createElement("button");
+      const columnDiv = this.favoritesPanelElt
+        .getElementsByClassName("column")[0];
+      const buttons = Array.from(columnDiv.getElementsByTagName("button"));
+      buttons.forEach((button) => {button.remove()});
+      buttonElt.innerHTML = "+";
+      buttonElt.classList.add(
+        "list-button",
+        "green"
+      );
+
+      // Event listener for button
+      // @TODO : handle text field creation and handlers for search
+      buttonElt.addEventListener('click', (event) => {
+        this.toaster.displayInformationToast(
+           columnDiv,
+          "Clic !"
+        );
+      });
+      columnDiv.appendChild(buttonElt);
     }
   }
 
@@ -146,20 +170,51 @@ class Favorites {
     liElt.setAttribute("draggable", "true");
     liElt.classList.add(
       "data-row",
-      "data-value",
-      "alone",
-      "link"
+      "link",
+      "space-between"
     );
 
     // Id attribute will hold valid string name as reference
     liElt.id = fav;
-    liElt.innerHTML = '<b>#'+ (index+1) + ' </b> : ' + fav;
+
+    const divIndexElt = document.createElement("div");
+    divIndexElt.classList.add(
+      "data-index"
+    );
+    divIndexElt.innerHTML = '<b>#'+ (index+1) + ' </b> : ';
+
+    liElt.appendChild(divIndexElt);
+
+    const divValueElt = document.createElement("div");
+    divValueElt.classList.add(
+      "data-value"
+    );
+    divValueElt.innerHTML = fav;
 
     // Attaching event listener to handle link-style navigation
-    liElt.addEventListener('click', (event) => {
+    divValueElt.addEventListener('click', (event) => {
       event.preventDefault();
       window.location.hash = fav + "-open";
     });
+
+    liElt.appendChild(divValueElt);
+
+    const divRemoveElt = document.createElement("div");
+    divRemoveElt.classList.add(
+      "data-remove",
+      "close"
+    );
+    divRemoveElt.innerHTML = "x";
+    divRemoveElt.addEventListener(
+      "click",
+      (event) => {this.removeEltFromList(event)}
+    );
+    // Set tooltip information
+    divRemoveElt.setAttribute(
+      "title",
+      "Retirer \'" + liElt.id + "\' de la liste"
+    );
+    liElt.appendChild(divRemoveElt);
 
     return liElt;
   }
@@ -304,6 +359,36 @@ class Favorites {
     // Displaying new favorites list
     this.produceFavoritesList(list);
 
+    this.updateList(list);
+    return false;
+  }
+
+  /**
+   * Handler for remove button click event
+   *
+   * @param {*} event
+   * @memberof Favorites
+   */
+  removeEltFromList(event) {
+    const liElt = event.target.parentNode;
+
+    // Recovering current list
+    let list = this.favoritesList.getElementsByTagName("li");
+    list = Array.from(list);
+    list = list.map((curLi) => curLi.id);
+    // Removing element
+    list = list.filter((curLi) => curLi !== liElt.id);
+
+    this.updateList(list);
+  }
+
+  /**
+   * Sends new favorites list to server for storage.
+   *
+   * @param {*} list
+   * @memberof Favorites
+   */
+  updateList(list) {
     // Save new order in API
     fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
       method: 'POST',
@@ -333,6 +418,5 @@ class Favorites {
       this.toaster.displayErrorToast(this.favoritesPanelElt, error.message);
       this.produceFavoritesList(list);
     });
-    return false;
   }
 }
