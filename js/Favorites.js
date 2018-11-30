@@ -177,44 +177,44 @@ class Favorites {
     // Id attribute will hold valid string name as reference
     liElt.id = fav;
 
-    const divIndexElt = document.createElement("div");
-    divIndexElt.classList.add(
+    const spanIndexElt = document.createElement("span");
+    spanIndexElt.classList.add(
       "data-index"
     );
-    divIndexElt.innerHTML = '<b>#'+ (index+1) + ' </b> : ';
+    spanIndexElt.innerHTML = '<b>#'+ (index+1) + ' </b> : ';
 
-    liElt.appendChild(divIndexElt);
+    liElt.appendChild(spanIndexElt);
 
-    const divValueElt = document.createElement("div");
-    divValueElt.classList.add(
+    const spanValueElt = document.createElement("span");
+    spanValueElt.classList.add(
       "data-value"
     );
-    divValueElt.innerHTML = fav;
+    spanValueElt.innerHTML = fav;
 
     // Attaching event listener to handle link-style navigation
-    divValueElt.addEventListener('click', (event) => {
+    spanValueElt.addEventListener('click', (event) => {
       event.preventDefault();
       window.location.hash = fav + "-open";
     });
 
-    liElt.appendChild(divValueElt);
+    liElt.appendChild(spanValueElt);
 
-    const divRemoveElt = document.createElement("div");
-    divRemoveElt.classList.add(
+    const spanRemoveElt = document.createElement("span");
+    spanRemoveElt.classList.add(
       "data-remove",
       "close"
     );
-    divRemoveElt.innerHTML = "x";
-    divRemoveElt.addEventListener(
+    spanRemoveElt.innerHTML = "x";
+    spanRemoveElt.addEventListener(
       "click",
       (event) => {this.removeEltFromList(event)}
     );
     // Set tooltip information
-    divRemoveElt.setAttribute(
+    spanRemoveElt.setAttribute(
       "title",
       "Retirer \'" + liElt.id + "\' de la liste"
     );
-    liElt.appendChild(divRemoveElt);
+    liElt.appendChild(spanRemoveElt);
 
     return liElt;
   }
@@ -268,7 +268,7 @@ class Favorites {
       case "LI":
         liElt = event.target;
         break;
-      case "DIV":
+      case "SPAN":
         liElt = currElt.parentNode;
         break;
     }
