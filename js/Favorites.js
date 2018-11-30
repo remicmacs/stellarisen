@@ -263,10 +263,13 @@ class Favorites {
         : currElt.parentNode.parentNode.parentNode;
         break;
       case "B":
-        liElt = currElt.parentNode;
+        liElt = currElt.parentNode.parentNode;
         break;
       case "LI":
         liElt = event.target;
+        break;
+      case "DIV":
+        liElt = currElt.parentNode;
         break;
     }
 
@@ -376,7 +379,7 @@ class Favorites {
     let list = this.favoritesList.getElementsByTagName("li");
     list = Array.from(list);
     list = list.map((curLi) => curLi.id);
-    // Removing element
+    // Removing element 
     list = list.filter((curLi) => curLi !== liElt.id);
 
     this.updateList(list);
