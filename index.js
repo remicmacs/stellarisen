@@ -115,6 +115,27 @@ for (let i = 0; i < events.length; i++) {
 }
 console.log("Attached event listeners");
 
+document.getElementById('searchField').addEventListener(
+  'keyup',
+  (event) => {
+    const query = event.target.value;
+    console.log(query);
+    if (query === "" || query === null || query === undefined) return;
+    const url = (sessionStorage.getItem("isAuthenticated") === 'true')
+      ? '/api/public/connected/' + sessionStorage.getItem("username") + '/search/' + query
+      : '/api/public/search/' + query;
+    fetch(
+      url,
+      {
+        method: 'GET',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    ).then((res) => res.json())
+    .then(console.log)
+    .catch(console.error);
+  }
+);
 
 /**
  * Display loader on document loading

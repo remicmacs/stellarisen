@@ -19,8 +19,13 @@ $router->post('register', 'RegistrationController@register');
 // Login route
 $router->post('connect', 'ConnectionController@connect');
 
+// Unprotected search API
+$router->get('search/{query}', function($query) {
+    $content = array("message" => "Hey unconnected query '".$query."'");
+    return response($content, 200);
+});
 
-// Protected API route
+// Protected API routes
 $router->group(
     [
         'middleware' => 'apiauth',
@@ -36,6 +41,12 @@ $router->group(
 
     $router->get('favorites', 'FavoritesController@getUserFavs');
     $router->post('favorites', 'FavoritesController@setUserFavs');
+
+    // Protected search API
+    $router->get('search/{query}', function($query) {
+        $content = array("message" => "Hey connected query '".$query."'");
+        return response($content, 200);
+    });
 });
 
 $router->get('/', function () use ($router) {
