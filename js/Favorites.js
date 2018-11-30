@@ -208,7 +208,7 @@ class Favorites {
         : currElt.parentNode.parentNode.parentNode;
         break;
       case "B":
-        liElt = currElt.parentNode.parentNode;
+        liElt = currElt.parentNode;
         break;
       case "LI":
         liElt = event.target;
@@ -274,9 +274,7 @@ class Favorites {
     event.preventDefault();
     event.stopPropagation(); // stops the browser from redirecting.
 
-    const parent = event.target.parentNode
-
-    let list = parent.getElementsByTagName("li");
+    let list = this.favoritesList.getElementsByTagName("li");
     list = Array.from(list);
 
     /*
@@ -316,8 +314,6 @@ class Favorites {
     })
     .then((res) => {
       if (res.status === 404){
-        console.log("Error is erroring all right");
-
         // Unpack error message and go to catch
         return res.json().then(
           (res) => {return Promise.reject(new Error(res.message));}
