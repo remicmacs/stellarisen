@@ -927,16 +927,16 @@ class SkySphere {
 
 	updateTags() {
 		let focused;
-		let tags;
-		if (this.visor.star != undefined) {
+		let tagsDiv;
+		if (this.visor.star !== undefined) {
 			focused = this.visor.star;
-			tags = document.getElementById('stars-tags');
-			tags.innerHTML = '';
+			tagsDiv = document.getElementById('stars-tags');
+			tagsDiv.innerHTML = '';
 		}
-		else if (this.visor.constellation != undefined) {
+		else if (this.visor.constellation !== undefined) {
 			focused = this.visor.constellation;
-			tags = document.getElementById('constellations-tags');
-			tags.innerHTML = '';
+			tagsDiv = document.getElementById('constellations-tags');
+			tagsDiv.innerHTML = '';
 		}
 		else {
 			return;
@@ -945,9 +945,8 @@ class SkySphere {
 		for (let tag of focused.tags) {
 			const div = document.createElement('div');
 			div.classList.add('tag');
-			const text = document.createTextNode(tag);
-			div.appendChild(text);
-			tags.appendChild(div);
+			div.innerHTML = tag;
+			tagsDiv.appendChild(div);
 
 			// If the tag is the first tag (which should be the name of the current
 			// object), we make it non-clickabe. Otherwise, it should lend to the
@@ -956,6 +955,46 @@ class SkySphere {
 				div.classList.add('non-clickable');
 			} else {
 				div.classList.add('clickable');
+				div.addEventListener('click', (event) => {
+					let tagname = event.target.innerHTML;
+					switch(tagname) {
+						case "Étoile":
+							tagname = "star";
+							break;
+						case "Lune":
+							tagname = "moon";
+							break;
+						case "Planète":
+							tagname = "planet";
+							break;
+						case "Constellation":
+							tagname = "constellation";
+							break;
+						default:
+							break;
+					}
+
+					const tagIsPublic = tagname === "star" || tagname === "moon" || tagname === "planet" || tagname === "constellation";
+					let url = "";
+					if (sessionStorage.getItem('isAuthenticated') === 'false'
+							|| tagIsPublic){
+						url = '/api/public/tag/' + tagname;
+					} else {
+						url = '/api/public/connected/' + sessionStorage.getItem("username") + '/tag/' + tagname;
+					}
+
+					fetch(
+						url,
+						{
+							method: "GET",
+							headers : {
+								'Accept': 'application/json',
+								'Content-Type': 'application/json'
+							}
+						}
+					).then(console.debug)
+					.catch(console.error);
+				});
 				// Add here logic for searching objects of same type
 			}
 		}
