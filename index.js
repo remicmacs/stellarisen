@@ -684,6 +684,38 @@ function populateTags(tags, tagsDiv) {
       // Add here logic for searching objects of same type
     }
   }
+  addPlusTag(tagsDiv)
+}
+
+function addPlusTag(tags) {
+  let addTag = document.createElement('div');
+  addTag.classList.add("tag");
+  addTag.classList.add("add-tag");
+  addTag.innerHTML = "+";
+  tags.appendChild(addTag);
+
+  addTag.addEventListener('click', (event) => {
+    let target = event.target;
+    target.innerHTML = '';
+    let tagInput = document.createElement('input');
+    target.appendChild(tagInput);
+    tagInput.focus();
+    tagInput.addEventListener('focusout', (event) => {
+      target.innerHTML = "+";
+    });
+
+    tagInput.addEventListener('keyup', (event) => {
+      if (event.keyCode == 13) {
+        target.innerHTML = event.target.value;
+        target.classList.remove("add-tag");
+        //target.onclick = null;
+        let targetClone = target.cloneNode(true);
+        tags.replaceChild(targetClone, target);
+        //target.removeEventListener("click", onPlusTagClick);
+        addPlusTag(tags);
+      }
+    });
+  });
 }
 
 function onSearchFieldChange(event) {
