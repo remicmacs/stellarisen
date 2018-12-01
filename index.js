@@ -688,6 +688,10 @@ function populateTags(tags, tagsDiv) {
 }
 
 function addPlusTag(tags) {
+  if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+    return;
+  }
+
   let addTag = document.createElement('div');
   addTag.classList.add("tag");
   addTag.classList.add("add-tag");
@@ -774,9 +778,23 @@ function populateSearchResults(res) {
 }
 
 function populateAddToFavorite(parent, button, target) {
+
+  // If the user isn't connected, we'll just assure that the button
+  // is not shown
+  if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+    button.classList.remove("visible");
+    button.classList.add("hidden");
+    return;
+  }
+
+  // We clone the button to remove any event listener
   let clone = button.cloneNode(true);
   parent.replaceChild(clone, button);
+
   clone.innerHTML = "Ajouter aux favoris";
+  clone.classList.add("visible");
+  clone.classList.remove("hidden");
+
   clone.addEventListener("click", (event) => {
     console.log("Favoriting " + target.meshName);
   });
