@@ -609,7 +609,7 @@ function switchHash(event) {
 
 /**
  * Handler for looking at Constellation event
- * @param {event} event Why an event if not consumed ?
+ * @param {event} event
  */
 function lookAtConstellation(event) {
   window.location.hash = document.getElementById('con-name')
@@ -618,7 +618,7 @@ function lookAtConstellation(event) {
 
 /**
  * Returns a random Star
- * @param {event} event Why an event ?
+ * @param {event} event
  */
 function randomStar(event) {
   const random = Math.round(Math.random() * skySphere.starsObjects.length);
