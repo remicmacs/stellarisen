@@ -47,6 +47,9 @@ $router->group(
 
         // User specific tag relation API
         $router->get('search/tag/{tagname}', 'SearchController@userTagSearch');
+
+        // Tag list retrieval API
+        $router->get('tags/{starname}', 'TagController@starTags');
     }
 );
 
