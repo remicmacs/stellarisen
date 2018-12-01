@@ -49,9 +49,13 @@ class Favorites {
    * @memberof Favorites
    */
   getFavorites() {
-    fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
-      method: 'GET'
-    })
+    fetch(
+      '/api/public/connected/'
+        + sessionStorage.getItem("username") +'/favorites',
+      {
+        method: 'GET'
+      }
+    )
     // Unpacking JSON body of response
     .then((res) => res.json())
     // Displaying list of favorites
@@ -332,8 +336,7 @@ class Favorites {
     event.preventDefault();
     event.stopPropagation(); // stops the browser from redirecting.
 
-    let list = this.favoritesList.getElementsByTagName("li");
-    list = Array.from(list);
+    let list = this.recoverCurrentList();
 
     /*
      * Finding source and target ids while unpacking li element to keep only
@@ -375,11 +378,10 @@ class Favorites {
   removeEltFromList(event) {
     const liElt = event.target.parentNode;
 
-    // Recovering current list
-    let list = this.favoritesList.getElementsByTagName("li");
-    list = Array.from(list);
+    let list = this.recoverCurrentList();
+
     list = list.map((curLi) => curLi.id);
-    // Removing element 
+    // Removing element
     list = list.filter((curLi) => curLi !== liElt.id);
 
     this.updateList(list);
@@ -393,13 +395,17 @@ class Favorites {
    */
   updateList(list) {
     // Save new order in API
-    fetch('/api/public/favorites/' + sessionStorage.getItem("username"), {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(list)
-    })
+    fetch(
+      '/api/public/connected/'
+        + sessionStorage.getItem("username") +'/favorites',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(list)
+      }
+    )
     .then((res) => {
       if (res.status === 404){
         // Unpack error message and go to catch
@@ -413,7 +419,7 @@ class Favorites {
       this.produceFavoritesList(res.newlist);
       this.toaster.displaySuccessToast(
         this.favoritesPanelElt,
-        "Nouvel ordre des favoris sauvegardé !"
+        "Favoris sauvegardés !"
       );
     })
     .catch(error => {
@@ -421,5 +427,11 @@ class Favorites {
       this.toaster.displayErrorToast(this.favoritesPanelElt, error.message);
       this.produceFavoritesList(list);
     });
+  }
+
+  recoverCurrentList() {
+    let list = this.favoritesList.getElementsByTagName("li");
+    list = Array.from(list);
+    return list;
   }
 }

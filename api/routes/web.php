@@ -19,16 +19,37 @@ $router->post('register', 'RegistrationController@register');
 // Login route
 $router->post('connect', 'ConnectionController@connect');
 
-$router->group(['middleware' => 'apiauth'], function() use ($router) {
-    $router->get('connected/{name}', function ($name) {
-        $content = array("message" => "hello $name");
-        return response($content, 200)
-            ->header("Content-type", "application/json");
-    });
+// Unprotected search API
+$router->get('search/{query}', 'SearchController@publicSearch');
 
-    $router->get('favorites/{username}', 'FavoritesController@getUserFavs');
-    $router->post('favorites/{username}', 'FavoritesController@setUserFavs');
-});
+// Unprotected tag relation API
+
+$router->get('tag/{tagname}', 'TagController@publicTag');
+
+// Protected API routes
+$router->group(
+    [
+        'middleware' => 'apiauth',
+        'prefix' => 'connected/{username}'
+    ],
+    function() use ($router) {
+        $router->get('/', function ($name) {
+                $content = array("message" => "hello $username");
+                return response($content, 200)
+                    ->header("Content-type", "application/json");
+            }
+        );
+
+        $router->get('favorites', 'FavoritesController@getUserFavs');
+        $router->post('favorites', 'FavoritesController@setUserFavs');
+
+        // Protected search API
+        $router->get('search/{query}', 'SearchController@authenticatedSearch');
+
+        // User specific tag relation API
+        $router->get('tag/{tagname}', 'TagController@userTag');
+    }
+);
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
