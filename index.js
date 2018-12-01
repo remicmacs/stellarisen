@@ -765,7 +765,6 @@ function populateSearchResults(res) {
     resultType.classList.add("search-result-type");
 
     searchResult.addEventListener('click', (event) => {
-      console.log("click click bande de s...");
       window.location.hash = '#' + resultValue["name"] + "-open";
       hide('search-results');
       stopPropagation(event);
