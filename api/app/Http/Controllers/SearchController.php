@@ -110,8 +110,8 @@ class SearchController extends Controller {
 
     $rows = app('db')
       ->table('celestial_bodies')
-      ->innerJoin('tags', 'tags.celestial_bodies_id', '=', 'celestial_bodies.id')
-      ->innerJoin('labels', 'tags.label_id', '=', 'labels.label_id')
+      ->join('tags', 'tags.celestial_bodies_id', '=', 'celestial_bodies.id')
+      ->join('labels', 'tags.label_id', '=', 'labels.label_id')
       ->select('celestial_bodies.name', 'celestial_bodies.type')
       ->where('tags.userid', '=', $user->getUserId())
       ->where('labels.name', '=', $tagname)
