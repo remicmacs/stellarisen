@@ -28,15 +28,16 @@ class TagController extends Controller {
 
     $rows = app('db')
     ->table('celestial_bodies')
-    ->innerJoin('tags', 'tags.celestial_bodies_id', '=', 'celestial_bodies.id')
-    ->innerJoin('labels', 'tags.label_id', '=', 'labels.label_id')
+    ->join('tags', 'tags.celestial_bodies_id', '=', 'celestial_bodies.id')
+    ->join('labels', 'tags.label_id', '=', 'labels.label_id')
     ->select('labels.name')
     ->where('tags.userid', '=', $user->getUserId())
-    ->where('celestial_bodies', '=', $starname)
+    ->where('celestial_bodies.name', '=', $starname)
     ->orderBy('name')
     ->get();
 
     $rows = $rows->toArray();
+    $rows = array_column($rows, 'name');
     return response($rows, 200);
   }
 }
