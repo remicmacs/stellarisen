@@ -708,10 +708,10 @@ function addPlusTag(tags) {
       if (event.keyCode == 13) {
         target.innerHTML = event.target.value;
         target.classList.remove("add-tag");
-        //target.onclick = null;
+
+        // We have to clone it so it will lose all attached listeners
         let targetClone = target.cloneNode(true);
         tags.replaceChild(targetClone, target);
-        //target.removeEventListener("click", onPlusTagClick);
         addPlusTag(tags);
       }
     });

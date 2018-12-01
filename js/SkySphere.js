@@ -246,34 +246,6 @@ class SkySphere {
 				this.visor.hide();
 			}
 		}
-
-
-		/*for (let i = 0; i < constellationObjects.length; i++) {
-			let constellationBarycenter = toCartesian(100, constellationObjects[i]["ra"], constellationObjects[i]["dec"]);
-			let distance = new THREE.Vector3().fromArray(sphereRaycast).distanceTo(new THREE.Vector3().fromArray(constellationBarycenter));
-			if (distance > 100) {
-				for (let j = 0; j < constellationObjects[i]["lines"].length; j++) {
-					if (constellationObjects[i]["lines"][j].visible) {
-						constellationObjects[i]["lines"][j].visible = false;
-					}
-				}
-			}
-			else if (distance < 100) {
-				for (let j = 0; j < constellationObjects[i]["lines"].length; j++) {
-					if (!constellationObjects[i]["lines"][j].visible) {
-						constellationObjects[i]["lines"][j].visible = true;
-					}
-				}
-			}
-			if (distance < 100) {
-				if (distance < 50) {
-					constellationObjects[i].material.opacity = 1;
-				}
-				else {
-					constellationObjects[i].material.opacity = 1 - ((distance - 50) / 50);
-				}
-			}
-		}*/
 	}
 
 
@@ -369,31 +341,6 @@ class SkySphere {
 		this.horizon = new Horizon(this.constellationFont);
 		this.horizon.addToScene(this.scene);
 	}
-
-
-	/**
-	 *	Add cardinals points to the scene
-	 */
-	// addCardinalsToScene() {
-	// 	let options = { font: this.constellationFont, size: 5, height: 1, curveSegments: 12, bevelEnabled: false };
-	// 	let cardinals = [ "N", "S", "E", "W" ];
-	// 	let cardinalsAngles = [ 0, Math.PI, -Math.PI / 2, Math.PI / 2 ];
-	// 	let cardinalsPositions =
-	// 		[	new THREE.Vector3(0, 4, -110)
-	// 		,	new THREE.Vector3(0, 4, 110)
-	// 		,	new THREE.Vector3(110, 4, 0)
-	// 		,	new THREE.Vector3(-110, 4, 0)
-	// 		];
-	// 	for (let i = 0; i < cardinals.length; i++) {
-	// 		let geometry = new THREE.TextGeometry(cardinals[i], options);
-	// 		geometry.center();
-	// 		let material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-	// 		let mesh = new THREE.Mesh(geometry, material);
-	// 		mesh.position.copy(cardinalsPositions[i]);
-	// 		mesh.rotation.y = cardinalsAngles[i];
-	// 		this.scene.add(mesh);
-	// 	}
-	// }
 
 	/**
 	 * Converts RA/DEC coordinates to cartesian coordinates.
@@ -517,7 +464,7 @@ class SkySphere {
 
 		setImgSrc(
 			"star-picture",
-			"http://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra="
+			"https://server7.wikisky.org/imgcut?survey=DSS2&w=150&h=150&angle=1.25&ra="
 			 + star.ra + "&de=" + star.dec + "&output=PNG"
 		);
 	}
