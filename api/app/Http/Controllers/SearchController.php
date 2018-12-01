@@ -32,6 +32,7 @@ class SearchController extends Controller {
       ->table('celestial_bodies')
       ->select('name', 'type')
       ->where('name', 'like', "%$query%")
+      ->orderBy('name')
       ->get();
 
     // Convert $rows from Custom Symfony collection to plain old array
