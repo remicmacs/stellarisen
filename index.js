@@ -112,7 +112,12 @@ const events = [
   ['set-orien', 'click', () => { skySphere.toggleControlWithOrientation();}],
   ['disconnect-button', 'click', disconnect],
   ['favorites-button', 'click', showFavorites],
-  ['about-button', 'click', showAbout]
+  ['about-button', 'click', showAbout],
+  ['searchField', 'click', stopPropagation],
+  ['searchField', 'mousedown', stopPropagation],
+  ['searchField', 'mouseup', stopPropagation],
+  ['searchField', 'mousemove', stopPropagation]
+  // ['searchField', 'focusout', emptySearchResults]
 ]
 
 for (let i = 0; i < events.length; i++) {
@@ -121,25 +126,7 @@ for (let i = 0; i < events.length; i++) {
 console.log("Attached event listeners");
 
 document.getElementById('searchField').addEventListener(
-  'keyup',
-  (event) => {
-    const query = event.target.value;
-    console.log(query);
-    if (query === "" || query === null || query === undefined) return;
-    const url = (sessionStorage.getItem("isAuthenticated") === 'true')
-      ? '/api/public/connected/' + sessionStorage.getItem("username") + '/search/' + query
-      : '/api/public/search/' + query;
-    fetch(
-      url,
-      {
-        method: 'GET',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    ).then((res) => res.json())
-    .then(console.log)
-    .catch(console.error);
-  }
+  'keyup', onSearchFieldChange
 );
 
 /**
@@ -412,6 +399,9 @@ function hasSceneSwitched(hash) {
   if ((hash === "SystemeSolaire" && scene === skyScene) ||
     ((hash === "Etoiles" || hash === "") && scene === planetsScene)) {
     switchScene();
+    if ((hash === "Etoiles" || hash === "")) {
+      hideRightModal();
+    }
     return true;
 
     // Switching from planet narrow view to wide view in solar system
@@ -434,6 +424,7 @@ function hasSceneSwitched(hash) {
       skySphere.update()
     };
     skySphere.rearrange();
+    hideRightModal();
     return true;
   }
   return false;
@@ -558,13 +549,11 @@ function onTouchMove(event) {
 
 function openMenu(event) {
   event.stopPropagation();
-  //enable('menu');
   showMenu();
 }
 
 function closeMenu(event) {
   event.stopPropagation();
-  //disable('menu');
   hideLeftModal();
 }
 
@@ -592,7 +581,11 @@ function closeInfos(event) {
  */
 function closePInfos(event) {
   event.stopPropagation();
-  window.history.back();
+  //window.history.back();
+  if (isVisible('planet-panel') || isVisible('moon-panel')) {
+    window.location.hash = window.location.hash.split("-")[0];
+  }
+  hideRightModal();
 }
 
 /**
@@ -628,4 +621,122 @@ function lookAtConstellation(event) {
 function randomStar(event) {
   const random = Math.round(Math.random() * skySphere.starsObjects.length);
   window.location.hash = skySphere.starsObjects[random].meshName + "-open";
+}
+
+
+function populateTags(tags, tagsDiv) {
+  for (let tag of tags) {
+    const div = document.createElement('div');
+    div.classList.add('tag');
+    div.innerHTML = tag;
+    tagsDiv.appendChild(div);
+
+    // If the tag is the first tag (which should be the name of the current
+    // object), we make it non-clickabe. Otherwise, it should lend to the
+    // search for the same kind of objects
+    if (tag === tags[0]) {
+      div.classList.add('non-clickable');
+    } else {
+      div.classList.add('clickable');
+      div.addEventListener('click', (event) => {
+        let tagname = event.target.innerHTML;
+        switch(tagname) {
+          case "Étoile":
+            tagname = "star";
+            break;
+          case "Lune":
+            tagname = "moon";
+            break;
+          case "Planète":
+            tagname = "planet";
+            break;
+          case "Constellation":
+            tagname = "constellation";
+            break;
+          default:
+            break;
+        }
+        document.getElementById('searchField').value = tagname;
+
+        const tagIsPublic = tagname === "star" || tagname === "moon" || tagname === "planet" || tagname === "constellation";
+        let url = "";
+        if (sessionStorage.getItem('isAuthenticated') === 'false'
+            || tagIsPublic){
+          url = '/api/public/tag/' + tagname;
+        } else {
+          url = '/api/public/connected/' + sessionStorage.getItem("username") + '/tag/' + tagname;
+        }
+
+        let requestParam =
+          { method: "GET"
+          , headers :
+            { 'Accept': 'application/json'
+            , 'Content-Type': 'application/json'
+            }
+          };
+
+        fetch(url, requestParam)
+          .then((res) => res.json())
+          .then(populateSearchResults)
+          .then(console.debug)
+          .catch(console.error);
+      });
+      // Add here logic for searching objects of same type
+    }
+  }
+}
+
+function onSearchFieldChange(event) {
+  const query = event.target.value;
+  if (query === "" || query === null || query === undefined) {
+    emptySearchResults();
+    return;
+  }
+  const url = (sessionStorage.getItem("isAuthenticated") === 'true')
+    ? '/api/public/connected/' + sessionStorage.getItem("username") + '/search/' + query
+    : '/api/public/search/' + query;
+  fetch(
+    url,
+    {
+      method: 'GET',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  ).then((res) => res.json())
+  .then(populateSearchResults)
+  .catch(console.error);
+}
+
+function populateSearchResults(res) {
+  show("search-results");
+  let searchResDOM = document.getElementById("search-results");
+  searchResDOM.innerHTML = '';
+  for (let resultValue of res) {
+    let searchResult = document.createElement('div');
+    let resultName = document.createElement('span');
+    let resultType = document.createElement('span');
+    searchResult.appendChild(resultName);
+    searchResult.appendChild(resultType);
+    resultName.innerHTML = resultValue["name"];
+    resultType.innerHTML = resultValue["type"];
+    searchResult.classList.add("search-result", "link");
+    resultName.classList.add("search-result-name", "clickable");
+    resultType.classList.add("search-result-type");
+
+    searchResult.addEventListener('click', (event) => {
+      console.log("click click bande de s...");
+      window.location.hash = '#' + resultValue["name"] + "-open";
+      hide('search-results');
+      stopPropagation(event);
+    });
+
+    searchResult.addEventListener('mousedown', stopPropagation);
+    searchResult.addEventListener('mouseup', stopPropagation);
+
+    searchResDOM.appendChild(searchResult);
+  }
+
+  hideLeftModal();
+  hideRightModal();
+  hideCenterModal();
 }

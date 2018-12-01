@@ -735,9 +735,9 @@ ol.data-content {
 }
 
 img.rotating {
-	-webkit-animation:spin 4s linear infinite;
+	/* -webkit-animation:spin 4s linear infinite;
 	-moz-animation:spin 4s linear infinite;
-	animation:spin 4s linear infinite;
+	animation:spin 4s linear infinite; */
 }
 
 #about-panel {

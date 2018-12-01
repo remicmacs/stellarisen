@@ -350,3 +350,8 @@ function setRight(id) {
     element.classList.add('right');
   }
 }
+
+function emptySearchResults() {
+  hide("search-results");
+  document.getElementById('search-results').innerHTML = '';
+}

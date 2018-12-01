@@ -682,23 +682,7 @@ class Planets {
 		}
 		tags.innerHTML = '';
 
-		for (let tag of this.target.tags) {
-			const div = document.createElement('div');
-			div.classList.add('tag');
-			const text = document.createTextNode(tag);
-			div.appendChild(text);
-			tags.appendChild(div);
-
-			// If the tag is the first tag (which should be the name of the current
-			// object), we make it non-clickabe. Otherwise, it should lend to the
-			// search for the same kind of objects
-			if (tag === this.target.tags[0]) {
-				div.classList.add('non-clickable');
-			} else {
-				div.classList.add('clickable');
-				// Add here logic for searching objects of same type
-			}
-		}
+		populateTags(this.target.tags, tags);
 	}
 
 	onMove(event) {
