@@ -33,15 +33,11 @@ class TagController extends Controller {
   private function publicResults(string $tagname) {
     $rows = app('db')
       ->table('celestial_bodies')
-      ->select('name')
+      ->select('name', 'type')
       ->where('type', 'like', "%$tagname%")
       ->orderBy('name')
       ->get();
     $rows = $rows->toArray();
-    $newRows = array();
-    foreach($rows as $row) {
-      array_push($newRows, $row->name);
-    }
-    return $newRows;
+    return $rows;
   }
 }
