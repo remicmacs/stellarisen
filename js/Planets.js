@@ -563,12 +563,35 @@ class Planets {
 		setSpan('planet-aphelion', planet.aphelion);
 		setSpan('planet-perihelion', planet.perihelion);
 		setSpan('planet-meantemp', planet.meantemp);
-		this.updateTags();
+
 		populateAddToFavorite(
 			document.getElementById("planet-panel-column"),
 			document.getElementById("favorite-planet"),
 			planet
 		);
+
+		if (sessionStorage.getItem('isAuthenticated') === "true") {
+			const username = sessionStorage.getItem('username');
+			const targetname = planet.name;
+			const requestParams = {
+				method : "GET",
+				headers : {
+					'Content-type' : 'application/json',
+					'Accept' : 'application/json'
+				}
+			}
+			const url = 'api/public/connected/' + username + '/tags/' + targetname;
+			fetch(url, requestParams)
+				.then(res => res.json())
+				.then((res) => {
+					this.target.tags = this.target.tags.slice(0, 2);
+					this.target.tags.push(...res);
+					this.updateTags();
+				})
+				.catch(console.error);
+		} else {
+			this.updateTags();
+		}
 		this.updateRotations(portrait);
 	}
 
