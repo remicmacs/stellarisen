@@ -33,13 +33,37 @@
     <div id="threejscanvas">
     </div>
 
-    <div id="ui">
-
-      <div id="header">
-        <img src="res/images/logo_256.png" alt="User" id="userImage"/>
+    <div id="ui" class="line ui">
+      <img src="res/images/logo_256.png" alt="User" id="userImage"/>
+      <div class="column search">
         <input id="searchField" class="light shadow-1" type="text" placeholder="Rechercher..."/>
+        <div class="light search-results">
+          <div class="search-result link">
+            <span class="search-result-name clickable">Arcturus</span>
+            <span class="search-result-type">Étoile</span>
+          </div>
+          <div class="search-result link">
+            <span class="search-result-name clickable">Mercure</span>
+            <span class="search-result-type">Planète</span>
+          </div>
+          <div class="search-result link">
+            <span class="search-result-name clickable">Vénus</span>
+            <span class="search-result-type">Planète</span>
+          </div>
+          <div class="search-result link">
+            <span class="search-result-name clickable">Terre</span>
+            <span class="search-result-type">Planète</span>
+          </div>
+          <div class="search-result link">
+            <span class="search-result-name clickable">Mars</span>
+            <span class="search-result-type">Planète</span>
+          </div>
+          <div class="search-result link">
+            <span class="search-result-name clickable">Jupiter</span>
+            <span class="search-result-type">Planète</span>
+          </div>
+        </div>
       </div>
-
     </div>
 
     <!--<div class="wrapper left disabled" id="menu-wrapper">-->
@@ -260,6 +284,9 @@
               </div>
             </div>
 
+            <div id="planets-tags" class="tag-list">
+            </div>
+
           </div>
         </div>
 
@@ -290,6 +317,9 @@
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div id="moons-tags" class="tag-list">
             </div>
 
           </div>

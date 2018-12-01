@@ -4,7 +4,7 @@
  * @class
  */
 class Planets {
-	
+
 	/**
 	 * Planets constructor
 	 *
@@ -563,6 +563,7 @@ class Planets {
 		setSpan('planet-aphelion', planet.aphelion);
 		setSpan('planet-perihelion', planet.perihelion);
 		setSpan('planet-meantemp', planet.meantemp);
+		this.updateTags();
 		this.updateRotations(portrait);
 	}
 
@@ -642,6 +643,7 @@ class Planets {
 		setSpan('moon-mass', moon.mass);
 		setSpan('moon-mass-exposant', moon.mass_exposant);
 		setSpan('moon-dimensions', moon.dimensions);
+		this.updateTags();
 		this.updateRotations(portrait);
 	}
 
@@ -665,6 +667,36 @@ class Planets {
 			} else {
 				// If target has not been focused before, add hash
 				window.location.hash = "#" + targetname;
+			}
+		}
+	}
+
+	updateTags() {
+		let tags;
+		if (this.depth === 1) {
+			tags = document.getElementById('planets-tags');
+		} else if (this.depth === 2) {
+			tags = document.getElementById('moons-tags');
+		} else {
+			return;
+		}
+		tags.innerHTML = '';
+
+		for (let tag of this.target.tags) {
+			const div = document.createElement('div');
+			div.classList.add('tag');
+			const text = document.createTextNode(tag);
+			div.appendChild(text);
+			tags.appendChild(div);
+
+			// If the tag is the first tag (which should be the name of the current
+			// object), we make it non-clickabe. Otherwise, it should lend to the
+			// search for the same kind of objects
+			if (tag === this.target.tags[0]) {
+				div.classList.add('non-clickable');
+			} else {
+				div.classList.add('clickable');
+				// Add here logic for searching objects of same type
 			}
 		}
 	}
