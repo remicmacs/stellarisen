@@ -23,8 +23,7 @@ $router->post('connect', 'ConnectionController@connect');
 $router->get('search/{query}', 'SearchController@publicSearch');
 
 // Unprotected tag relation API
-
-$router->get('tag/{tagname}', 'TagController@publicTag');
+$router->get('tag/{tagname}', 'SearchController@publicTagSearch');
 
 // Protected API routes
 $router->group(
@@ -47,7 +46,7 @@ $router->group(
         $router->get('search/{query}', 'SearchController@authenticatedSearch');
 
         // User specific tag relation API
-        $router->get('tag/{tagname}', 'TagController@userTag');
+        $router->get('tag/{tagname}', 'SearchController@userTagSearch');
     }
 );
 
