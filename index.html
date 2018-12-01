@@ -38,30 +38,11 @@
       <div class="column search">
         <input id="searchField" class="light shadow-1" type="text" placeholder="Rechercher..."/>
         <div id="search-results" class="light search-results hidden fade">
+          <!-- Kept as an example for what we want to achieve
           <div class="search-result link">
             <span class="search-result-name clickable">Arcturus</span>
             <span class="search-result-type">Étoile</span>
-          </div>
-          <div class="search-result link">
-            <span class="search-result-name clickable">Mercure</span>
-            <span class="search-result-type">Planète</span>
-          </div>
-          <div class="search-result link">
-            <span class="search-result-name clickable">Vénus</span>
-            <span class="search-result-type">Planète</span>
-          </div>
-          <div class="search-result link">
-            <span class="search-result-name clickable">Terre</span>
-            <span class="search-result-type">Planète</span>
-          </div>
-          <div class="search-result link">
-            <span class="search-result-name clickable">Mars</span>
-            <span class="search-result-type">Planète</span>
-          </div>
-          <div class="search-result link">
-            <span class="search-result-name clickable">Jupiter</span>
-            <span class="search-result-type">Planète</span>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -81,12 +62,13 @@
             </div>
             <button id="scene-switch" class="list-button white">Système solaire</button>
             <button id="random-star" class="list-button white">Une étoile au hasard !</button>
-            <button id="connect-button" class="list-button white">Connexion</button>
-            <button id="register-button" class="list-button white">Création de compte</button>
-            <button id="disconnect-button" class="hidden list-button white">Déconnexion</button>
             <button id="favorites-button" class="hidden list-button white">Favoris</button>
             <!--<button id="test-button" class="list-button white">Test</button>-->
             <button id="about-button" class="list-button white">À propos</button>
+            <div class="spacer"></div>
+            <button id="connect-button" class="list-button white">Connexion</button>
+            <button id="register-button" class="list-button white">Création de compte</button>
+            <button id="disconnect-button" class="hidden list-button red">Déconnexion</button>
           </div>
         </div>
 
@@ -143,7 +125,7 @@
         <div id="close-center" class="close">&times;</div>
 
         <div class="panel hidden fade" id="star-panel">
-          <div class="column">
+          <div class="column" id="star-panel-column">
             <h1 class="f1" id="objectName">Star name placeholder</h1>
 
             <div class="data-fragment shrink shadow-1">
@@ -178,13 +160,16 @@
                 </div>
               </div>
             </div>
+
             <div id="stars-tags" class="tag-list">
             </div>
+
+            <button id="favorite-star" class="list-button blue"></button>
           </div>
         </div>
 
         <div class="panel hidden fade" id="constellation-panel">
-          <div class="column">
+          <div class="column" id="constellation-panel-column">
             <h1 class="f1" id="constellation-title">Constellation name placeholder</h1>
 
             <div class="data-fragment shadow-1">
@@ -200,6 +185,8 @@
 
             <div id="constellations-tags" class="tag-list">
             </div>
+
+            <button id="favorite-constellation" class="list-button blue"></button>
 
           </div>
         </div>
@@ -218,7 +205,7 @@
 
         <div class="panel hidden fade" id="planet-panel">
 
-          <div class="column">
+          <div class="column" id="planet-panel-column">
             <h1 id="planetName">Planet name placeholder</h1>
 
             <div class="data-fragment shadow-1">
@@ -290,11 +277,13 @@
             <div id="planets-tags" class="tag-list">
             </div>
 
+            <button id="favorite-planet" class="list-button blue"></button>
+
           </div>
         </div>
 
         <div class="panel hidden fade" id="moon-panel">
-          <div class="column">
+          <div class="column" id="moon-panel-column">
 
             <h1 id="moonName">Moon name placeholder</h1>
 
@@ -324,6 +313,8 @@
 
             <div id="moons-tags" class="tag-list">
             </div>
+
+            <button id="favorite-moon" class="list-button blue"></button>
 
           </div>
         </div>

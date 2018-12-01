@@ -132,6 +132,23 @@ button.green, input[type=submit].green {
   border-bottom: 3px solid #137f57;
 }
 
+button.blue, input[type=submit].blue {
+  background: var(--information-blue);
+  color: #ffffff;
+
+  border: 1px solid #285EA6;
+  border-bottom: 3px solid #285EA6;
+}
+
+button.red, input[type=submit].red {
+  background: var(--error-red);
+  color: #ffffff;
+
+  border: 1px solid #BF3128;
+  border-bottom: 3px solid #BF3128;
+}
+
+
 input[type=submit] {
   width: 100%;
 }
@@ -768,6 +785,11 @@ img.rotating {
 #about-panel {
 	padding-left: 32px;
 	padding-right: 32px;
+}
+
+.spacer {
+  width: 100%;
+  height: 16px;
 }
 
 /* ANIMATIONS

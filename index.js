@@ -772,3 +772,12 @@ function populateSearchResults(res) {
   hideRightModal();
   hideCenterModal();
 }
+
+function populateAddToFavorite(parent, button, target) {
+  let clone = button.cloneNode(true);
+  parent.replaceChild(clone, button);
+  clone.innerHTML = "Ajouter aux favoris";
+  clone.addEventListener("click", (event) => {
+    console.log("Favoriting " + target.meshName);
+  });
+}

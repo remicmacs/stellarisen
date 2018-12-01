@@ -564,6 +564,11 @@ class Planets {
 		setSpan('planet-perihelion', planet.perihelion);
 		setSpan('planet-meantemp', planet.meantemp);
 		this.updateTags();
+		populateAddToFavorite(
+			document.getElementById("planet-panel-column"),
+			document.getElementById("favorite-planet"),
+			planet
+		);
 		this.updateRotations(portrait);
 	}
 
@@ -644,6 +649,11 @@ class Planets {
 		setSpan('moon-mass-exposant', moon.mass_exposant);
 		setSpan('moon-dimensions', moon.dimensions);
 		this.updateTags();
+		populateAddToFavorite(
+			document.getElementById("moon-panel-column"),
+			document.getElementById("favorite-moon"),
+			moon
+		);
 		this.updateRotations(portrait);
 	}
 

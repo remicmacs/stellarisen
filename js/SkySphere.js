@@ -449,6 +449,11 @@ class SkySphere {
 		setSpan("star-distance", Math.round(star.distance * 3.262));
 		setPlaceholder("searchField", star.meshName);
 		this.updateTags();
+		populateAddToFavorite(
+			document.getElementById("star-panel-column"),
+			document.getElementById("favorite-star"),
+			star
+		);
 
 		setImgSrc("star-picture", "res/images/image-loading.png");
 		const element = document.getElementById("star-picture");
@@ -523,6 +528,11 @@ class SkySphere {
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
 		this.updateTags();
+		populateAddToFavorite(
+			document.getElementById("constellation-panel-column"),
+			document.getElementById("favorite-constellation"),
+			constellation
+		);
 
 		const list = document.getElementById('stars-list');
 		list.innerHTML = '';
