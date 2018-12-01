@@ -494,14 +494,34 @@ class SkySphere {
 		hideLeftModal();
 
 		// Building the modal dialog content by hand for now
-		// TODO: AJAJ code to do 'round here
 		showStar();
 
 		setSpan("objectName", star.meshName);
 		setSpan("con-name", this.getConstellationName(star.constellation));
 		setSpan("star-distance", Math.round(star.distance * 3.262));
 		setPlaceholder("searchField", star.meshName);
-		this.updateTags();
+		if (sessionStorage.getItem('isAuthenticated') === "true") {
+      const username = sessionStorage.getItem('username');
+      const targetname = star.meshName;
+      const requestParams = {
+        method : "GET",
+        headers : {
+          'Content-type' : 'application/json',
+          'Accept' : 'application/json'
+        }
+      }
+      const url = 'api/public/connected/' + username + '/tags/' + targetname;
+      fetch(url, requestParams)
+        .then(res => res.json())
+        .then((res) => {
+					this.visor.star.tags = [targetname, 'Étoile'];
+					this.visor.star.tags.push(...res);
+          this.updateTags();
+        })
+        .catch(console.error);
+    } else {
+      this.updateTags();
+    }
 
 		setImgSrc("star-picture", "res/images/image-loading.png");
 		const element = document.getElementById("star-picture");
@@ -575,7 +595,28 @@ class SkySphere {
 		//show('star-list');
 		this.visor.lockedSprite.visible = false;
 		this.visor.setConstellation(constellation);
-		this.updateTags();
+		if (sessionStorage.getItem('isAuthenticated') === "true") {
+      const username = sessionStorage.getItem('username');
+      const targetname = constellation.fullName;
+      const requestParams = {
+        method : "GET",
+        headers : {
+          'Content-type' : 'application/json',
+          'Accept' : 'application/json'
+        }
+      }
+      const url = 'api/public/connected/' + username + '/tags/' + targetname;
+      fetch(url, requestParams)
+        .then(res => res.json())
+        .then((res) => {
+					constellation.tags = [targetname, 'Constellation'];
+					constellation.tags.push(...res);
+          this.updateTags();
+        })
+        .catch(console.error);
+    } else {
+      this.updateTags();
+    }
 
 		const list = document.getElementById('stars-list');
 		list.innerHTML = '';
