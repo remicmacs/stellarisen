@@ -5,6 +5,10 @@
 sessionStorage.setItem("isAuthenticated", "false");
 sessionStorage.setItem("username", "");
 
+fetch("./about.html", { method: "GET" })
+  .then((res) => { return res.text(); })
+  .then((res) => { document.getElementById('about-panel').innerHTML = res; });
+
 console.log("Loading init script");
 
 // Building scenes
@@ -107,7 +111,8 @@ const events = [
   ['gotoregister', 'click', showRegister ],
   ['set-orien', 'click', () => { skySphere.toggleControlWithOrientation();}],
   ['disconnect-button', 'click', disconnect],
-  ['favorites-button', 'click', showFavorites]
+  ['favorites-button', 'click', showFavorites],
+  ['about-button', 'click', showAbout]
 ]
 
 for (let i = 0; i < events.length; i++) {

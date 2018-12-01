@@ -183,6 +183,7 @@ function hideCenterModal() {
 
   hide('star-panel');
   hide('constellation-panel');
+  hide('about-panel')
 }
 
 function showLeftModal() {
@@ -295,6 +296,26 @@ function showMoon() {
   hide('planet-panel');
 
   showRightModal();
+}
+
+function showStar() {
+  show('star-panel');
+  hide('constellation-panel');
+  hide('about-panel');
+}
+
+function showConstellation() {
+  show('constellation-panel');
+  hide('star-panel');
+  hide('about-panel');
+}
+
+function showAbout() {
+  showCenterModal();
+  hideLeftModal();
+  show('about-panel');
+  hide('star-panel');
+  hide('constellation-panel');
 }
 
 function setLeft(id) {
