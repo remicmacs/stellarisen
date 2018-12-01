@@ -162,7 +162,7 @@ button.hidden {
 	max-height: 500px;
 	width: 100%;
 	border-radius: 5px;
-	box-shadow: 0px 0px 30px #808080;
+	/* box-shadow: 0px 0px 30px #808080; */
 	display: flex;
 	flex-direction: column;
 	overflow: auto;
@@ -176,6 +176,10 @@ button.hidden {
 	padding-left: 16px;
 	padding-right: 16px;
 	flex-shrink: 0;
+}
+
+.search-results > .search-result:not(:last-child) {
+  border-bottom: 1px solid #888888;
 }
 
 .search-result-name {
@@ -702,6 +706,9 @@ ol.data-content {
 
 .tag-list {
   display: flex;
+  max-width: 300px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .tag-list .tag {
@@ -718,6 +725,28 @@ ol.data-content {
   align-items: center;
   justify-content: center;
   border-radius: 3px;
+
+  transition: x 1s, y 1s;
+}
+
+.add-tag {
+  cursor: pointer;
+
+  border: 1px solid #285EA6;
+  border-bottom: 3px solid #285EA6;
+
+  transition: width 1s;
+  min-width: 32px;
+}
+
+.add-tag > input {
+  background-color: #357edd;
+  color: #eee8d5;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: 0px;
+  max-width: 100px;
+  width: 100px;
 }
 
 .tag.clickable, .search-result-name {
@@ -731,11 +760,15 @@ ol.data-content {
 }
 
 img.rotating {
-	-webkit-animation:spin 4s linear infinite;
+	/* -webkit-animation:spin 4s linear infinite;
 	-moz-animation:spin 4s linear infinite;
-	animation:spin 4s linear infinite;
+	animation:spin 4s linear infinite; */
 }
 
+#about-panel {
+	padding-left: 32px;
+	padding-right: 32px;
+}
 
 /* ANIMATIONS
 ==============================================================================*/

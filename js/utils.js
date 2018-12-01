@@ -183,6 +183,7 @@ function hideCenterModal() {
 
   hide('star-panel');
   hide('constellation-panel');
+  hide('about-panel')
 }
 
 function showLeftModal() {
@@ -297,6 +298,26 @@ function showMoon() {
   showRightModal();
 }
 
+function showStar() {
+  show('star-panel');
+  hide('constellation-panel');
+  hide('about-panel');
+}
+
+function showConstellation() {
+  show('constellation-panel');
+  hide('star-panel');
+  hide('about-panel');
+}
+
+function showAbout() {
+  showCenterModal();
+  hideLeftModal();
+  show('about-panel');
+  hide('star-panel');
+  hide('constellation-panel');
+}
+
 function setLeft(id) {
   const element = document.getElementById(id);
   if (element != null) {
@@ -328,4 +349,9 @@ function setRight(id) {
     element.classList.remove('bottom');
     element.classList.add('right');
   }
+}
+
+function emptySearchResults() {
+  hide("search-results");
+  document.getElementById('search-results').innerHTML = '';
 }

@@ -18,7 +18,7 @@ provisionning the VM.
 # unzip the vagrantbox.zip file in the local folder.
 $ unzip vagrantbox.zip
 # Launch set_hosts.sh script
-$ sudo sh set_hosts.sh
+$ sudo sh sethosts.sh
 # Powering VM and provisionning it with Vagrant
 $ vagrant up
 ```
