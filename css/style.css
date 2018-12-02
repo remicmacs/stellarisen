@@ -799,6 +799,18 @@ img.rotating {
   height: 16px;
 }
 
+#show-card {
+  background-image: url("../res/images/cardinals.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#set-orien {
+  background-image: url("../res/images/orientation.png");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* ANIMATIONS
 ==============================================================================*/
 
