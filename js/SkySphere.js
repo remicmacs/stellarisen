@@ -545,14 +545,14 @@ class SkySphere {
 
     setSpan("constellation-title", constellation.fullName);
     setPlaceholder("searchField", constellation.fullName);
-    //show('star-list');
+    show('star-list');
     this.visor.lockedSprite.visible = false;
     this.visor.setConstellation(constellation);
 
     populateAddToFavorite(
-      document.getElementById("star-panel-column"),
-      document.getElementById("favorite-star"),
-      star
+      document.getElementById("constellation-panel-column"),
+      document.getElementById("favorite-constellation"),
+      constellation
     );
 
     if (sessionStorage.getItem('isAuthenticated') === "true") {
