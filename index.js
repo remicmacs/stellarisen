@@ -639,32 +639,30 @@ function populateTags(tags, tagsDiv) {
     } else {
       div.classList.add('clickable');
       div.addEventListener('click', (event) => {
-        let tagname = event.target.innerHTML;
-        switch(tagname) {
-          case "Étoile":
-            tagname = "star";
-            break;
-          case "Lune":
-            tagname = "moon";
-            break;
-          case "Planète":
-            tagname = "planet";
-            break;
-          case "Constellation":
-            tagname = "constellation";
-            break;
-          default:
-            break;
+        const mappingFrToEng = {
+          "Étoile" : "star",
+          "Lune" : "moon",
+          "Planète" : "planet",
+          "Constellation" : "constellation"
         }
-        document.getElementById('searchField').value = tagname;
+        let tagname = event.target.innerHTML;
+        const original = event.target.innerHTML;
+        if (tagname in mappingFrToEng) {
+          tagname = mappingFrToEng[tagname];
+        }
+
+        document.getElementById('searchField').value =
+          (original in mappingFrToEng)
+          ? Object.keys(mappingFrToEng).find(key => mappingFrToEng[key] === tagname)
+          : tagname;
 
         const tagIsPublic = tagname === "star" || tagname === "moon" || tagname === "planet" || tagname === "constellation";
         let url = "";
         if (sessionStorage.getItem('isAuthenticated') === 'false'
             || tagIsPublic){
-          url = '/api/public/tag/' + tagname;
+          url = '/api/public/search/tag/' + tagname;
         } else {
-          url = '/api/public/connected/' + sessionStorage.getItem("username") + '/tag/' + tagname;
+          url = '/api/public/connected/' + sessionStorage.getItem("username") + '/search/tag/' + tagname;
         }
 
         let requestParam =
@@ -744,6 +742,12 @@ function onSearchFieldChange(event) {
 }
 
 function populateSearchResults(res) {
+  const mapping = {
+    "star" : "Étoile",
+    "planet" : "Planète",
+    "constellation" : "Constellation",
+    "moon" : "Lune"
+  }
   show("search-results");
   let searchResDOM = document.getElementById("search-results");
   searchResDOM.innerHTML = '';
@@ -754,13 +758,13 @@ function populateSearchResults(res) {
     searchResult.appendChild(resultName);
     searchResult.appendChild(resultType);
     resultName.innerHTML = resultValue["name"];
-    resultType.innerHTML = resultValue["type"];
+    const resType = mapping[resultValue["type"]];
+    resultType.innerHTML = resType;
     searchResult.classList.add("search-result", "link");
     resultName.classList.add("search-result-name", "clickable");
     resultType.classList.add("search-result-type");
 
     searchResult.addEventListener('click', (event) => {
-      console.log("click click bande de s...");
       window.location.hash = '#' + resultValue["name"] + "-open";
       hide('search-results');
       stopPropagation(event);
