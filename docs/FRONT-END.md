@@ -2,11 +2,11 @@
 
 ## Structure
 
-The whole website is defined in a single HTML page which includes all the elements that does not belong to the 3D scenes (information panels and menus). 3D scenes are initialized and displayed using JavaScript.
+The whole website is defined in a single HTML page which includes all the elements that do not belong to the 3D scenes (information panels and menus). 3D scenes are initialized and displayed using JavaScript.
 
 ### Dialogs
 
-Information dialogs and menus are grouped in modal dialogs. There is 3 kinds of dialogs which are placed on the left, on the center, and on the right (or the top, depending on the platform). Since these dialogs can display differents informations (for example, the left modal dialog, used by the menu, can also display the login page), they contains panels which are displayed/hidden dynamically based on the information we want to display.
+Information dialogs and menus are grouped in modal dialogs. There is 3 kinds of dialogs which are placed on the left, on the center, and on the right (or the top, depending on the platform). Since these dialogs can display differents informations (for example, the left modal dialog, used by the menu, can also display the login page), they contains panels which are displayed/hidden dynamically based on the information we want to show.
 
 Hidding/displaying dialogs is managed by the JavaScript on click events, by adding/removing the `hidden`/`visible` classes.
 
@@ -20,9 +20,9 @@ In the star map, the camera is a perspective camera. This camera is included in 
 
 Camera's rotation is managed in two different ways, depending on the device et the way the user interact with it.
 
-On a desktop device, camera's rotation is obtained by dragging with the mouse. Listeners on `mouseup`, `mousedown`, and `mousemove` rotates the objects in which the camera is included in accordance with the movement made by the user.
+On a desktop device, the camera's rotation is obtained by dragging with the mouse. Listeners on `mouseup`, `mousedown`, and `mousemove` rotate the  camera is included in accordance with the movement made by the user.
 
-On a mobile device, camera's rotation can be obtained either by dragging with the finger or by using the device's orientation. Device's orientation is managed by the `DeviceOrientationControls.js` script which is included in the Three.js examples. When the user moves the camera by dragging with the finger, or when he clicks on an element, the device's orientation is disabled and we switch to the same system than on desktop. The user can switch back to device's orientation by pressing a button in the menu.
+On a mobile device, the camera's rotation can be obtained either by dragging with the finger or by using the device's orientation. Device's orientation is managed by the `DeviceOrientationControls.js` script which is included in the Three.js examples. When the user moves the camera by dragging with the finger, or when he clicks on an element, the device's orientation is disabled and we switch to the same system than on desktop. The user can switch back to device's orientation by pressing a button in the menu.
 
 #### Solar system
 
@@ -93,7 +93,7 @@ For the front-end part, we have defined 10 classes:
 * Link: defines a visible link between two stars in a constellation
 * Visor: defines the visor used in the star map
 * Horizon: defines the two bars separating the north hemisphere with the south hemisphere, and the cardinal points
-* Toaster: a DOM element displayed when there is an issue with the login
+* Toaster: includes little messages in colored text boxes (*toasts*). Used to display feedback on action. Red is used for error, green for success, and blue for informational messages.
 
 The other classes doesn't define a graphical elements and are used by the back-end.
 
@@ -114,3 +114,5 @@ Both scenes includes a `loaded` flag and a callback that is called when the scen
 Most of the CSS have been written by hand (artisanally-made CSS) in a modular way, using classes. We also used [Tachyons](https://tachyons.io), a CSS framework which implements a simple and responsive style.
 
 The CSS is also responsible for the animations and transitions of the DOM elements (this excludes the 3D scene).
+
+We were eager to use cutting edge functionalities introduced by CSS3, thus we made transitions and animations in pure CSS when possible. Of course animations taking place in 3D scenes were made with Javascript because 3D scenes management is handled by Javascript libraries.
