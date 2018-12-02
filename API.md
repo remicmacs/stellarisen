@@ -90,7 +90,7 @@ The `/{query}` syntax declares a fraction of the URI as a variable value, which 
 Routes can also be declared in bulk, with multiple possible methods, associated with multiple middlewares, etc. A request with a URL failing to match any declared route will be responded with a 404 error status code.
 
 ### Controllers
-Controllers are objects handling the **business logic** of the application. It is a common object in OOP (e.g. in the MVC architecture). Each controller is provided with every needed dependancy. It means that every controller works in isolation from other controllers, handling a specific category of requests 
+Controllers are objects handling the **business logic** of the application. It is a common object in OOP (e.g. in the MVC architecture). Each controller is provided with every needed dependency. It means that every controller works in isolation from other controllers, handling a specific category of requests 
 
 ### Middleware
 TODO : Schema
@@ -131,7 +131,7 @@ The `apiauth` middleware is somewhat special because it intervenes **both** on t
 
 Another middleware is used on all routes of the application and handles binding a `Content-type: application/json` header to every outgoing response, for the client's browser to know the format of the data received.
 
-### Dependancy injection
+### Dependency injection
 DI is a common OOP design pattern stating that dependancies of objects (services) should be explicitely injected in the object needing them (client), rather than being instantiated every time they are needed.
 
 Lumen comes with a strongly opinionated pattern using **services containers** and an application-level **service provider** to handle dependancy injection.
@@ -182,5 +182,63 @@ Having a preference is not a bad thing, but one should be aware of the pros and 
 
 ## Database and model
 ### MySQL / MariaDB
+We used the MariaDB database, which is a free and open source database, being "99,999 % compatible" with MySQL. MariaDB gained in popularity when Oracle bought and changed the software license of MySQL, making it highly suspicious for a lot of Linux users. Many Linux distributions install MariaDB instead of MySQL, even if the package is still called `mysql`. Notably, Debian Linux tries to keep any non-free software out of the core repositories of the distro, and made the change really quickly.
+
+The differences are only marginal, and both use the same databases engines, syntax, and configurations.
+
+#### Database creation
+The deployment script `deploy_inside.sh` uses the CLI `mysql` to run a SQL script to create a database `stellarisen` for the application, a user only able to use this database. This scripts prompts the user for a password, and inserts it in the `/api/.env` file for the application to use.
+
+This choice has been made to avoid storing credentials on a public Git repository, and to ensure a user has to choose a custom password for a new database (see the `database_scripts/create_user_and_db.sql` script). That way, no default password is used and documented.
+
+The script then uses the new user to create tables and inserting initial values (see the `database_scripts/create_tables.sql` script).
+
+The tables created are :
+
+* `users` for authentication process and relations to personal data ;
+* `celestial_bodies` as a reference to various space objects that the web application displays. We did not used a specific table for each type of object, nor did we store more data than the name and types of the objects. As we already had all this information in a JSON file that was fully loaded at startup, we did not want to duplicated the information, and add load on the database operation even though all static data was already loaded client-side for the 3D scenes instantiation.
+* `favorites` : linking a user, a celestial body and a rank.
+* `labels` : storing text labels of tags
+* `tags` : linking users, celestial bodies, and labels
+
+Constraints of uniqueness are specified when needed : the rank of a favorite must be unique for a user, and a celestial body can be only favorited once ; a tag label must be associated only once with the same user and celestial body, etc.
+
 ### Laravel Query Builder
-Problem with aggregation functions
+Lumen provides an interface to abstract the use of PDO. Instantiation is handled for the developer, and every part of the SQL syntax has its own method :
+
+```php
+$row = app('db')->table('celestial_bodies')->where('name', $name)->first();
+```
+
+Above is a snippet selecting the first result of a SQL query like :
+
+```sql
+SELECT * FROM TABLE `celestial_bodies` WHERE `name` = ?
+```
+with ? as a parameter placeholder waiting for PDO binding.
+
+This interface is really useful and simple to work with, however, it reaches its limits with complex queries, like this one :
+
+```php
+    $rows = app('db')->select(
+      'select cb.name, cb.type
+      from celestial_bodies cb
+        left join tags t on t.celestial_bodies_id = cb.id
+        left join labels l on l.label_id = t.label_id
+      where cb.name like ? or t.userid = ? and l.name like ?
+      group by cb.name, cb.type
+      order by count(cb.name) desc, cb.name',
+      // Parameter binding in order of the raw ? in the query string.
+      [
+        $query,
+        $user->getUserid(),
+        $query
+      ]
+    );
+```
+
+This query is inserted as raw text because aggregation functions as `COUNT` are poorly handled by the Laravel QueryBuilder. The QueryBuilder is incapable of ordering by a column not included in the `select` method, and the `select` method won't take `count(*) as columname` as an argument.
+
+In this situation we used a classic prepared statement with parameters placeholders (`?`s), and parameter binding.
+
+So even if the QueryBuilder cannot do this kind of operation, it is transparent as it provides at least the same functionality as PDO.
