@@ -812,16 +812,19 @@ function updateAddToFavorite(parent, button, target, json) {
 
   clone.classList.add("visible");
   clone.classList.remove("hidden");
-  console.log(json);
 
-  if (json.indexOf(target.meshName) > -1) {
+  let name = typeof target.meshName === "undefined"
+    ? (typeof target.fullName === "undefined" ? target.name : target.fullName )
+    : target.meshName;
+
+  if (json.indexOf(name) > -1) {
     clone.innerHTML = "Retirer des favoris";
     clone.classList.add("red");
     clone.classList.remove("blue");
 
     clone.addEventListener("click", (event) => {
-      console.log("Removing " + target.meshName);
-      json.pop(target.meshName);
+      console.log("Removing " + name);
+      json.pop(name);
       favorites.updateList(json);
       updateAddToFavorite(parent, clone, target, json);
     });
@@ -831,8 +834,8 @@ function updateAddToFavorite(parent, button, target, json) {
     clone.classList.remove("red");
 
     clone.addEventListener("click", (event) => {
-      console.log("Favoriting " + target.meshName);
-      json.push(target.meshName);
+      console.log("Favoriting " + name);
+      json.push(name);
       favorites.updateList(json);
       updateAddToFavorite(parent, clone, target, json);
     });
