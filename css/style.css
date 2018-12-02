@@ -700,6 +700,7 @@ form {
 }
 
 .data-remove {
+  font-size: 150%;
   padding-right: 5%;
   transition: font-size 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;

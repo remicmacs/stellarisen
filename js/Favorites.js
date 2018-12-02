@@ -89,26 +89,26 @@ class Favorites {
     }
 
     if (i < 10) {
-      const buttonElt = document.createElement("button");
+      //const buttonElt = document.createElement("button");
       const columnDiv = this.favoritesPanelElt
         .getElementsByClassName("column")[0];
       const buttons = Array.from(columnDiv.getElementsByTagName("button"));
       buttons.forEach((button) => {button.remove()});
-      buttonElt.innerHTML = "+";
+      /* buttonElt.innerHTML = "+";
       buttonElt.classList.add(
         "list-button",
         "green"
-      );
+      );*/
 
       // Event listener for button
       // @TODO : handle text field creation and handlers for search
-      buttonElt.addEventListener('click', (event) => {
+      /*buttonElt.addEventListener('click', (event) => {
         this.toaster.displayInformationToast(
            columnDiv,
           "Clic !"
         );
       });
-      columnDiv.appendChild(buttonElt);
+      columnDiv.appendChild(buttonElt);*/
     }
   }
 
@@ -208,7 +208,7 @@ class Favorites {
       "data-remove",
       "close"
     );
-    spanRemoveElt.innerHTML = "x";
+    spanRemoveElt.innerHTML = "&times;";
     spanRemoveElt.addEventListener(
       "click",
       (event) => {this.removeEltFromList(event)}
