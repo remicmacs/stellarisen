@@ -30,6 +30,12 @@ For the solar system, we chose an orthographic camera to avoid any deformation c
 
 ![Perspective camera vs orthographic camera](./res/cameras.png)
 
+## Features
+
+### Hash-based navigation
+
+Clicking on an object will change the hash in the URL according to the object's name. When an information dialog is opened, `-open` is appended to the end of the hash. This way, we can leverage part of the navigation on the history feature of the browser. This also allows us to share a link that will guide directly to the targeted object.
+
 ## JavaScript
 
 ### Three.js
@@ -79,7 +85,7 @@ The classes in our code is defined the way it was introduced in ECMAScript 2015 
 For the front-end part, we have defined 10 classes:
 
 * Planets: it is the 3D scene for the planets and the moons
-* Skymap: it is the 3D scene for the star map
+* SkySphere: it is the 3D scene for the star map
 * Planet: defines a planet, its geometry, its informations, and helping functions for displaying it
 * Moon: defines a moon, its geometry, its informations, and helping functions for displaying it
 * Star: defines a star, its geometry, and its informations
@@ -90,6 +96,18 @@ For the front-end part, we have defined 10 classes:
 * Toaster: a DOM element displayed when there is an issue with the login
 
 The other classes doesn't define a graphical elements and are used by the back-end.
+
+### Initialization of the scenes
+
+Both scenes are managed by their respective classes. They are created when the document is loaded and, depending on the current scene, are binded to an object used as an access point to the current scene objects.
+
+The initialization also includes setting the needed objects for session management and adding all the events listeners.
+
+#### Asynchronous loading of scenes objects
+
+Each scene needs to load textures and font files. In order to display a loading screen that will disappear when the scenes are completely initialized and avoid displaying half loaded scenes, we use Three.js `LoadingManager` that allows asynchronous loading of heavy files.
+
+Both scenes includes a `loaded` flag and a callback that is called when the scene is fully loaded. This callback is passed on creation and is the same for both scenes. It checks the `loaded` flag on both scenes and hide the loading screen when both of them are `true`.
 
 ## CSS
 
