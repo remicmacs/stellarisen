@@ -73,12 +73,14 @@ const events = [
   ['userImage', 'touchend', stopPropagation],
   ['userImage', 'mousedown', stopPropagation],
   ['userImage', 'touchstart', stopPropagation],
+  ['userImage', 'touchmove', stopPropagation],
 
   // Left panel and buttons
   ['menu', 'mousedown', stopPropagation],
   ['menu', 'mouseup', stopPropagation],
   ['menu', 'touchstart', stopPropagation],
   ['menu', 'touchend', stopPropagation],
+  ['menu', 'touchmove', stopPropagation],
 
   ['close-left', 'click', closeMenu],
   ['scene-switch', 'click', switchHash],
@@ -102,6 +104,7 @@ const events = [
   ['infos', 'touchend', stopPropagation],
   ['infos', 'mousedown', stopPropagation],
   ['infos', 'touchstart', stopPropagation],
+  ['infos', 'touchmove', stopPropagation],
 
   ['close-center', 'click', closeInfos],
   ['con-link', 'click', lookAtConstellation],
@@ -111,6 +114,7 @@ const events = [
   ['planet-infos', 'touchend', stopPropagation],
   ['planet-infos', 'mousedown', stopPropagation],
   ['planet-infos', 'touchstart', stopPropagation],
+  ['planet-infos', 'touchmove', stopPropagation],
 
   ['close-right', 'click', closePInfos],
 
@@ -120,7 +124,8 @@ const events = [
   ['searchField', 'mouseup', stopPropagation],
   ['searchField', 'mousemove', stopPropagation],
   ['searchField', 'touchstart', stopPropagation],
-  ['searchField', 'touchend', stopPropagation]
+  ['searchField', 'touchend', stopPropagation],
+  ['searchField', 'touchmove', stopPropagation]
   // ['searchField', 'focusout', emptySearchResults]
 ]
 
