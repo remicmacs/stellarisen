@@ -40,9 +40,9 @@ create table tags(
   foreign key (celestial_bodies_id) references celestial_bodies(id),
   foreign key (label_id) references labels(label_id),
   foreign key (userid) references users(userid),
-  -- A tuple (tag_id, celestial_bodies_id, label_id) must exist only once
+  -- A tuple (celestial_bodies_id, label_id, userid) must exist only once
   -- because the user can only have one time a specific label on a star
-  constraint unique_tuple unique(tag_id, celestial_bodies_id, label_id),
+  constraint unique_tuple unique(celestial_bodies_id, label_id, userid),
   -- Not sure if it is useful because these fields already are keys, so they
   -- must be indexed.
   index(userid),
