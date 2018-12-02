@@ -787,15 +787,54 @@ function populateAddToFavorite(parent, button, target) {
     return;
   }
 
+  fetch(
+    '/api/public/connected/'
+      + sessionStorage.getItem("username") +'/favorites',
+    {
+      method: 'GET'
+    }
+  )
+  // Unpacking JSON body of response
+  .then((res) => res.json())
+  // Displaying list of favorites
+  .then((json) => {
+    updateAddToFavorite(parent, button, target, json);
+  })
+  .catch((error) => {
+    console.error("Fatal Error : ", error);
+  });
+}
+
+function updateAddToFavorite(parent, button, target, json) {
   // We clone the button to remove any event listener
   let clone = button.cloneNode(true);
   parent.replaceChild(clone, button);
 
-  clone.innerHTML = "Ajouter aux favoris";
   clone.classList.add("visible");
   clone.classList.remove("hidden");
+  console.log(json);
 
-  clone.addEventListener("click", (event) => {
-    console.log("Favoriting " + target.meshName);
-  });
+  if (json.indexOf(target.meshName) > -1) {
+    clone.innerHTML = "Retirer des favoris";
+    clone.classList.add("red");
+    clone.classList.remove("blue");
+
+    clone.addEventListener("click", (event) => {
+      console.log("Removing " + target.meshName);
+      json.pop(target.meshName);
+      favorites.updateList(json);
+      updateAddToFavorite(parent, clone, target, json);
+    });
+  } else {
+    clone.innerHTML = "Ajouter aux favoris";
+    clone.classList.add("blue");
+    clone.classList.remove("red");
+
+    clone.addEventListener("click", (event) => {
+      console.log("Favoriting " + target.meshName);
+      json.push(target.meshName);
+      favorites.updateList(json);
+      updateAddToFavorite(parent, clone, target, json);
+    });
+  }
 }
