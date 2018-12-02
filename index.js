@@ -67,42 +67,25 @@ const favorites = new Favorites(toaster);
 
 // Specific events handling
 const events = [
-  ['userImage', 'mouseup', openMenu],
-  ['userImage', 'touchend', openMenu],
+  // Handle clicks on the menu icon
+  ['userImage', 'click', openMenu],
+  ['userImage', 'mouseup', stopPropagation],
+  ['userImage', 'touchend', stopPropagation],
   ['userImage', 'mousedown', stopPropagation],
   ['userImage', 'touchstart', stopPropagation],
-  ['close-left', 'mouseup', closeMenu],
-  ['close-left', 'touchend', closeMenu],
-  ['close-left', 'mousedown', stopPropagation],
-  ['close-left', 'touchstart', stopPropagation],
-  ['close-center', 'mouseup', closeInfos],
-  ['close-center', 'touchend', closeInfos],
-  ['close-center', 'mousedown', stopPropagation],
-  ['close-center', 'touchstart', stopPropagation],
-  ['close-right', 'mouseup', closePInfos],
-  ['close-right', 'touchend', closePInfos],
-  ['close-right', 'mousedown', stopPropagation],
-  ['close-right', 'touchstart', stopPropagation],
-  ['scene-switch', 'mouseup', switchHash],
-  ['scene-switch', 'touchend', switchHash],
-  ['scene-switch', 'mousedown', stopPropagation],
-  ['scene-switch', 'touchstart', stopPropagation],
-  ['infos-wrapper', 'mouseup', stopPropagation],
-  ['infos-wrapper', 'touchend', stopPropagation],
-  ['infos-wrapper', 'mousedown', stopPropagation],
-  ['infos-wrapper', 'touchstart', stopPropagation],
-  ['planet-infos', 'mouseup', stopPropagation],
-  ['planet-infos', 'touchend', stopPropagation],
-  ['planet-infos', 'mousedown', stopPropagation],
-  ['planet-infos', 'touchstart', stopPropagation],
-  ['con-link', 'click', lookAtConstellation],
+
+  // Left panel and buttons
+  ['menu', 'mousedown', stopPropagation],
+  ['menu', 'mouseup', stopPropagation],
+  ['menu', 'touchstart', stopPropagation],
+  ['menu', 'touchend', stopPropagation],
+
+  ['close-left', 'click', closeMenu],
+  ['scene-switch', 'click', switchHash],
   ['random-star', 'click', randomStar],
   ['show-con', 'click', () => {skySphere.toggleLinks(); toggle('show-con');}],
   ['show-names', 'click', () => {skySphere.toggleNames(); toggle('show-names');}],
   ['show-card', 'click', () => {skySphere.toggleHoriz(); toggle('show-card');}],
-  ['menu', 'click', stopPropagation],
-  ['menu', 'mousedown', stopPropagation],
-  ['menu', 'mouseup', stopPropagation],
   ['connect-button', 'click', showLogin ],
   ['register-button', 'click', showRegister ],
   ['back-connection', 'click', showMenu ],
@@ -113,10 +96,31 @@ const events = [
   ['disconnect-button', 'click', disconnect],
   ['favorites-button', 'click', showFavorites],
   ['about-button', 'click', showAbout],
+
+  // Center panel and buttons
+  ['infos', 'mouseup', stopPropagation],
+  ['infos', 'touchend', stopPropagation],
+  ['infos', 'mousedown', stopPropagation],
+  ['infos', 'touchstart', stopPropagation],
+
+  ['close-center', 'click', closeInfos],
+  ['con-link', 'click', lookAtConstellation],
+
+  // Right panel and buttons
+  ['planet-infos', 'mouseup', stopPropagation],
+  ['planet-infos', 'touchend', stopPropagation],
+  ['planet-infos', 'mousedown', stopPropagation],
+  ['planet-infos', 'touchstart', stopPropagation],
+
+  ['close-right', 'click', closePInfos],
+
+  // Search field
   ['searchField', 'click', stopPropagation],
   ['searchField', 'mousedown', stopPropagation],
   ['searchField', 'mouseup', stopPropagation],
-  ['searchField', 'mousemove', stopPropagation]
+  ['searchField', 'mousemove', stopPropagation],
+  ['searchField', 'touchstart', stopPropagation],
+  ['searchField', 'touchend', stopPropagation]
   // ['searchField', 'focusout', emptySearchResults]
 ]
 

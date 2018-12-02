@@ -33,6 +33,8 @@ $ vagrant ssh
 (@stellarisen-lamp) $ cd /var/www/stellarisen
 # Launch deployment script
 (@stellarisen-lamp) $ ./deployment_inside.sh
+```
+
 ## Use of Vagrant box
 
 The root of the Vagrant environment is the folder including `Vagrantfile` and
