@@ -922,21 +922,24 @@ class SkySphere {
   updateTags() {
     let focused;
     let tagsDiv;
+    let name;
     if (this.visor.star !== undefined) {
       focused = this.visor.star;
       tagsDiv = document.getElementById('stars-tags');
       tagsDiv.innerHTML = '';
+      name = focused.meshName
     }
     else if (this.visor.constellation !== undefined) {
       focused = this.visor.constellation;
       tagsDiv = document.getElementById('constellations-tags');
       tagsDiv.innerHTML = '';
+      name = focused.fullName;
     }
     else {
       return;
     }
 
-    populateTags(focused.tags, tagsDiv);
+    populateTags(focused.tags, tagsDiv, name, focused);
   }
 
 }

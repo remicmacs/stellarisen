@@ -633,7 +633,7 @@ function randomStar(event) {
 }
 
 
-function populateTags(tags, tagsDiv) {
+function populateTags(tags, tagsDiv, name, target) {
   for (let tag of tags) {
     const div = document.createElement('div');
     div.classList.add('tag');
@@ -688,13 +688,12 @@ function populateTags(tags, tagsDiv) {
           .then(console.debug)
           .catch(console.error);
       });
-      // Add here logic for searching objects of same type
     }
   }
-  addPlusTag(tagsDiv)
+  addPlusTag(tagsDiv, name, target)
 }
 
-function addPlusTag(tags) {
+function addPlusTag(tagsDiv, name, target) {
   if (sessionStorage.getItem('isAuthenticated') !== 'true') {
     return;
   }
@@ -703,27 +702,59 @@ function addPlusTag(tags) {
   addTag.classList.add("tag");
   addTag.classList.add("add-tag");
   addTag.innerHTML = "+";
-  tags.appendChild(addTag);
+  tagsDiv.appendChild(addTag);
 
   addTag.addEventListener('click', (event) => {
-    let target = event.target;
-    target.innerHTML = '';
+    addTag.innerHTML = '';
     let tagInput = document.createElement('input');
-    target.appendChild(tagInput);
+    addTag.appendChild(tagInput);
     tagInput.focus();
+
     tagInput.addEventListener('focusout', (event) => {
-      target.innerHTML = "+";
+      addTag.innerHTML = "+";
     });
 
     tagInput.addEventListener('keyup', (event) => {
       if (event.keyCode == 13) {
-        target.innerHTML = event.target.value;
-        target.classList.remove("add-tag");
 
-        // We have to clone it so it will lose all attached listeners
-        let targetClone = target.cloneNode(true);
-        tags.replaceChild(targetClone, target);
-        addPlusTag(tags);
+        //
+        // IMPLEMENT HERE THE FUNCTION TO ADD THE TAG. ADD THE FOLLOWING
+        // BLOCK OF CODE TO A .then() FUNCTION ON THE API CALL
+        //
+        const username = sessionStorage.getItem('username');
+        const requestParams = {
+          method : "GET",
+          headers : {
+            'Content-type' : 'application/json',
+            'Accept' : 'application/json'
+          }
+        }
+        const url = 'api/public/connected/' + username + '/tags/' + name;
+        fetch(url, requestParams)
+          .then(res => res.json())
+          .then((res) => {
+            target.tags = target.tags.slice(0, 2);
+            target.tags.push(...res);
+            tagsDiv.innerHTML = '';
+            populateTags(target.tags, tagsDiv, name, target);
+          })
+          .catch(console.error);
+        //
+        // TAG REFRESH OVER, THIS SIGNALS THE END OF THE BLOCK THAT SHOULD
+        // BE EXECUTED AFTER ADDING THE TAG
+        //
+
+        //
+        // STATIC CODE, DEAD FOR NOW. ENABLE TO HAVE A PREVIEW.
+        //
+
+        // addTag.innerHTML = event.target.value;
+        // addTag.classList.remove("add-tag");
+        //
+        // // We have to clone it so it will lose all attached listeners
+        // let addTagClone = addTag.cloneNode(true);
+        // tagsDiv.replaceChild(addTagClone, addTag);
+        // addPlusTag(tagsDiv);
       }
     });
   });

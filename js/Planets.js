@@ -621,12 +621,12 @@ class Planets {
 
     // Recover current camera position
     const current =
-      {  top:     this.camera.top
-      ,  bottom: this.camera.bottom
-      ,  left:   this.camera.left
-      , right:   this.camera.right
+      { top:    this.camera.top
+      , bottom: this.camera.bottom
+      , left:   this.camera.left
+      , right:  this.camera.right
       , x:      this.camera.position.x
-      ,  y:       this.camera.position.y
+      , y:      this.camera.position.y
       , angle:  this.camera.rotation.z
       , lightx: this.light.position.x
       , lighty: this.light.position.y
@@ -634,15 +634,15 @@ class Planets {
 
     // Compute target camera position
     const target =
-      {  top:    max  / (portrait ? ratio : 1      ) - (portrait ? 0 : max / 3)
-      ,  bottom:  min  / (portrait ? ratio : 1      ) - (portrait ? 0 : max / 3)
-      ,  left:    min  / (portrait ? 1     : ratio  ) - (portrait ? max / 3 : 0)
-      , right:  max  / (portrait ? 1     : ratio  ) - (portrait ? max / 3 : 0)
-      , x:      moon.mesh.position.x
+      { top:     max  / (portrait ? ratio : 1      ) - (portrait ? 0 : max / 3)
+      , bottom:  min  / (portrait ? ratio : 1      ) - (portrait ? 0 : max / 3)
+      , left:    min  / (portrait ? 1     : ratio  ) - (portrait ? max / 3 : 0)
+      , right:   max  / (portrait ? 1     : ratio  ) - (portrait ? max / 3 : 0)
+      , x:       moon.mesh.position.x
       , y:       moon.distance
-      , angle:  (portrait ? -Math.PI / 2 : 0)
-      , lightx: -24
-      , lighty: 0
+      , angle:   (portrait ? -Math.PI / 2 : 0)
+      , lightx:  -24
+      , lighty:  0
       };
 
     const tweenToEnd = new TWEEN.Tween(current)
@@ -650,15 +650,15 @@ class Planets {
       .easing(TWEEN.Easing.Cubic.InOut);
 
     tweenToEnd.onUpdate(() => {
-      this.camera.left         = current.left;
-      this.camera.right       = current.right;
-      this.camera.top         = current.top;
-      this.camera.bottom       = current.bottom;
-      this.camera.position.x  = current.x;
-      this.camera.position.y   = current.y;
-      this.camera.rotation.z   = current.angle;
-      this.light.position.x = current.lightx;
-      this.light.position.y = current.lighty;
+      this.camera.left       = current.left;
+      this.camera.right      = current.right;
+      this.camera.top        = current.top;
+      this.camera.bottom     = current.bottom;
+      this.camera.position.x = current.x;
+      this.camera.position.y = current.y;
+      this.camera.rotation.z = current.angle;
+      this.light.position.x  = current.lightx;
+      this.light.position.y  = current.lighty;
       this.camera.updateProjectionMatrix();
     });
 
@@ -710,7 +710,7 @@ class Planets {
     }
     tags.innerHTML = '';
 
-    populateTags(this.target.tags, tags);
+    populateTags(this.target.tags, tags, this.target.name, this.target);
   }
 
   onMove(event) {
