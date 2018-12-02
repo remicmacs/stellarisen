@@ -12,7 +12,7 @@ Dropped Babel and Webpack.
 
 Since we were already possessing two servers, we decided to self-host our website. The two servers are located at the same place. One is already in use for personal services, and the other one, which is more recent, was a clean install of Arch Linux without any server software in place. We also used a Vagrant box for our development environment so we thought we could use it for the deployment.
 
-![System](./docs/res/system.png)
+![System](./res/system.png)
 
 In the drawing above, the blue links are physical or soft network connections. The vagrant box is connected to the router through a Virtualbox bridge connection. The red links represents the way followed by an incoming HTTP packet to interstellai.re.
 
