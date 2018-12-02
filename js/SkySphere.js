@@ -446,13 +446,13 @@ class SkySphere {
     setSpan("objectName", star.meshName);
     setSpan("con-name", this.getConstellationName(star.constellation));
     setSpan("star-distance", Math.round(star.distance * 3.262));
-		setPlaceholder("searchField", star.meshName);
+    setPlaceholder("searchField", star.meshName);
 
-		populateAddToFavorite(
-			document.getElementById("star-panel-column"),
-			document.getElementById("favorite-star"),
-			star
-		);
+    populateAddToFavorite(
+      document.getElementById("star-panel-column"),
+      document.getElementById("favorite-star"),
+      star
+    );
 
     if (sessionStorage.getItem('isAuthenticated') === "true") {
       const username = sessionStorage.getItem('username');
@@ -548,13 +548,13 @@ class SkySphere {
     setPlaceholder("searchField", constellation.fullName);
     //show('star-list');
     this.visor.lockedSprite.visible = false;
-		this.visor.setConstellation(constellation);
+    this.visor.setConstellation(constellation);
 
-		populateAddToFavorite(
-			document.getElementById("star-panel-column"),
-			document.getElementById("favorite-star"),
-			star
-		);
+    populateAddToFavorite(
+      document.getElementById("star-panel-column"),
+      document.getElementById("favorite-star"),
+      star
+    );
 
     if (sessionStorage.getItem('isAuthenticated') === "true") {
       const username = sessionStorage.getItem('username');
