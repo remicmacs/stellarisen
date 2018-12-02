@@ -434,7 +434,7 @@ class Planets {
     const portrait = viewportIsPortrait();
 
     /*let max = box.max.x + (portrait ? 1 : 1);*/
-    const max = 3.5 * box.max.x;
+    const max = (portrait ? 4 : 3) * box.max.x;
     const min = box.min.x;
 
     // Recover current camera position
@@ -616,7 +616,7 @@ class Planets {
     const portrait = viewportIsPortrait();
 
     /*let max = box.max.x + (portrait ? 1 : 1);*/
-    const max = 3.5 * box.max.x;
+    const max = (portrait ? 4 : 3) * box.max.x;
     const min = box.min.x;
 
     // Recover current camera position
