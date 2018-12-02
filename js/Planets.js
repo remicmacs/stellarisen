@@ -686,6 +686,9 @@ class Planets {
 
       //const objname = intersects[0].object.userData.object.name;
       const targetname = intersects[0].object.name;
+      if (targetname === "Soleil") {
+        return;
+      }
       if (hash === targetname + "-open") {
         // If information panel is open, go back to focus
         window.history.back();
