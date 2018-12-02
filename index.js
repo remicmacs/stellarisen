@@ -468,7 +468,7 @@ function updateHash(starting) {
     && planet === null
     && constellation === null
     && moon === null
-  ) {
+    ) {
     window.location.hash = '#Etoiles';
     return;
   }
@@ -483,12 +483,16 @@ function updateHash(starting) {
 
   const switchButton = document.getElementById("scene-switch");
   switchButton.innerHTML = "Carte céleste";
+  hide('star-toggles');
+  hide('random-star');
   if (planet !== null) {
     focusOnPlanet(starting, state, planet);
   } else if (moon !== null) {
     focusOnMoon(starting, state, moon);
   } else if (hash !== 'SystemeSolaire') {
     switchButton.innerHTML = "Système Solaire";
+    show('star-toggles');
+    show('random-star');
     focusOnStarmapObject(starting, state, home, star, constellation);
   }
   return;

@@ -811,6 +811,11 @@ img.rotating {
   background-repeat: no-repeat;
 }
 
+.line.hidden {
+  visibility: hidden;
+  display: none;
+}
+
 /* ANIMATIONS
 ==============================================================================*/
 
