@@ -258,24 +258,7 @@ class Favorites {
     event.preventDefault();
 
     // Recovering reference to li element
-    let liElt;
-    const currElt = event.target;
-    switch(currElt.nodeName) {
-      case "#text":
-        liElt = (currElt.parentNode.nodeName === "DIV")
-        ? currElt.parentNode.parentNode
-        : currElt.parentNode.parentNode.parentNode;
-        break;
-      case "B":
-        liElt = currElt.parentNode.parentNode;
-        break;
-      case "LI":
-        liElt = event.target;
-        break;
-      case "SPAN":
-        liElt = currElt.parentNode;
-        break;
-    }
+    const liElt = this.recoverTargetLiElt(event);
 
     // Storing reference to last hovered element for later handling
     this.passedOverElt = liElt;
@@ -338,6 +321,8 @@ class Favorites {
 
     let list = this.recoverCurrentList();
 
+    const target = this.recoverTargetLiElt(event);
+
     /*
      * Finding source and target ids while unpacking li element to keep only
      * the star name
@@ -347,7 +332,7 @@ class Favorites {
     for (let i = 0 ; i < list.length ; i++) {
       if (list[i] === this.source) {
         sourceId = i;
-      } else if (list[i] === event.target) {
+      } else if (list[i] === target) {
         targetId = i;
       }
 
@@ -356,8 +341,8 @@ class Favorites {
 
     // Reordering list of favorites
     let temp = list[sourceId];
-    list.splice(sourceId, 1);
-    list.splice(targetId, 0, temp);
+    list[sourceId] = list[targetId];
+    list[targetId] = temp;
 
     // Deleting previous list
     parent.innerHTML = "";
@@ -433,5 +418,27 @@ class Favorites {
     let list = this.favoritesList.getElementsByTagName("li");
     list = Array.from(list);
     return list;
+  }
+
+  recoverTargetLiElt(event) {
+    let liElt;
+    const currElt = event.target;
+    switch(currElt.nodeName) {
+      case "#text":
+        liElt = (currElt.parentNode.nodeName === "DIV")
+        ? currElt.parentNode.parentNode
+        : currElt.parentNode.parentNode.parentNode;
+        break;
+      case "B":
+        liElt = currElt.parentNode.parentNode;
+        break;
+      case "LI":
+        liElt = event.target;
+        break;
+      case "SPAN":
+        liElt = currElt.parentNode;
+        break;
+    }
+    return liElt;
   }
 }
