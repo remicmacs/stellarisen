@@ -678,11 +678,15 @@ form {
 .data-value.link, .data-row.link, .search-result {
   cursor: pointer;
   transition: background-color 0.5s;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .data-value.link:hover, .data-row.link:hover, .search-result:hover {
   background-color: #888888;
+}
+
+.data-row.link > .data-value {
+  text-decoration: underline;
 }
 
 .data-index, .data-remove {
@@ -699,7 +703,10 @@ form {
   padding-right: 5%;
   transition: font-size 0.3s ease-in-out;
   transition: color 0.3s ease-in-out;
-
+  width: 32px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 }
 
 .data-remove:hover {

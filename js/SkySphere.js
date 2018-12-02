@@ -589,6 +589,7 @@ class SkySphere {
         ) {
         const row = document.createElement('div');
         row.classList.add('data-row');
+        row.classList.add('link');
         const value = document.createElement('div');
         value.classList.add('data-value');
         value.classList.add('alone');
