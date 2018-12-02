@@ -1,6 +1,6 @@
 # API
 
-The backend server for this project is a REST HTTP API.
+The backend server for this project is a REST HTTP API implemented in PHP7 thanks to the framework provided by [the Lumen micro-framework](
 
 ## REST API Design
 ### CRUDs in REST API
@@ -28,3 +28,13 @@ Each ressource is described by a URI.
 ### Middleware
 ### Dependancy Injection
 ### Exception Handlers
+
+### Pros and cons
+#### Pros
+#### Cons
+Inconsistency of documentation. Highly opinionated on service containers / providers.
+
+## Database and model
+### MySQL / MariaDB
+### Laravel Query Builder
+Problem with aggregation functions
