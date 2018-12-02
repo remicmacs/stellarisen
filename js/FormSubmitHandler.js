@@ -116,7 +116,7 @@ class FormSubmitHandler {
 
       this.toaster.displaySuccessToast(
         columnMenu,
-        "Inscription réussie !"
+        this.action + " réussie !"
       );
 
     // If code is not 200 => display information in red modal div
