@@ -208,10 +208,10 @@ This command is taken care of by the `deploy_inside.sh` script which the user sh
 
 Here lives the documentation of the project.
 
-- Client JS one page application
-- Lumen HTTP REST API
-- Tools
-- Project management and choices
+- [Client JS single page application](docs/FRONT-END.md)
+- [Lumen HTTP REST API](docs/API.md)
+- [Tools](docs/TOOLS.md)
+- [Project management and choices](docs/PROJECT_MANAGEMENT.md)
 
 ## Credits
 
