@@ -248,7 +248,6 @@ class SkySphere {
     }
   }
 
-
   onProgress(item, loaded, total) {
     console.log("Loading: " + loaded + "/" + total);
   }
