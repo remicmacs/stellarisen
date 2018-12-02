@@ -68,7 +68,7 @@ const favorites = new Favorites(toaster);
 // Specific events handling
 const events = [
   // Handle clicks on the menu icon
-  ['userImage', 'click', openMenu],
+  ['userImage', 'click', () => { showMenu(); emptySearchResults(); }],
   ['userImage', 'mouseup', stopPropagation],
   ['userImage', 'touchend', stopPropagation],
   ['userImage', 'mousedown', stopPropagation],
@@ -119,7 +119,7 @@ const events = [
   ['close-right', 'click', closePInfos],
 
   // Search field
-  ['searchField', 'click', stopPropagation],
+  ['searchField', 'click', hideAll],
   ['searchField', 'mousedown', stopPropagation],
   ['searchField', 'mouseup', stopPropagation],
   ['searchField', 'mousemove', stopPropagation],
@@ -517,6 +517,7 @@ function onMove(event) {
 }
 
 function onMouseDown(event) {
+  emptySearchResults();
   if (home) {
     skySphere.onMouseDown();
   } else {
@@ -533,6 +534,7 @@ function onMouseUp(event) {
 }
 
 function onTouchStart(event) {
+  emptySearchResults();
   if (home) {
     skySphere.onTouchStart(event);
   } else {
@@ -884,4 +886,10 @@ function updateAddToFavorite(parent, button, target, json) {
       updateAddToFavorite(parent, clone, target, json);
     });
   }
+}
+
+function hideAll(event) {
+    hideLeftModal();
+    hideRightModal();
+    hideCenterModal();
 }
